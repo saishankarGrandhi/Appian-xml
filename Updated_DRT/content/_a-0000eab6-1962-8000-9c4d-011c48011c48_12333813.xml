@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12336781</versionUuid>
+    <interface>
+        <name>CAW_GRID_userDetails</name>
+        <uuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12333813</uuid>
+        <description>User Details </description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!status: "In Progress",
+  local!refreshCounter: 0,
+  local!data: a!refreshVariable(
+    value: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333837"(
+      username: ri!cawUser.userName
+    ),
+    refreshOnVarChange: local!refreshCounter
+  ),
+  local!completedData: index(
+    local!data,
+    wherecontains(
+      "Completed",
+      touniformstring(index(local!data, "status", null))
+    ),
+    null
+  ),
+  local!inProgressData: local!completedData: index(
+    local!data,
+    wherecontains(
+      "In Progress",
+      touniformstring(index(local!data, "status", null))
+    ),
+    null
+  ),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "Users",
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_radioButtonField"(
+                  label: "Status",
+                  labelPosition: "ABOVE",
+                  choiceLabels: { "Success", "In Progress" },
+                  choiceValues: { "Completed", "In Progress" },
+                  value: local!status,
+                  saveInto: { local!status },
+                  choiceLayout: "COMPACT",
+                  validations: {}
+                )
+              },
+              width: "AUTO"
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_ButtonArrayLayout"(
+                  buttons: {
+                    #"SYSTEM_SYSRULES_ButtonWidget"(
+                      label: "Refresh",
+                      saveInto: a!save(local!refreshCounter, local!refreshCounter+1),
+                      style: "NORMAL"
+                    )
+                  },
+                  align: "END",
+                  marginAbove: "STANDARD"
+                )
+              },
+              width: "AUTO"
+            )
+            
+          }
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "User Details",
+      contents: {
+        #"SYSTEM_SYSRULES_gridField_v1"(
+          data: if(
+            local!status = "In progress",
+            local!inProgressData,
+            local!completedData
+          ),
+          columns: {
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Status",
+              value: fv!row.status,
+              width: "AUTO"
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "First Name",
+              value: fv!row.firstName,
+              width: "AUTO"
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Last Name",
+              value: fv!row.lastName,
+              width: "AUTO"
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "User Name",
+              value: fv!row.UserName,
+              width: "AUTO"
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_ButtonArrayLayout"(
+          buttons: #"SYSTEM_SYSRULES_ButtonWidget"(label: "OK", submit: true, style: "PRIMARY"),
+          align: "END"
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>cawUser</name>
+            <type>
+                <name>CAW_User?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333837"(
+  username: {
+    "cawusertest1@kpmg.com",
+    "cawusertest2@kpmg.com",
+    "cawusertest3@kpmg.com",
+    "cawusertest4@kpmg.com",
+    "cawusertest5@kpmg.com",
+    "cawusertest6@kpmg.com",
+    "cawusertest7@kpmg.com",
+    "cawusertest8@kpmg.com",
+    "cawusertest9@kpmg.com",
+    "cawusertest10@kpmg.com"
+  }
+)</a:value>
+                    <a:nameRef>cawUser</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12336781"/>
+    </history>
+</contentHaul>

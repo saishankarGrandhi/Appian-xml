@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5216400</versionUuid>
+    <rule>
+        <name>CAW_createCustomCellPositionsForExport</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5216395</uuid>
+        <description>rule to generate custom cell positions for data store entity to excel plugin given number of headers</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  local!items: enumerate(ri!numberOfHeaders)+ri!startingNumber,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: local!items,
+    expression: if(
+      fv!item&lt;=26,
+      charat(local!alphabet,fv!item) &amp; "1",
+      a!localVariables(
+        local!mod: mod(fv!item,26),
+        local!quotient: quotient(fv!item, 26),
+        if(
+          local!mod = 0,
+          charat(local!alphabet,local!quotient-1) &amp; "Z" &amp; 1,
+          charat(local!alphabet,local!quotient) &amp; charat(local!alphabet,local!mod) &amp; "1"
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>numberOfHeaders</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>startingNumber</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5216400"/>
+    </history>
+</contentHaul>

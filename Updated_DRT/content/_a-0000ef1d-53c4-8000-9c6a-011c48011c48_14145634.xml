@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000efa7-942c-8000-9c70-011c48011c48_14347409</versionUuid>
+    <interface>
+        <name>CAW_CMP_CandidateClientsReadOnly</name>
+        <uuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14145634</uuid>
+        <description>Read Only Component for Candidate Clients for every nomination</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!candidateClients: #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14141386"(nominationId: ri!nominationId),
+  {
+    #"SYSTEM_SYSRULES_gridField_v5"(
+      label: "Clients",
+      helpTooltip: "The Public MD rotation plans for client time each year. Please provide the time you would like considered.",
+      data: local!candidateClients,
+      columns: {
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Client Name",
+          value: fv!row.clientName
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Year",
+          value: if(
+            a!isNullOrEmpty(fv!row.year),
+            "",
+            fv!row.year
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "April",
+          value: if(
+            a!isNullOrEmpty(fv!row.aprilHours),
+            0,
+            fv!row.aprilHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "May ",
+          value: if(
+            a!isNullOrEmpty(fv!row.mayHours),
+            0,
+            fv!row.mayHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "June",
+          value: if(
+            a!isNullOrEmpty(fv!row.juneHours),
+            0,
+            fv!row.juneHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "July",
+          value: if(
+            a!isNullOrEmpty(fv!row.julyHours),
+            0,
+            fv!row.julyHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "August",
+          value: if(
+            a!isNullOrEmpty(fv!row.augHours),
+            0,
+            fv!row.augHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "September",
+          value: if(
+            a!isNullOrEmpty(fv!row.septHours),
+            0,
+            fv!row.septHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "October",
+          value: if(
+            a!isNullOrEmpty(fv!row.octHours),
+            0,
+            fv!row.octHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "November",
+          value: if(
+            a!isNullOrEmpty(fv!row.novHours),
+            0,
+            fv!row.novHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "December",
+          value: if(
+            a!isNullOrEmpty(fv!row.decHours),
+            0,
+            fv!row.decHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "January",
+          value: if(
+            a!isNullOrEmpty(fv!row.janHours),
+            0,
+            fv!row.janHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Fedruary",
+          value: if(
+            a!isNullOrEmpty(fv!row.febHours),
+            0,
+            fv!row.febHours
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "March",
+          value: if(
+            a!isNullOrEmpty(fv!row.marchHours),
+            0,
+            fv!row.marchHours
+          )
+        ),
+        
+      },
+      pageSize: 5,
+      borderStyle: "STANDARD",
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>nominationId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:int">1016</a:value>
+                    <a:nameRef>nominationId</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14145648"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14347409"/>
+    </history>
+</contentHaul>

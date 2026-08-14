@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6768829</versionUuid>
+    <rule>
+        <name>DEPRECATED_CAW_showDPPSubmitValidation</name>
+        <uuid>971edf31-58ba-4a5b-9d9d-4fe9d3e29c57</uuid>
+        <description>returns boolean if the DPP submit validation should show</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>and(
+  ri!isUserDPPEditor,
+  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!selectedReviewer),
+  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!nomination,"isReadyForOnboarding",null)),
+  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!nomination,"isInterviewAvailabilityRequested",null)),
+  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!nomination,"isOfficeVisitAvailabilityRequested",null)),
+  or(
+    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!nomination,"isInterviewRequested",null)),
+    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!interview),
+    index(ri!interview,"isComplete",toboolean(null))
+  ),
+  not(property(ri!nomination,"isDirectHire",toboolean(null)) = true),
+  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!nomination,"isHRReview",null)),
+  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!nomination,"isInspectionsReview",null)),
+  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!nomination,"isReapprovedByBU",null)),
+  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!nomination,"isOpsAdditionalVettingReq",null))
+)</definition>
+        <namedTypedValue>
+            <name>isUserDPPEditor</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedReviewer</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>interview</name>
+            <type>
+                <name>CAW_Interview?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4040367"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4259806"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4597145"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4701415"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5141805"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6768829"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6752189</versionUuid>
+    <rule>
+        <name>CAW_QE_getRotationalAskDetail</name>
+        <uuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3127143</uuid>
+        <description>QE to get query CAW_RotationalAskDetail</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!queryDataSubset:#"SYSTEM_SYSRULES_queryEntity_v1"(
+    entity: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127058",
+    fetchtotalcount: ri!fetchTotalCount,
+    query: #"SYSTEM_SYSRULES_query"(
+      selection: if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!columns),
+        {},
+        #"SYSTEM_SYSRULES_querySelection"(
+          columns: #"SYSTEM_SYSRULES_forEach"(
+            items: ri!columns,
+            expression: #"SYSTEM_SYSRULES_queryColumn"(field:fv!item)
+          )
+        )
+      ),
+      logicalExpression: #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator: "AND",
+        ignorefilterswithemptyvalues: true,
+        filters: {
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "askDetailId", 
+            operator: "=", 
+            value: ri!askDetailId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "askId", 
+            operator: "in", 
+            value: ri!askId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "buId",
+            operator: "=",
+            value: ri!buId
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "plan",
+            operator: "=",
+            value: ri!plan
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "isActive",
+            operator: "=",
+            value: ri!isActive
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "version",
+            operator: "=",
+            value: ri!version
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "iscompleted",
+            operator: "=",
+            value: ri!iscompleted
+          )
+        }
+      ),
+      paginginfo: if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!pagingInfo),
+        #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: -1,
+          sort: {
+            #"SYSTEM_SYSRULES_sortInfo"(
+              field: "askDetailId",
+              ascending: true
+            )
+          },
+        ),
+        ri!pagingInfo
+      )
+    )
+  ),
+  if(
+    ri!returnCDT,
+    cast(
+      'type!{urn:com:appian:types:CAW}CAW_RotationalAskDetail?list',
+      local!queryDataSubset.data
+    ),
+    local!queryDataSubset
+  )
+)
+
+</definition>
+        <namedTypedValue>
+            <name>askDetailId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>askId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>plan</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>version</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>columns</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>returnCDT</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fetchTotalCount</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>iscompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e676-ab43-8000-9bf5-011c48011c48_3127155"/>
+        <historyInfo versionUuid="_a-0000e6c1-137f-8000-9bf9-011c48011c48_3571001"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4674041"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_6162074"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6752189"/>
+    </history>
+</contentHaul>

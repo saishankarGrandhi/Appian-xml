@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6767325</versionUuid>
+    <interface>
+        <name>CAW_RPT_CandidateIntakeExport</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6758744</uuid>
+        <description>Interface for candidate intake Export to Excel</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!yearFilter,
+  local!nameFilter,
+  local!fYearDropDown: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6751857"(),
+  local!documentId,
+  local!isError: false,
+  {
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: {
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "refresh",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    {
+                      local!yearFilter,
+                      local!nameFilter,
+                      local!documentId
+                    },
+                    null
+                  ),
+                  a!save(local!isError, false)
+                }
+              ),
+              linkStyle: "STANDALONE"
+            ),
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: " Clear Filters",
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: {
+                  a!save(
+                    {
+                      local!yearFilter,
+                      local!nameFilter,
+                      local!documentId
+                    },
+                    null
+                  ),
+                  a!save(local!isError, false)
+                }
+              ),
+              linkStyle: "STANDALONE",
+              style: "STRONG"
+            )
+          },
+          align: "RIGHT"
+        ),
+        #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6758972"(
+          yearFilter: local!yearFilter,
+          nameFilter: local!nameFilter,
+          fYearDropdown: local!fYearDropDown,
+          documentId: local!documentId
+        )
+      },
+      style: "ACCENT",
+      marginBelow: "STANDARD",
+      showBorder: false
+    ),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_ButtonLayout"(
+              secondaryButtons: {
+                #"SYSTEM_SYSRULES_ButtonWidget"(
+                  label: "Go Back",
+                  value: ri!chooseId,
+                  saveInto: {
+                    a!save(ri!chooseId, 1),
+                    a!save(
+                      {
+                        local!yearFilter,
+                        local!nameFilter,
+                        local!documentId
+                      },
+                      null
+                    )
+                  }
+                )
+              }
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_cardLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextIcon"(
+                      icon: "file-excel-o"
+                    ),
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: " Generate Excel Report",
+                      style: "STRONG"
+                    )
+                  },
+                  align: "CENTER"
+                )
+              },
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: #"SYSTEM_SYSRULES_startProcess"(
+                  processModel: #"_a-0000e825-ace1-8000-9c24-011c48011c48_6766514",
+                  processParameters: {
+                    nameFilter: local!nameFilter,
+                    yearFilter: local!yearFilter
+                  },
+                  onSuccess: {
+                    a!save(
+                      local!documentId,
+                      fv!processInfo.pv.NewDocument
+                    ),
+                    a!save(
+                      local!isError,
+                      false
+                    )
+                  },
+                  onError: {
+                    a!save(
+                      local!documentId,
+                      null
+                    ),
+                    a!save(
+                      local!isError,
+                      true
+                    )
+                  }
+                )
+              ),
+              style: "#00A36C",
+              shape: "SEMI_ROUNDED",
+              marginBelow: "STANDARD"
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_cardLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextIcon"(
+                      icon: "download",
+                      linkStyle: "STANDALONE"
+                    ),
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: " Download Excel Report",
+                      style: "STRONG"
+                    )
+                  },
+                  align: "CENTER"
+                )
+              },
+              link: #"SYSTEM_SYSRULES_documentDownloadLink"(
+                document: local!documentId
+              ),
+              style: "#0BDA51",
+              shape: "SEMI_ROUNDED",
+              marginBelow: "STANDARD",
+              showWhen: #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!documentId)
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_cardLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextIcon"(
+                      icon: "refresh",
+                      linkStyle: "STANDALONE"
+                    ),
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: " Reset",
+                      style: "STRONG"
+                    )
+                  },
+                  align: "CENTER"
+                )
+              },
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                saveInto: a!save(local!documentId, null)
+              ),
+              style: "STANDARD",
+              shape: "SEMI_ROUNDED",
+              marginBelow: "STANDARD",
+              showWhen: #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!documentId)
+            )
+          }
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>chooseId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6767325"/>
+    </history>
+</contentHaul>

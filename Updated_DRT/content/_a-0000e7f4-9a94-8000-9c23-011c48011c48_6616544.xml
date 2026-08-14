@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebe3-046c-8000-9c56-011c48011c48_13082907</versionUuid>
+    <interface>
+        <name>CAW_RPT_AskVsNomination</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6616544</uuid>
+        <description>The interface to display that Rotational Ask vs Nominations for a fiscal year</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!hexYellow: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6751938",
+  local!fiscalYearFilter: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3953700"(),
+  local!allBus: if(
+    local!fiscalYearFilter&gt;=2024,
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3084520"(
+      pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex: 1,
+        batchSize: 100,
+        sort: #"SYSTEM_SYSRULES_sortInfo"(field: "bu",ascending: true)),
+        returnCDT: true,
+        isActive: true,
+        regionId: {406}
+    ),
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3084520"(
+      pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex: 1,
+        batchSize: 100,
+        sort: #"SYSTEM_SYSRULES_sortInfo"(field: "bu",ascending: true)),
+        returnCDT: true,
+        isActive: true,
+        regionId: {#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206289", #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206296"}
+    )
+  ),
+  /*local!busEast: rule!CAW_QE_getReferenceBaseUnit(*/
+    /*returnCDT: true,*/
+    /*isActive: true,*/
+    /*regionId: cons!CAW_INT_LABEL_EAST_ASK_REGION_ID*/
+  /*),*/
+  /*local!busWest: rule!CAW_QE_getReferenceBaseUnit(*/
+    /*returnCDT: true,*/
+    /*isActive: true,*/
+    /*regionId: cons!CAW_INT_LABEL_WEST_ASK_REGION_ID*/
+  /*),*/
+  local!fiscalYearDropdown: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6751857"(),
+  /*local!regionFilter,*/
+  local!typeFilter,
+  local!rotationalAskPlan: #"_a-0000e825-ace1-8000-9c24-011c48011c48_6906867"(
+    fiscalYear: local!fiscalYearFilter,
+    regionId: if(
+      local!fiscalYearFilter&gt;=2024,
+      {406},
+      {23,24}
+    )
+  ),
+  /*local!rotationalAskWestPlanIndex: wherecontains(*/
+    /*cons!CAW_INT_LABEL_WEST_ASK_REGION_ID,*/
+    /*tointeger(index(local!rotationalAskPlan,"regionId",{}))*/
+  /*),*/
+  /*local!rotationalAskWestPlan: index(*/
+    /*local!rotationalAskPlan,*/
+    /*local!rotationalAskWestPlanIndex*/
+  /*),*/
+  /*local!rotationalAskEastPlan: remove(*/
+    /*local!rotationalAskPlan,*/
+    /*local!rotationalAskWestPlanIndex*/
+  /*),*/
+  local!rotationalAskActual: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6653797"(
+    returnCDT: true,
+    fiscalYear: local!fiscalYearFilter
+  ),
+  /*local!rotationalAskActualWestIndex: wherecontains(*/
+    /*cons!CAW_INT_LABEL_WEST_ASK_REGION_ID,*/
+    /*tointeger(index(local!rotationalAskActual,"regionId",{}))*/
+  /*),*/
+  /*local!rotationalAskWestActual: index(*/
+    /*local!rotationalAskActual,*/
+    /*local!rotationalAskActualWestIndex*/
+  /*),*/
+  /*local!rotationalAskEastActual: remove(*/
+    /*local!rotationalAskActual,*/
+    /*local!rotationalAskActualWestIndex*/
+  /*),*/
+  local!nonAskNominations: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6657894"(
+    fiscalYear: local!fiscalYearFilter,
+    regionId: if(
+      local!fiscalYearFilter&gt;=2024,
+      {406},
+      {23,24}
+    ),
+    returnCDT: true
+  ),
+  /*local!nonAskWestIndex: wherecontains(*/
+    /*cons!CAW_INT_LABEL_WEST_ASK_REGION_ID,*/
+    /*tointeger(index(local!nonAskNominations,"regionId",{}))*/
+  /*),*/
+  /*local!nonAskWest: index(*/
+    /*local!nonAskNominations,*/
+    /*local!nonAskWestIndex*/
+  /*),*/
+  /*local!nonAskEast: remove(*/
+    /*local!nonAskNominations,*/
+    /*local!nonAskWestIndex*/
+  /*),*/
+  local!international: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+    nominationTypeId: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562",
+    fiscalYear: local!fiscalYearFilter,
+    notCancelled: true,
+    columns: {"statusId"}
+  ).data,
+  local!internationalConfirmedIndex: wherecontains(
+    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350",
+    tointeger(index(local!international,"statusId",{}))
+  ), 
+  local!internationalConfirmed: index(
+    local!international,
+    local!internationalConfirmedIndex
+  ),
+  local!internationalInProcess: remove(
+    local!international,
+    local!internationalConfirmedIndex
+  ),
+  local!externalNominations: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+    fiscalYear: local!fiscalYearFilter,
+    subPositionTypeId: a!flatten({1,#"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648284",#"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648367"}),
+    isDirectHire: true,
+    isDirectHireInternal: false,
+    notCancelled: true,
+    columns: {"statusId","subPositionTypeId"}
+  ).data,
+  local!externalConfirmedIndex: wherecontains(
+    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350",
+    tointeger(index(local!externalNominations,"statusId",{}))
+  ),
+  local!externalConfirmed: index(
+    local!externalNominations,
+    local!externalConfirmedIndex
+  ),
+  local!externalInProcess: remove(
+    local!externalNominations,
+    local!externalConfirmedIndex
+  ),
+  local!internalNominations: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+    fiscalYear: local!fiscalYearFilter,
+    subPositionTypeId: a!flatten({1,#"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648284",#"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648367"}),
+    isDirectHire: true,
+    isDirectHireInternal: true,
+    notCancelled: true,
+    columns: {"statusId","subPositionTypeId"}
+  ).data,
+  local!internalConfirmedIndex: wherecontains(
+    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350",
+    tointeger(index(local!internalNominations,"statusId",{}))
+  ),
+  local!internalConfirmed: index(
+    local!internalNominations,
+    local!internalConfirmedIndex
+  ),
+  local!internalInProcess: remove(
+    local!internalNominations,
+    local!internalConfirmedIndex
+  ),
+  {
+    /*Filters*/
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          width: "NARROW",
+          contents: #"SYSTEM_SYSRULES_cardLayout"(
+            showBorder: false,
+            showShadow: true,
+            decorativeBarColor: local!hexYellow,
+            decorativeBarPosition: "START",
+            contents: {
+              #"SYSTEM_SYSRULES_sideBySideLayout"(
+                items: {
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    width: "MINIMIZE",
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                        text: "Fiscal Year",
+                        style: "STRONG"
+                      )
+                    )
+                  ),
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_dropdownField_v1"(
+                      label: "Fiscal Year",
+                      labelPosition: "COLLAPSED",
+                      choiceValues: local!fiscalYearDropdown,
+                      choiceLabels: local!fiscalYearDropdown,
+                      value: local!fiscalYearFilter,
+                      saveInto: local!fiscalYearFilter
+                    )
+                  )
+                }
+              )
+            }
+          )
+        ),
+        /*a!columnLayout(*/
+          /*width: "NARROW",*/
+          /*contents: a!cardLayout(*/
+            /*showBorder: false,*/
+            /*showShadow: true,*/
+            /*decorativeBarColor: local!hexYellow,*/
+            /*decorativeBarPosition: "START",*/
+            /*contents: {*/
+              /*a!sideBySideLayout(*/
+                /*items: {*/
+                  /*a!sideBySideItem(*/
+                    /*width: "MINIMIZE",*/
+                    /*item: a!richTextDisplayField(*/
+                      /*value: a!richTextItem(*/
+                        /*text: "Region",*/
+                        /*style: "STRONG"*/
+                      /*)*/
+                    /*)*/
+                  /*),*/
+                  /*a!sideBySideItem(*/
+                    /*item: a!dropdownField(*/
+                      /*label: "Fiscal Year",*/
+                      /*labelPosition: "COLLAPSED",*/
+                      /*choiceValues: {"East", "West", "Other"},*/
+                      /*choiceLabels: {"East", "West", "Other"},*/
+                      /*value: local!regionFilter,*/
+                      /*saveInto: local!regionFilter,*/
+                      /*placeholder: "Select Region"*/
+                    /*)*/
+                  /*)*/
+                /*}*/
+              /*)*/
+            /*}*/
+          /*)*/
+        /*),*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          width: "NARROW",
+          contents: #"SYSTEM_SYSRULES_cardLayout"(
+            showBorder: false,
+            showShadow: true,
+            decorativeBarColor: local!hexYellow,
+            decorativeBarPosition: "START",
+            contents: {
+              #"SYSTEM_SYSRULES_sideBySideLayout"(
+                items: {
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    width: "MINIMIZE",
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                        text: "Type",
+                        style: "STRONG"
+                      )
+                    )
+                  ),
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_dropdownField_v1"(
+                      label: "Type",
+                      labelPosition: "COLLAPSED",
+                      choiceValues: {"Rotational","Core"},
+                      choiceLabels: {"Rotational","Core"},
+                      value: local!typeFilter,
+                      saveInto: local!typeFilter,
+                      placeholder: "Select Type"
+                    )
+                  )
+                }
+              )
+            }
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"()
+      }
+    ),
+    /*Table*/
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          width: if(
+            #"SYSTEM_SYSRULES_isPageWidth"({"DESKTOP_NARROW","DESKTOP","DESKTOP_WIDE"}),
+            if(
+              local!typeFilter = "Rotational",
+              "WIDE_PLUS",
+              if(
+                local!typeFilter = "Core",
+                "WIDE",
+                "AUTO"
+              )
+            ),
+            "AUTO"
+          ),
+          contents: #"SYSTEM_SYSRULES_cardLayout"(
+            marginBelow: "STANDARD",
+            padding: "NONE",
+            showShadow: true,
+            style: "#777",
+            contents: {
+              #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6630753"(
+                typeFilter: local!typeFilter
+              ),
+              
+              /*Now ALL Business Units*/
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                /*showWhen: or(isnull(local!regionFilter),local!regionFilter="East"),*/
+                marginBelow: "NONE",
+                value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: " Business Units",
+                  style: "STRONG",
+                  size: "MEDIUM"
+                )
+              ),
+              
+              #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12874414"(
+                bus: local!allBus,
+                rotationalPlanned: local!rotationalAskPlan,
+                rotationalActual: local!rotationalAskActual,
+                nonAskActual: local!nonAskNominations,
+                typeFilter: local!typeFilter,
+              ),
+              /*WEST REGION LABEL*/
+              /*a!richTextDisplayField(*/
+                /*showWhen: or(isnull(local!regionFilter),local!regionFilter="West"),*/
+                /*marginBelow: "NONE",*/
+                /*value: a!richTextItem(*/
+                  /*text: " WEST REGION",*/
+                  /*style: "STRONG",*/
+                  /*size: "MEDIUM"*/
+                /*)*/
+              /*),*/
+              /*WEST REGION COLUMNS*/
+              /*rule!CAW_CMP_AskVsNominationTableRegion(*/
+                /*bus: local!busWest,*/
+                /*rotationalPlanned: local!rotationalAskWestPlan,*/
+                /*rotationalActual: local!rotationalAskWestActual,*/
+                /*nonAskActual: local!nonAskWest,*/
+                /*typeFilter: local!typeFilter,*/
+                /*showWhen: or(isnull(local!regionFilter),local!regionFilter="West")*/
+              /*),*/
+              /*OTHER LABEL*/
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                /*showWhen: or(isnull(local!regionFilter),local!regionFilter="Other"),*/
+                marginBelow: "NONE",
+                value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: " OTHER",
+                  style: "STRONG",
+                  size: "MEDIUM"
+                )
+              ),
+              /*OTHER COLUMNS*/
+              #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12874471"(
+                fyInternationalConfirmed: local!internationalConfirmed,
+                fyInternationalInProcess: local!internationalInProcess,
+                externalNominationsConfirmed: local!externalConfirmed,
+                externalNominationsInProcess: local!externalInProcess,
+                internalNominationsConfirmed: local!internalConfirmed,
+                internalNominationsInProcess: local!internalInProcess,
+                typeFilter: local!typeFilter,
+                /*showWhen: or(isnull(local!regionFilter),local!regionFilter="Other")*/
+              ),
+              /*TOTAL LABEL*/
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                marginBelow: "NONE",
+                value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: " Grand Total",
+                  style: "STRONG",
+                  size: "MEDIUM"
+                )
+              ),
+              /*TOTAL COLUMNS*/
+              #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12874703"(
+                internationalConfirmed: local!internationalConfirmed,
+                internationalInProcess: local!internationalInProcess,
+                rotationalAskPlan: local!rotationalAskPlan,
+                rotationalAskActual: local!rotationalAskActual,
+                externalNominationsConfirmed: local!externalConfirmed,
+                externalNominationsInProcess: local!externalInProcess,
+                internalNominationsConfirmed: local!internalConfirmed,
+                internalNominationsInProcess: local!internalInProcess,
+                nonAskActual: local!nonAskNominations,
+                typeFilter: local!typeFilter
+              )
+            }
+          )
+        )
+      }
+    ),
+    /*Summary Table*/
+    #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12874715"(
+      color: local!hexYellow,
+      rotationalAskPlan: local!rotationalAskPlan,
+      rotationalAskActual: local!rotationalAskActual,
+      typeFilter: local!typeFilter,
+    )
+  }
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6661834"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6679377"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6752012"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6907433"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12889707"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_13016335"/>
+        <historyInfo versionUuid="_a-0000ebe3-046c-8000-9c56-011c48011c48_13082907"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6767840</versionUuid>
+    <rule>
+        <name>CAW_getLatestVersionCoreAsk</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6753074</uuid>
+        <description>Expression rule to get the latest version asks from a list of asks. Returns a list of the latest asks</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>/* The purpose of this function is to return a list of asks containing only the highest versions of those asks.
+  For example, if ask A has versions 1 and 2, and ask B has versions 1,2, and 3, The returning list will be 
+  {version 2 of ask A, and version 3 of ask B}*/
+a!localVariables(
+  local!latestVerions: #"SYSTEM_SYSRULES_forEach"(
+    /* Runs over each ask to find the highest version for each askID */
+    items: ri!asks,
+    expression: index(
+      index(
+        ri!asks,
+        wherecontains(fv!item.askID, ri!asks.askId)
+      ),
+      wherecontains(
+        tointeger(
+          max(
+            /* This index returns a list of all of the versions for one askID
+              The max of these versions will then be found*/
+            index(
+              ri!asks,
+              wherecontains(fv!item.askID, ri!asks.askId)
+            ).version
+          )
+        ),
+        /*Now the index of the ask with the highest version number will be returned*/
+        index(
+          ri!asks,
+          wherecontains(fv!item.askID, ri!asks.askId)
+        ).version
+      )
+      /*So now the ask with the highest version for this askId is pulled from ri!asks
+        using the index we found in the inner index*/
+    )
+  ),
+  /* Because this function runs over every element in the list and generates the highest verion for each element,
+      we have to union in order to remove the duplicates. */
+  a!flatten(
+    union(
+      local!latestVerions,
+      local!latestVerions
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>asks</name>
+            <type>
+                <name>CAW_V_CORE_ASK?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6767840"/>
+    </history>
+</contentHaul>

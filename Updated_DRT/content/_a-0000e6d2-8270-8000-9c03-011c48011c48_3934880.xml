@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3982889</versionUuid>
+    <rule>
+        <name>CAW_QE_getCandidateDetails</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3934880</uuid>
+        <description>Query Entity for CAW_CandidateDetails</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!queryDataSubset:#"SYSTEM_SYSRULES_queryEntity_v1"(
+    entity: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3934874",
+    query: #"SYSTEM_SYSRULES_query"(
+      selection: if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!columns),
+        {},
+        #"SYSTEM_SYSRULES_querySelection"(
+          columns: #"SYSTEM_SYSRULES_forEach"(
+            items: ri!columns,
+            expression: #"SYSTEM_SYSRULES_queryColumn"(field:fv!item)
+          )
+        )
+      ),
+      logicalExpression: #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator: "AND",
+        ignorefilterswithemptyvalues: true,
+        filters: {
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "nominationId", 
+            operator: "=", 
+            value: ri!nominationId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "candidateDetailsId",
+            operator: "=",
+            value: ri!candidateDetailsId
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "isActive",
+            operator: "=",
+            value: ri!isActive
+          )
+        }
+      ),
+      paginginfo: if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!pagingInfo),
+        #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: -1,
+          sort: {
+            #"SYSTEM_SYSRULES_sortInfo"(
+              field: "candidateDetailsId",
+              ascending: false
+            )
+          },
+        ),
+        ri!pagingInfo
+      )
+    ),
+    fetchTotalCount: ri!fetchTotalCount
+  ),
+  if(
+    ri!returnCDT,
+    cast(
+      'type!{urn:com:appian:types}CAW_CandidateDetails?list',
+      local!queryDataSubset.data
+    ),
+    local!queryDataSubset
+  )
+)
+
+</definition>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nominationId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>columns</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>returnCdt</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fetchTotalCount</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateDetailsId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3934923"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3982889"/>
+    </history>
+</contentHaul>

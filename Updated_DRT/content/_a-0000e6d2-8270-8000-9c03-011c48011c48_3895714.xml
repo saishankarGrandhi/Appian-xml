@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6971341</versionUuid>
+    <rule>
+        <name>DEPRECATED_CAW_getUserByUserId</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3895714</uuid>
+        <description>Rule to get user by user id</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!userId),
+  null,
+  #"SYSTEM_SYSRULES_queryEntity_v1"(
+    fetchtotalcount: false,
+    entity: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174690",
+    query: #"SYSTEM_SYSRULES_query"(
+      paginginfo: #"SYSTEM_SYSRULES_pagingInfo"(startIndex: 1, batchSize: 1),
+      filter: #"SYSTEM_SYSRULES_queryFilter"(
+        field: "userId ",
+        operator: "=",
+        value: ri!userId
+      )
+    )
+  ).data
+)</definition>
+        <namedTypedValue>
+            <name>userId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3895733"/>
+        <historyInfo versionUuid="_a-0000e825-aa93-8000-9c30-011c48011c48_771259"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6971341"/>
+    </history>
+</contentHaul>

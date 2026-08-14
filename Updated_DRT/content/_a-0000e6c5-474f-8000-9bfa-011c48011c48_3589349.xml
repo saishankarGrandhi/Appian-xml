@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11767535</versionUuid>
+    <interface>
+        <name>CAW_CMP_RoleDetails</name>
+        <uuid>_a-0000e6c5-474f-8000-9bfa-011c48011c48_3589349</uuid>
+        <description>Component for Nomination Role Details</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isOldVersion:if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    false,
+    if(
+      todatetime(ri!nomination.createdOn)&lt;#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11589045",
+      true,
+      false)
+  ),
+  local!isRotational: if(property(
+    ri!nomination,
+    "positionTypeId",
+    tointeger(null)
+  ) = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699",true,false),
+  /*local!timeCreatedOn:if(*/
+    /*rule!CAW_isBlank(ri!nomination.nominationId),*/
+    /*null,*/
+    /*ri!nomination.createdOn*/
+  /*),*/
+  #"SYSTEM_SYSRULES_cardLayout"(
+  contents: {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_sideBySideLayout"(
+              items: {
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"SYSTEM_SYSRULES_dateField"(
+                    label: if(
+                      not(
+                        property(
+                          ri!nomination,
+                          "isDirectHire",
+                          toboolean(null)
+                        ) = true
+                      ),
+                      "Anticipated Start Date *",
+                      "Anticipated Start Date"
+                    ),
+                    value: ri!nomination.anticipatedStartDate,
+                    saveInto: ri!nomination.anticipatedStartDate,
+                    required: not(
+                      property(
+                        ri!nomination,
+                        "isDirectHire",
+                        toboolean(null)
+                      ) = true
+                    ),
+                    validationGroup: "main",
+                    helpTooltip: "Dates can be entered manually or via the drop down"
+                  )
+                ),
+                #"SYSTEM_SYSRULES_sideBySideItem"(
+                  item: #"SYSTEM_SYSRULES_dateField"(
+                    label: if(
+                      or(
+                        index(
+                          ri!nomination,
+                          "subPositionTypeId",
+                          tointeger(null)
+                        ) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+                        index(
+                          ri!nomination,
+                          "positionTypeId",
+                          tointeger(null)
+                        ) = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"
+                      ),
+                      "Anticipated End Date *",
+                      "Anticipated End Date"
+                    ),
+                    value: ri!nomination.anticipatedEndDate,
+                    saveInto: ri!nomination.anticipatedEndDate,
+                    required: or(
+                      index(
+                        ri!nomination,
+                        "subPositionTypeId",
+                        tointeger(null)
+                      ) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+                      index(
+                        ri!nomination,
+                        "positionTypeId",
+                        tointeger(null)
+                      ) = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"
+                    ),
+                    validations: if(
+                      ri!nomination.anticipatedEndDate &lt; today(),
+                      "End date cannot be earlier than today.",
+                      if(
+                        ri!nomination.anticipatedEndDate &lt;= ri!nomination.anticipatedStartDate,
+                        "End date must be after start date",
+                        null
+                      )
+                    ),
+                    validationGroup: "main",
+                    helpTooltip: "Dates can be entered manually or via the drop down"
+                  )
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_dropdownField_v1"(
+              label: if(
+                and(
+                  not(
+                    property(
+                      ri!nomination,
+                      "isDirectHire",
+                      toboolean(null)
+                    ) = true
+                  ),
+                  property(ri!nomination, "positionTypeId", null) = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692"
+                ),
+                "Recommended Group *",
+                "Recommended Group"
+              ),
+              placeholder: "--Select--",
+              choiceLabels:if(
+                  toboolean(local!isOldVersion)=true,
+                  #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11632762",
+                  property(ri!dppGroup, "description", null),
+
+                ),
+                choiceValues: if(
+                  toboolean(local!isOldVersion)=true,
+                  #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11635194",
+                  property(ri!dppGroup, "refId", null),
+
+                ),
+              /*if(*/
+                /*rule!CAW_isBlank(local!timeCreatedOn),*/
+                /*property(ri!dppGroup, "refId", null),*/
+                /*if(*/
+                  /*todatetime(local!timeCreatedOn) &lt; cons!DRT_V3_DEPLOYMENT_DATE_TIME,*/
+                  /*cons!DRT_DPP_GROUP_NOMINATION_ID,*/
+                  /*property(ri!dppGroup, "refId", null),*/
+/**/
+                /*)*/
+              /*),*/
+              
+              value: ri!nomination.recommendedDppGroupId,
+              saveInto: {ri!nomination.recommendedDppGroupId,
+              
+              a!save(ri!nomination.dppGroupOtherComment,null)
+              },
+              required: and(
+                not(
+                  property(
+                    ri!nomination,
+                    "isDirectHire",
+                    toboolean(null)
+                  ) = true
+                ),
+                property(ri!nomination, "positionTypeId", null) = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692"
+              ),
+              disabled: property(
+                ri!nomination,
+                "positionTypeId",
+                tointeger(null)
+              ) &lt;&gt; #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+              validationGroup: "main"
+            ),
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Recommended Group - Other",
+              value: ri!nomination.dppGroupOtherComment,
+              saveInto: ri!nomination.dppGroupOtherComment,
+              characterLimit: 100,
+              required: and(
+                property(ri!nomination, "isDirectHire", null) = false,
+                property(ri!nomination, "positionTypeId", null) = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+                or(property(
+                  ri!nomination,
+                  "recommendedDppGroupId",
+                  null
+                ) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3827970",
+                property(
+                  ri!nomination,
+                  "recommendedDppGroupId",
+                  null
+                ) = #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11635234")
+              ),
+              disabled: if(
+                or(
+                property(
+                  ri!nomination,
+                  "recommendedDppGroupId",
+                  null
+                ) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3827970",
+                property(
+                  ri!nomination,
+                  "recommendedDppGroupId",
+                  null
+                ) = #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11635234"
+              ),false,true),
+              validations: if(
+                regexmatch(
+                  #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11586353",
+                  ri!nomination.dppGroupOtherComment
+                ),
+                #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11586372"[1],
+                {}
+              )
+            
+            )
+            
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_radioButtonField"(
+              label: if(
+                and(
+                  property(
+                    ri!nomination,
+                    "positionTypeId",
+                    tointeger(null)
+                  ) = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699",
+                  property(ri!nomination, "isDirectHire", null) = false
+                ),
+                "Do you think this person would be a good candidate for a fellowship at the SEC, FASB or GASB? *",
+                "Do you think this person would be a good candidate for a fellowship at the SEC, FASB or GASB?"
+              ),
+              choiceLabels: { "Yes", "No" },
+              choiceValues: { true, false },
+              value: ri!nomination.isPotentialSec_FasbCandidate,
+              saveInto: ri!nomination.isPotentialSec_FasbCandidate,
+              required: and(
+                property(
+                  ri!nomination,
+                  "positionTypeId",
+                  tointeger(null)
+                ) = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699",
+                property(ri!nomination, "isDirectHire", null) = false
+              ),
+              disabled: property(
+                ri!nomination,
+                "positionTypeId",
+                tointeger(null)
+              ) &lt;&gt; #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699",
+              choiceLayout: "COMPACT",
+              validationGroup: "main",
+              showWhen: if(toboolean(local!isOldVersion)=true,true,false)
+            ),
+            #"SYSTEM_SYSRULES_radioButtonField"(
+              label:if(toboolean(local!isOldVersion)=true,if(
+                and(
+                  local!isRotational=true,
+                  property(ri!nomination, "isDirectHire", null) = false
+                ),
+                "Would you like to nominate the candidate to be an Audit Quality Support Partner upon their return to your BU? *",
+                "Would you like to nominate the candidate to be an Audit Quality Support Partner upon their return to your BU?"
+              ),
+              if(
+                and(
+                  local!isRotational=true,
+                  property(ri!nomination, "isDirectHire", null) = false
+                ),
+                "Would you like to nominate the candidate to be part of the Audit Quality Support Network (AQSN)? *",
+                "Would you like to nominate the candidate to be part of the Audit Quality Support Network (AQSN)?"
+              )),
+              instructions: if(toboolean(local!isOldVersion)=true,"Note: they must be on the partner pipeline for promotion within three years of nomination.",null),
+              choiceLabels: { "Yes", "No" },
+              choiceValues: { true, false },
+              value: ri!nomination.isAqspNomination,
+              saveInto: ri!nomination.isAqspNomination,
+              required: and(
+                property(
+                  ri!nomination,
+                  "positionTypeId",
+                  tointeger(null)
+                ) = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699",
+                property(ri!nomination, "isDirectHire", null) = false
+              ),
+              disabled: property(
+                ri!nomination,
+                "positionTypeId",
+                tointeger(null)
+              ) &lt;&gt; #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699",
+              choiceLayout: "COMPACT",
+              validationGroup: "main"
+            )
+          },
+          showWhen: not(
+            contains(
+              {
+                #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+                #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+                #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932"
+              },
+              property(
+                ri!nomination,
+                "statusId",
+                tointeger(null)
+              )
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_dropdownField_v1"(
+              label: if(
+                not(
+                  property(
+                    ri!nomination,
+                    "isDirectHire",
+                    toboolean(null)
+                  ) = true
+                ),
+                "Primary Industry *",
+                "Primary Industry"
+              ),
+              placeholder: "--Select--",
+              choiceLabels: property(ri!industries, "industry", null),
+              choiceValues: property(ri!industries, "industryId", null),
+              value: ri!nomination.primaryIndustryId,
+              saveInto: {
+                ri!nomination.primaryIndustryId,
+                if(
+                  index(
+                    ri!nomination,
+                    "primaryIndustryId",
+                    tointeger({})
+                  ) &lt;&gt; #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4149854",
+                  a!save(
+                    ri!nomination.primaryIndustryOther,
+                    null
+                  ),
+                  null
+                )
+              },
+              required: not(
+                property(
+                  ri!nomination,
+                  "isDirectHire",
+                  toboolean(null)
+                ) = true
+              ),
+              validationGroup: "main"
+            ),
+            #"SYSTEM_SYSRULES_textField"(
+              label: "Primary Industry - Other",
+              labelPosition: "ABOVE",
+              value: index(
+                ri!nomination,
+                "primaryIndustryOther",
+                {}
+              ),
+              saveInto: { ri!nomination.primaryIndustryOther },
+              characterLimit: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3958020",
+              required: ri!nomination.primaryIndustryId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4149854",
+              disabled: ri!nomination.primaryIndustryId &lt;&gt; #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4149854",
+              validations: if(
+                regexmatch(
+                  #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11586353",
+                  ri!nomination.dppGroupOtherComment
+                ),
+                #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11586372"[1],
+                {}
+              )
+            )
+          }
+        )
+      }
+    )
+  },
+  marginBelow: "STANDARD"
+)
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dppGroup</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>industries</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">'type!{urn:com:appian:types:CAW}CAW_Nomination'(
+  nominationTypeId: 664,
+  positionTypeId: 149
+)</a:value>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+  refTypeId: #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3691980",
+  returnCDT: true,
+  isActive: true,
+  pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+    startIndex: 1,
+    batchSize: -1,
+    sort: #"SYSTEM_SYSRULES_sortInfo"(
+      field: "description",
+      ascending: true
+    )
+  )
+)</a:value>
+                    <a:nameRef>dppGroup</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>industries</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3667552"/>
+        <historyInfo versionUuid="_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3771781"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3829520"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3925722"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183785"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4257037"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4576695"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4601687"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4784429"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4848527"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_6220196"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11671915"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11695992"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11767535"/>
+    </history>
+</contentHaul>

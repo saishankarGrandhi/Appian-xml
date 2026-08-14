@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<siteHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>dd7bb71f-8ea1-41f4-9d3c-c67fbe3f3af4</versionUuid>
+  <site a:uuid="de37d1f5-7b4d-4ff8-9ae3-37be61000447" name="CAW SFTP Dashboard">
+    <description/>
+    <urlStub>caw-sftp-dashboard</urlStub>
+    <page a:uuid="4ead408e-09dc-3240-ba4d-c32dd78ffa2c">
+      <staticName>Home</staticName>
+      <description/>
+      <urlStub>dashboard</urlStub>
+      <uiObject a:uuid="0ea31acf-4b3a-4414-8211-017e02a1b2f6" xsi:type="a:TempoReport"/>
+      <iconId>f015</iconId>
+      <visibilityExpr>fn!true()</visibilityExpr>
+      <pageWidth>WIDE</pageWidth>
+      <areUrlParamsEncrypted>true</areUrlParamsEncrypted>
+      <autoContextUpdateEnabled>false</autoContextUpdateEnabled>
+      <siteBrandingEnabled>true</siteBrandingEnabled>
+      <darkThemeEnabled>false</darkThemeEnabled>
+    </page>
+    <visibility>268435456</visibility>
+    <headerBackgroundColor>#12458a</headerBackgroundColor>
+    <selectedTabBackgroundColor>#FFFFFF</selectedTabBackgroundColor>
+    <faviconRef a:uuid="_a-0000e676-ab43-8000-9bf5-011c48011c48_3165075" xsi:type="a:CollaborationDocument"/>
+    <logoRef a:uuid="_a-0000e676-ab43-8000-9bf5-011c48011c48_3165087" xsi:type="a:CollaborationDocument"/>
+    <accentColor>#12458a</accentColor>
+    <showName>false</showName>
+    <tempoLinkVisibility>HIDDEN</tempoLinkVisibility>
+    <showRecordNews>true</showRecordNews>
+    <tasksInSitesVisibility>HIDDEN</tasksInSitesVisibility>
+    <buttonShape>ROUNDED</buttonShape>
+    <loadingBarColor>#12458a</loadingBarColor>
+    <navigationBarStyle>STYLE1</navigationBarStyle>
+    <inputShape>SQUARED</inputShape>
+    <isSystem>false</isSystem>
+    <displayName>CAW SFTP Dashboard</displayName>
+    <isStaticDisplayName>true</isStaticDisplayName>
+    <nameExprIsEvaluable>true</nameExprIsEvaluable>
+    <primaryNavLayoutType>TOPBAR</primaryNavLayoutType>
+    <buttonLabelCase>UPPERCASE</buttonLabelCase>
+    <dialogShape>SQUARED</dialogShape>
+    <pageNameCase>UPPERCASE</pageNameCase>
+    <showUserProfile>true</showUserProfile>
+    <showUserSettings>true</showUserSettings>
+    <showUserMenu>true</showUserMenu>
+  </site>
+  <roleMap>
+    <role name="site_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="dd7bb71f-8ea1-41f4-9d3c-c67fbe3f3af4"/>
+  </history>
+</siteHaul>

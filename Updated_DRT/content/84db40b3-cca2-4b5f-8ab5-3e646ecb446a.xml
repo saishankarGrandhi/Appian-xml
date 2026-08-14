@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11890327</versionUuid>
+    <decision>
+        <name>DRT_dt_check_BUPIC_BUPPP_groups</name>
+        <uuid>84db40b3-cca2-4b5f-8ab5-3e646ecb446a</uuid>
+        <description>DT to check if user is part of BUPPP_BUPIC group</description>
+        <parentUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11571591</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>fn!override_exception_appian_internal(fn!with(local!decisiondefinition: a!decisiondesigner_cache(uuid: "84db40b3-cca2-4b5f-8ab5-3e646ecb446a",versionKey: "b10df79c-2e75-42c0-aee0-caf240c0915a",value: #"SYSTEM_SYSRULES_dd_dd"('hitPolicy': #"SYSTEM_SYSRULES_dd_dhp"("RULE_ORDER"), 'inputs': {#"SYSTEM_SYSRULES_dd_di"('name': "parentGroups", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'id': 1, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("LOOKUP"), 'restriction': #"SYSTEM_SYSRULES_dd_dirl"('allowedLabels': {"Bay Area BUPPP_BUPIC", "Great Lakes BUPPP_BUPIC", "Chicago Metro BUPPP_BUPIC", "Mid America BUPPP_BUPIC", "Mid-Atlantic BUPPP_BUPIC", "Pennsylvania BUPPP_BUPIC", "Chesapeake BUPPP_BUPIC", "Washington Federal BUPPP_BUPIC", "Mountain BUPPP_BUPIC", "Denver BUPPP_BUPIC", "Northeast Commercial BUPPP_BUPIC", "CAW New York Metro BUPPP_BUPIC", "CAW NEUNY BUPPP_BUPIC", "Northeast FS BUPPP_BUPIC", "New York FS BUPPP_BUPIC", "North Central BUPPP_BUPIC", "Gateway West BUPPP_BUPIC", "Northern Heartland BUPPP_BUPIC", "Pacific Southwest BUPPP_BUPIC", "Southeast BUPPP_BUPIC", "Coastal BUPPP_BUPIC", "Midsouth BUPPP_BUPIC", "South Central BUPPP_BUPIC", "Dallas BUPPP_BUPIC", "Houston BUPPP_BUPIC"}, 'allowedValues': {"Bay Area BUPPP_BUPIC", "Great Lakes BUPPP_BUPIC", "Chicago Metro BUPPP_BUPIC", "Mid America BUPPP_BUPIC", "Mid-Atlantic BUPPP_BUPIC", "Pennsylvania BUPPP_BUPIC", "Chesapeake BUPPP_BUPIC", "Washington Federal BUPPP_BUPIC", "Mountain BUPPP_BUPIC", "Denver BUPPP_BUPIC", "Northeast Commercial BUPPP_BUPIC", "CAW New York Metro BUPPP_BUPIC", "CAW NEUNY BUPPP_BUPIC", "Northeast FS BUPPP_BUPIC", "New York FS BUPPP_BUPIC", "North Central BUPPP_BUPIC", "Gateway West BUPPP_BUPIC", "Northern Heartland BUPPP_BUPIC", "Pacific Southwest BUPPP_BUPIC", "Southeast BUPPP_BUPIC", "Coastal BUPPP_BUPIC", "Midsouth BUPPP_BUPIC", "South Central BUPPP_BUPIC", "Dallas BUPPP_BUPIC", "Houston BUPPP_BUPIC"}), 'description': "Parent groups - BUPPP_BUPIC")}, 'outputs': {#"SYSTEM_SYSRULES_dd_do"('id': 1, 'name': "childGroups", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("LOOKUP"), 'restriction': #"SYSTEM_SYSRULES_dd_dorl"('allowedLabels': {"Bay Area BUPPP", "Bay Area BUPIC", "Chicago Metro BUPPP", "Mid America BUPPP", "Chicago Metro BUPIC", "Mid America BUPIC", "Great Lakes BUPIC", "Great Lakes BUPPP", "Mid-Atlantic BUPPP", "Mid-Atlantic BUPIC", "Pennsylvania BUPPP", "Chesapeake BUPPP", "Washington Federal BUPPP", "Pennsylvania BUPIC", "Chesapeake BUPIC", "Washington Federal BUPIC", "Mountain BUPPP", "Mountain BUPIC", "Denver BUPPP", "Denver BUPIC", "Northeast Commercial BUPIC", "Northeast Commercial BUPPP", "New York Metro BUPPP", "NEUNY BUPPP", "New York Metro BUPIC", "NEUNY BUPIC", "Northeast FS BUPPP", "Northeast FS BUPIC", "New York FS BUPPP", "New York  FS BUPIC", "North Central BUPIC", "North Central BUPPP", "Gateway West BUPPP", "Northern Heartland BUPPP", "Gateway West BUPIC", "Northern Heartland BUPIC", "Pacific Southwest BUPPP", "Pacific Southwest BUPIC", "Southeast BUPIC", "Southeast BUPPP", "Coastal BUPIC", "Midsouth BUPIC", "Coastal BUPPP", "Midsouth BUPPP", "South Central BUPIC", "South Central BUPPP", "Dallas BUPPP", "Houston BUPPP", "Dallas BUPIC", "Houston BUPIC"}, 'allowedValues': {"Bay Area BUPPP", "Bay Area BUPIC", "Chicago Metro BUPPP", "Mid America BUPPP", "Chicago Metro BUPIC", "Mid America BUPIC", "Great Lakes BUPIC", "Great Lakes BUPPP", "Mid-Atlantic BUPPP", "Mid-Atlantic BUPIC", "Pennsylvania BUPPP", "Chesapeake BUPPP", "Washington Federal BUPPP", "Pennsylvania BUPIC", "Chesapeake BUPIC", "Washington Federal BUPIC", "Mountain BUPPP", "Mountain BUPIC", "Denver BUPPP", "Denver BUPIC", "Northeast Commercial BUPIC", "Northeast Commercial BUPPP", "New York Metro BUPPP", "NEUNY BUPPP", "New York Metro BUPIC", "NEUNY BUPIC", "Northeast FS BUPPP", "Northeast FS BUPIC", "New York FS BUPPP", "New York  FS BUPIC", "North Central BUPIC", "North Central BUPPP", "Gateway West BUPPP", "Northern Heartland BUPPP", "Gateway West BUPIC", "Northern Heartland BUPIC", "Pacific Southwest BUPPP", "Pacific Southwest BUPIC", "Southeast BUPIC", "Southeast BUPPP", "Coastal BUPIC", "Midsouth BUPIC", "Coastal BUPPP", "Midsouth BUPPP", "South Central BUPIC", "South Central BUPPP", "Dallas BUPPP", "Houston BUPPP", "Dallas BUPIC", "Houston BUPIC"}), 'returnListType': true)}, 'rules': {#"SYSTEM_SYSRULES_dd_dr"('id': 1, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 1, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"Bay Area BUPPP_BUPIC"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': {"Bay Area BUPPP", "Bay Area BUPIC"})}), #"SYSTEM_SYSRULES_dd_dr"('id': 2, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 3, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"Great Lakes BUPPP_BUPIC", "Chicago Metro BUPPP_BUPIC", "Mid America BUPPP_BUPIC"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 2, 'decisionOutputId': 1, 'value': {"Chicago Metro BUPPP", "Mid America BUPPP", "Chicago Metro BUPIC", "Mid America BUPIC", "Great Lakes BUPIC", "Great Lakes BUPPP"})}), #"SYSTEM_SYSRULES_dd_dr"('id': 3, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 5, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"Mid-Atlantic BUPPP_BUPIC", "Pennsylvania BUPPP_BUPIC", "Chesapeake BUPPP_BUPIC", "Washington Federal BUPPP_BUPIC"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 3, 'decisionOutputId': 1, 'value': {"Mid-Atlantic BUPPP", "Mid-Atlantic BUPIC", "Pennsylvania BUPPP", "Chesapeake BUPPP", "Washington Federal BUPPP", "Pennsylvania BUPIC", "Chesapeake BUPIC", "Washington Federal BUPIC"})}), #"SYSTEM_SYSRULES_dd_dr"('id': 4, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 7, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"Mountain BUPPP_BUPIC", "Denver BUPPP_BUPIC"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 4, 'decisionOutputId': 1, 'value': {"Mountain BUPPP", "Mountain BUPIC", "Denver BUPPP", "Denver BUPIC"})}), #"SYSTEM_SYSRULES_dd_dr"('id': 5, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 8, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"Northeast Commercial BUPPP_BUPIC", "CAW New York Metro BUPPP_BUPIC", "CAW NEUNY BUPPP_BUPIC"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 5, 'decisionOutputId': 1, 'value': {"Northeast Commercial BUPIC", "Northeast Commercial BUPPP", "New York Metro BUPPP", "NEUNY BUPPP", "New York Metro BUPIC", "NEUNY BUPIC"})}), #"SYSTEM_SYSRULES_dd_dr"('id': 6, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 9, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"Northeast FS BUPPP_BUPIC", "New York FS BUPPP_BUPIC"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 6, 'decisionOutputId': 1, 'value': {"Northeast FS BUPPP", "Northeast FS BUPIC", "New York FS BUPPP", "New York  FS BUPIC"})}), #"SYSTEM_SYSRULES_dd_dr"('id': 7, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 10, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"North Central BUPPP_BUPIC", "Gateway West BUPPP_BUPIC", "Northern Heartland BUPPP_BUPIC"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 7, 'decisionOutputId': 1, 'value': {"North Central BUPIC", "North Central BUPPP", "Gateway West BUPPP", "Northern Heartland BUPPP", "Gateway West BUPIC", "Northern Heartland BUPIC"})}), #"SYSTEM_SYSRULES_dd_dr"('id': 8, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 11, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"Pacific Southwest BUPPP_BUPIC"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 8, 'decisionOutputId': 1, 'value': {"Pacific Southwest BUPPP", "Pacific Southwest BUPIC"})}), #"SYSTEM_SYSRULES_dd_dr"('id': 9, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 12, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"Southeast BUPPP_BUPIC", "Coastal BUPPP_BUPIC", "Midsouth BUPPP_BUPIC"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 9, 'decisionOutputId': 1, 'value': {"Southeast BUPIC", "Southeast BUPPP", "Coastal BUPIC", "Midsouth BUPIC", "Coastal BUPPP", "Midsouth BUPPP"})}), #"SYSTEM_SYSRULES_dd_dr"('id': 10, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 13, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"South Central BUPPP_BUPIC", "Dallas BUPPP_BUPIC", "Houston BUPPP_BUPIC"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 10, 'decisionOutputId': 1, 'value': {"South Central BUPIC", "South Central BUPPP", "Dallas BUPPP", "Houston BUPPP", "Dallas BUPIC", "Houston BUPIC"})})}, 'defaultOutputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': {})})),#"SYSTEM_SYSRULES_dd_exr"(decisionDefinition:local!decisiondefinition,executionInputs:{#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:1,value:'ri!parentGroups')})))</definition>
+        <namedTypedValue>
+            <name>parentGroups</name>
+            <description>Parent groups - BUPPP_BUPIC</description>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <inputMetadataList>
+            <inputMetadata>
+                <inputId>1</inputId>
+                <nameRef>parentGroups</nameRef>
+                <allowedLabelsExpr>#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11889236"</allowedLabelsExpr>
+                <allowedValuesExpr>#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11889236"</allowedValuesExpr>
+            </inputMetadata>
+        </inputMetadataList>
+        <outputMetadataList>
+            <outputMetadata>
+                <outputId>1</outputId>
+                <nameRef>childGroups</nameRef>
+                <allowedLabelsExpr>#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11888583"</allowedLabelsExpr>
+                <allowedValuesExpr>#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11888583"</allowedValuesExpr>
+                <typeName>{http://www.appian.com/ae/types/2009}Text?list</typeName>
+            </outputMetadata>
+        </outputMetadataList>
+        <hitPolicy>RULE_ORDER</hitPolicy>
+    </decision>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11890327"/>
+    </history>
+</contentHaul>

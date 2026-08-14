@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6768760</versionUuid>
+    <rule>
+        <name>DEPRECATED_CAW_Construct_Nomination</name>
+        <uuid>_a-0000e6c7-249e-8000-9bfe-011c48011c48_3639163</uuid>
+        <description>Constructor rule for CAW_Nomination</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>'type!{urn:com:appian:types:CAW}CAW_Nomination'(
+  nominationId : #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!nominationId ,replacementValue: ri!CAW_Nomination.nominationId ),
+  nominationTypeId : #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!nominationTypeId,replacementValue: ri!CAW_Nomination.nominationTypeId ),
+  positionTypeId: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!positionTypeId,replacementValue: ri!CAW_Nomination.positionTypeId),
+  subPositionTypeId: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!subPositionTypeId, replacementValue: ri!CAW_Nomination.subPositionTypeId),
+  firstName: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!firstName,replacementValue: ri!CAW_Nomination.firstName),
+  middleName: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!middleName,replacementValue: ri!CAW_Nomination.middleName),
+  lastName: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!lastName,replacementValue: ri!CAW_Nomination.lastName),
+  levelName: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!levelName,replacementValue: ri!CAW_Nomination.levelName),
+  currentPML: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!currentPML,replacementValue: ri!CAW_Nomination.currentPML),
+  originatingRegion: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!originatingRegion,replacementValue: ri!CAW_Nomination.originatingRegion),
+  originatingBU: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!originatingBU,replacementValue: ri!CAW_Nomination.originatingBU),
+  originatingHomeOffice: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!originatingHomeOffice,replacementValue: ri!CAW_Nomination.originatingHomeOffice),
+  isActive: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isActive,replacementValue: ri!CAW_Nomination.isActive),
+  isAdditionalFollowUpReq:  #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isAdditionalFollowUpReqi,replacementValue: ri!CAW_Nomination.isAdditionalFollowUpReq),
+  isReapprovedByBU: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isReapprovedByBU,replacementValue: ri!CAW_Nomination.isReapprovedByBU),
+  isReapprovedByBUCompleted:  #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isReapprovedByBUCompleted,replacementValue: ri!CAW_Nomination.isReapprovedByBUCompleted),
+  isInspectionsReview: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isInspectionsReview,replacementValue: ri!CAW_Nomination.isInspectionsReview),
+  isInspectionsReviewCompleted:  #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isInspectionsReviewCompleted,replacementValue: ri!CAW_Nomination.isInspectionsReviewCompleted),
+  isHRReview: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isHRReview,replacementValue: ri!CAW_Nomination.isHRReview),
+  isHRReviewCompleted:  #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isHRReviewCompleted,replacementValue: ri!CAW_Nomination.isHRReviewCompleted),
+  operationsComments: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!operationsComments,replacementValue: ri!CAW_Nomination.operationsComments),
+  /*HR REVIEW*/
+  isAQR1or2: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isAQR1or2,replacementValue: ri!CAW_Nomination.isAQR1or2),
+  isCandidateGoodStanding: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isCandidateGoodStanding,replacementValue: ri!CAW_Nomination.isCandidateGoodStanding),
+  yearsofServiceHR: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!yearsofServiceHR,replacementValue: ri!CAW_Nomination.yearsofServiceHR),
+  mdPromotionDateHR: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!mdPromotionDateHR,replacementValue: ri!CAW_Nomination.mdPromotionDateHR),
+  partnerPromotionDateHR: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!partnerPromotionDateHR,replacementValue: ri!CAW_Nomination.partnerPromotionDateHR),
+  hrComments: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!hrComments,replacementValue: ri!CAW_Nomination.hrComments),
+  /*Additional Requests */
+  isInterviewAvailabilityRequested: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isInterviewAvailabilityRequested,replacementValue: ri!CAW_Nomination.isInterviewAvailabilityRequested),  
+  isInterviewAvailabilityCompleted: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isInterviewAvailabilityCompleted,replacementValue: ri!CAW_Nomination.isInterviewAvailabilityCompleted),  
+  isOfficeVisitAvailabilityRequested: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isOfficeVisitAvailabilityRequested,replacementValue: ri!CAW_Nomination.isOfficeVisitAvailabilityRequested),
+  isOfficeVisitAvailabilityCompleted: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isOfficeVisitAvailabilityCompleted,replacementValue: ri!CAW_Nomination.isOfficeVisitAvailabilityCompleted),
+  /*Inspections Review*/
+  negativeInspectionFindings: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!negativeInspectionFindings,replacementValue: ri!CAW_Nomination.negativeInspectionFindings),
+  inspectionComments: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!inspectionComments,replacementValue: ri!CAW_Nomination.inspectionComments),
+  /*Additional Vetting*/
+  isOpsAdditionalVettingReq:  #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isOpsAdditionalVettingReq,replacementValue: ri!CAW_Nomination.isOpsAdditionalVettingReq),
+  isOpsAdditionalVettingReqCompleted:   #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isOpsAdditionalVettingReqCompleted,replacementValue: ri!CAW_Nomination.isOpsAdditionalVettingReqCompleted),
+  vettingComments:  #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!vettingComments,replacementValue: ri!CAW_Nomination.vettingComments),
+  createdBy: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!createdBy,replacementValue: ri!CAW_Nomination.createdBy),
+  createdOn: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!createdOn,replacementValue: ri!CAW_Nomination.createdOn),
+  modifiedBy: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!modifiedBy,replacementValue: ri!CAW_Nomination.modifiedBy),
+  modifiedOn: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!modifiedOn,replacementValue: ri!CAW_Nomination.modifiedOn)
+)</definition>
+        <namedTypedValue>
+            <name>CAW_Nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nominationId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nominationTypeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>positionTypeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>subPositionTypeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>firstName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>middleName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>lastName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>levelName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>currentPML</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>originatingRegion</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>originatingBU</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>originatingHomeOffice</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isAdditionalFollowUpReqi</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReapprovedByBU</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReapprovedByBUCompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInspectionsReview</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInspectionsReviewCompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isHRReview</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isHRReviewCompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>operationsComments</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isAQR1or2</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isCandidateGoodStanding</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>yearsofServiceHR</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>mdPromotionDateHR</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>partnerPromotionDateHR</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>hrComments</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInterviewAvailabilityRequested</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isInterviewAvailabilityCompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isOfficeVisitAvailabilityRequested</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isOfficeVisitAvailabilityCompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>negativeInspectionFindings</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>inspectionComments</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isOpsAdditionalVettingReq</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isOpsAdditionalVettingReqCompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>vettingComments</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3639474"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4538652"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5397788"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6508914"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6768760"/>
+    </history>
+</contentHaul>

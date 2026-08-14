@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11767181</versionUuid>
+    <interface>
+        <name>CAW_CP_CandidateIntakeReadOnly</name>
+        <uuid>_a-0000e781-2d54-8000-9c18-011c48011c48_5428350</uuid>
+        <description>Read only component of experience intake in the acceptance and onboarding process</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isOldVersion:if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    false,
+    if(
+      todatetime(ri!nomination.createdOn)&lt;#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11589045",
+      true,
+      false)
+  ),
+  local!industries: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+    refTypeId: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_4014255",
+    fetchTotalCount: false(),
+    isActive: true,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(field: "refId", ascending: true)
+    ),
+    returnCDT: true
+  ),
+  local!primaryIndustries: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3534466"(
+    returnCDT: true,
+    isActive: true,
+    version: if(or(local!isOldVersion=true,
+    property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562"),
+    {#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11672339"[2],#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11672339"[1]},{#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11672339"[3],#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11672339"[1]})
+  ),
+  local!nomPrimaryIndustry: index(
+    local!primaryIndustries,
+    wherecontains(
+      property(
+        ri!nomination,
+        "primaryIndustryId",
+        tostring(null)
+      ),
+      local!primaryIndustries.industryId
+    ),
+    {}
+  ),
+  local!levelsOfExperience: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+    refTypeId: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_4014261",
+    fetchTotalCount: false(),
+    isActive: true,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(field: "refId", ascending: true)
+    ),
+    returnCDT: true
+  ),
+  local!topicTeamsIGG: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+    refTypeId: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_4014275",
+    fetchTotalCount: false(),
+    isActive: true,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(field: "refId", ascending: true)
+    ),
+    returnCDT: true
+  ),
+  local!topicTeamsASG: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+    refTypeId: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_4014288",
+    fetchTotalCount: false(),
+    isActive: true,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: - 1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(field: "refId", ascending: true)
+    ),
+    returnCDT: true
+  ),
+  local!buAlteryxSponsor: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+    refTypeId: #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4987512",
+    fetchTotalCount: false(),
+    isActive: true,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(field: "refId", ascending: true)
+    ),
+    returnCDT: true
+  ),
+  local!kpmgInstructorYearDropdown: append(
+    touniformstring(
+      #"SYSTEM_SYSRULES_forEach"(
+        items: enumerate(11),
+        expression: year(today()) - fv!item
+      )
+    ),
+    "More than 10 years ago"
+  ),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    showWhen: ri!showWhen,
+    contents: {
+      #"SYSTEM_SYSRULES_cardLayout"(
+        contents: {
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: "Candidate Name",
+                    labelPosition: "JUSTIFIED",
+                    value: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3928917"(
+                      firstName: ri!nomination.firstName,
+                      middleName: ri!nomination.middleName,
+                      lastName: ri!nomination.lastName
+                    ),
+                    readOnly: true
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: "KPMG User ID",
+                    labelPosition: "JUSTIFIED",
+                    value: ri!nomination.employeeId,
+                    readOnly: true
+                  )
+                }
+              )
+            }
+          )
+        },
+        style: "STANDARD",
+        marginBelow: "STANDARD",
+        showShadow: true
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Candidate Details",
+        contents: {
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            labelPosition: "COLLAPSED",
+            value: {
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: { "To be completed by Candidate" },
+                size: "SMALL",
+                style: "EMPHASIS"
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_cardLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_columnsLayout"(
+                columns: {
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    width: "MEDIUM_PLUS",
+                    contents: {
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "Capacity Reporting Name (The name you want to go by in the department)",
+                        value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(
+                          value: ri!candidateDetails.capacityReportingName,
+                          isBoolean: false
+                        ),
+                        readOnly: true
+                      )
+                    }
+                  ),
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "City (City you Currently Live In)",
+                        value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(
+                          value: ri!candidateDetails.currentCity,
+                          isBoolean: false
+                        ),
+                        readOnly: true
+                      )
+                    }
+                  ),
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "State (State you Currently Live In)",
+                        value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(
+                          value: ri!candidateDetails.currentState,
+                          isBoolean: false
+                        ),
+                        readOnly: true
+                      )
+                    }
+                  ),
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "Are you interested in relocating to NY?",
+                        value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(
+                          value: ri!candidateDetails.relocateNY,
+                          isBoolean: false
+                        ),
+                        disabled: true
+                      )
+                    },
+                    showWhen: ri!nomination.positionTypeId = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"
+                  )
+                }
+              )
+            }
+          )
+        },
+        isCollapsible: true,
+        isInitiallyCollapsed: true,
+        divider: "ABOVE",
+        dividerWeight: "MEDIUM",
+        labelColor: "SECONDARY",
+        dividerColor: "SECONDARY",
+        marginBelow: "STANDARD"
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Industry/Specialty Experience",
+        contents: {
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            labelPosition: "COLLAPSED",
+            value: {
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: { "To be completed by Candidate" },
+                size: "SMALL",
+                style: "EMPHASIS"
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_boxLayout"(
+            label: "What other relevant industry experience do you have as a manager level or above?",
+            contents: {
+              #"SYSTEM_SYSRULES_columnsLayout"(
+                columns: {
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "Primary Industry",
+                        value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(
+                          value: index(local!nomPrimaryIndustry, "industry", {}),
+                          isBoolean: false
+                        ),
+                        readOnly: true
+                      )
+                    }
+                  ),
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "Primary Industry - Other",
+                        labelPosition: "ABOVE",
+                        value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(
+                          value: index(
+                            ri!nomination,
+                            "primaryIndustryOther",
+                            {}
+                          ),
+                          isBoolean: false
+                        ),
+                        readOnly: true
+                      )
+                    }
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_gridLayout"(
+                labelPosition: "COLLAPSED",
+                emptyGridMessage: "No Industries Selected",
+                headerCells: {
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Industry"),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Level of Experience")
+                },
+                columnConfigs: {
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "DISTRIBUTE"),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "DISTRIBUTE"),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "ICON")
+                },
+                rows: #"SYSTEM_SYSRULES_forEach"(
+                  items: ri!industryExperiences,
+                  expression: #"SYSTEM_SYSRULES_gridRowLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_dropdownField_v1"(
+                        label: "Industry",
+                        placeholder: "-- Select --",
+                        choiceLabels: index(local!industries, "description", {}),
+                        choiceValues: index(local!industries, "refId", {}),
+                        value: fv!item.candidateIndustryId,
+                        disabled: true
+                      ),
+                      #"SYSTEM_SYSRULES_dropdownField_v1"(
+                        label: "Level of Expierience",
+                        placeholder: "-- Select --",
+                        choiceLabels: index(
+                          local!levelsOfExperience,
+                          "description",
+                          {}
+                        ),
+                        choiceValues: index(local!levelsOfExperience, "refId", {}),
+                        value: fv!item.levelOfExperienceId,
+                        disabled: true
+                      ),
+                      
+                    },
+                    showWhen: fv!item.isActive
+                  )
+                ),
+                shadeAlternateRows: false,
+                borderStyle: "LIGHT"
+              )
+            },
+            style: "ACCENT",
+            padding: "LESS",
+            marginBelow: "STANDARD"
+          ),
+          #"SYSTEM_SYSRULES_cardLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_columnsLayout"(
+                columns: {
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_boxLayout"(
+                        label: "What types of audit engagements have you signed-off on as a manager level or above?",
+                        contents: {
+                          #"SYSTEM_SYSRULES_columnsLayout"(
+                            columns: {
+                              #"SYSTEM_SYSRULES_columnLayout"(
+                                contents: {
+                                  #"SYSTEM_SYSRULES_radioButtonField"(
+                                    label: "PCAOB Audit - Integrated",
+                                    choiceLabels: { "Yes", "No" },
+                                    choiceValues: { true, false },
+                                    value: ri!candidateDetails.pcaobAuditIntegrated,
+                                    disabled: true,
+                                    choiceLayout: "COMPACT"
+                                  ),
+                                  #"SYSTEM_SYSRULES_radioButtonField"(
+                                    label: "PCAOB Audit - FSA-Public",
+                                    choiceLabels: { "Yes", "No" },
+                                    choiceValues: { true, false },
+                                    value: ri!candidateDetails.pcaobAuditFSAPublic,
+                                    disabled: true,
+                                    choiceLayout: "COMPACT"
+                                  ),
+                                  #"SYSTEM_SYSRULES_radioButtonField"(
+                                    label: "AICPA Audit",
+                                    choiceLabels: { "Yes", "No" },
+                                    choiceValues: { true, false },
+                                    value: ri!candidateDetails.aicpaAudit,
+                                    disabled: true,
+                                    choiceLayout: "COMPACT"
+                                  ),
+                                  #"SYSTEM_SYSRULES_radioButtonField"(
+                                    label: "Attestation Engagement",
+                                    choiceLabels: { "Yes", "No" },
+                                    choiceValues: { true, false },
+                                    value: ri!candidateDetails.attestationEngagement,
+                                    disabled: true,
+                                    choiceLayout: "COMPACT"
+                                  ),
+                                  #"SYSTEM_SYSRULES_radioButtonField"(
+                                    label: "Group Audit experience (as part of the group team?)",
+                                    choiceLabels: { "Yes", "No" },
+                                    choiceValues: { true, false },
+                                    value: ri!candidateDetails.groupAuditExperience,
+                                    disabled: true,
+                                    choiceLayout: "COMPACT"
+                                  )
+                                }
+                              ),
+                              #"SYSTEM_SYSRULES_columnLayout"(
+                                contents: {
+                                  #"SYSTEM_SYSRULES_radioButtonField"(
+                                    label: "Are you IFRS Accredited?",
+                                    choiceLabels: { "Yes", "No" },
+                                    choiceValues: { true, false },
+                                    value: ri!candidateDetails.ifrsAccredited,
+                                    disabled: true,
+                                    choiceLayout: "COMPACT"
+                                  ),
+                                  #"SYSTEM_SYSRULES_radioButtonField"(
+                                    label: "Broker-Dealer",
+                                    choiceLabels: { "Yes", "No" },
+                                    choiceValues: { true, false },
+                                    value: ri!candidateDetails.brokerDealer,
+                                    disabled: true,
+                                    choiceLayout: "COMPACT"
+                                  ),
+                                  #"SYSTEM_SYSRULES_radioButtonField"(
+                                    label: "Bankrupcy",
+                                    choiceLabels: { "Yes", "No" },
+                                    choiceValues: { true, false },
+                                    value: ri!candidateDetails.bankrupcy,
+                                    disabled: true,
+                                    choiceLayout: "COMPACT"
+                                  ),
+                                  #"SYSTEM_SYSRULES_radioButtonField"(
+                                    label: "Single Audit Experience",
+                                    choiceLabels: { "Yes", "No" },
+                                    choiceValues: { true, false },
+                                    value: ri!candidateDetails.singleAuditExperience,
+                                    disabled: true,
+                                    choiceLayout: "COMPACT"
+                                  ),
+                                  #"SYSTEM_SYSRULES_radioButtonField"(
+                                    label: "Other Control Testing Experience",
+                                    choiceLabels: { "Yes", "No" },
+                                    choiceValues: { true, false },
+                                    value: ri!candidateDetails.otherControlTestingExpierence,
+                                    disabled: true,
+                                    choiceLayout: "COMPACT"
+                                  )
+                                }
+                              )
+                            },
+                            spacing: "SPARSE"
+                          ),
+                          
+                        },
+                        style: "ACCENT"
+                      )
+                    }
+                  ),
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_paragraphField"(
+                        label: "Recent Clients",
+                        placeholder: "What clients have you worked on in the past 5 years?",
+                        value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(
+                          value: ri!candidateDetails.clientsWorkedOn,
+                          isBoolean: false
+                        ),
+                        readOnly: true
+                      )
+                    }
+                  )
+                }
+              )
+            },
+            marginBelow: "STANDARD",
+            showShadow: true
+          )
+        },
+        isCollapsible: true,
+        isInitiallyCollapsed: true,
+        divider: "ABOVE",
+        dividerWeight: "MEDIUM",
+        labelColor: "SECONDARY",
+        dividerColor: "SECONDARY",
+        marginBelow: "STANDARD"
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Initiatives and Commitments",
+        contents: {
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            labelPosition: "COLLAPSED",
+            value: {
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: { "To be completed by Candidate" },
+                size: "SMALL",
+                style: "EMPHASIS"
+              )
+            }
+          ),
+          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4986784"(
+            isCandidate: false,
+            candidateDetails: ri!candidateDetails,
+            buAlteryxSponsor: local!buAlteryxSponsor,
+            kpmgInstructorYearDropdown: local!kpmgInstructorYearDropdown
+          )
+        },
+        isCollapsible: true,
+        isInitiallyCollapsed: true,
+        divider: "ABOVE",
+        dividerWeight: "MEDIUM",
+        labelColor: "SECONDARY",
+        dividerColor: "SECONDARY",
+        marginBelow: "STANDARD"
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Topic Team Interests",
+        contents: {
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            labelPosition: "COLLAPSED",
+            value: {
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: { "To be completed by Candidate" },
+                size: "SMALL",
+                style: "EMPHASIS"
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_paragraphField"(
+                    label: "Topic Team Interest - Inquiries",
+                    value: if(
+                      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(
+                        index(
+                          ri!candidateInquiryInterests,
+                          "iggTopicTeamId",
+                          {}
+                        )
+                      ),
+                      "No Interests Selected",
+                      concat(
+                        #"SYSTEM_SYSRULES_forEach"(
+                          items: index(
+                            ri!candidateInquiryInterests,
+                            "iggTopicTeamId",
+                            {}
+                          ),
+                          expression: index(
+                            index(
+                              local!topicTeamsIGG,
+                              where(
+                                index(local!topicTeamsIGG, "refId", {}) = fv!item
+                              )
+                            ),
+                            "description",
+                            null
+                          ) &amp; char(10),
+                          
+                        )
+                      )
+                    ),
+                    readOnly: true
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_paragraphField"(
+                    label: "Topic Team Interest - Accounting Guidance",
+                    value: if(
+                      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(
+                        index(
+                          ri!candidateAccountingInterests,
+                          "asgTopicTeamId",
+                          {}
+                        )
+                      ),
+                      "No Interests Selected",
+                      concat(
+                        #"SYSTEM_SYSRULES_forEach"(
+                          items: index(
+                            ri!candidateAccountingInterests,
+                            "asgTopicTeamId",
+                            {}
+                          ),
+                          expression: index(
+                            index(
+                              local!topicTeamsASG,
+                              where(
+                                index(local!topicTeamsASG, "refId", {}) = fv!item
+                              )
+                            ),
+                            "description",
+                            null
+                          ) &amp; char(10),
+                          
+                        )
+                      )
+                    ),
+                    readOnly: true
+                  )
+                }
+              )
+            }
+          )
+        },
+        isCollapsible: true,
+        isInitiallyCollapsed: true,
+        divider: "ABOVE",
+        dividerWeight: "MEDIUM",
+        labelColor: "SECONDARY",
+        dividerColor: "SECONDARY",
+        marginBelow: "STANDARD"
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Other",
+        contents: {
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            labelPosition: "COLLAPSED",
+            value: {
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: { "To be completed by Candidate" },
+                size: "SMALL",
+                style: "EMPHASIS"
+              )
+            }
+          ),
+          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5069761"(
+            candidateDetails: ri!candidateDetails,
+            isCandidate: false,
+            levelsOfExperience: local!levelsOfExperience
+          ),
+          #"SYSTEM_SYSRULES_boxLayout"(
+            label: "Are you proficient in other languages besides English?",
+            contents: {
+              #"SYSTEM_SYSRULES_gridLayout"(
+                labelPosition: "COLLAPSED",
+                emptyGridMessage: "No Languages Selected",
+                headerCells: {
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Language"),
+                  #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Level of Proficiency")
+                },
+                columnConfigs: {
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "DISTRIBUTE"),
+                  #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(width: "DISTRIBUTE"),
+                  
+                },
+                rows: #"SYSTEM_SYSRULES_forEach"(
+                  items: ri!candidateLanguageSkills,
+                  expression: #"SYSTEM_SYSRULES_gridRowLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "Language",
+                        value: fv!item.languageSkillName,
+                        readOnly: true
+                      ),
+                      #"SYSTEM_SYSRULES_dropdownField_v1"(
+                        label: "Level of Proficiency",
+                        placeholder: "-- Select --",
+                        choiceLabels: index(
+                          local!levelsOfExperience,
+                          "description",
+                          {}
+                        ),
+                        choiceValues: index(local!levelsOfExperience, "refId", {}),
+                        value: fv!item.levelOfExperienceId,
+                        disabled: true
+                      )
+                    },
+                    showWhen: fv!item.isActive
+                  )
+                ),
+                shadeAlternateRows: false,
+                borderStyle: "LIGHT"
+              )
+            },
+            style: "ACCENT",
+            marginBelow: "STANDARD"
+          ),
+          #"SYSTEM_SYSRULES_paragraphField"(
+            label: "Any other comments you would like us to take into consideration when assigning projects?",
+            value: index(
+              ri!candidateDetails,
+              "otherCandidateIntakeComments",
+              null
+            ),
+            characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137",
+            disabled: true
+          )
+        },
+        isCollapsible: true,
+        isInitiallyCollapsed: true,
+        divider: "ABOVE",
+        dividerWeight: "MEDIUM",
+        labelColor: "SECONDARY",
+        dividerColor: "SECONDARY",
+        marginBelow: "STANDARD"
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateDetails</name>
+            <type>
+                <name>CAW_CandidateDetails</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>industryExperiences</name>
+            <type>
+                <name>CAW_MAP_CandidateIndustryExperience?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateLanguageSkills</name>
+            <type>
+                <name>CAW_MAP_CandidateLanguageSkill?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateAccountingInterests</name>
+            <type>
+                <name>CAW_MAP_CandidateAccountingInterest?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateInquiryInterests</name>
+            <type>
+                <name>CAW_MAP_CandidateInquiryInterest?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showWhen</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+  nominationId: 188,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3934880"(
+  nominationId: 188,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>candidateDetails</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5139699"(
+  returnCDT: true, 
+  candidateDetailsId: 44
+)</a:value>
+                    <a:nameRef>industryExperiences</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5139873"(
+  returnCDT: true, 
+  candidateDetailsId: 44
+)</a:value>
+                    <a:nameRef>candidateLanguageSkills</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5139860"(
+  returnCDT: true, 
+  candidateDetailsId: 44
+)</a:value>
+                    <a:nameRef>candidateAccountingInterests</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5139717"(
+  returnCDT: true, 
+  candidateDetailsId: 44
+)</a:value>
+                    <a:nameRef>candidateInquiryInterests</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>showWhen</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5446387"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_6161631"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11674194"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11767181"/>
+    </history>
+</contentHaul>

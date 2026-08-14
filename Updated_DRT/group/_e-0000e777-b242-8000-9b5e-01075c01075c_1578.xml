@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000e77c-fb3d-8000-9b60-01075c01075c_1590</versionUuid>
+    <group>
+        <name>CAW NMP of AQPP</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000e777-b242-8000-9b5e-01075c01075c_1578</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <parentUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</parentUuid>
+        <description>Group for NMP AQPP role</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups/>
+    </members>
+    <admins>
+        <users/>
+        <groups/>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000e777-b242-8000-9b5e-01075c01075c_1582"/>
+        <historyInfo versionUuid="_e-0000e77c-fb3d-8000-9b60-01075c01075c_1590"/>
+    </history>
+</groupHaul>

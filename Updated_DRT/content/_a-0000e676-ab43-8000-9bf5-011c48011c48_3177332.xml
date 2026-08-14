@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6484642</versionUuid>
+    <interface>
+        <name>DEPRECATED_CAW_QuickLinks</name>
+        <uuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3177332</uuid>
+        <description>Quick Links interface for use on the DPP Recruiting Tool Homepage</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_boxLayout"(
+  label: "Quick Links",
+  marginBelow: "STANDARD",
+  contents: {
+    #"SYSTEM_SYSRULES_linkField"(
+      links: #"SYSTEM_SYSRULES_reportLink"(
+        label: "Role Definitions",
+        report: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196185"
+      )
+    )
+  }
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196196"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6484642"/>
+    </history>
+</contentHaul>

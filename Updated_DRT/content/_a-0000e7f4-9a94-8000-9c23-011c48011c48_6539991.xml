@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6678216</versionUuid>
+    <document>
+        <name>CAW_reminderEmailTemplate</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6539991</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049843</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+    </document>
+    <file>file.html</file>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6541117"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6678216"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11724241</versionUuid>
+    <interface>
+        <name>CAW_FRM_InitiateAsk</name>
+        <uuid>_a-0000e69d-7e03-8000-9bf6-011c48011c48_3188683</uuid>
+        <description>Main interface to initiate ASK request</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+  #"SYSTEM_SYSRULES_headerContentLayout"(
+    contents: {
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        contents: {
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            labelPosition: "COLLAPSED",
+            value: {
+              char(10),
+              char(10),
+              #"SYSTEM_SYSRULES_richTextItem_v1"(text: {"Select ASK type"}, color: "ACCENT", size: "LARGE")
+            },
+            align: "CENTER"
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+            /*   Removed the validation message for creeating an ASK - APAP-10356  -
+            modified by Monika Joshi    13/6/23   */
+              /*a!cardLayout(*/
+                /*contents: {*/
+                  /*a!richTextDisplayField(*/
+                    /*labelPosition: "COLLAPSED",*/
+                    /*value: {*/
+                      /*a!richTextItem(*/
+                        /*text: {*/
+                          /*"The max rotational ASKs for this region and fiscal year have already been created.",*/
+                          /*char(10),*/
+                          /*"Please select another ASK type to create."*/
+                        /*},*/
+                        /*color: "NEGATIVE",*/
+                        /*size: "MEDIUM",*/
+                        /*style: {*/
+                          /*"STRONG"*/
+                        /*}*/
+                      /*)*/
+                    /*},*/
+                    /*align: "CENTER"*/
+                  /*)*/
+                /*},*/
+                /*height: "AUTO",*/
+                /*showWhen: local!maxRotationalASKsCreated,*/
+                /*style: "ERROR",*/
+                /*marginBelow: "STANDARD"*/
+              /*),*/
+              #"SYSTEM_SYSRULES_columnsLayout"(
+                columns: {
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_cardLayout"(
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            labelPosition: "COLLAPSED",
+                            value: {
+                              char(10),
+                              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                text: {
+                                  index(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179825",1,null)
+                                },
+                                color: "ACCENT",
+                                size: "LARGE",
+                                style: "STRONG"
+                              )
+                            },
+                            align: "CENTER"
+                          )
+                        },
+                        link: if(
+                          isusermemberofgroups(
+                            tostring(loggedInUser()),
+                            {
+                              #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922",
+                              #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176497",
+                              #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177108",
+                              /*replacement grp for DPP Chief of Staff*/
+                              #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11723973"
+                            }
+                          ),
+                          #"SYSTEM_SYSRULES_dynamicLink"(
+                            value: index(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179825",1,null),
+                            saveInto: {
+                              if(
+                                ri!ask.typeId = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3161580",
+                                {
+                                  a!save(
+                                    ri!ask.typeId,
+                                    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3163854"
+                                  ),
+                                  a!save(
+                                    ri!ask.regionId,
+                                    null
+                                  )
+                                },
+                                a!save(
+                                  ri!ask.typeId,
+                                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3163854"
+                                )
+                              )
+                            }
+                          ),
+                          null
+                        ),
+                        height: "SHORT",
+                        style: if(
+                          ri!ask.typeId = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3163854",
+                          "ACCENT",
+                          "NONE"
+                        ),
+                        padding: "STANDARD",
+                        marginBelow: "STANDARD",
+                        showBorder: true
+                      )
+                    }
+                  ),
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_cardLayout"(
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            labelPosition: "COLLAPSED",
+                            value: {
+                              char(10),
+                              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                text: {
+                                  index(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179825",2,null)
+                                },
+                                color: "ACCENT",
+                                size: "LARGE",
+                                style: "STRONG"
+                              )
+                            },
+                            align: "CENTER"
+                          )
+                        },
+                        link: if(
+                          #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+                            loggedInUser(),
+                            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+                          ),
+                          #"SYSTEM_SYSRULES_dynamicLink"(
+                            value: index(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179825",2,null),
+                            saveInto: a!save(
+                              ri!ask.typeId,
+                              #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3161580"
+                            )
+                          ),
+                          null
+                        ),
+                        height: "SHORT",
+                        style: if(
+                          ri!ask.typeId = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3161580",
+                          "ACCENT",
+                          "NONE"
+                        ),
+                        padding: "STANDARD",
+                        marginBelow: "STANDARD",
+                        showBorder: true
+                      )
+                    }
+                  )
+                }
+              )
+            },
+            width: "WIDE_PLUS"
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"()
+        }
+      ),
+/* Removed the WEST and EAST options - modified by Monika 13/6/23     */
+      
+      /*a!columnsLayout(*/
+        /*columns: {*/
+          /*a!columnLayout(),*/
+          /*a!columnLayout(*/
+            /*contents: {*/
+              /*a!columnsLayout(*/
+                /*columns: {*/
+                  /*a!columnLayout(*/
+                    /*contents: {*/
+                      /*a!cardLayout(*/
+                        /*contents: {*/
+                          /*a!richTextDisplayField(*/
+                            /*labelPosition: "COLLAPSED",*/
+                            /*value: {*/
+                              /*a!richTextItem(*/
+                                /*text: {*/
+                                  /*index(cons!CAW_TXT_ASK_REGION_LIST,2,null)*/
+                                /*},*/
+                                /*color: "ACCENT",*/
+                                /*size: "MEDIUM_PLUS",*/
+                                /*style: "STRONG"*/
+                              /*)*/
+                            /*},*/
+                            /*align: "CENTER"*/
+                          /*)*/
+                        /*},*/
+                        /*link: a!dynamicLink(*/
+                          /*value: cons!CAW_INT_LABEL_WEST_ASK_REGION_ID,*/
+                          /*saveInto: {*/
+                            /*ri!ask.regionId*/
+                          /*}*/
+                        /*),*/
+                        /*style: if(*/
+                          /*ri!ask.regionId = cons!CAW_INT_LABEL_WEST_ASK_REGION_ID,*/
+                          /*"ACCENT",*/
+                          /*"NONE"*/
+                        /*),*/
+                        /*padding: "STANDARD",*/
+                        /*marginBelow: "STANDARD",*/
+                        /*showBorder: true*/
+                      /*)*/
+                    /*}*/
+                  /*),*/
+                  /*a!columnLayout(*/
+                    /*contents: {*/
+                      /*a!cardLayout(*/
+                        /*contents: {*/
+                          /*a!richTextDisplayField(*/
+                            /*labelPosition: "COLLAPSED",*/
+                            /*value: {*/
+                              /*a!richTextItem(*/
+                                /*text: {*/
+                                  /*index(cons!CAW_TXT_ASK_REGION_LIST,1,null)*/
+                                /*},*/
+                                /*color: "ACCENT",*/
+                                /*size: "MEDIUM_PLUS",*/
+                                /*style: "STRONG"*/
+                              /*)*/
+                            /*},*/
+                            /*align: "CENTER"*/
+                          /*)*/
+                        /*},*/
+                        /*link: a!dynamicLink(*/
+                          /*value: cons!CAW_INT_LABEL_EAST_ASK_REGION_ID,*/
+                          /*saveInto: {*/
+                            /*ri!ask.regionId*/
+                          /*}*/
+                        /*),*/
+                        /*style: if(*/
+                          /*ri!ask.regionId = cons!CAW_INT_LABEL_EAST_ASK_REGION_ID,*/
+                          /*"ACCENT",*/
+                          /*"NONE"*/
+                        /*),*/
+                        /*padding: "STANDARD",*/
+                        /*marginBelow: "STANDARD",*/
+                        /*showBorder: true*/
+                      /*)*/
+                    /*}*/
+                  /*)*/
+                /*}*/
+              /*)*/
+            /*},*/
+            /*width: "WIDE_PLUS"*/
+          /*),*/
+          /*a!columnLayout()*/
+        /*},*/
+        /*showWhen: ri!ask.typeId = cons!CAW_INT_LABEL_ROTATIONAL_ASK_TYPE_ID*/
+      /*),*/
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(),
+      #"SYSTEM_SYSRULES_ButtonArrayLayout"(
+        buttons: {
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+            value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+            saveInto: {
+              ri!buttonValue
+            },
+            submit: true,
+            size: "LARGE",
+            style: "DESTRUCTIVE", 
+            validate: false,
+            confirmMessage: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3215431"
+          ),
+          #"SYSTEM_SYSRULES_ButtonWidget"(
+            label: #"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3443831",
+            value: #"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3443831",
+            saveInto: {
+              ri!buttonValue,
+             a!save(
+              ri!ask.regionId,
+              #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11596299"
+              )
+            },
+            submit: true,
+            size: "LARGE",
+            style: "PRIMARY",
+            disabled: if(
+              ri!ask.typeId = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3163854",
+              false, 
+              or(
+                #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!ask.typeId),
+                /*rule!APN_isBlank(ri!ask.regionId),*/
+                /*local!maxRotationalASKsCreated*/
+              )
+            )
+          )
+        },
+        align: "CENTER"
+      )
+    },
+    backgroundColor: "WHITE"
+  )
+)</definition>
+        <namedTypedValue>
+            <name>ask</name>
+            <type>
+                <name>CAW_Ask</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127036"(
+  askId: 136,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>ask</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonValue</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238246"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3264421"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3275997"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3394378"/>
+        <historyInfo versionUuid="_a-0000e6bc-0703-8000-9bf8-011c48011c48_3500545"/>
+        <historyInfo versionUuid="_a-0000e6bc-0703-8000-9bf8-011c48011c48_3546992"/>
+        <historyInfo versionUuid="_a-0000e6c1-137f-8000-9bf9-011c48011c48_3575832"/>
+        <historyInfo versionUuid="_a-0000e6c5-474f-8000-9bfa-011c48011c48_3592722"/>
+        <historyInfo versionUuid="_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3781360"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4186110"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4371524"/>
+        <historyInfo versionUuid="_a-0000e71a-415c-8000-9c0b-011c48011c48_4382342"/>
+        <historyInfo versionUuid="_a-0000e71a-415c-8000-9c0b-011c48011c48_4428209"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4560487"/>
+        <historyInfo versionUuid="_a-0000e777-b242-8000-9c12-011c48011c48_5333165"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5403316"/>
+        <historyInfo versionUuid="_a-0000e781-2d54-8000-9c18-011c48011c48_5408489"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5487303"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5521200"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5652560"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11605486"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11724241"/>
+    </history>
+</contentHaul>

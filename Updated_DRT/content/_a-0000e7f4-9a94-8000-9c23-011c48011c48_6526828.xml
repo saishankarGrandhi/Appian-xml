@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14071947</versionUuid>
+    <rule>
+        <name>CAW_getReminderCCs</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6526828</uuid>
+        <description>Gets the user who should be cc'd in a reminder email given a certain group</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  or(
+    #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, {#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177083",#"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066240", #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066222"}),
+    #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, #"_a-0000e825-ace1-8000-9c24-011c48011c48_6814637")
+  ),
+  #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6510871",
+  if(
+    #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+      ri!assignee,
+      #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11725912"
+    ),
+    #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11725912",
+    if(
+      or(
+        #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6540245"),
+        #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+          ri!assignee,
+          #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6540251"
+        )
+      ),
+      #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11617061"(
+        reject(
+          fn!isnull,
+          {
+            #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6527249",
+            #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11726786"
+          }
+        )
+      ),
+      if(
+        #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+          ri!assignee,
+          #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6540264"
+        ),
+        #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11617061"(
+          reject(
+            fn!isnull,
+            { #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6527255", #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11726531" }
+          )
+        ),
+        if(
+          or(
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6540273"),
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11725286"),
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+              ri!assignee,
+              #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6540279"
+            ),
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+              ri!assignee,
+              #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11724990"
+            ),
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+              ri!assignee,
+              #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6540285"
+            ),
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176485"),
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11887307"),
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11887342"),
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11887356"),
+          ),
+          #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6527237",
+          if(
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177089"),
+            #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6677996",
+            /*if(*/
+              /*a!isUserMemberOfGroup(ri!assignee, cons!CAW_GRP_ERPPP),*/
+              /*cons!CAW_GRP_ERPPP_COS,*/
+              /*if(*/
+                /*a!isUserMemberOfGroup(ri!assignee, cons!CAW_GRP_WRPPP),*/
+                /*cons!CAW_GRP_WRPPP_COS,*/
+                /*if(*/
+                  /*a!isUserMemberOfGroup(ri!assignee, cons!DRTV4_GRP_APPP),*/
+                  /*cons!CAW_GRP_APPP_COS,*/
+                  /*null*/
+                /*)*/
+              /*)*/
+            /*)*/
+            if(
+              #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(ri!assignee, {#"_a-0000eb38-82c9-8000-9c51-011c48011c48_12648325",#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3251699",#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3251706"}),
+              #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12650529",
+              null
+            )
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>assignee</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6540551"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6548312"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6678011"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6848355"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11731111"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11887395"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12651605"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12682953"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14071947"/>
+    </history>
+</contentHaul>

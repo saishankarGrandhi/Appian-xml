@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000ea45-eea9-8000-9b95-01075c01075c_3557</versionUuid>
+    <group>
+        <name>CAW Northeast Commercial BUPPP_BUPIC</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000ea45-eea9-8000-9b95-01075c01075c_3455</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <parentUuid>_e-0000e72d-09a6-8000-9b5a-01075c01075c_1512</parentUuid>
+        <description>Newly created group for New York Metro, NEUNY BUPPP_BUPIC</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups>
+            <groupUuid>_e-0000e72d-09a6-8000-9b5a-01075c01075c_1537</groupUuid>
+            <groupUuid>_e-0000e72d-09a6-8000-9b5a-01075c01075c_1542</groupUuid>
+        </groups>
+    </members>
+    <admins>
+        <users/>
+        <groups/>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000ea45-eea9-8000-9b95-01075c01075c_3522"/>
+        <historyInfo versionUuid="_e-0000ea45-eea9-8000-9b95-01075c01075c_3557"/>
+    </history>
+</groupHaul>

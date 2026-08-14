@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14085995</versionUuid>
+    <constant>
+        <name>CAW_TXT_NOMINATION_REVIEWERS_LIST_V2</name>
+        <uuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11720398</uuid>
+        <description>Constant for List of nomination approvers except leadership group for V2</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049809</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>ST SECRP Approver</el>
+                <el>HR Director</el>
+                <el>RPPP</el>
+                <el>BUPPP</el>
+                <el>BUPIC</el>
+                <el>BUPPP_BUPIC</el>
+                <el>BUCoS</el>
+                <el>PPL</el>
+                <el>Deputy PPL</el>
+                <el>DPP PIC</el>
+                <el>Non-Audit Leaders</el>
+                <el>PPL Delegate MD Rotational</el>
+                <el>PPL Delegate ALL</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11720403"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11823718"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12372123"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14085995"/>
+    </history>
+</contentHaul>

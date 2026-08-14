@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6980418</versionUuid>
+    <rule>
+        <name>CAW_coreASKExportQuerySelecton</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5242558</uuid>
+        <description>a!queryselection for core ask export</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_querySelection"(
+  columns: {
+    #"SYSTEM_SYSRULES_queryColumn"(field: "askId"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "recordName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "version"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "status"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "fYear"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "dppGroup"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "levelNeed"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "needReason"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "outGoingResource"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "projectedStartDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "endDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "generalSpecialityNeed"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "generalSpecialityNeedcomment"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "rolePosting"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "headCountAmount"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "fteAmount"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "roleSummary"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "roleResponsibility"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "roleQualification")
+  }
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5245410"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6980418"/>
+    </history>
+</contentHaul>

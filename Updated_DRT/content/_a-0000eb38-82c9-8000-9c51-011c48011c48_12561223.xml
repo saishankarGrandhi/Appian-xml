@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12752265</versionUuid>
+    <interface>
+        <name>DRTV4_editRoleDefinitionVerbiage</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12561223</uuid>
+        <description>Interface to edit the verbiage of the role definition </description>
+        <parentUuid>b6e2e847-4392-4d53-bbd2-931b68aca1d9</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!categoryData: #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12561183"(
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(startIndex: 1, batchSize: - 1),
+    isActive: true
+  ),
+  local!selectedCategory,
+  local!description: a!refreshVariable(
+    value: index(
+      local!categoryData,
+      wherecontains(
+        tointeger(local!selectedCategory),
+        tointeger(local!categoryData.categoryid)
+      ),
+      {}
+    ),
+    refreshOnVarChange: local!selectedCategory
+  ),
+  local!nameCategory: a!refreshVariable(
+    value: index(local!description, "category", {}),
+    refreshOnVarChange: local!selectedCategory,
+    refreshAlways: true
+  ),
+  #"SYSTEM_SYSRULES_headerContentLayout"(
+    header: #"SYSTEM_SYSRULES_billboardLayout_v1"(
+      backgroundMedia: #"SYSTEM_SYSRULES_documentImage"(document: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3192515"),
+      height: "EXTRA_SHORT",
+      overlay: #"SYSTEM_SYSRULES_barOverlay"(
+        contents: {
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            labelPosition: "COLLAPSED",
+            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "   Update Role Definitions",
+              color: "#FFFFFF",
+              size: "MEDIUM_PLUS",
+              style: "STRONG"
+            )
+          )
+        }
+      )
+    ),
+    contents: {
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        contents: {
+          #"SYSTEM_SYSRULES_textField"(
+            label: "********** Only one category can be updated at a time **********",
+            readOnly: true,
+            showWhen: a!isNotNullOrEmpty(local!selectedCategory)
+          ),
+          #"SYSTEM_SYSRULES_textField"(readOnly: true),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                width: "NARROW",
+                contents: {
+                  #"SYSTEM_SYSRULES_forEach"(
+                    items: local!categoryData,
+                    expression: #"SYSTEM_SYSRULES_cardLayout"(
+                      showShadow: true,
+                      shape: "ROUNDED",
+                      marginAbove: "LESS",
+                      marginBelow: "LESS",
+                     
+                      link: #"SYSTEM_SYSRULES_dynamicLink"(
+                        saveInto: {a!save(
+                          local!selectedCategory,
+                          fv!item.categoryid
+                        ),
+                        a!save(ri!UpdateddVerbiage,null)
+                        }
+                      ),
+                      style: if(
+                        tointeger(local!selectedCategory) = tointeger(fv!item.categoryid),
+                        "ACCENT",
+                        "STANDARD"
+                      ),
+                      contents: {
+                        #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          align: "CENTER",
+                          labelPosition: "COLLAPSED",
+                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: fv!item.category,
+                            size: "MEDIUM",
+                            style: "STRONG"
+                          )
+                        ),
+
+                      }
+                    )
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: if(
+                      a!isNullOrEmpty(local!selectedCategory),
+                      "Please select a category from the left pane to Edit",
+                      {}
+                    ),
+                    readOnly: true
+                  ),
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: "Category Name",
+                    labelPosition: "JUSTIFIED",
+                    showWhen: if(
+                      a!isNotNullOrEmpty(tointeger(local!selectedCategory)),
+                      true,
+                      false
+                    ),
+                    value: if(a!isNullOrEmpty(ri!UpdateddVerbiage.category),
+                    local!nameCategory,
+                    ri!UpdateddVerbiage.category
+                    ),
+                    saveInto: a!save(
+                      ri!UpdateddVerbiage.category,
+                      save!value
+                    )
+                  ),
+                  fn!richTextEditorField(
+                    richTextValue: a!localVariables(
+                      local!descriptiveCategory: a!refreshVariable(
+                        value: index(local!description, "Description", {}),
+                        refreshOnVarChange: local!selectedCategory,
+                        refreshAlways: true
+                      ),
+                      local!descriptiveCategory
+                    ),
+                    richTextSaveInto: a!save(
+                      ri!UpdateddVerbiage.Description,
+                      save!value
+                    ),
+                    disabled: if(
+                      a!isNullOrEmpty(tointeger(local!selectedCategory)),
+                      true,
+                      false
+                    )
+                  ),
+
+                }
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_textField"(readOnly: true),
+          #"SYSTEM_SYSRULES_ButtonLayout"(
+            primaryButtons: #"SYSTEM_SYSRULES_buttonWidget_v1"(
+              label: "UPDATE",
+              style: "SOLID",
+              submit: TRUE,
+              confirmMessage: "Are you sure you want to make changes?",
+              confirmButtonLabel: "YES",
+              cancelButtonLabel: "NO",
+              value: "UPDATE",
+              saveInto: {
+                a!save(ri!updateButtonValue, "UPDATE"),
+                if(
+                  a!isNullOrEmpty(ri!UpdateddVerbiage),
+                  a!save(
+                    ri!UpdateddVerbiage,
+                    'type!{urn:com:appian:types:DRTV4}DRTV4_Ref_Roledefinition_Category'(
+                      categoryid: local!description.categoryid,
+                      category: local!description.category,
+                      Description: local!description.Description,
+                      isActive: local!description.isActive
+                    )
+                  ),
+                  {}
+                ),
+                if(
+                  a!isNullOrEmpty(ri!UpdateddVerbiage.category),
+                  a!save(
+                    ri!UpdateddVerbiage.category,
+                    local!description.category
+                  ),
+                  {}
+                ),
+                if(
+                  a!isNullOrEmpty(ri!UpdateddVerbiage.Description),
+                  a!save(
+                    ri!UpdateddVerbiage.Description,
+                    local!description.Description
+                  ),
+                  {}
+                ),
+                a!save(
+                  ri!UpdateddVerbiage.categoryid,
+                  index(local!description, "categoryid", {})
+                ),
+                a!save(
+                  ri!UpdateddVerbiage.isActive,
+                  index(local!description, "isActive", {})
+                ),
+
+              },
+              disabled: if(
+                a!isNullOrEmpty(local!selectedCategory),
+                true,
+                false
+              )
+            ),
+            secondaryButtons: #"SYSTEM_SYSRULES_buttonWidget_v1"(
+              label: "EXIT",
+              value: "EXIT",
+              saveInto: a!save(ri!updateButtonValue, "EXIT"),
+              submit: true,
+              style: "OUTLINE",
+              validate: false,
+              confirmMessage: "Are you sure you want to exit? Your changes will not be saved",
+              confirmButtonLabel: "YES",
+              cancelButtonLabel: "NO"
+            )
+          )
+        }
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>UpdateddVerbiage</name>
+            <type>
+                <name>DRTV4_Ref_Roledefinition_Category</name>
+                <namespace>urn:com:appian:types:DRTV4</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>updateButtonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12621591"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12633932"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12634215"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12639581"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12650266"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12718577"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12752265"/>
+    </history>
+</contentHaul>

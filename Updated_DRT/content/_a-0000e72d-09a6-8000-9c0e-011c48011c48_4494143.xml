@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12648324</versionUuid>
+    <rule>
+        <name>CAW_calculateNominationNextTaskAssignee</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494143</uuid>
+        <description>Calculates the next assignee for a task in the nomination workflow</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isOldVersion:if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    false,
+    if(
+      todatetime(ri!nomination.createdOn)&lt;#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11589045",
+      true,
+      false)
+  ),
+  local!reviewAndTaskOptionsText: {
+    "isHRReview",
+    "isReapprovedByBU",
+    "isInspectionsReview"
+  },
+  local!reviewAndTaskOptions: #"SYSTEM_SYSRULES_forEach"(
+    items: local!reviewAndTaskOptionsText, 
+    expression: if(
+      or(
+        #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!nomination, fv!item,toboolean(null))),
+        property(ri!nomination, fv!item,toboolean(null)) = false
+      ),
+      false, 
+      true
+    )
+  ),
+  local!isReviewOrTaskOptionSelected: contains(
+    local!reviewAndTaskOptions,
+    true
+  ),
+  local!optionSelected: if(
+    local!isReviewOrTaskOptionSelected = true, 
+    wherecontains(
+      true,
+      local!reviewAndTaskOptions
+    ),
+    null
+  ),
+  local!taskGroups: a!refreshVariable(
+    value: if(
+      ri!isUserDPPEditor,
+      
+      {
+        /*isHRReview*/
+        "HRBA",
+        /*isReapprovedByBU*/
+        if(
+          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!selectedBUPPPorBUPICorBUCoS),
+          null,
+          ri!selectedBUPPPorBUPICorBUCoS
+        ),
+        /*isInspectionsReview*/
+        "Inspections",
+        "DPP Operation Editors"
+      },
+      "DPP Operation Editors"
+    ),
+    refreshOnReferencedVarChange: true
+  ),
+  local!taskGroupSelected: 
+  if(
+    ri!isUserDPPEditor,
+    if(
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!optionSelected), 
+      index(
+        local!taskGroups,
+        local!optionSelected,
+        {}
+      ),
+      if(
+        #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!selectedBUPPPorBUPICorBUCoS),
+        ri!selectedReviewer,
+        ri!selectedBUPPPorBUPICorBUCoS
+      )
+    ),
+    local!taskGroups
+  ),
+  
+  local!assignee:if(
+    and(
+      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!optionSelected),
+      local!isReviewOrTaskOptionSelected = false,
+      or(
+        #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(index(ri!nomination, "nominationId",tointeger(null))),
+        ri!taskStatusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578065"
+      ),
+      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!selectedReviewer)
+    ),
+    a!groupMembers(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+    ),
+    if(
+      /*checking if an approver from the dropdown has been selected*/
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3054395"(ri!selectedReviewer),
+      /*Approver has been selected */
+      if(
+        ri!selectedReviewer = #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+        touser(ri!selectedBUPPPorBUPICorBUCoS),
+        if(
+          contains(
+            {
+              #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+              #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+              #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+              #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+              #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+            },
+            tostring(ri!selectedReviewer)
+          ),
+          if(
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32642"(ri!selectedBUPPPorBUPICorBUCoS),
+            null,
+            a!groupMembers(
+              a!groupsByName(
+                tostring(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(ri!selectedBUPPPorBUPICorBUCoS))
+              )
+            )
+          ),
+          a!groupMembers(
+            a!groupsByName(
+              tostring(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(ri!selectedReviewer))
+            )
+          )
+        )
+      ),
+      /*approver has not been selected, check other task assignment options*/
+      if(
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!taskGroupSelected), 
+        /*another task option has been selected*/
+        a!groupMembers(
+          group: a!groupsByName(
+            tostring(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(local!taskGroupSelected))
+          ),
+          memberType: "USER",
+        ),
+        a!groupMembers(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+        )
+      )
+    ) 
+  ),
+  
+ 
+  {
+    /*isAssigneeGroup:tointeger(local!assignee.totalCount) &gt; 1,*/
+    isAssigneeGroup:tointeger(index(local!assignee, "totalCount", 0)) &gt; 1,
+    assigneeId:if(
+      a!isNullOrEmpty(index(local!assignee, "totalCount", null)),
+      property(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3070432"(
+          userName: local!assignee,
+          returnCDT: true
+        ),
+        "userId",
+        null
+      ),
+      if(
+        local!assignee.totalCount &gt; 1,
+        if(toboolean(local!isOldVersion)=true,
+        property(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+            description:local!taskGroupSelected,
+            refTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177789"
+          ).data,
+          "refId",
+          null
+        ),
+        index(
+          index(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+            description:local!taskGroupSelected,
+            refTypeId: #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11818616"
+          ).data,
+          "refId",
+          null
+        ),1,null)),
+        property(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3070432"(
+            userName: if(
+              or(#"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!assignee.data),local!assignee.totalCount=0),
+              -1,
+              tostring(property(local!assignee,"data",null))
+            ),
+            returnCDT: true
+          ),
+          "userId",
+          null
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isUserDPPEditor</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedReviewer</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedBUPPPorBUPICorBUCoS</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>taskStatusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4588850"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4655270"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4782802"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6811235"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11830343"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11840654"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12371686"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12648324"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tempoReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>d1129c57-3a1a-40c2-b332-07e4bc6f10dc</versionUuid>
+    <tempoReport a:uuid="1237459a-5d81-4a6d-aa02-b23a56dd4da3" name="CAW Nomination">
+        <a:description></a:description>
+        <a:uiExpr>=#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3163265"()</a:uiExpr>
+        <a:urlStub>UnRrwQ</a:urlStub>
+    </tempoReport>
+    <roleMap>
+        <role name="report_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+            </groups>
+        </role>
+        <role name="report_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="d1129c57-3a1a-40c2-b332-07e4bc6f10dc"/>
+    </history>
+</tempoReportHaul>

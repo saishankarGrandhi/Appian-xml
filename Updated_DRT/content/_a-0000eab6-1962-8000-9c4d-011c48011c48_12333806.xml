@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12334650</versionUuid>
+    <rule>
+        <name>CAW_setExcelDataToCDT</name>
+        <uuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12333806</uuid>
+        <description>Expression to set excel data.</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!userData: readexcelsheet(
+    excelDocument: ri!userDoc,
+    sheetNumber: 0,
+    startRow: 2,
+    numberOfColumns: 3
+  ),
+  local!refData: a!flatten(index(local!userData, "result", null)),
+  local!dataSubset:   #"SYSTEM_SYSRULES_forEach"(
+    items:local!refData,
+    expression:{
+      'type!{urn:com:appian:types:CAW}CAW_User'(
+        firstName: index(fv!item, "values", 1, null),
+        lastName: index(fv!item, "values", 2, null),
+        userName:  index(fv!item, "values", 3, null),
+        userAction: null
+      )
+    }
+  ),
+  local!duplicates:#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333879"(emailIds:trim(index(local!dataSubset, "userName", null))),
+  local!distinctData:remove(local!refData,a!flatten(tointeger(index(local!duplicates,"indices",null)))),
+  local!duplicateData: difference(local!refData,local!distinctData),
+  local!duplicateSubSet:if(
+    #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(local!duplicateData),
+    null,
+    #"SYSTEM_SYSRULES_forEach"(
+      items:local!duplicateData,
+      expression:{
+        /*replace this with a!match()*/
+        if(
+          #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(index(fv!item, "values", 3, null)),
+          null,
+          'type!{urn:com:appian:types:CAW}CAW_User'(
+            firstName: index(fv!item, "values", 1, null),
+            lastName: index(fv!item, "values", 2, null),
+            userName:  index(fv!item, "values", 3, null),
+            userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[7]
+          ))
+      }
+    )),
+    local!dataSet: if(#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(local!distinctData),
+    null,
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!distinctData,
+      expression: if(
+        #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(index(fv!item, "values", 3, null)),
+        null,
+
+        if(
+          and(
+            not(#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(index(fv!item, "values", 3, null))),
+            search(
+              "@kpmg.com",
+              index(fv!item, "values", 3, null),
+              1
+            ) &lt;&gt; 0,
+            #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(
+              #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334255"(value: index(fv!item, "values", 2, null))
+            ),
+            #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(
+              #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334255"(value: index(fv!item, "values", 1, null))
+            ),
+            validateemailaddress(index(fv!item, "values", 3, null)),
+            regexmatch(
+              #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218930",
+              index(fv!item, "values", 3, null)
+            ),
+
+          ),
+          if(
+            or(
+              isusernametaken(trim(index(fv!item, "values", 3, null))),
+              isusernametaken(
+                trim(lower(index(fv!item, "values", 3, null)))
+              ),
+              isusernametaken(
+                trim(upper(index(fv!item, "values", 3, null)))
+              ),
+              isusernametaken(
+                substitute(
+                  trim(index(fv!item, "values", 3, null)),
+                  "kpmg",
+                  "KPMG"
+                )
+              )
+            ),
+            if(
+              or(
+                if(
+                  isusernametaken(
+                    trim(lower(index(fv!item, "values", 3, null)))
+                  ),
+                  isuseractive(
+                    trim(lower(index(fv!item, "values", 3, null)))
+                  ),
+                  {}
+                ),
+                if(
+                  isusernametaken(
+                    trim(upper(index(fv!item, "values", 3, null)))
+                  ),
+                  isuseractive(
+                    trim(upper(index(fv!item, "values", 3, null)))
+                  ),
+                  {}
+                ),
+                if(
+                  isusernametaken(trim(index(fv!item, "values", 3, null))),
+                  isuseractive(trim(index(fv!item, "values", 3, null))),
+                  {}
+                ),
+                if(
+                  isusernametaken(
+                    substitute(
+                      trim(index(fv!item, "values", 3, null)),
+                      "@kpmg",
+                      "@KPMG"
+                    )
+                  ),
+                  isuseractive(
+                    substitute(
+                      trim(index(fv!item, "values", 3, null)),
+                      "@kpmg",
+                      "@KPMG"
+                    )
+                  ),
+                  {}
+                ),
+
+              ),
+              if(
+                or(
+                  if(
+                    isusernametaken(trim(index(fv!item, "values", 3, null))),
+                    #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+                      username: trim(index(fv!item, "values", 3, null)),
+                      groups: { #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12240482" }
+                    ),
+                    {}
+                  ),
+                  if(
+                    isusernametaken(
+                      trim(lower(index(fv!item, "values", 3, null)))
+                    ),
+                    #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+                      username: trim(lower(index(fv!item, "values", 3, null))),
+                      groups: { #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12240482" }
+                    ),
+                    {}
+                  ),
+                  if(
+                    isusernametaken(
+                      trim(upper(index(fv!item, "values", 3, null)))
+                    ),
+                    #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+                      username: trim(upper(index(fv!item, "values", 3, null))),
+                      groups: { #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12240482" }
+                    ),
+                    {}
+                  ),
+                  if(
+                    isusernametaken(
+                      substitute(
+                        trim(index(fv!item, "values", 3, null)),
+                        "@kpmg",
+                        "@KPMG"
+                      )
+                    ),
+                    #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+                      username: substitute(
+                        trim(index(fv!item, "values", 3, null)),
+                        "@kpmg",
+                        "@KPMG"
+                      ),
+                      groups: { #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12240482" }
+                    ),
+                    {}
+                  )
+                ),
+                if(
+                  or(
+                    isusernametaken(
+                      trim(lower(index(fv!item, "values", 3, null)))
+                    ),
+                    isusernametaken(
+                      trim(upper(index(fv!item, "values", 3, null)))
+                    ),
+                    isusernametaken(
+                      substitute(
+                        trim(index(fv!item, "values", 3, null)),
+                        "@kpmg",
+                        "@KPMG"
+                      )
+                    )
+                  ),
+                  if(
+                    or(
+                      isusernametaken(
+                        trim(lower(index(fv!item, "values", 3, null)))
+                      )
+                    ),
+                    {
+                      'type!{urn:com:appian:types:CAW}CAW_User'(
+                        firstName: trim(index(fv!item, "values", 1, null)),
+                        lastName: trim(index(fv!item, "values", 2, null)),
+                        userName:  trim(index(fv!item, "values", 3, null)),
+                        userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[4]
+                      )
+                    },
+                    if(
+                      isusernametaken(
+                        substitute(
+                          trim(index(fv!item, "values", 3, null)),
+                          "@kpmg",
+                          "@KPMG"
+                        )
+                      ),
+
+                      {
+                        'type!{urn:com:appian:types:CAW}CAW_User'(
+                          firstName: trim(index(fv!item, "values", 1, null)),
+                          lastName: trim(index(fv!item, "values", 2, null)),
+                          userName:  trim(index(fv!item, "values", 3, null)),
+                          userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[4]
+                        )
+                      }
+                    )
+                  ),
+                  {
+                    'type!{urn:com:appian:types:CAW}CAW_User'(
+                      firstName: trim(index(fv!item, "values", 1, null)),
+                      lastName: trim(index(fv!item, "values", 2, null)),
+                      userName:  trim(index(fv!item, "values", 3, null)),
+                      userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[4]
+                    )
+                  },
+
+                ),
+                if(
+                  or(
+                    isusernametaken(
+                      trim(lower(index(fv!item, "values", 3, null)))
+                    ),
+                    isusernametaken(
+                      trim(upper(index(fv!item, "values", 3, null)))
+                    ),
+                    isusernametaken(
+                      substitute(
+                        trim(index(fv!item, "values", 3, null)),
+                        "@kpmg",
+                        "@KPMG"
+                      )
+                    )
+                  ),
+                  if(
+                    or(
+                      isusernametaken(
+                        trim(lower(index(fv!item, "values", 3, null)))
+                      )
+                    ),
+                    {
+                      'type!{urn:com:appian:types:CAW}CAW_User'(
+                        firstName: trim(index(fv!item, "values", 1, null)),
+                        lastName: trim(index(fv!item, "values", 2, null)),
+                        userName:  lower(trim(index(fv!item, "values", 3, null))),
+                        userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[4]
+                      )
+                    },
+                    if(
+                      isusernametaken(
+                        substitute(
+                          trim(index(fv!item, "values", 3, null)),
+                          "@kpmg",
+                          "@KPMG"
+                        )
+                      ),
+                      {
+                        'type!{urn:com:appian:types:CAW}CAW_User'(
+
+                          firstName: trim(index(fv!item, "values", 1, null)),
+                          lastName: trim(index(fv!item, "values", 2, null)),
+                          userName:  lower(trim(index(fv!item, "values", 3, null))),
+                          userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[4]
+                        ),
+
+                      },
+                      {
+                      }
+                    )
+                  ),
+                  {
+                    'type!{urn:com:appian:types:CAW}CAW_User'(
+                      firstName: trim(index(fv!item, "values", 1, null)),
+                      lastName: trim(index(fv!item, "values", 2, null)),
+                      userName:  lower(trim(index(fv!item, "values", 3, null))),
+                      userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[4]
+                    )
+                  },
+
+                )
+              ),
+              if(
+                or(
+                  isusernametaken(
+                    trim(lower(index(fv!item, "values", 3, null)))
+                  ),
+                  isusernametaken(
+                    trim(upper(index(fv!item, "values", 3, null)))
+                  ),
+                  isusernametaken(
+                    substitute(
+                      trim(index(fv!item, "values", 3, null)),
+                      "@kpmg",
+                      "@KPMG"
+                    )
+                  )
+                ),
+                if(
+                  or(
+                    isusernametaken(
+                      trim(lower(index(fv!item, "values", 3, null)))
+                    )
+                  ),
+                  {
+                    'type!{urn:com:appian:types:CAW}CAW_User'(
+                      firstName: trim(index(fv!item, "values", 1, null)),
+                      lastName: trim(index(fv!item, "values", 2, null)),
+                      userName:  lower(trim(index(fv!item, "values", 3, null))),
+                      userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[3]
+                    )
+                  },
+                  if(
+                    isusernametaken(
+                      substitute(
+                        trim(index(fv!item, "values", 3, null)),
+                        "@kpmg",
+                        "@KPMG"
+                      )
+                    ),
+                    {
+                      'type!{urn:com:appian:types:CAW}CAW_User'(
+                        firstName: trim(index(fv!item, "values", 1, null)),
+                        lastName: trim(index(fv!item, "values", 2, null)),
+                        userName:  lower(trim(index(fv!item, "values", 3, null))),
+                        userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[3]
+                      )
+
+                    },
+                    {
+                    }
+                  )
+                ),
+                {
+                  'type!{urn:com:appian:types:CAW}CAW_User'(
+                    firstName: trim(index(fv!item, "values", 1, null)),
+                    lastName: trim(index(fv!item, "values", 2, null)),
+                    userName:  lower(trim(index(fv!item, "values", 3, null))),
+                    userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[3]
+                  )
+                },
+
+              )
+            ),
+            {
+              'type!{urn:com:appian:types:CAW}CAW_User'(
+                firstName: trim(index(fv!item, "values", 1, null)),
+                lastName: trim(index(fv!item, "values", 2, null)),
+                userName:  lower(trim(index(fv!item, "values", 3, null))),
+                userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[1]
+              )
+            },
+
+          ),
+          {
+            'type!{urn:com:appian:types:CAW}CAW_User'(
+              firstName: trim(index(fv!item, "values", 1, null)),
+              lastName: trim(index(fv!item, "values", 2, null)),
+              userName:  lower(index(fv!item, "values", 3, null)),
+              userAction: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334119"[6]
+            ),
+
+          },
+
+        )
+
+      )
+    )),
+    if(
+      ri!duplicates=true,
+      if(#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(local!duplicateSubSet),null,
+      reject(fn!isnull,local!duplicateSubSet)), 
+      if(#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(local!dataSet),null,reject(fn!isnull,local!dataSet))
+    )
+)</definition>
+        <namedTypedValue>
+            <name>userDoc</name>
+            <description>Bulk user document uploaded</description>
+            <type>
+                <name>CollaborationDocument</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>duplicates</name>
+            <description>Boolean value displaying whether duplicate is there or not.</description>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12334650"/>
+    </history>
+</contentHaul>

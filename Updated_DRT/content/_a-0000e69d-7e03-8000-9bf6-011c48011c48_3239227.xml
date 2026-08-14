@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5178266</versionUuid>
+    <rule>
+        <name>CAW_Construct_Task</name>
+        <uuid>_a-0000e69d-7e03-8000-9bf6-011c48011c48_3239227</uuid>
+        <description>Constructor rule for CAW_TAsk</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>'type!{urn:com:appian:types:CAW}CAW_Task'(
+  taskId : #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!taskId ,replacementValue: ri!CAW_Task.taskId ),
+  requestId : #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!requestId,replacementValue: ri!CAW_Task.requestId ),
+  taskName: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!taskName,replacementValue: ri!CAW_Task.taskName),
+  moduleTypeId: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!moduleTypeId, replacementValue: ri!CAW_Task.moduleTypeId),
+  statusId: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!statusId,replacementValue: ri!CAW_Task.statusId),
+  assigneeId: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!assigneeId,replacementValue: ri!CAW_Task.assigneeId),
+  isAssigneeGroup: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isAssigneeGroup,replacementValue: ri!CAW_Task.isAssigneeGroup),
+  isLocked: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isLocked,replacementValue: ri!CAW_Task.isLocked),
+  lockedBy: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!lockedBy,replacementValue: ri!CAW_Task.lockedBy),
+  isTaskAmend: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isTaskAmend,replacementValue: ri!CAW_Task.isTaskAmend),
+  isApproved: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isApproved,replacementValue: ri!CAW_Task.isApproved),
+  isCompleted: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isCompleted,replacementValue: ri!CAW_Task.isCompleted),
+  version: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!version,replacementValue: ri!CAW_Task.version),
+  processId: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!processId,replacementValue: ri!CAW_Task.processId),
+  createdBy: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!createdBy,replacementValue: ri!CAW_Task.createdBy),
+  createdOn: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!createdOn,replacementValue: ri!CAW_Task.createdOn),
+  modifiedBy: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!modifiedBy,replacementValue: ri!CAW_Task.modifiedBy),
+  modifiedOn: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!modifiedOn,replacementValue: ri!CAW_Task.modifiedOn)
+)</definition>
+        <namedTypedValue>
+            <name>CAW_Task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>taskId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>taskName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>moduleTypeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>statusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assigneeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isAssigneeGroup</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isLocked</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>lockedBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isTaskAmend</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isCompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isApproved</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>version</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3239415"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3375405"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3414435"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4782136"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5178266"/>
+    </history>
+</contentHaul>

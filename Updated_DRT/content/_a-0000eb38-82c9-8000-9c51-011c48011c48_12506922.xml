@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ecc5-63bc-8000-9c60-011c48011c48_13590248</versionUuid>
+    <constant>
+        <name>DRT_TXT_COST_CENTER_LIST_V4</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12506922</uuid>
+        <description>cost center list for v4 in the "Updated DPP Start Notification" form</description>
+        <parentUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11571597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>28200202 - DPP – Accounting</el>
+                <el>28200204 - DPP - Audit </el>
+                <el>28210762 - DPP - Quality Office </el>
+                <el>28210764 - DPP - Rotationals </el>
+                <el>28200205 - DPP - People and Process</el>
+                <el>28200206 - DPP - PSG Rotationals</el>
+                <el>28212761 - DPP - Audit L&amp;D</el>
+                <el>28212763 - DPP – Rotationals – EQCR Center</el>
+                <el>28213902 - DPP – EQCR Center</el>
+                <el>28210844 - USCMG LLC US  </el>
+                <el>28212762 - Audit Transformation</el>
+                <el>28212764 - Prof Pract Center - PPS &amp; CPPG</el>
+                <el>28212765 - Prof Pract Center - EMMT</el>
+                <el>N/A</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12507032"/>
+        <historyInfo versionUuid="_a-0000ecc5-63bc-8000-9c60-011c48011c48_13572434"/>
+        <historyInfo versionUuid="_a-0000ecc5-63bc-8000-9c60-011c48011c48_13590248"/>
+    </history>
+</contentHaul>

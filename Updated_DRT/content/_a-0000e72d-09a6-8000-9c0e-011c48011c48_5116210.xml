@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5117231</versionUuid>
+    <rule>
+        <name>CAW_CreateSubmitNominationMessage</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5116210</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isUserDPPEditor:isusermemberofgroups(
+    tostring(loggedInUser()),
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  local!isDPPWorkflow: and(
+    or(
+      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.statusId),
+      index(ri!nomination, "statusId", tointeger(null)) = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4951511",
+      index(ri!nomination, "statusId", tointeger(null)) = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617",
+      index(ri!nomination, "statusId", tointeger(null)) = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578520",
+      index(ri!nomination, "statusId", tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458895",
+      index(ri!nomination, "statusId", tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458947",
+      index(ri!nomination, "statusId", tointeger(null)) = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577779"
+    ),
+    local!isUserDPPEditor
+  ),
+  local!submitMessageLogic: {
+    /*READY FOR ACCEPTANCE AND ONBOARDING/ COMPLETE*/
+    if(
+      ri!isComplete,
+      "Are you sure you want to complete the nomination process?",
+      {}
+    ),
+    /*NON-DPP SUBMITTED NOMINATION*/
+    if(
+      and(
+        or(
+          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(index(ri!nomination, "nominationId", tointeger(null))),
+          index(ri!nomination, "statusId", tointeger(null)) = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4951511",
+        ),
+        not(local!isUserDPPEditor),
+      ),
+      "Are you sure you want to submit this nomination?",
+      {}
+    ),
+    /*Submit audit based on current status of nomination with no DPP additional workflow*/
+    if(
+      contains(
+        {
+          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494074",
+          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489118",
+          #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+          #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354"
+        },
+        index(ri!nomination, "statusId", tointeger(null)),
+      ),
+      "Are you sure you want to submit?",
+      {}
+    ),
+    /*submit audit for DPP and request candidate interview availability */
+    if(
+      ri!nomination.isInterviewAvailabilityRequested = true,
+      "Are you sure you want to submit this nomination to request for candidate interview availability?",
+      {}
+    ),
+    /*submit audit for DPP and request candidate office visit availability */
+    if(
+      ri!nomination.isOfficeVisitAvailabilityRequested = true,
+      "Are you sure you want to submit this nomination to request for candidate office visit availability?",
+      {}
+    ),
+    /*submit audit for DPP and send for Interviews */
+    if(
+      and(
+        ri!nomination.isInterviewRequested = true,
+        /*future status*/
+        index(ri!task, "statusId", tointeger(null)) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924800"
+      ),
+      "Are you sure you want to submit this nomination for interviewer feedback?",
+      {}
+    ),
+    /*submit audit for DPP and send to HR */
+    if(
+      and(
+        ri!nomination.isHRReview = true,
+        local!isDPPWorkflow
+      ),
+      "Are you sure you want to submit this nomination for HR Review?",
+      {}
+    ),
+    /*submit audit for DPP and send to Inspections */
+    if(
+      and(
+        ri!nomination.isInspectionsReview = true,
+        local!isDPPWorkflow
+      ),
+      "Are you sure you want to submit this nomination for Inspections review?",
+      {}
+    ),
+    /*submit audit for DPP and send to BU for Reapproval */
+    if(
+      and(
+        ri!nomination.isReapprovedByBU = true,
+        local!isDPPWorkflow
+      ),
+      "Are you sure you want to submit this nomination for BU reapproval?",
+      {}
+    ),
+    /*submit audit for DPP and send for additional vetting */
+    if(
+      and(
+        ri!nomination.isOpsAdditionalVettingReq = true,
+        local!isDPPWorkflow
+      ),
+      "Are you sure you want to submit this nomination for additional vetting?",
+      {}
+    ),
+    /*submit audit for DPP and send to approver */
+    if(
+      ri!isBasicApproval = true,
+      "Are you sure you want to submit this nomination for approval?",
+      {}
+    )
+  },
+  if(
+    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!submitMessageLogic),
+    "Are you sure you want to submit?",
+    local!submitMessageLogic[1]
+  )
+)</definition>
+        <namedTypedValue>
+            <name>isComplete</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isBasicApproval</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5117231"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6eb-1d17-8000-9c08-011c48011c48_4095121</versionUuid>
+    <rule>
+        <name>CAW_SFTP_getEmployeeByInputs</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3832657</uuid>
+        <description></description>
+        <parentUuid>_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3751507</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_queryEntity_v1"(
+  fetchtotalcount: true,
+  entity: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3832651",
+  query: #"SYSTEM_SYSRULES_query"(
+    paginginfo: if(
+      #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4094972"(ri!pagingInfo),
+      #"SYSTEM_SYSRULES_pagingInfo"(startIndex: 1, batchSize: 10),
+      ri!pagingInfo
+    ),
+    logicalexpression: #"SYSTEM_SYSRULES_queryLogicalExpression"(
+      operator: "AND",
+      ignorefilterswithemptyvalues: true,
+      filters: {
+        #"SYSTEM_SYSRULES_queryFilter"(
+          field: "jobFunction",
+          operator: "=",
+          value: ri!jobFunction
+        ),
+        #"SYSTEM_SYSRULES_queryFilter"(
+          field: "office",
+          operator: "=",
+          value: ri!office
+        ),
+        #"SYSTEM_SYSRULES_queryFilter"(
+          field: "jobFamily",
+          operator: "=",
+          value: ri!jobFamily
+        ),
+        #"SYSTEM_SYSRULES_queryFilter"(
+          field: "bu",
+          operator: "=",
+          value: ri!bu
+        ),
+        #"SYSTEM_SYSRULES_queryFilter"(
+          field: "firstName",
+          operator: "includes",
+          applywhen: len(ri!firstName)&gt;4,
+          value: ri!firstName
+        ),
+        #"SYSTEM_SYSRULES_queryFilter"(
+          field: "lastName",
+          operator: "includes",
+          applywhen: len(ri!lastName)&gt;4,
+          value: ri!lastName
+        ),
+        #"SYSTEM_SYSRULES_queryFilter"(
+          field: "employeeId",
+          operator: "=",
+          value: ri!employeeId
+        ),
+      }
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>jobFunction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>jobFamily</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>office</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>bu</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>firstName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>lastName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>employeeId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3892971"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4095121"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tempoReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>f563c441-bec0-40a1-ac4a-26810f25e4c0</versionUuid>
+    <tempoReport a:uuid="3bf303fb-c71f-4506-84c0-65b5e5e5b632" name="CAW Ask">
+        <a:description></a:description>
+        <a:uiExpr>=#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3162553"()</a:uiExpr>
+        <a:urlStub>Q_8gcQ</a:urlStub>
+    </tempoReport>
+    <roleMap>
+        <role name="report_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+            </groups>
+        </role>
+        <role name="report_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="f563c441-bec0-40a1-ac4a-26810f25e4c0"/>
+    </history>
+</tempoReportHaul>

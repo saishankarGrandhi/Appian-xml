@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6469784</versionUuid>
+    <decision>
+        <name>CAW_CalculateCompleteNominationSubmitAudit</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4953161</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>fn!override_exception_appian_internal(fn!with(local!decisiondefinition: a!decisiondesigner_cache(uuid: "_a-0000e72d-09a6-8000-9c0e-011c48011c48_4953161",versionKey: "591cea91-7510-4f40-b788-3498a98ac869",value: #"SYSTEM_SYSRULES_dd_dd"('hitPolicy': #"SYSTEM_SYSRULES_dd_dhp"("UNIQUE"), 'inputs': {#"SYSTEM_SYSRULES_dd_di"('name': "currentStatusID", 'type': 'type!{http://www.appian.com/ae/types/2009}Integer', 'id': 1, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("LOOKUP"), 'restriction': #"SYSTEM_SYSRULES_dd_dirl"('allowedLabels': {"In Progress", "Ready for Acceptance and Onboarding", "Interview Requested", "Returned for Review", "Completed", "Cancelled", "Pending Approval", "Transfer Confirmation Requested", "Transfer Confirmation Accepted", "Formal Selection Notification Sent", "Formal Selection Notification Accepted", "Candidate Information Intake Sent", "Candidate Information Intake Complete", "Approved", "Interview Completed", "Request Interview Availability", "Interview Availability Completed", "Request Office Visit Availability", "Office Visit Availability Completed", "In Review - DPP", "In Review - HR", "In Review - Inspections", "Updated Transfer Confirmation Requested"}, 'allowedValues': {4, 6, 7, 8, 9, 179, 180, 186, 187, 188, 189, 190, 191, 192, 193, 310, 311, 312, 313, 314, 315, 316, 396}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_do"('id': 1, 'name': "audit", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("NONE"), 'returnListType': false)}, 'rules': {#"SYSTEM_SYSRULES_dd_dr"('id': 5, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 9, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {188}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 5, 'decisionOutputId': 1, 'value': "Formal offer extended")}), #"SYSTEM_SYSRULES_dd_dr"('id': 6, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 10, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {189}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 6, 'decisionOutputId': 1, 'value': "Formal offer accepted")}), #"SYSTEM_SYSRULES_dd_dr"('id': 7, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 11, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {186}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 7, 'decisionOutputId': 1, 'value': "Transfer confirmation sent")}), #"SYSTEM_SYSRULES_dd_dr"('id': 8, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 12, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {187}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 8, 'decisionOutputId': 1, 'value': "Transfer confirmation acknowledged")}), #"SYSTEM_SYSRULES_dd_dr"('id': 9, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 13, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {190}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 9, 'decisionOutputId': 1, 'value': "Experience intake requested")}), #"SYSTEM_SYSRULES_dd_dr"('id': 10, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 14, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {191}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 10, 'decisionOutputId': 1, 'value': "Experience intake completed")}), #"SYSTEM_SYSRULES_dd_dr"('id': 11, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 15, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {396}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 11, 'decisionOutputId': 1, 'value': "Updated Transfer confirmation sent")}), #"SYSTEM_SYSRULES_dd_dr"('id': 12, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 16, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {9}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 12, 'decisionOutputId': 1, 'value': "Updated Transfer confirmation acknowledged")})}, 'isUnique': true, 'defaultOutputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1)})),#"SYSTEM_SYSRULES_dd_exr"(decisionDefinition:local!decisiondefinition,executionInputs:{#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:1,value:'ri!currentStatusID')})))</definition>
+        <namedTypedValue>
+            <name>currentStatusID</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <inputMetadataList>
+            <inputMetadata>
+                <inputId>1</inputId>
+                <nameRef>currentStatusID</nameRef>
+                <allowedLabelsExpr>#"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3640108"</allowedLabelsExpr>
+                <allowedValuesExpr>#"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3622146"</allowedValuesExpr>
+            </inputMetadata>
+        </inputMetadataList>
+        <outputMetadataList>
+            <outputMetadata>
+                <outputId>1</outputId>
+                <nameRef>audit</nameRef>
+                <typeName>{http://www.appian.com/ae/types/2009}Text</typeName>
+            </outputMetadata>
+        </outputMetadataList>
+        <hitPolicy>UNIQUE</hitPolicy>
+    </decision>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5078456"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6469784"/>
+    </history>
+</contentHaul>

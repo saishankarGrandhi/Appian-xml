@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6877109</versionUuid>
+    <decision>
+        <name>DEPRECATED_CAW_decisionForGettingRotationalAskAssignee</name>
+        <uuid>_a-0000e69d-7e03-8000-9bf6-011c48011c48_3290477</uuid>
+        <description>Decision to get Rotational ASK assignee based on task status</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>fn!override_exception_appian_internal(fn!with(local!decisiondefinition: a!decisiondesigner_cache(uuid: "_a-0000e69d-7e03-8000-9bf6-011c48011c48_3290477",versionKey: "ec85941e-d188-40b6-95d0-8851e6f89ecc",value: #"SYSTEM_SYSRULES_dd_dd"('hitPolicy': #"SYSTEM_SYSRULES_dd_dhp"("UNIQUE"), 'inputs': {#"SYSTEM_SYSRULES_dd_di"('name': "taskStatusId", 'type': 'type!{http://www.appian.com/ae/types/2009}Integer', 'id': 1, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("NONE")), #"SYSTEM_SYSRULES_dd_di"('name': "regionId", 'type': 'type!{http://www.appian.com/ae/types/2009}Integer', 'id': 2, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("NONE"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_do"('id': 1, 'name': "group", 'type': 'type!{http://www.appian.com/ae/types/2009}Group', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("NONE"), 'returnListType': true), #"SYSTEM_SYSRULES_dd_do"('id': 2, 'name': "groupName", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("NONE"), 'returnListType': false)}, 'rules': {#"SYSTEM_SYSRULES_dd_dr"('id': 1, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 1, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': 127)), #"SYSTEM_SYSRULES_dd_dri"('id': 25, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("ANY")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_945",defaultId:232)}), #"SYSTEM_SYSRULES_dd_dro"('id': 21, 'decisionOutputId': 2, 'value': "PPL")}), #"SYSTEM_SYSRULES_dd_dr"('id': 17, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 23, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': 131)), #"SYSTEM_SYSRULES_dd_dri"('id': 26, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': 23))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 17, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_939",defaultId:234)}), #"SYSTEM_SYSRULES_dd_dro"('id': 22, 'decisionOutputId': 2, 'value': "ERPPP")}), #"SYSTEM_SYSRULES_dd_dr"('id': 18, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 24, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': 131)), #"SYSTEM_SYSRULES_dd_dri"('id': 27, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': 24))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 18, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_937",defaultId:233)}), #"SYSTEM_SYSRULES_dd_dro"('id': 23, 'decisionOutputId': 2, 'value': "WRPPP")}), #"SYSTEM_SYSRULES_dd_dr"('id': 19, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 28, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': 133)), #"SYSTEM_SYSRULES_dd_dri"('id': 29, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("ANY")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 19, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_959",defaultId:236)}), #"SYSTEM_SYSRULES_dd_dro"('id': 24, 'decisionOutputId': 2, 'value': "DPP PIC")}), #"SYSTEM_SYSRULES_dd_dr"('id': 22, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 34, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': 129)), #"SYSTEM_SYSRULES_dd_dri"('id': 35, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("ANY")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 28, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_999",defaultId:226)}), #"SYSTEM_SYSRULES_dd_dro"('id': 29, 'decisionOutputId': 2, 'value': "DPP Leadership")}), #"SYSTEM_SYSRULES_dd_dr"('id': 23, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 36, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': 135)), #"SYSTEM_SYSRULES_dd_dri"('id': 37, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("ANY")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 30, 'decisionOutputId': 1, 'value': {}), #"SYSTEM_SYSRULES_dd_dro"('id': 31, 'decisionOutputId': 2)})}, 'isUnique': true, 'defaultOutputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_995",defaultId:215)}), #"SYSTEM_SYSRULES_dd_dro"('id': 2, 'decisionOutputId': 2, 'value': "DPP Operation Editors")})),#"SYSTEM_SYSRULES_dd_exr"(decisionDefinition:local!decisiondefinition,executionInputs:{#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:1,value:'ri!taskStatusId'),#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:2,value:'ri!regionId')})))</definition>
+        <namedTypedValue>
+            <name>taskStatusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>regionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <outputMetadataList>
+            <outputMetadata>
+                <outputId>1</outputId>
+                <nameRef>group</nameRef>
+                <typeName>{http://www.appian.com/ae/types/2009}Group?list</typeName>
+            </outputMetadata>
+            <outputMetadata>
+                <outputId>2</outputId>
+                <nameRef>groupName</nameRef>
+                <typeName>{http://www.appian.com/ae/types/2009}Text</typeName>
+            </outputMetadata>
+        </outputMetadataList>
+        <hitPolicy>UNIQUE</hitPolicy>
+    </decision>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3340132"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4371826"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6877109"/>
+    </history>
+</contentHaul>

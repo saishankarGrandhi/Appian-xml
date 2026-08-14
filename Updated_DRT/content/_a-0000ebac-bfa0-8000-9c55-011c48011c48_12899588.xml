@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12909190</versionUuid>
+    <constant>
+        <name>DRTV4_TXT_DELEGATE_APPROVER_MESSAGE</name>
+        <uuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12899588</uuid>
+        <description>Constant to store  delegate approver message</description>
+        <parentUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11571597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>By clicking "SUBMIT" I certify this nomination is on behalf of the BUPPP and/or BUPIC and I have discussed this with them.</el>
+                <el>By clicking "APPROVE" I certify this nomination is on behalf of the BUPPP and/or BUPIC and I have discussed this with them.</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12909190"/>
+    </history>
+</contentHaul>

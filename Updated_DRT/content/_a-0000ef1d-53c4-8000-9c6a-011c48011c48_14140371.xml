@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000efa7-942c-8000-9c70-011c48011c48_14347401</versionUuid>
+    <interface>
+        <name>CAW_CMP_CandidateClients</name>
+        <uuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14140371</uuid>
+        <description>Component for Candidate Clients for each Nomination</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!existingCandidateClients,
+  #"SYSTEM_SYSRULES_gridLayout"(
+    label: "Clients",
+    headerCells: {
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Client Name", 
+      helpTooltip: "The Public MD rotation plans for client time each year. Please provide the time you would like considered."
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Year"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "April"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "May"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "June"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "July"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "August"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "September"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "October"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "November"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "December"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "January"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "February"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "March"),
+      #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label:"")
+    },
+    columnConfigs: {
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "NARROW_PLUS"
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: ""
+      ),
+      #"SYSTEM_SYSRULES_gridLayoutColumnConfig"(
+        width: "ICON"
+      ),
+    },
+    rows: #"SYSTEM_SYSRULES_forEach"(
+      items: ri!candidateClients,
+      expression: #"SYSTEM_SYSRULES_gridRowLayout"(
+        contents: {
+          #"SYSTEM_SYSRULES_textField"(
+            value: fv!item.clientName,
+            saveInto: {
+              fv!item.clientName,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.clientName,save!value),
+                a!save(ri!candidateClients[fv!index].clientName,save!value)
+                )
+              },
+            /*characterLimit: 256,*/
+            required: true,
+            validations: if(
+              len(fv!item.clientName)&gt;256,
+              "Client Name should not exceed 256 characters",
+              {}
+            )
+            
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.year,
+            saveInto: {
+              fv!item.year,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.year,save!value),
+                a!save(ri!candidateClients[fv!index].year,save!value)
+              )
+            },
+            validations: if(
+              len(fv!item.year)&lt;&gt;4,
+              "Please enter 4 digit year",
+              {}
+            )
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.aprilHours,
+            saveInto: {
+              fv!item.aprilHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.aprilHours,save!value),
+                a!save(ri!candidateClients[fv!index].aprilHours,save!value)
+              )
+            }),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.mayHours,
+            saveInto: {
+              fv!item.mayHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.mayHours,save!value),
+                a!save(ri!candidateClients[fv!index].mayHours,save!value)
+              )
+            }
+            ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.juneHours,
+            saveInto: {
+              fv!item.juneHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.juneHours,save!value),
+                a!save(ri!candidateClients[fv!index].juneHours,save!value)
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.julyHours,
+            saveInto: {
+              fv!item.julyHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.julyHours,save!value),
+                a!save(ri!candidateClients[fv!index].julyHours,save!value)
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.augHours,
+            saveInto: {
+              fv!item.augHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.augHours,save!value),
+                a!save(ri!candidateClients[fv!index].augHours,save!value)
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.septHours,
+            saveInto: {
+              fv!item.septHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.septHours,save!value),
+                a!save(ri!candidateClients[fv!index].septHours,save!value)
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.octHours,
+            saveInto: {
+              fv!item.octHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.octHours,save!value),
+                a!save(ri!candidateClients[fv!index].octHours,save!value)
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.novHours,
+            saveInto: {
+              fv!item.novHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.novHours,save!value),
+                a!save(ri!candidateClients[fv!index].novHours,save!value)
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.decHours,
+            saveInto: {
+              fv!item.decHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.decHours,save!value),
+                a!save(ri!candidateClients[fv!index].decHours,save!value)
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.janHours,
+            saveInto: {
+              fv!item.janHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.janHours,save!value),
+                a!save(ri!candidateClients[fv!index].janHours,save!value)
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.febHours,
+            saveInto: {
+              fv!item.febHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.febHours,save!value),
+                a!save(ri!candidateClients[fv!index].febHours,save!value)
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_integerField"(
+            value: fv!item.marchHours,
+            saveInto: {
+              fv!item.marchHours,
+              if(
+                a!isNullOrEmpty(ri!candidateClients),
+                a!save(ri!candidateClients.marchHours,save!value),
+                a!save(ri!candidateClients[fv!index].marchHours,save!value)
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "close",
+              altText: "delete " &amp; fv!index,
+              link: #"SYSTEM_SYSRULES_dynamicLink"(
+                value: fv!index,
+                saveInto: {
+                 
+                 a!save(
+                   ri!candidateClients,
+                   remove(ri!candidateClients,save!value)
+                   
+                 )
+                
+                }
+              ),
+              linkStyle: "STANDALONE",
+              color: "NEGATIVE"
+            )
+          )
+        }
+      )
+    ),
+    addRowLink: #"SYSTEM_SYSRULES_dynamicLink"(
+      label: "Add Client",
+      value: 'type!{urn:com:appian:types:CAW}CAW_CandidateClients'
+      (
+        nominationId: ri!nominationId,
+        clientName:"",
+        year: "",
+        aprilHours:"",
+        mayHours: "",
+        juneHours:"",
+        julyHours: "",
+        augHours: "",
+        septHours:"",
+        octHours:"",
+        novHours: "",
+        decHours: "",
+        janHours:"",
+        febHours:"",
+        marchHours:"",
+        isActive: 1,
+        createdBy: loggedInUser(),
+        createdOn: now(),
+        modifiedOn: now(),
+        modifiedBy: loggedInUser()
+      ),
+      saveInto: {
+        a!save(ri!candidateClients,append(ri!candidateClients,save!value)),
+      }
+    )
+)
+  
+)</definition>
+        <namedTypedValue>
+            <name>nominationId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateClients</name>
+            <type>
+                <name>CAW_CandidateClients?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14141498"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14158016"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14162614"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14347401"/>
+    </history>
+</contentHaul>

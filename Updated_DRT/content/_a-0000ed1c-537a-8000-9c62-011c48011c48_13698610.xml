@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ed1c-537a-8000-9c62-011c48011c48_13723299</versionUuid>
+    <rule>
+        <name>PE_SFTP_returnIncrementalFiles</name>
+        <uuid>_a-0000ed1c-537a-8000-9c62-011c48011c48_13698610</uuid>
+        <description>Expression to filter out PS_PERSONAL and PS_OUTSIDERS file</description>
+        <parentUuid>29a5d1a0-0cee-4539-9a25-a36937648dd0</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>reject(
+  #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12461260",
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!todaysFiles,
+    expression: {
+      if(
+        or(
+          search("APPIANCAW_PSPERSONAL", fv!item) = 1,
+          search("APPIANCAW_PSOUTSIDERS", fv!item) = 1,
+          
+        ),
+        fv!item,
+        {}
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>todaysFiles</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>Unnamed Test Case</a:name>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">{"APPIANCAW_FULLACCOMPLISH_2025-01-24-15-11-09.csv"; "APPIANCAW_FULLFAMILY_2025-01-24-15-01-08.csv"; "APPIANCAW_IDDATAFULL_2025-01-24-15-01-08.csv"; "APPIANCAW_LANGFULL_2025-01-24-15-01-08.csv"; "APPIANCAW_PSFULLCITIZENSHIP_2025-01-24-15-06-09.csv"; "APPIANCAW_PSFULLOUTSIDERS_2025-01-24-15-06-09.csv"; "APPIANCAW_PSFULLPERSONAL_2025-01-24-15-06-09.csv"; "APPIANCAW_PSFULLSUBSEGMENT_2025-01-24-15-06-09.csv"; "APPIANCAW_PSOUTSIDERS_2025-01-24-15-06-09.csv"; "APPIANCAW_PSPERSONAL_2025-01-24-15-11-09.csv"; "APPIANCAW_XLATTABLE_2025-01-24-15-11-09.csv"}</a:value>
+                    <a:nameRef>todaysFiles</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                <a:isDefault>true</a:isDefault>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000ed1c-537a-8000-9c62-011c48011c48_13698622"/>
+        <historyInfo versionUuid="_a-0000ed1c-537a-8000-9c62-011c48011c48_13723299"/>
+    </history>
+</contentHaul>

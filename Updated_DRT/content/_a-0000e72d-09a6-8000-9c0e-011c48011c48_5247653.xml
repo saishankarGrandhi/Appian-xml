@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6846643</versionUuid>
+    <interface>
+        <name>DEPRECATED_CAW_RotationalAskExportGrid</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5247653</uuid>
+        <description>Grid for Rotational ASK Export </description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridField_v1"(
+  label: "Rotational ASKs",
+  labelPosition: "COLLAPSED",
+  emptyGridMessage: "No Rotational ASK Records Found",
+  data: ri!rotationalAsks,
+  refreshAlways: true,
+  columns: {   
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Fiscal Year",
+      sortField: "fYear",
+      align: "CENTER",
+      value: fv!row.fYear
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Region",
+      sortField: "region",
+      align: "CENTER",
+      value: fv!row.region
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "BU",
+      sortField: "bu",
+      align: "CENTER",
+      value: fv!row.bu
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Plan #",
+      sortField: "quantity",
+      align: "CENTER",
+      value: fv!row.quantity
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Version",
+      sortField: "version",
+      align: "CENTER",
+      value: fv!row.version
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Status",
+      align: "CENTER",
+      sortField: "isCompleted",
+      value: fv!row.askStatus
+    )
+  },
+  rowHeader: 1,
+  spacing: "DENSE",
+  borderStyle: "LIGHT",
+  shadeAlternateRows: true()
+)</definition>
+        <namedTypedValue>
+            <name>rotationalAsks</name>
+            <type>
+                <name>CAW_V_ROTATIONAL_ASK_EXPORT?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5247626"(
+  fetchTotalCount: true,
+  pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+    startIndex: 1,
+    batchSize: 15,
+    sort: #"SYSTEM_SYSRULES_sortInfo"(field: "rotationalAskId")
+  )
+).data</a:value>
+                    <a:nameRef>rotationalAsks</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e777-b242-8000-9c12-011c48011c48_5328943"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5668061"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5669330"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6846643"/>
+    </history>
+</contentHaul>

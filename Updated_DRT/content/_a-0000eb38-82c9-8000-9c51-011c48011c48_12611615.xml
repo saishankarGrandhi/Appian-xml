@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12611643</versionUuid>
+    <rule>
+        <name>DRTV4_QA_getRoleDefinitionReportDetails</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12611615</uuid>
+        <description>QA to get the report of the role definitions details</description>
+        <parentUuid>b6e2e847-4392-4d53-bbd2-931b68aca1d9</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>
+a!queryProcessAnalytics(
+    report: #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12611592",
+    contextProcessModels: #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12591343",
+    query: #"SYSTEM_SYSRULES_query"(
+      paginginfo: #"SYSTEM_SYSRULES_pagingInfo"(startIndex: 1, batchSize: - 1),
+      
+    )
+  ).data
+  </definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12611643"/>
+    </history>
+</contentHaul>

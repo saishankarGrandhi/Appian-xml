@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6664486</versionUuid>
+    <interface>
+        <name>CAW_CMP_AskVsNominationTableTotal</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6641585</uuid>
+        <description>The Total row section of the Rotational Ask vs Nomination Report</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!showRotational: or(
+    a!isNullOrEmpty(ri!typeFilter),
+    ri!typeFilter = "Rotational"
+  ),
+  local!showCore: or(
+    a!isNullOrEmpty(ri!typeFilter),
+    ri!typeFilter = "Core"
+  ), 
+  local!filteredInternationalConfirmed: if(
+    or(
+      a!isNullOrEmpty(ri!regionFilter),
+      ri!regionFilter = "Other"  
+    ),
+    count(ri!internationalConfirmed),
+    0
+  ),
+  local!filteredInternationalInProcess: if(
+    or(
+      a!isNullOrEmpty(ri!regionFilter),
+      ri!regionFilter = "Other"  
+    ),
+    count(ri!internationalInProcess),
+    0
+  ),
+  local!filteredExternalConfirmed: if(
+    or(
+      a!isNullOrEmpty(ri!regionFilter),
+      ri!regionFilter = "Other"  
+    ),
+    ri!externalNominationsConfirmed,
+    {}
+  ),
+  local!filteredExternalInProcess: if(
+    or(
+      a!isNullOrEmpty(ri!regionFilter),
+      ri!regionFilter = "Other"  
+    ),
+    ri!externalNominationsInProcess,
+    {}
+  ),
+  local!externalOtherRotationalsConfirmed: count(
+    wherecontains(
+      #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648284",
+      tointeger(index(local!filteredExternalConfirmed,"subPositionTypeId",{}))
+    )
+  ),
+  local!externalOtherRotationalsInProcess: count(
+    wherecontains(
+      #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648284",
+      tointeger(index(local!filteredExternalInProcess,"subPositionTypeId",{}))
+    )
+  ),
+  local!externalTransitionalCoresConfirmed: count(
+    wherecontains(
+      #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+      tointeger(index(local!filteredExternalConfirmed,"subPositionTypeId",{}))
+    )
+  ),
+  local!externalTransitionalCoresInProcess: count(
+    wherecontains(
+      #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+      tointeger(index(local!filteredExternalInProcess,"subPositionTypeId",{}))
+    )
+  ),
+  local!externalOtherCoresConfirmed: count(
+    wherecontains(
+      #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648367",
+      tointeger(index(local!filteredExternalConfirmed,"subPositionTypeId",{}))
+    )
+  ),
+  local!externalOtherCoresInProcess: count(
+    wherecontains(
+      #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648367",
+      tointeger(index(local!filteredExternalInProcess,"subPositionTypeId",{}))
+    )
+  ),
+  local!filteredInternalConfirmed: if(
+    or(
+      a!isNullOrEmpty(ri!regionFilter),
+      ri!regionFilter = "Other"  
+    ),
+    ri!internalNominationsConfirmed,
+    {}
+  ),
+  local!filteredInternalInProcess: if(
+    or(
+      a!isNullOrEmpty(ri!regionFilter),
+      ri!regionFilter = "Other"  
+    ),
+    ri!internalNominationsInProcess,
+    {}
+  ),
+  local!internalOtherRotationalsConfirmed: count(
+    wherecontains(
+      #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648284",
+      tointeger(index(local!filteredinternalConfirmed,"subPositionTypeId",{}))
+    )
+  ),
+  local!internalOtherRotationalsInProcess: count(
+    wherecontains(
+      #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648284",
+      tointeger(index(local!filteredInternalInProcess,"subPositionTypeId",{}))
+    )
+  ),
+  local!internalTransitionalCoresConfirmed: count(
+    wherecontains(
+      #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+      tointeger(index(local!filteredInternalConfirmed,"subPositionTypeId",{}))
+    )
+  ),
+  local!internalTransitionalCoresInProcess: count(
+    wherecontains(
+      #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+      tointeger(index(local!filteredInternalInProcess,"subPositionTypeId",{}))
+    )
+  ),
+  local!internalOtherCoresConfirmed: count(
+    wherecontains(
+      #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648367",
+      tointeger(index(local!filteredInternalConfirmed,"subPositionTypeId",{}))
+    )
+  ),
+  local!internalOtherCoresInProcess: count(
+    wherecontains(
+      #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6648367",
+      tointeger(index(local!filteredInternalInProcess,"subPositionTypeId",{}))
+    )
+  ),
+  local!filteredRotationalAskPlan: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!rotationalAskEastPlan,"plan",{}),
+      index(ri!rotationalAskWestPlan,"plan",{})
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!rotationalAskEastPlan,"plan",{})),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!rotationalAskWestPlan,"plan",{})),
+        0
+      )
+    )
+  ),
+  local!filteredTraditionalRotationalConfirmed: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!rotationalAskEastActual,"traditionalComplete",0),
+      index(ri!rotationalAskWestActual,"traditionalComplete",0)
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!rotationalAskEastActual,"traditionalComplete",0)),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!rotationalAskWestActual,"traditionalComplete",0)),
+        0
+      )
+    )
+  ),
+  local!filteredTraditionalRotationalInProcess: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!rotationalAskEastActual,"traditionalInProcess",0),
+      index(ri!rotationalAskWestActual,"traditionalInProcess",0)
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!rotationalAskEastActual,"traditionalInProcess",0)),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!rotationalAskWestActual,"traditionalInProcess",0)),
+        0
+      )
+    )
+  ),
+  local!filteredEarlyCareerRotationalConfirmed: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!rotationalAskEastActual,"earlyCareerComplete",0),
+      index(ri!rotationalAskWestActual,"earlyCareerComplete",0)
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!rotationalAskEastActual,"earlyCareerComplete",0)),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!rotationalAskWestActual,"earlyCareerComplete",0)),
+        0
+      )
+    )
+  ),
+  local!filteredEarlyCareerRotationalInProcess: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!rotationalAskEastActual,"earlyCareerInProcess",0),
+      index(ri!rotationalAskWestActual,"earlyCareerInProcess",0)
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!rotationalAskEastActual,"earlyCareerInProcess",0)),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!rotationalAskWestActual,"earlyCareerInProcess",0)),
+        0
+      )
+    )
+  ),
+  local!filteredOtherRotationalConfirmed: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!nonAskEastActual,"otherRotationalComplete",0),
+      index(ri!nonAskWestActual,"otherRotationalComplete",0)
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!nonAskEastActual,"otherRotationalComplete",0)),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!nonAskWestActual,"otherRotationalComplete",0)),
+        0
+      )
+    )
+  ),
+  local!filteredOtherRotationalInProcess: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!nonAskEastActual,"otherRotationalInProcess",0),
+      index(ri!nonAskWestActual,"otherRotationalInProcess",0)
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!nonAskEastActual,"otherRotationalInProcess",0)),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!nonAskWestActual,"otherRotationalInProcess",0)),
+        0
+      )
+    )
+  ),
+  local!filteredTransitionalCoreConfirmed: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!nonAskEastActual,"transitionalComplete",0),
+      index(ri!nonAskWestActual,"transitionalComplete",0)
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!nonAskEastActual,"transitionalComplete",0)),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!nonAskWestActual,"transitionalComplete",0)),
+        0
+      )
+    )
+  ),
+  local!filteredTransitionalCoreInProcess: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!nonAskEastActual,"transitionalInProcess",0),
+      index(ri!nonAskWestActual,"transitionalInProcess",0)
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!nonAskEastActual,"transitionalInProcess",0)),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!nonAskWestActual,"transitionalInProcess",0)),
+        0
+      )
+    )
+  ),
+  local!filteredOtherCoreConfirmed: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!nonAskEastActual,"otherCoreComplete",0),
+      index(ri!nonAskWestActual,"otherCoreComplete",0)
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!nonAskEastActual,"otherCoreComplete",0)),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!nonAskWestActual,"otherCoreComplete",0)),
+        0
+      )
+    )
+  ),
+  local!filteredOtherCoreInProcess: if(
+    a!isNullOrEmpty(ri!regionFilter),
+    sum(
+      index(ri!nonAskEastActual,"otherCoreInProcess",0),
+      index(ri!nonAskWestActual,"otherCoreInProcess",0)
+    ),
+    if(
+      ri!regionFilter = "East",
+      sum(index(ri!nonAskEastActual,"otherCoreInProcess",0)),
+      if(
+        ri!regionFilter = "West",
+        sum(index(ri!nonAskWestActual,"otherCoreInProcess",0)),
+        0
+      )
+    )
+  ),
+  #"SYSTEM_SYSRULES_cardLayout"(
+    contents: #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        /* Label */
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_cardLayout"(
+            contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+              labelPosition: "COLLAPSED",
+              value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: "Total",
+                style: "STRONG"
+              )
+            ),
+            showBorder: false
+          ),
+          width: "NARROW"
+        ),
+        /*Rotational Ask Columns*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_cardLayout"(
+            contents: #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                /* Plan */
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    labelPosition: "COLLAPSED",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(local!filteredRotationalAskPlan),
+                      style: "STRONG"
+                    ),
+                    align: "CENTER"
+                  ),
+                  width: "EXTRA_NARROW"
+                ),
+                /*Traditional Rotationals*/
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_columnsLayout"(
+                    columns: {
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          labelPosition: "COLLAPSED",
+                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(local!filteredTraditionalRotationalConfirmed),
+                            style: "STRONG"
+                          ),
+                          align: "CENTER"
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          labelPosition: "COLLAPSED",
+                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(local!filteredTraditionalRotationalInProcess),
+                            style: "STRONG"
+                          ),
+                          align: "CENTER"
+                        )
+                      )
+                    },
+                    spacing: "NONE"
+                  )
+                ),
+                /*Early Career Rotationals*/
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_columnsLayout"(
+                    columns: {
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          labelPosition: "COLLAPSED",
+                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(local!filteredEarlyCareerRotationalConfirmed),
+                            style: "STRONG"
+                          ),
+                          align: "CENTER"
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          labelPosition: "COLLAPSED",
+                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(local!filteredEarlyCareerRotationalInProcess),
+                            style: "STRONG"
+                          ),
+                          align: "CENTER"
+                        )
+                      )
+                    },
+                    spacing: "NONE"
+                  )
+                ),
+                /*Variance*/
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    labelPosition: "COLLAPSED",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6636024"(
+                        sum(
+                          local!filteredTraditionalRotationalConfirmed,
+                          local!filteredTraditionalRotationalInProcess,
+                          local!filteredEarlyCareerRotationalConfirmed,
+                          local!filteredEarlyCareerRotationalInProcess
+                        ) - local!filteredRotationalAskPlan
+                      ),
+                      color: "NEGATIVE",
+                      style: "STRONG"
+                    ),
+                    align: "CENTER"
+                  ),
+                  width: "EXTRA_NARROW"
+                )
+              },
+              showDividers: true
+            ),
+            showBorder: false
+          ),
+          width: if(
+            #"SYSTEM_SYSRULES_isPageWidth"({"DESKTOP_NARROW","DESKTOP"}),
+            "MEDIUM",
+            "WIDE"
+          ),
+          showWhen: local!showRotational
+        ),
+        /*Non-traditional Rotational*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_cardLayout"(
+            contents: #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    labelPosition: "COLLAPSED",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(
+                        sum(
+                          local!externalOtherRotationalsConfirmed,
+                          local!internalOtherRotationalsConfirmed,
+                          local!filteredInternationalConfirmed,
+                          local!filteredOtherRotationalConfirmed
+                        )
+                      ),
+                      style: "STRONG"
+                    ),
+                    align: "CENTER"
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    labelPosition: "COLLAPSED",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(
+                        sum(
+                          local!externalOtherRotationalsInProcess,
+                          local!internalOtherRotationalsInProcess,
+                          local!filteredInternationalInProcess,
+                          local!filteredOtherRotationalInProcess
+                        )
+                      ),
+                      style: "STRONG"
+                    ),
+                    align: "CENTER"
+                  )
+                )
+              },
+              spacing: "NONE"
+            ),
+            showBorder: false
+          ),
+          width: "NARROW",
+          showWhen: local!showRotational
+        ),
+        /*Transitional Core*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_cardLayout"(
+            contents: #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    labelPosition: "COLLAPSED",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(
+                        sum(
+                          local!externalTransitionalCoresConfirmed,
+                          local!internalTransitionalCoresConfirmed,
+                          local!filteredTransitionalCoreConfirmed
+                        )
+                      ),
+                      style: "STRONG"
+                    ),
+                    align: "CENTER"
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    labelPosition: "COLLAPSED",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(
+                        sum(
+                          local!externalTransitionalCoresInProcess,
+                          local!internalTransitionalCoresInProcess,
+                          local!filteredTransitionalCoreInProcess
+                        )
+                      ),
+                      style: "STRONG"
+                    ),
+                    align: "CENTER"
+                  )
+                )
+              },
+              spacing: "NONE"
+            ),
+            showBorder: false
+          ),
+          width: "NARROW",
+          showWhen: local!showCore
+        ),
+        /*Other Core*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_cardLayout"(
+            contents: #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    labelPosition: "COLLAPSED",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(
+                        sum(
+                          local!externalOtherCoresConfirmed,
+                          local!internalOtherCoresConfirmed,
+                          local!filteredOtherCoreConfirmed
+                        )
+                      ),
+                      style: "STRONG"
+                    ),
+                    align: "CENTER"
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    labelPosition: "COLLAPSED",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(
+                        sum(
+                          local!externalOtherCoresInProcess,
+                          local!internalOtherCoresInProcess,
+                          local!filteredOtherCoreInProcess
+                        )
+                      ),
+                      style: "STRONG"
+                    ),
+                    align: "CENTER"
+                  )
+                )
+              },
+              spacing: "NONE"
+            ),
+            showBorder:false
+          ),
+          width: "NARROW",
+          showWhen: local!showCore
+        ),
+        /*Total*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          width: "NARROW",
+          contents: #"SYSTEM_SYSRULES_cardLayout"(
+            contents: #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    labelPosition: "COLLAPSED",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(
+                        if(
+                          a!isNullOrEmpty(ri!typeFilter),
+                          sum(
+                            local!filteredTraditionalRotationalConfirmed,
+                            local!filteredEarlyCareerRotationalConfirmed,
+                            local!filteredInternationalConfirmed,
+                            local!externalOtherRotationalsConfirmed,
+                            local!externalTransitionalCoresConfirmed,
+                            local!externalOtherCoresConfirmed,
+                            local!internalOtherRotationalsConfirmed,
+                            local!internalTransitionalCoresConfirmed,
+                            local!internalOtherCoresConfirmed,
+                            local!filteredOtherRotationalConfirmed,
+                            local!filteredTransitionalCoreConfirmed,
+                            local!filteredOtherCoreConfirmed
+                          ),
+                          if(
+                           ri!typeFilter = "Rotational",
+                           sum(
+                             local!filteredTraditionalRotationalConfirmed,
+                             local!filteredEarlyCareerRotationalConfirmed,
+                             local!filteredInternationalConfirmed,
+                             local!externalOtherRotationalsConfirmed,
+                             local!internalOtherRotationalsConfirmed,
+                             local!filteredOtherRotationalConfirmed
+                           ),
+                           sum(
+                             local!externalTransitionalCoresConfirmed,
+                             local!externalOtherCoresConfirmed,
+                             local!internalTransitionalCoresConfirmed,
+                             local!internalOtherCoresConfirmed,
+                             local!filteredTransitionalCoreConfirmed,
+                             local!filteredOtherCoreConfirmed
+                           )
+                          )
+                        )
+                      ),
+                      style: "STRONG"
+                    ),
+                    align: "CENTER"
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    labelPosition: "COLLAPSED",
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(
+                        if(
+                          a!isNullOrEmpty(ri!typeFilter),
+                          sum(
+                            local!filteredTraditionalRotationalInProcess,
+                            local!filteredEarlyCareerRotationalInProcess,
+                            local!filteredInternationalInProcess,
+                            local!externalOtherRotationalsInProcess,
+                            local!externalTransitionalCoresInProcess,
+                            local!externalOtherCoresInProcess,
+                            local!internalOtherRotationalsInProcess,
+                            local!internalTransitionalCoresInProcess,
+                            local!internalOtherCoresInProcess,
+                            local!filteredOtherRotationalInProcess,
+                            local!filteredTransitionalCoreInProcess,
+                            local!filteredOtherCoreInProcess
+                          ),
+                          if(
+                            ri!typeFilter = "Rotational",
+                            sum(
+                              local!filteredTraditionalRotationalInProcess,
+                              local!filteredEarlyCareerRotationalInProcess,
+                              local!filteredInternationalInProcess,
+                              local!externalOtherRotationalsInProcess,
+                              local!internalOtherRotationalsInProcess,
+                              local!filteredOtherRotationalInProcess
+                            ),
+                            sum(
+                              local!externalTransitionalCoresInProcess,
+                              local!externalOtherCoresInProcess,
+                              local!internalTransitionalCoresInProcess,
+                              local!internalOtherCoresInProcess,
+                              local!filteredTransitionalCoreInProcess,
+                              local!filteredOtherCoreInProcess
+                            )
+                          )
+                        )
+                      ),
+                      style: "STRONG"
+                    ),
+                    align: "CENTER"
+                  )
+                )
+              },
+              spacing: "NONE"
+            ),
+            showBorder: false
+          )
+        )
+      },
+      alignVertical: "BOTTOM",
+      spacing: "NONE",
+      showDividers: true
+    ),
+    padding: "NONE",
+    showBorder: false
+  )
+)</definition>
+        <namedTypedValue>
+            <name>internationalConfirmed</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>internationalInProcess</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>regionFilter</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>typeFilter</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rotationalAskEastPlan</name>
+            <type>
+                <name>CAW_RotationalAskDetail?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rotationalAskWestPlan</name>
+            <type>
+                <name>CAW_RotationalAskDetail?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>externalNominationsConfirmed</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>externalNominationsInProcess</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rotationalAskEastActual</name>
+            <type>
+                <name>CAW_V_ASK_VS_NOMINATION?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rotationalAskWestActual</name>
+            <type>
+                <name>CAW_V_ASK_VS_NOMINATION?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nonAskEastActual</name>
+            <type>
+                <name>CAW_V_REPORT_NOMINATION?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nonAskWestActual</name>
+            <type>
+                <name>CAW_V_REPORT_NOMINATION?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>internalNominationsConfirmed</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>internalNominationsInProcess</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>internationalConfirmed</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>internationalInProcess</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>regionFilter</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>typeFilter</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>rotationalAskEastPlan</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>rotationalAskWestPlan</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>externalNominationsConfirmed</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>externalNominationsInProcess</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>rotationalAskEastActual</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>rotationalAskWestActual</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>nonAskEastActual</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>nonAskWestActual</a:nameRef>
+                    <a:id>12</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>internalNominationsConfirmed</a:nameRef>
+                    <a:id>13</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>internalNominationsInProcess</a:nameRef>
+                    <a:id>14</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6664486"/>
+    </history>
+</contentHaul>

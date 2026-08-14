@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3908232</versionUuid>
+    <rule>
+        <name>CAW_constructInterview</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3884277</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>'type!{urn:com:appian:types:CAW}CAW_Interview'(
+  isComplete: false,
+  isCancelled: false,
+  isActive: true,
+  isLocked: false,
+  createdBy: tostring(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(loggedInUser())),
+  createdOn: now(),
+  modifiedBy: tostring(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(loggedInUser())),
+  modifiedOn: now()
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3908232"/>
+    </history>
+</contentHaul>

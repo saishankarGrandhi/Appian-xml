@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-aa93-8000-9c30-011c48011c48_771255</versionUuid>
+    <constant>
+        <name>DEPRECATED_CAW_TXT_ROTATIONAL_ASK_STATUS_LIST</name>
+        <uuid>_a-0000e69d-7e03-8000-9bf6-011c48011c48_3341103</uuid>
+        <description>List of Rotational ASK statuses</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049809</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>In Progress</el>
+                <el>DPP Ops Review</el>
+                <el>NBL Review</el>
+                <el>RPPP Review</el>
+                <el>DPP Leadership Review</el>
+                <el>DPP PIC Review</el>
+                <el>DPP Ops Review - Final</el>
+                <el>Completed</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3341108"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3408288"/>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3617828"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4371296"/>
+        <historyInfo versionUuid="_a-0000e825-aa93-8000-9c30-011c48011c48_771255"/>
+    </history>
+</contentHaul>

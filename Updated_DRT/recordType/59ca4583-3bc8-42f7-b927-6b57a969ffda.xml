@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>7bb28020-df3d-4436-8161-862584fa1e0a</versionUuid>
+  <recordType a:uuid="59ca4583-3bc8-42f7-b927-6b57a969ffda" name="DRTV4 User Record">
+    <a:pluralName>User Records</a:pluralName>
+    <a:description>Record type for users and their roles</a:description>
+    <a:urlStub>t6xWBA</a:urlStub>
+    <a:source
+      a:uuid="348559f8-1168-43d1-8a24-84230133efff@_a-0000e676-ab43-8000-9bf5-011c48011c48_3049899" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridField"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Userid",
+      value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: {
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: if(
+              fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/userid"] &lt; 100000,
+              text(
+                fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/userid"],
+                "#00000"
+              ),
+              fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/userid"]
+            ),
+            link: #"SYSTEM_SYSRULES_recordLink"(
+              recordType: #"urn:appian:record-type:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda",
+              identifier: fv!identifier
+            ),
+            linkStyle: "STANDALONE"
+          )
+        }
+      ),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/userid"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Username",
+      value: a!defaultValue(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/username"], "–"),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/username"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Firstname",
+      value: a!defaultValue(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/firstname"], "–"),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/firstname"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Middlename",
+      value: a!defaultValue(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/middlename"], "–"),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/middlename"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Lastname",
+      value: a!defaultValue(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/lastname"], "–"),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/lastname"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Fullname",
+      value: a!defaultValue(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/fullname"], "–"),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/fullname"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Createdon",
+      value: if(
+        isnull(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/createdon"]),
+        "–",
+        datetext(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/createdon"], "default")
+      ),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/createdon",
+      align: "END",
+      width: "NARROW_PLUS"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Createdby",
+      value: a!defaultValue(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/createdby"], "–"),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/createdby"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Modifiedon",
+      value: if(
+        isnull(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/modifiedon"]),
+        "–",
+        datetext(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/modifiedon"], "default")
+      ),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/modifiedon",
+      align: "END",
+      width: "NARROW_PLUS"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Modifiedby",
+      value: a!defaultValue(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/modifiedby"], "–"),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/modifiedby"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Isactive",
+      value: if(
+        isnull(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/isactive"]),
+        "–",
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: if(
+            fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/isactive"],
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "check",
+              altText: "Yes",
+              color: "#138901"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "times",
+              altText: "No",
+              color: "SECONDARY"
+            )
+          )
+        )
+      ),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/isactive",
+      align: "CENTER"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Role",
+      value: a!defaultValue(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/role"], "–"),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/role"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Appianstatus",
+      value: if(
+        isnull(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/appianstatus"]),
+        "–",
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          value: if(
+            fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/appianstatus"],
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "check",
+              altText: "Yes",
+              color: "#138901"
+            ),
+            #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "times",
+              altText: "No",
+              color: "SECONDARY"
+            )
+          )
+        )
+      ),
+      sortField: #"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/appianstatus",
+      align: "CENTER"
+    )
+  },
+  pageSize: 50,
+  borderStyle: "LIGHT",
+  shadeAlternateRows: false
+)</a:listViewTemplateExpr>
+    <a:fieldCfg a:uuid="9bfd033c-8f3c-4ec6-ba1e-3a01d04067da" name="DRT Status">
+      <a:description/>
+      <a:sourceRef>isactive</a:sourceRef>
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetLabelExpr>"DRT Status"</a:facetLabelExpr>
+      <a:facetOption>
+        <a:labelExpr>"Active"</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:lowerLimitExpr/>
+        <a:upperLimitExpr/>
+        <a:values>true</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>"Inactive"</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:lowerLimitExpr/>
+        <a:upperLimitExpr/>
+        <a:values>false</a:values>
+      </a:facetOption>
+      <a:sortOrderIndex>0</a:sortOrderIndex>
+      <a:facetOrderIndex>0</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>false</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg a:uuid="919df492-3725-4047-b80e-762b8162497e" name="Appian Status">
+      <a:description/>
+      <a:sourceRef>appianstatus</a:sourceRef>
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetLabelExpr>"Appian Status"</a:facetLabelExpr>
+      <a:facetOption>
+        <a:labelExpr>"Active"</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:lowerLimitExpr/>
+        <a:upperLimitExpr/>
+        <a:values>true</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>"Inactive"</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:lowerLimitExpr/>
+        <a:upperLimitExpr/>
+        <a:values>false</a:values>
+      </a:facetOption>
+      <a:sortOrderIndex>1</a:sortOrderIndex>
+      <a:facetOrderIndex>1</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>false</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:fieldCfg a:uuid="c8c2258b-72c2-4b1f-a01e-b6cb42714e85" name="Roles">
+      <a:description/>
+      <a:sourceRef>role</a:sourceRef>
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetLabelExpr>"Role"</a:facetLabelExpr>
+      <a:facetOption>
+        <a:labelExpr>"Having no role"</a:labelExpr>
+        <a:facetOperator>IN</a:facetOperator>
+        <a:lowerLimitExpr/>
+        <a:upperLimitExpr/>
+        <a:values>null</a:values>
+      </a:facetOption>
+      <a:facetOption>
+        <a:labelExpr>"Having a role"</a:labelExpr>
+        <a:facetOperator>NOT_IN</a:facetOperator>
+        <a:lowerLimitExpr/>
+        <a:upperLimitExpr/>
+        <a:values>null</a:values>
+      </a:facetOption>
+      <a:sortOrderIndex>2</a:sortOrderIndex>
+      <a:facetOrderIndex>2</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>false</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr/>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:dataSrcExpr/>
+    <a:facetsListExpr/>
+    <a:titleExpr>rv!record[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/username"]</a:titleExpr>
+    <a:defaultFiltersExpr/>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>true</a:isExportable>
+    <a:listViewSrcExpr/>
+    <a:recordViewSrcExpr/>
+    <a:recordListActionCfg a:uuid="be1bcacc-c041-44a9-b65e-ea0f2ef9b256">
+      <a:staticTitle>REFRESH USERS</a:staticTitle>
+      <a:staticDescription/>
+      <a:iconId>f021</a:iconId>
+      <a:target a:uuid="0002ebc8-bde8-8000-9e1d-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:referenceKey>refreshUsers</a:referenceKey>
+      <a:showInRecordList>true</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:recordListActionCfg>
+    <a:recordTypeSearchCfg>
+      <searchFieldsSrc>DEFAULT</searchFieldsSrc>
+      <placeholderSrc>DEFAULT</placeholderSrc>
+      <placeholder/>
+    </a:recordTypeSearchCfg>
+    <a:iconId/>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>255</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>false</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>false</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+    <a:creationSource>UNKNOWN</a:creationSource>
+    <a:sqlEnabled>false</a:sqlEnabled>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="7d176358-d175-470d-b879-e5309063d454"/>
+    <historyInfo versionUuid="45354360-eaad-4ba3-ae5f-22382aa15a1f"/>
+    <historyInfo versionUuid="dd388ac2-f00c-4842-8755-b74b7aa4a8fe"/>
+    <historyInfo versionUuid="7bb28020-df3d-4436-8161-862584fa1e0a"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

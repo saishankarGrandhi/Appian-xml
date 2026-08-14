@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12648541</versionUuid>
+    <rule>
+        <name>DRTV4_setAssigneeTaskGrid</name>
+        <uuid>ece6d250-3b92-4a97-880d-fe14bb328ba7</uuid>
+        <description>Set the HR Director in Task grid</description>
+        <parentUuid>b6e2e847-4392-4d53-bbd2-931b68aca1d9</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!nomination: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(nominationId: ri!nominationId).data,
+  local!completedDate: index(local!nomination, "modifiedOn", null),
+  local!statusId: index(local!nomination, "statusId", null),
+  if(
+    and(
+      todate(local!completedDate) &lt; #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333392",
+      tointeger(local!statusId)=9,
+      or(ri!assigneeId = 35, ri!assigneeId = 456)
+    ),
+    true,
+    false
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nominationId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>statusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assigneeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12648541"/>
+    </history>
+</contentHaul>

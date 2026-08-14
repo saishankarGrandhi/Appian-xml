@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_961</versionUuid>
+    <group>
+        <name>CAW All Users</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <description>All user groups for DPP application</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_941</groupUuid>
+            <groupUuid>_e-0000e72d-09a6-8000-9b5a-01075c01075c_1512</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_943</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_966</groupUuid>
+            <groupUuid>_e-0000e72d-09a6-8000-9b5a-01075c01075c_1510</groupUuid>
+            <groupUuid>_e-0000e777-b242-8000-9b5e-01075c01075c_1580</groupUuid>
+            <groupUuid>_e-0000eb38-82c9-8000-9b9d-01075c01075c_3778</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_945</groupUuid>
+            <groupUuid>_e-0000eb38-82c9-8000-9b9d-01075c01075c_3858</groupUuid>
+            <groupUuid>_e-0000eb38-82c9-8000-9b9d-01075c01075c_3856</groupUuid>
+            <groupUuid>_e-0000e825-ace1-8000-9b70-01075c01075c_2187</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1292</groupUuid>
+            <groupUuid>_e-0000e6ca-52ed-8000-9b4b-01075c01075c_1164</groupUuid>
+            <groupUuid>_e-0000e6c7-249e-8000-9b4a-01075c01075c_1089</groupUuid>
+            <groupUuid>_e-0000eab6-1962-8000-9b99-01075c01075c_3724</groupUuid>
+            <groupUuid>_e-0000e77e-4d65-8000-9b61-01075c01075c_1592</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_976</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1295</groupUuid>
+            <groupUuid>_e-0000e825-ace1-8000-9b70-01075c01075c_2184</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_933</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_999</groupUuid>
+            <groupUuid>_e-0000e77e-4d65-8000-9b61-01075c01075c_1594</groupUuid>
+            <groupUuid>_e-0000ea45-eea9-8000-9b95-01075c01075c_3494</groupUuid>
+            <groupUuid>_e-0000e776-631d-8000-9b5b-01075c01075c_1576</groupUuid>
+            <groupUuid>_e-0000ef1d-503a-8000-9bb6-01075c01075c_4104</groupUuid>
+            <groupUuid>_e-0000e776-631d-8000-9b5b-01075c01075c_1572</groupUuid>
+            <groupUuid>_e-0000ea45-eea9-8000-9b95-01075c01075c_3537</groupUuid>
+            <groupUuid>_e-0000ef1d-503a-8000-9bb6-01075c01075c_4101</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_1001</groupUuid>
+            <groupUuid>_e-0000eb38-82c9-8000-9b9d-01075c01075c_3860</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_1003</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_935</groupUuid>
+            <groupUuid>_e-0000ebe3-046c-8000-9ba2-01075c01075c_3963</groupUuid>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_959</groupUuid>
+            <groupUuid>_e-0000e777-b242-8000-9b5e-01075c01075c_1578</groupUuid>
+            <groupUuid>_e-0000e77c-fb3d-8000-9b60-01075c01075c_1586</groupUuid>
+        </groups>
+    </members>
+    <admins>
+        <users/>
+        <groups>
+            <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+        </groups>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000e676-ab43-8000-9b41-01075c01075c_961"/>
+    </history>
+</groupHaul>

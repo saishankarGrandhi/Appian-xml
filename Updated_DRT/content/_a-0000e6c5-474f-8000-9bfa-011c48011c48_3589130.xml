@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000efa7-942c-8000-9c70-011c48011c48_14347622</versionUuid>
+    <interface>
+        <name>CAW_CMP_NominationDetails</name>
+        <uuid>_a-0000e6c5-474f-8000-9bfa-011c48011c48_3589130</uuid>
+        <description>Component for Nomination Details</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isOldVersion:if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    false,
+    if(
+      todatetime(ri!nomination.createdOn)&lt;#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11589045",
+      true,
+      false)
+  ),
+  local!isRequestBeforeV4:if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    false,
+    if(
+      todatetime(ri!nomination.createdOn)&lt;#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333392",
+      true,
+      false)
+  ),
+  local!candidateRole:index(#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924363"(employeeId: ri!nomination.employeeId),"jobFamily",null),
+  local!regionId:if(
+    toboolean(local!isOldVersion)=true,
+    if(
+    ri!nomination.returnRegion = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206267"[1],
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206289",
+    if(
+      ri!nomination.returnRegion = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206267"[2],
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206296",
+      null
+    )
+    ),
+    #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11596299"),
+    local!oldBU,
+    local!oldOffice,
+  local!regionDropdown: {
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206267"[1],
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206267"[2],
+    #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3566688",
+    #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3566706",
+    #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185"
+  },
+  local!updatedRegionDropdown: if(
+    contains(local!regionDropdown, ri!nomination.returnRegion),
+    local!regionDropdown,
+    reject(
+      fn!isnull,
+      append(local!regionDropdown, ri!nomination.returnRegion)
+    )
+  ),
+  local!buId: 
+  intersection(
+    tointeger(
+      property(
+        index(
+          ri!bu,
+          wherecontains(
+            ri!nomination.returnBU,
+            touniformstring(index(ri!bu,"bu",{}))
+          ),
+          null
+        ),
+        "buId",
+        null
+      )),
+      tointeger(property(
+        index(
+          ri!bu,
+          wherecontains(
+            tostring(local!regionId),
+            touniformstring(index(ri!bu,"regionId",{}))
+          ),
+          null
+        ),
+        "buId",
+        null
+      ))
+  ),
+  local!busForDropdown: if(
+    a!isNullOrEmpty(local!regionId),
+    {#"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630", #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185"},
+    touniformstring(
+      property(
+        index(
+          ri!bu,
+          wherecontains(
+            tointeger(local!regionId),
+            tointeger(index(ri!bu,"regionId",{}))
+          ),
+          null
+        ),
+        "bu",
+        {}
+      ),
+      if(toboolean(local!isOldVersion)=true,#"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",null),
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185"
+    )
+  ),
+  local!updatedBUDropdown: if(
+    contains(local!busForDropdown, ri!nomination.returnBU),
+    local!busForDropdown,
+    if(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!oldBU),
+    reject(
+      fn!isnull,
+      append(local!busForDropdown, ri!nomination.returnBU)
+    ),
+    local!busForDropdown
+    )
+  ),
+  local!officesForDropdown: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!regionId),
+    union(
+      index(ri!offices,"office",null),
+      touniformstring({})
+    ),
+    property(
+      index(
+        ri!offices,
+        wherecontains(
+          local!buId,
+          tointeger(index(ri!offices,"buId",{}))
+        ),
+        null
+      ),
+      "office",
+      {}
+    )
+  ),
+  local!homeOfficeDropdown: reject(
+    fn!isnull,
+    {local!officesForDropdown, #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185", #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"}
+  ),
+  local!updatedHomeOfficeDropdown: if(
+    contains(local!homeOfficeDropdown, ri!nomination.returnHomeOffice),
+    local!homeOfficeDropdown,
+    if(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!oldOffice),
+    reject(
+      fn!isnull,
+      append(local!homeOfficeDropdown, ri!nomination.returnHomeOffice)
+    ),
+    local!homeOfficeDropdown
+    )
+  ),
+  local!applicablePathways: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+    refTypeId : 31,
+    returnCDT: true(),
+    isActive: true()
+  ),
+  #"SYSTEM_SYSRULES_cardLayout"(
+    contents: {
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        contents: {
+          #"SYSTEM_SYSRULES_cardLayout"(           
+            contents: {
+              #"SYSTEM_SYSRULES_sideBySideLayout"(              
+                items: {
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      labelPosition: "COLLAPSED",
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextIcon"(
+                          icon: "exclamation-circle",
+                          color: "NEGATIVE",
+                          size: "MEDIUM"
+                        )
+                      }
+                    ),
+                    width: "MINIMIZE"
+                  ),
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      labelPosition: "COLLAPSED",
+                      value: {                      
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text: {
+                            "Originating Audit BU and Returning Audit BU are different"
+                          },
+                          style: "STRONG"
+                        )                   
+                      }
+                    )
+                  )
+                },
+                alignVertical: "MIDDLE",
+                spacing: "STANDARD"
+              )
+            },
+            showWhen: or(
+              and(
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.otherOriginatingBU),
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.otherReturningBU),
+                ri!nomination.otherOriginatingBU&lt;&gt;ri!nomination.otherReturningBU
+              ),
+              and(
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.originatingBU),
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.returnBU),
+                ri!nomination.originatingBU&lt;&gt;ri!nomination.returnBU
+              )
+            ),
+            style: "ERROR",
+            marginBelow: "STANDARD",
+            accessibilityText: "Error message"
+          ),
+          #"SYSTEM_SYSRULES_cardLayout"(           
+            contents: {
+              #"SYSTEM_SYSRULES_sideBySideLayout"(              
+                items: {
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      labelPosition: "COLLAPSED",
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextIcon"(
+                          icon: "exclamation-circle",
+                          color: "NEGATIVE",
+                          size: "MEDIUM"
+                        )
+                      }
+                    ),
+                    width: "MINIMIZE"
+                  ),
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      labelPosition: "COLLAPSED",
+                      value: {                      
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          text: {
+                            "Originating Home Office and Returning Home Office are different"
+                          },
+                          style: "STRONG"
+                        )                   
+                      }
+                    )
+                  )
+                },
+                alignVertical: "MIDDLE",
+                spacing: "STANDARD"
+              )
+            },
+            showWhen: or(
+              and(
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.originatingHomeOffice),
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.otherReturningHomeOffice),
+                ri!nomination.otherOriginatingHomeOffice&lt;&gt;ri!nomination.otherReturningHomeOffice
+              ),
+              and(
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.originatingHomeOffice),
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.returnHomeOffice),    
+                ri!nomination.originatingHomeOffice&lt;&gt;ri!nomination.returnHomeOffice
+              )
+            ),
+            style: "ERROR",
+            marginBelow: "STANDARD",
+            accessibilityText: "Error message"
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_dropdownField_v1"(
+                    label: if(
+                      and(
+                        or(
+                          ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+                          ri!nomination.positionTypeId = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"
+                        ),
+                        not(ri!nomination.isDirectHire = true)
+                      ),
+                      "Returning Region *",
+                      "Returning Region"
+                    ),
+                    placeholder: "-- Select --",
+                    choiceLabels: local!updatedRegionDropdown,
+                    choiceValues:  local!updatedRegionDropdown,
+                    value: ri!nomination.returnRegion,
+                    saveInto: {
+                      ri!nomination.returnRegion,
+                      if(
+                        contains(
+                          {
+                            #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3566688",
+                            #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3566706",
+                            #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"
+                          },
+                          ri!nomination.returnRegion
+                        ),
+                        a!save(
+                          ri!nomination.returnBU,
+                          #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"
+                        ),
+                        {}
+                      ),
+                      if(
+                        ri!nomination.returnRegion &lt;&gt; #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                        a!save(ri!nomination.otherReturningRegion, null),
+                        null
+                      )
+                    },
+                    required: and(
+                      or(
+                        ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+                        ri!nomination.positionTypeId = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"
+                      ),
+                      not(ri!nomination.isDirectHire = true)
+                    ),
+                    validations: if(
+                      or(
+                        contains(local!regionDropdown, ri!nomination.returnRegion),
+                        a!isNullOrEmpty(ri!nomination.returnRegion)
+                      ),
+                      "",
+                      "Please select a valid returning region"
+                    ),
+                    showWhen: if(toboolean(local!isOldVersion)=true,true,false),
+                    validationGroup: "main"
+                  ),
+                  #"SYSTEM_SYSRULES_dropdownField_v1"(
+                    label: if(
+                      and(
+                        or(
+                          ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+                          ri!nomination.positionTypeId = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"
+                        ),
+                        not(ri!nomination.isDirectHire = true)
+                      ),
+                      "Returning Audit BU *",
+                      "Returning Audit BU"
+                    ),
+                    placeholder: "-- Select --",
+                    choiceLabels: reject(fn!isnull,local!updatedBUDropdown),
+                    choiceValues: reject(fn!isnull,local!updatedBUDropdown),
+                    value: ri!nomination.returnBU,
+                    saveInto: {
+                      if(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!oldBU),a!save(local!oldBU,ri!nomination.returnHomeOffice),{}),
+                      a!save(ri!nomination.returnHomeOffice,null),
+                      a!save(ri!nomination.originatingHomeOffice,null),
+                      ri!nomination.returnBU,
+                      if(
+                        ri!nomination.returnBU &lt;&gt; #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                        a!save(ri!nomination.otherReturningBU, null),
+                        {}
+                      )
+                    },
+                    required: and(
+                      or(
+                        ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+                        ri!nomination.positionTypeId = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"
+                      ),
+                      not(ri!nomination.isDirectHire = true)
+                    ),
+                    validations: if(
+                      or(
+                        contains(local!busForDropdown, ri!nomination.returnBU),
+                        a!isNullOrEmpty(ri!nomination.returnBU)
+                      ),
+                      "",
+                      "Please select a valid returning Audit BU"
+                    ),
+                    validationGroup: "main"
+                  ),
+                  #"SYSTEM_SYSRULES_dropdownField_v1"(
+                    label: if(
+                      and(
+                        or(
+                          ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+                          ri!nomination.positionTypeId = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"
+                        ),
+                        not(ri!nomination.isDirectHire = true)
+                      ),
+                      "Returning Home Office *",
+                      "Returning Home Office"
+                    ),
+                    placeholder: "-- Select --",
+                    choiceLabels: local!updatedHomeOfficeDropdown,
+                    choiceValues: local!updatedHomeOfficeDropdown,
+                    value: ri!nomination.returnHomeOffice,
+                    saveInto: {
+                      a!save(local!oldOffice,ri!nomination.returnHomeOffice),
+                      ri!nomination.returnHomeOffice,
+                      if(
+                        ri!nomination.returnHomeOffice &lt;&gt; #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                        a!save(ri!nomination.otherReturningHomeOffice,null),
+                        {}
+                      )
+                    },
+                    required: and(
+                      or(
+                        ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+                        ri!nomination.positionTypeId = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"
+                      ),
+                      not(ri!nomination.isDirectHire = true)
+                    ),
+                    validations: if(
+                      or(
+                        contains(local!homeOfficeDropdown, ri!nomination.returnHomeOffice),
+                        a!isNullOrEmpty(ri!nomination.returnHomeOffice)
+                      ),
+                      "",
+                      "Please select a valid returning home office"
+                    ),
+                    validationGroup: "main"
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_textField"(
+                    
+                    showWhen: if(toboolean(local!isOldVersion)=true,true,false),
+                    label: if(
+                      ri!nomination.returnRegion = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                      "Other Returning Region *",
+                      "Other Returning Region"
+                    ),
+                    value: ri!nomination.otherReturningRegion,
+                    saveInto: ri!nomination.otherReturningRegion,
+                    characterLimit: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3958020",
+                    required: ri!nomination.returnRegion = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                    disabled: ri!nomination.returnRegion &lt;&gt; #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                    validationGroup: "main"
+                  ),
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: if(
+                      ri!nomination.returnBU = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                      "Other Returning Audit BU *",
+                      "Other Returning Audit BU"
+                    ),
+                    value: ri!nomination.otherReturningBU,
+                    saveInto: ri!nomination.otherReturningBU,
+                    characterLimit: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3958020",
+                    required: ri!nomination.returnBu = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                    disabled: ri!nomination.returnBU &lt;&gt; #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                    validationGroup: "main"
+                  ),
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: if(
+                      ri!nomination.returnHomeOffice = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                      "Other Returning Home Office *",
+                      "Other Returning Home Office"
+                    ),
+                    value: ri!nomination.otherReturningHomeOffice,
+                    saveInto: ri!nomination.otherReturningHomeOffice,
+                    characterLimit: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3958020",
+                    required: ri!nomination.returnHomeOffice = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                    disabled:  ri!nomination.returnHomeOffice &lt;&gt; #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                    validationGroup: "main"
+                  )
+                }
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: if( 
+                      ri!nomination.isDirectHire = true,
+                      "Years With Firm",
+                      "Years With Firm *"
+                    ),
+                    value: tointeger(ri!nomination.yearsWithFirm),
+                    saveInto: ri!nomination.yearsWithFirm,
+                    required: not(ri!nomination.isDirectHire = true),
+                    validations: if(
+                      or(
+                        tointeger(ri!nomination.yearsWithFirm) &gt;= 40,
+                        tointeger(ri!nomination.yearsWithFirm) &lt;= 0
+                      ),
+                      "Please provide a number between 1-40",
+                      ""
+                    ),
+                    validationGroup: "main"
+                  ),
+                  #"SYSTEM_SYSRULES_dropdownField_v1"(
+                    label: if(
+                      or(
+                        ri!nomination.isDirectHire = true,
+                        ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148695",
+                        ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688"
+                      ),
+                      "Expected MD Promotion Date",
+                      "Expected MD Promotion Date *"
+                    ),
+                    placeholder: "-- Select --",
+                    choiceLabels: ri!promotionDate.display,
+                    choiceValues: ri!promotionDate.year,
+                    value: ri!nomination.mdPromotionDate,
+                    saveInto: ri!nomination.mdPromotionDate,
+                    required: not(
+                      or(
+                        ri!nomination.isDirectHire = true,
+                        ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148695",
+                        ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688"
+                      )
+                    ),
+                    disabled: or(
+                      /*ri!nomination.isDirectHire = true,*/
+                      ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688",
+                      ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148695"
+                    ),
+                    validationGroup: "main"
+                  ),
+                  #"SYSTEM_SYSRULES_paragraphField"(
+                    label: "Expected MD Promotion Date Comments",
+                    placeholder: "Comment for MD promotion date",
+                    value: ri!nomination.mdPromotionDateComment,
+                    saveInto: ri!nomination.mdPromotionDateComment,
+                    characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137",
+                    disabled: or(
+                      ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688",
+                      ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148695"
+                    )
+                  ),
+                  #"SYSTEM_SYSRULES_paragraphField"(
+                    label: if(
+                      ri!nomination.isDirectHire = true,
+                      "Rationale For Nomination",
+                      "Rationale For Nomination *"
+                    ),
+                    placeholder: "Comment for rationale for nomination",
+                    value: ri!nomination.rationalForNomination,
+                    saveInto: ri!nomination.rationalForNomination,
+                    characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137",
+                    required: not(ri!nomination.isDirectHire = true),
+                    validationGroup: "main"
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  /* Sahana Ananth -- added applicable pathway and pathway comments fields as part of APAP-28578 on 4-Nov-25*/
+                  #"SYSTEM_SYSRULES_dropdownField_v1"(
+                    label: "Which pathway is most applicable to the candidate?",
+                    instructions: "Note: All traditional w/ EQCR rotationals are expected to be an MD and designated on the 'Public' pathway.",
+                    choiceLabels: index(local!applicablePathways,"description",null),
+                    choiceValues: index(local!applicablePathways,"description",null),
+                    value: index(ri!nomination,"applicablePathway",null),
+                    saveInto: ri!nomination.applicablePathway,
+                    placeholder: "--Select a value--",
+                    required: true()
+                  ),
+                  #"SYSTEM_SYSRULES_paragraphField"(
+                    label: "Pathway Comments",
+                    value: index(ri!nomination,"pathwayComments",null),
+                    saveInto: ri!nomination.pathwayComments,
+                    characterLimit: 250
+                  ),
+                  if(
+                    toboolean(local!isOldVersion)=true,
+                    #"SYSTEM_SYSRULES_dropdownField_v1"(
+                      label: if(
+                        or(
+                          ri!nomination.isDirectHire = true,
+                          ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688"
+                        ),
+                        "Expected Partner Promotion Date",
+                        "Expected Partner Promotion Date *"
+                      ),
+                      placeholder: "-- Select --",
+                      choiceLabels: ri!promotionDate.display,
+                      choiceValues: ri!promotionDate.year,
+                      value: ri!nomination.partnerPromotionDate,
+                      saveInto: ri!nomination.partnerPromotionDate,
+                      required: not(
+                        or(
+                          ri!nomination.isDirectHire = true,
+                          ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688"
+                        )
+                      ),
+                      disabled: ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688",
+                      validationGroup: "main"
+                    ),
+                    {
+                      /*a!textField(*/
+                      /*readOnly: true,labelPosition: "ADJACENT"*/
+                      /*),*/
+                      #"SYSTEM_SYSRULES_radioButtonField"(
+                        label: if(toboolean(local!isRequestBeforeV4),
+                        "Is this candidate a future partner promote?",
+                        "Is this candidate in your partner pipeline?"),
+                        required: if(
+                          toboolean(local!isRequestBeforeV4),
+                          true,
+                          if(
+                            or(
+                              local!candidateRole ="Partner",
+                              and(ri!nomination.isDirectHire=true, ri!nomination.isDirectHireInternal=false, ri!nomination.levelName="Partner")
+                            ),
+
+                            false,
+                            true
+                          )
+
+                        ),
+                        choiceLabels: {"Yes","No"},
+                        choiceValues: {true,false},
+                        value:ri!nomination.isFuturePartnerPromote,
+                        saveInto: {
+                          ri!nomination.isFuturePartnerPromote,
+                        },
+                        choiceLayout: "COMPACT"
+                      )}
+                      ,
+                  ),
+                  #"SYSTEM_SYSRULES_paragraphField"(
+                    label: if( toboolean(local!isOldVersion)=true,
+                    "Expected Partner Promotion Date Comments","Future Partner Promotion Date Comments"),
+                    placeholder: if( toboolean(local!isOldVersion)=true,
+                    "Comment for partner promotion date","Comment for future partner promotion date"),
+                    value: ri!nomination.partnerPromotionDateComment,
+                    saveInto: ri!nomination.partnerPromotionDateComment,
+                    characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137",
+                    disabled: ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688"
+                  ),
+                  /*modified by Bhavana | APAP-10458*/
+                  #"SYSTEM_SYSRULES_paragraphField"(
+                    label: if(
+                      property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562",
+                      "Client Considerations","Client Considerations/Other Comments"
+                    ),
+                    /*placeholder: "If your nominee will have potential client commitments within their duration at DPP, please indicate so and the timeframe of those commitments.",*/
+                    placeholder:if(
+                      property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562", "If your nominee will have potential client commitments within their duration at DPP, please indicate so and the timeframe of those commitments.",
+                      #"_a-0000ea11-24bc-8000-9c45-011c48011c48_11571604"),
+                      value: ri!nomination.clientConsiderationComment,
+                      saveInto: ri!nomination.clientConsiderationComment,
+                      characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137"
+                  )
+                }
+               
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(),
+          if(
+            #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+              loggedInUser(),
+              #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+            ),
+            #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14140371"(
+              nominationId: ri!nomination.nominationId,
+              candidateClients: ri!candidateClients
+            ),
+            if(
+              #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+                loggedInUser(),
+                #"_a-0000efa7-942c-8000-9c70-011c48011c48_14347410",
+              ),
+              {},
+            #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14145634"(
+              nominationId: ri!nomination.nominationId
+            )
+            )
+          )
+        }
+      )
+    },
+    marginBelow: "STANDARD"
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>promotionDate</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>offices</name>
+            <type>
+                <name>CAW_RefOffice?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>bu</name>
+            <type>
+                <name>CAW_REF_BaseUnit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateClients</name>
+            <type>
+                <name>CAW_CandidateClients?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>promotionDate</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>offices</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>bu</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>candidateClients</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3667771"/>
+        <historyInfo versionUuid="_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3771330"/>
+        <historyInfo versionUuid="_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4056916"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183582"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244245"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4261524"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4275693"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4275825"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4597451"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4618240"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4633000"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4783500"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4849879"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4975991"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5202019"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6494438"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6595203"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6673071"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6682335"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6749979"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6909403"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_7011256"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_7071043"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_7083864"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_7144897"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11592124"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11678110"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11712512"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11768025"/>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12333606"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12471637"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12691824"/>
+        <historyInfo versionUuid="_a-0000eea5-4e08-8000-9c68-011c48011c48_14014302"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14141703"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14163763"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14347622"/>
+    </history>
+</contentHaul>

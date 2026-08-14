@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef99-54a0-8000-9c6e-011c48011c48_14306470</versionUuid>
+    <interface>
+        <name>CAW_taskGrid</name>
+        <uuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3177172</uuid>
+        <description>Holds the grid rule for displaying the task details on the homepage </description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!selectedTaskIds,
+  {
+    #"SYSTEM_SYSRULES_gridField_v1"(
+      label: "",
+      emptyGridMessage: "No Active Tasks Found",
+      data: ri!tasks,
+      columns: {
+        #"SYSTEM_SYSRULES_gridColumn"(
+          /*label: "Locked",*/
+          sortField: "isLocked",
+          value: if(
+            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.isLocked),
+            #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185",
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              value: {
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: if(
+                    and(
+                      fv!row.isLocked,
+                      ri!loggedInUser &lt;&gt; fv!row.lockedBy
+                    ),
+                    "lock",
+                    "unlock"
+                  ),
+                  caption: if(
+                    and(
+                      fv!row.isLocked,
+                      ri!loggedInUser &lt;&gt; fv!row.lockedBy
+                    ),
+                    "locked",
+                    "unlocked"
+                  ),
+                  color: if(
+                    and(
+                      fv!row.isLocked,
+                      ri!loggedInUser &lt;&gt; fv!row.lockedBy
+                    ),
+                    "NEGATIVE",
+                    "POSITIVE"
+                  )
+                )
+              }
+            )
+          ),
+          align: "CENTER"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Task",
+          align: "START",
+          value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: if(
+                #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.taskName),
+                #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185",
+                fv!row.taskName
+              ),
+              link: if(
+                or(
+                  and(
+                    fv!row.isLocked,
+                    ri!loggedInUser &lt;&gt; fv!row.lockedBy
+                  ),
+                  if(
+                    and(
+                      fv!row.isAssigneeGroup,
+                      not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.assignee))
+                    ),
+                    not(
+                      isusermemberofgroups(
+                        ri!loggedInUser,
+                        a!groupsByName(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(fv!row.assignee))
+                      )
+                    ),
+                    fv!row.assignee &lt;&gt; ri!loggedInUser
+                  ),
+                  fv!row.statusId = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924800"
+                ),
+                null,
+                #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3224768"(
+                  requestId: fv!row.requestId,
+                  taskId: fv!row.taskId,
+                  taskStatus: fv!row.taskStatus,
+                  requestType: fv!row.requestType,
+                  moduleName: fv!row.moduleName,
+                  isAmend: if(
+                    or(
+                      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(fv!row.isTaskAmend),
+                      fv!row.isTaskAmend = false
+                    ),
+                    false,
+                    true
+                  ),
+                  version: fv!row.version,
+                  taskStatusId: fv!row.statusId,
+                  isTaskApproved: fv!row.isApproved
+                )
+              ),
+              linkStyle: "STANDALONE",
+              style: if(
+                or(
+                  and(
+                    fv!row.isLocked,
+                    ri!loggedInUser &lt;&gt; fv!row.lockedBy
+                  ),
+                  if(
+                    and(
+                      fv!row.isAssigneeGroup,
+                      not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.assignee))
+                    ),
+                    not(
+                      isusermemberofgroups(
+                        ri!loggedInUser,
+                        togroup(
+                          a!groupsByName(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(fv!row.assignee))
+                        )
+                      )
+                    ),
+                    fv!row.assignee &lt;&gt; ri!loggedInUser
+                  ),
+                  fv!row.statusId = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924800"
+                ),
+                "PLAIN",
+                "STRONG"
+              )
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Assignee",
+          sortField: "assignee",
+          value: if(
+            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.assignee),
+            #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185",
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              value: {
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: if(
+                    isusernametaken(fv!row.assignee),
+                    "user",
+                    "users"
+                  ),
+                  caption: if(
+                    isusernametaken(fv!row.assignee),
+                    "User",
+                    "Group"
+                  ),
+                  color: "ACCENT"
+                ),
+                #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: concat(
+                    " ",
+                    if(
+                      isusernametaken(fv!row.assignee),
+                      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(fv!row.assignee),
+                      if(
+                        #"ece6d250-3b92-4a97-880d-fe14bb328ba7"(
+                        nominationId: ri!tasks.requestId,
+                        statusId: fv!row.statusId,
+                        assigneeId: fv!row.assigneeId
+                      )=true,
+                      "HR Director",
+                      fv!row.assignee
+                      )
+                    )
+                  ),
+                  link: #"SYSTEM_SYSRULES_userRecordLink"(
+                    user: fv!row.assignee,
+                    showWhen: isusernametaken(fv!row.assignee)
+                  ),
+                  linkStyle: "STANDALONE",
+                  style: "EMPHASIS"
+                )
+              }
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Status",
+          width: "NARROW_PLUS",
+          sortField: "status",
+          value: if(
+            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.taskStatus),
+            #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185",
+            fv!row.taskStatus
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Module",
+          sortField: "moduleName",
+          align: "CENTER",
+          value: fv!row.moduleName
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Type",
+          sortField: "requestType",
+          align: "CENTER",
+          value: if(
+            fv!row.isTaskAmend,
+            fv!row.requestType &amp; " - Edit",
+            fv!row.requestType
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Last Modified By",
+          sortField: "modifiedBy",
+          value: if(
+            length(split(fv!row.modifiedBy, " ")) = 1,
+            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(user: fv!row.modifiedBy),
+            fv!row.modifiedBy
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Modified Date",
+          sortField: "modifiedOn",
+          value: fv!row.modifiedOn
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Created By",
+          sortField: "createdBy",
+          value: if(
+            length(split(fv!row.createdBy, " ")) = 1,
+            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(user: fv!row.createdBy),
+            fv!row.createdBy
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Created Date",
+          sortField: "createdOn",
+          value: fv!row.createdOn
+        )
+      },
+      initialSorts: #"SYSTEM_SYSRULES_sortInfo"(field: "modifiedOn", ascending: false),
+      selectable: and(
+        isusermemberofgroups(
+          loggedInUser(),
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+        ),
+        tointeger(ri!selectedTab) = 2
+      ),
+      selectionValue: local!selectedTaskIds,
+      selectionSaveInto: {
+        local!selectedTaskIds,
+        a!save(
+          ri!selectedTaskIds,
+          append(
+            ri!selectedTaskIds,
+            property(fv!selectedRows, "taskId", null)
+          )
+        ),
+        a!save(
+          ri!selectedTaskIds,
+          difference(
+            ri!selectedTaskIds,
+            tointeger(
+              property(fv!deselectedRows, "taskId", null)
+            )
+          )
+        )
+      },
+      /*spacing: "DENSE",*/
+      borderStyle: "LIGHT",
+      shadeAlternateRows: true(),
+      rowHeader: 1,
+      disableRowSelectionWhen: or(
+        and(
+          length(tointeger(ri!selectedTaskIds)) = 1,
+          tointeger(fv!row.taskId) &lt;&gt; tointeger(ri!selectedTaskIds)
+        ),
+        tostring(fv!row.taskStatus) = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3205535",
+        toboolean(fv!row.isAssigneeGroup) = true,
+        and(
+          index(fv!row, "isLocked", false) = true,
+          not(
+            index(fv!row, "lockedBy", null) = loggedInUser()
+          )
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>tasks</name>
+            <type>
+                <name>CAW_V_Task?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedTaskIds</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>loggedInUser</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedTab</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177276"(
+  returnCDT: true,
+  taskId: 1099
+)</a:value>
+                    <a:nameRef>tasks</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>selectedTaskIds</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">/*"skiflemariam@kpmg.com"*/
+/**/
+/**/
+loggedInUser()</a:value>
+                    <a:nameRef>loggedInUser</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>selectedTab</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238932"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3250765"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3361835"/>
+        <historyInfo versionUuid="_a-0000e6c1-137f-8000-9bf9-011c48011c48_3552951"/>
+        <historyInfo versionUuid="_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3789743"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3957164"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4083550"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4113990"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4114244"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4153316"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4232527"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4782077"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4792468"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5401115"/>
+        <historyInfo versionUuid="_a-0000e7eb-6013-8000-9c20-011c48011c48_6356068"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6817411"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11901106"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12647805"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14220533"/>
+        <historyInfo versionUuid="_a-0000ef99-54a0-8000-9c6e-011c48011c48_14306470"/>
+    </history>
+</contentHaul>

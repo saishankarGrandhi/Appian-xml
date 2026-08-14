@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12333391</versionUuid>
+    <folder>
+        <name>DRT V4 Application Documentation</name>
+        <uuid>9f938ace-19e4-4b61-91ba-5d9254389bda</uuid>
+        <description>Stores documents added as supporting documentation for the application</description>
+        <parentUuid>a6b885c4-8869-400a-84a6-b86f7e57c370</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+    </folder>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="82f6fae8-eb2d-47c8-b324-f574a56df316"/>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12333391"/>
+    </history>
+</contentHaul>

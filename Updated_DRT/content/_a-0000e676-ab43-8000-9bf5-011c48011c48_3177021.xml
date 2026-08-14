@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14067123</versionUuid>
+    <rule>
+        <name>CAW_sitePageVisibility_Reports</name>
+        <uuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3177021</uuid>
+        <description>Visibility rule for the Reports tab of the DPP Recruiting Tool site</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>isusermemberofgroups(
+  loggedInUser(),
+  {
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174770",
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176138",
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176419",
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176431",
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176485",
+    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12648325",
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176497",
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177089",
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177083",
+    #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066240",
+    #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066222",
+    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6814637",
+    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362550"
+  }
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3192350"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6906377"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12371117"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12651639"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14067123"/>
+    </history>
+</contentHaul>

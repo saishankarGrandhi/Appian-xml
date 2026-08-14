@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11761085</versionUuid>
+    <constant>
+        <name>DRT_CAW_TXT_DPP_GROUP_LIST_V2</name>
+        <uuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11664820</uuid>
+        <description>New DPP group for transfer confirmation</description>
+        <parentUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11571597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Accounting Group (AcG)</el>
+                <el>Audit - PCAOB Standards Group (PSG)</el>
+                <el>Audit Learning &amp; Development (L&amp;D) Group</el>
+                <el>EQCR Center </el>
+                <el>People and Process - Other Group</el>
+                <el>Quality Office (QO)</el>
+                <el>Rotational</el>
+                <el>USCMG</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11664824"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11737848"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11761085"/>
+    </history>
+</contentHaul>

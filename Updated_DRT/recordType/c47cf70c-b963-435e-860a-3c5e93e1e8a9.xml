@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>0d024535-5178-4c84-b3ee-67c5073fab20</versionUuid>
+  <recordType a:uuid="c47cf70c-b963-435e-860a-3c5e93e1e8a9" name="CAW Core Ask">
+    <a:pluralName>CAW Core Asks</a:pluralName>
+    <a:description>Record for all Core ASKs</a:description>
+    <a:urlStub>li4_mw</a:urlStub>
+    <a:source
+      a:uuid="9c86c85d-0124-49f7-b85c-b2f7fadd909f@_a-0000e676-ab43-8000-9bf5-011c48011c48_3049899" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridField"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Ask Detail Id",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askDetailId",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askDetailId"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Ask Id",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId",
+      value: #"SYSTEM_SYSRULES_linkField"(
+        links: {
+          #"SYSTEM_SYSRULES_recordLink"(
+            label: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"],
+            recordType: #"urn:appian:record-type:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9",
+            identifier: fv!identifier
+          )
+        }
+      ),
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "F Year",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/fYear",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/fYear"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Status Id",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/statusId",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/statusId"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Status",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/status",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/status"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Dpp Group",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/dppGroup",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/dppGroup"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Need Reason",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/needReason",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/needReason"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Level Need",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/levelNeed",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/levelNeed"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "General Speciality Need",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/generalSpecialityNeed",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/generalSpecialityNeed"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Role Posting",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/rolePosting",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/rolePosting"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Out Going Resource",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/outGoingResource",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/outGoingResource"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "General Speciality Needcomment",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/generalSpecialityNeedcomment",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/generalSpecialityNeedcomment"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Head Count Amount",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/headCountAmount",
+      value: if(
+      isnull(fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/headCountAmount"]),
+      fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/headCountAmount"],
+      fixed(fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/headCountAmount"], 2)
+      ),
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Fte Amount",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/fteAmount",
+      value: if(
+      isnull(fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/fteAmount"]),
+      fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/fteAmount"],
+      fixed(fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/fteAmount"], 2)
+      ),
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "End Date",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/endDate",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/endDate"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Projected Start Date",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/projectedStartDate",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/projectedStartDate"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Role Summary",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/roleSummary",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/roleSummary"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Role Responsibility",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/roleResponsibility",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/roleResponsibility"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Role Qualification",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/roleQualification",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/roleQualification"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Posting Reqnumber",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/postingReqnumber",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/postingReqnumber"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Version",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/version",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/version"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Is Active",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/isActive",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/isActive"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Is Completed",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/isCompleted",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/isCompleted"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Created By",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/createdBy",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/createdBy"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Created On",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/createdOn",
+      value: if(
+      isnull(fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/createdOn"]),
+      fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/createdOn"],
+      datetext(fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/createdOn"], "default")
+      ),
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Modified By",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/modifiedBy",
+      value: fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/modifiedBy"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Modified On",
+      sortField: #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/modifiedOn",
+      value: if(
+      isnull(fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/modifiedOn"]),
+      fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/modifiedOn"],
+      datetext(fv!row[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/modifiedOn"], "default")
+      ),
+      align: "END"
+    )
+  },
+  pageSize: 50,
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3318070"(
+  coreAsk: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3235974"(
+    askId: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"],
+    version: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/version"],
+    returnCDT: true
+  )
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>refId-5461a336-a8bf-4785-a3c2-7b94583f9f9c</a:relatedActionCfg>
+      <a:relatedActionCfg>refId-001055a4-3c19-4eb9-a787-46728b7636d7</a:relatedActionCfg>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:detailViewHeaderCfg>
+        <a:headerTypeByte>1</a:headerTypeByte>
+        <a:isHeaderFixed>false</a:isHeaderFixed>
+        <a:showDivider>true</a:showDivider>
+        <a:hideHeader>false</a:hideHeader>
+      </a:detailViewHeaderCfg>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Attachments"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3775387"(
+  documents: #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3700121"(
+    returnCDT: true,
+    moduleId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+    requestId: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"],
+    version: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/version"]
+  ),
+  showWhen: true
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_PM-12g</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:detailViewHeaderCfg>
+        <a:headerTypeByte>1</a:headerTypeByte>
+        <a:isHeaderFixed>false</a:isHeaderFixed>
+        <a:showDivider>true</a:showDivider>
+        <a:hideHeader>false</a:hideHeader>
+      </a:detailViewHeaderCfg>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Previous Comments"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3192543"(
+  comments: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127169"(
+    returnCDT: true,
+    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+    requestId: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"],
+    version: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/version"],
+    isDraft: false,
+    isActive: true
+  ),
+  showWhen: true
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_be-s-Q</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:detailViewHeaderCfg>
+        <a:headerTypeByte>1</a:headerTypeByte>
+        <a:isHeaderFixed>false</a:isHeaderFixed>
+        <a:showDivider>true</a:showDivider>
+        <a:hideHeader>false</a:hideHeader>
+      </a:detailViewHeaderCfg>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Versions"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3473180"(
+  coreAskId: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"],
+  currentVersion: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/version"]
+)</a:uiExpr>
+      <a:visibilityExpr>#"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3567105"(
+  askId: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"],
+  askTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3163854"
+)
+
+</a:visibilityExpr>
+      <a:urlStub>_7pSCCQ</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:detailViewHeaderCfg>
+        <a:headerTypeByte>1</a:headerTypeByte>
+        <a:isHeaderFixed>false</a:isHeaderFixed>
+        <a:showDivider>true</a:showDivider>
+        <a:hideHeader>false</a:hideHeader>
+      </a:detailViewHeaderCfg>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Audit History"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3440565"(
+  audit: #"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3442778"(
+    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+    requestId: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"],
+    version: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/version"],
+    returnCDT: true
+  ),
+  moduleTypeID: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387"
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_Ajt7OQ</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:detailViewHeaderCfg>
+        <a:headerTypeByte>1</a:headerTypeByte>
+        <a:isHeaderFixed>false</a:isHeaderFixed>
+        <a:showDivider>true</a:showDivider>
+        <a:hideHeader>false</a:hideHeader>
+      </a:detailViewHeaderCfg>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:relatedActionCfg a:uuid="5461a336-a8bf-4785-a3c2-7b94583f9f9c">
+      <a:target a:uuid="0017e6ac-0da4-8000-8d30-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  askId: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"],
+  isEdit: false,
+  isTaskAmend: true
+}</a:contextExpr>
+      <a:visibilityExpr>#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3363726"(
+  askId: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"],
+  version: rv!record[ #"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/version"],
+  isCompleted: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/isCompleted"]
+)
+</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>refId-5461a336-a8bf-4785-a3c2-7b94583f9f9c</a:refId>
+      <a:staticTitleString>Amend ASK</a:staticTitleString>
+      <a:staticDescriptionString/>
+      <a:referenceKey>amendAsk</a:referenceKey>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg a:uuid="001055a4-3c19-4eb9-a787-46728b7636d7">
+      <a:target a:uuid="0002ef94-870b-8000-c563-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  ask: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127036"(askId: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"]).data, /* CAW_Ask */
+  auditHistory: null, /* CAW_Audit */
+  buttonClicked: null, /* Text */
+  comment: null, /* CAW_Comment */
+  coreAsksView: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3235974"(askId: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/askId"],version: rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/version"]).data/* CAW_V_CORE_ASK */
+}</a:contextExpr>
+      <a:visibilityExpr>and(
+  #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+    username: loggedInUser(),
+    groups: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  not(
+    contains(
+      {
+        #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3344039",
+        #"_a-0000ef82-c68c-8000-9c6c-011c48011c48_14274552",
+        
+      },
+      rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/statusId"]
+    )
+  )
+)</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>refId-001055a4-3c19-4eb9-a787-46728b7636d7</a:refId>
+      <a:staticTitleString>Cancel Core Ask</a:staticTitleString>
+      <a:staticDescriptionString/>
+      <a:referenceKey>cancelCoreAsk</a:referenceKey>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:dataSrcExpr/>
+    <a:facetsListExpr/>
+    <a:titleExpr>index(
+  split(
+    rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/dppGroup"],
+    "–"
+  ),
+  1,
+  tointeger(null)
+) &amp; " - " &amp; "FY"&amp;right(rv!record[#"urn:appian:record-field:v1:c47cf70c-b963-435e-860a-3c5e93e1e8a9/fYear"],2)</a:titleExpr>
+    <a:defaultFiltersExpr/>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>true</a:isExportable>
+    <a:listViewSrcExpr/>
+    <a:recordViewSrcExpr/>
+    <a:recordTypeSearchCfg>
+      <searchFieldsSrc>DEFAULT</searchFieldsSrc>
+      <placeholderSrc>DEFAULT</placeholderSrc>
+      <placeholder/>
+    </a:recordTypeSearchCfg>
+    <a:iconId/>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>63</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>false</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>false</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+    <a:creationSource>UNKNOWN</a:creationSource>
+    <a:sqlEnabled>false</a:sqlEnabled>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e6b8-3009-8000-9b43-01075c01075c_1070</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="d693d477-130c-4f9a-84d5-a296d490d42e"/>
+    <historyInfo versionUuid="ac28b685-e507-44ee-8b97-7c8acc0c9c18"/>
+    <historyInfo versionUuid="347796a2-a8d8-4386-bf4a-17f781d9c80e"/>
+    <historyInfo versionUuid="56971c34-83c6-4136-8777-6459d51595bb"/>
+    <historyInfo versionUuid="ea98e58f-907c-4fe0-ba09-03773d4bd07e"/>
+    <historyInfo versionUuid="09219cb4-cd10-413d-a523-8b7dfe2c5924"/>
+    <historyInfo versionUuid="f8ab570c-0b73-4f6a-9d01-fe56db45acda"/>
+    <historyInfo versionUuid="01aa0de0-acb4-463d-938d-3e211f59ad77"/>
+    <historyInfo versionUuid="8fba0f68-c001-41eb-b3f4-99a6b70b58d3"/>
+    <historyInfo versionUuid="f4ba66a2-b886-44fe-b864-bc4bca2957a6"/>
+    <historyInfo versionUuid="d2222b3c-9431-43a7-89ab-6f29058c7dda"/>
+    <historyInfo versionUuid="10ba3dd2-658f-4ba7-9ae7-df3b14b5673d"/>
+    <historyInfo versionUuid="fef5a161-bb0b-4223-a09b-3ea9d37b0dd7"/>
+    <historyInfo versionUuid="8bd993af-1dbc-4853-ae83-85e4479e1218"/>
+    <historyInfo versionUuid="f17957e6-e5db-4f86-a840-ce72940347ed"/>
+    <historyInfo versionUuid="64398a35-6022-4397-bebc-fb48c1d251b3"/>
+    <historyInfo versionUuid="81af76cc-6928-4fa2-b7af-5d40f06f764d"/>
+    <historyInfo versionUuid="0ec4cbda-f88a-4717-afad-bc0b5dff9814"/>
+    <historyInfo versionUuid="e33ae63f-5454-4454-92d3-c76967821500"/>
+    <historyInfo versionUuid="d226566c-8d80-4fc0-9596-75e1807e9946"/>
+    <historyInfo versionUuid="56fbdeaf-5c51-4c66-8cab-2c07792b3f8b"/>
+    <historyInfo versionUuid="33fc61bf-2526-462c-8463-cccce249f5b4"/>
+    <historyInfo versionUuid="e0c50baa-7edd-4727-ac87-b101d62b52b6"/>
+    <historyInfo versionUuid="8b64a87b-dfe8-4c6d-8c6a-7b70e5166ff4"/>
+    <historyInfo versionUuid="0d024535-5178-4c84-b3ee-67c5073fab20"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

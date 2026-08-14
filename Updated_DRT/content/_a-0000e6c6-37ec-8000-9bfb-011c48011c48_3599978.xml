@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12489664</versionUuid>
+    <interface>
+        <name>CAW_CMP_UploadDocuments</name>
+        <uuid>_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3599978</uuid>
+        <description>Component to upload document</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!date: now(),
+  local!docId: ri!appianDoc,
+  local!addedDoc,
+  local!files,
+  local!loggedInUser: loggedInUser(),
+  local!isUserCandidate: isusermemberofgroups(
+    user: tostring(local!loggedInUser),
+    groups: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3175918"
+  ),
+  local!isCandidateDoc: or(
+    and(
+      toboolean(local!isUserCandidate),
+      ri!statusId = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3927661"
+    ),
+    and(
+      isusermemberofgroups(
+        user: tostring(local!loggedInUser),
+        groups: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+      ),
+      ri!statusId = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3935295"
+    )
+  ),
+  #"SYSTEM_SYSRULES_cardLayout"(
+    showWhen: ri!showWhen,
+    marginBelow: "STANDARD",
+    contents: {
+      #"SYSTEM_SYSRULES_fileUploadField_v1"(
+        label: "Attachments" &amp; if(
+          and(
+            ri!isNomination,
+            or(
+              ri!isDirectHire = false,
+              a!isNullOrEmpty(ri!isDirectHire)
+            )
+          ),
+          " *",
+          ""
+        ),
+        instructions: if(
+          ri!isNomination = true,
+          "Please upload the candidates resume using the attachment button above",
+          "Use this tool to upload any attachments to this form"
+        ),
+        requiredMessage: "Please upload at least one attachment to submit",
+        target: if(
+          local!isCandidateDoc,
+          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4644400",
+          #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3699872"
+        ),
+        value: local!docId,
+        saveInto: {
+          local!docId,
+          a!save(
+            local!addedDoc,
+            difference(
+              tointeger(save!value),
+              tointeger(ri!appianDoc)
+            )
+          ),
+          a!save(
+            ri!documentsToDelete,
+            difference(
+              tointeger(ri!appianDoc),
+              tointeger(save!value)
+            )
+          ),
+          if(
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!document),
+            null,
+            a!save(
+              ri!document,
+              remove(
+                ri!document,
+                wherecontains(
+                  difference(
+                    tointeger(
+                      property(
+                        index(
+                          ri!document,
+                          wherecontains(
+                            tointeger(null),
+                            tointeger(
+                              property(ri!document, "documentId", null)
+                            )
+                          ),
+                          null
+                        ),
+                        "docId",
+                        null
+                      )
+                    ),
+                    tointeger(local!addedDoc)
+                  ),
+                  tointeger(property(ri!document, "docId", null))
+                )
+              )
+            )
+          ),
+          a!save(
+            ri!document,
+            if(
+              a!isNullOrEmpty(local!addedDoc),
+              ri!document,
+              append(
+                ri!document,
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: local!addedDoc,
+                  expression: 'type!{urn:com:appian:types:CAW}CAW_Document'(
+                    documentId: null,
+                    moduleId: ri!moduleId,
+                    requestId: ri!requestId,
+                    taskId: ri!taskId,
+                    docId: tointeger(fv!item),
+                    version: ri!version,
+                    isActive: true,
+                    isLocked: false,
+                    createdBy: loggedInUser(),
+                    createdOn: local!date,
+                    modifiedBy: loggedInUser(),
+                    modifiedOn: local!date
+                  )
+                )
+              )
+            )
+          ),
+          if(
+            toboolean(local!isCandidateDoc),
+            a!save(ri!document.isCandidateDoc, true),
+            null
+          ),
+          a!save(
+            ri!document,
+            union(ri!document, ri!document)
+          )
+        },
+        validations: a!localVariables(
+          local!invalidExtensions: difference(
+            touniformstring(fv!files.extension),
+            touniformstring(
+              {
+                "pdf",
+                "doc",
+                "docx",
+                "xls",
+                "xlsx",
+                "ppt",
+                "pptx",
+                "csv"
+              }
+            )
+          ),
+          if(
+            length(local!invalidExtensions) &gt; 0,
+            "Attachments must be PDF, DOC, DOCX , XLS, XLSX, PPT, PPTX, CSV files. Remove: " &amp; index(
+              fv!files,
+              "name",
+              wherecontains(
+                touniformstring(local!invalidExtensions),
+                touniformstring(fv!files.extension)
+              ),
+              {}
+            ),
+            ""
+          )
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>appianDoc</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>document</name>
+            <type>
+                <name>CAW_Document?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>moduleId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>taskId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>version</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showWhen</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>documentsToDelete</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isNomination</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>statusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isDirectHire</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>appianDoc</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3700121"(
+  taskId:  195,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>document</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>moduleId</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>requestId</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>taskId</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>version</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>showWhen</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>documentsToDelete</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isNomination</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>statusId</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isDirectHire</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3670585"/>
+        <historyInfo versionUuid="_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3785597"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3828571"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3831502"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3926122"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4124933"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4246173"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4260291"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577210"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4691617"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4940951"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6608018"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6612684"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6672278"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12489664"/>
+    </history>
+</contentHaul>

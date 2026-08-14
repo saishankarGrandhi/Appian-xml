@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759297</versionUuid>
+    <rule>
+        <name>CAW_QE_getNomination</name>
+        <uuid>_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738</uuid>
+        <description>QE to get query CAW_Nomination</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!queryDataSubset:#"SYSTEM_SYSRULES_queryEntity_v1"(
+    entity: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461731",
+    fetchtotalcount: ri!fetchTotalCount,
+    query: #"SYSTEM_SYSRULES_query"(
+      selection: if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!columns),
+        {},
+        #"SYSTEM_SYSRULES_querySelection"(
+          columns: #"SYSTEM_SYSRULES_forEach"(
+            items: ri!columns,
+            expression: #"SYSTEM_SYSRULES_queryColumn"(field:fv!item)
+          )
+        )
+      ),
+      logicalExpression: #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator: "AND",
+        ignorefilterswithemptyvalues: true,
+        filters: {
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "nominationId", 
+            operator: "in", 
+            value: ri!nominationId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "nominationTypeId", 
+            operator: "=", 
+            value: ri!nominationTypeId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "positionTypeId",
+            operator: "=",
+            value: ri!positionTypeId
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "subPositionTypeId",
+            operator: "in",
+            value: ri!subPositionTypeId
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "firstName",
+            operator: "includes",
+            value: ri!firstName
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "lastName",
+            operator: "includes",
+            value: ri!lastName
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "fiscalYear",
+            operator: "=",
+            value: ri!fiscalYear
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "askID",
+            operator: "=",
+            value: ri!askId
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "statusId",
+            operator: "&lt;&gt;",
+            value: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3891969",
+            applywhen: ri!notCancelled = true
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "isDirectHire",
+            operator: "=",
+            value: ri!isDirectHire
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "isDirectHireInternal",
+            operator: "=",
+            value: ri!isDirectHireInternal
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "isActive",
+            operator: "=",
+            value: ri!isActive
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "originatingRegion",
+            operator: "=",
+            value: ri!origRegion
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "originatingBU",
+            operator: "=",
+            value: ri!origBU
+          )
+        }
+      ),
+      paginginfo: if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!pagingInfo),
+        #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: -1,
+          sort: {
+            #"SYSTEM_SYSRULES_sortInfo"(
+              field: "nominationId",
+              ascending: false
+            )
+          },
+        ),
+        ri!pagingInfo
+      )
+    )
+  ),
+  if(
+    ri!returnCDT,
+    cast(
+      'type!{urn:com:appian:types:CAW}CAW_Nomination?list',
+      local!queryDataSubset.data
+    ),
+    local!queryDataSubset
+  )
+)
+
+</definition>
+        <namedTypedValue>
+            <name>nominationId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nominationTypeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>positionTypeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>subPositionTypeId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>firstName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>lastName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>columns</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>returnCDT</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fetchTotalCount</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fiscalYear</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>askId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isDirectHire</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isDirectHireInternal</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>notCancelled</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>origRegion</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>origBU</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6bc-0703-8000-9bf8-011c48011c48_3463211"/>
+        <historyInfo versionUuid="_a-0000e781-2d54-8000-9c18-011c48011c48_5420442"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_6162512"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6660560"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759297"/>
+    </history>
+</contentHaul>

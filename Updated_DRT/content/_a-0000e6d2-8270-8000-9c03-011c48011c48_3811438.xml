@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4059512</versionUuid>
+    <interface>
+        <name>CAW_SFTP_Dashboard</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3811438</uuid>
+        <description></description>
+        <parentUuid>_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3751507</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_headerContentLayout"(
+  header: #"SYSTEM_SYSRULES_billboardLayout_v1"(
+    height: "SHORT",
+    backgroundColor: "#12458a",
+    overlay: #"SYSTEM_SYSRULES_fullOverlay"(
+      alignVertical: "BOTTOM",
+      style: "SEMI_DARK",
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          alignVertical: "BOTTOM",
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  labelPosition: "COLLAPSED",
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: "DPP Databus Integration",
+                      size: "LARGE_PLUS",
+                      /*style: "STRONG",*/
+                      color: "#FFFFFF"
+                    ),
+                    char(10),
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      style: "EMPHASIS",
+                      size: "LARGE",
+                      text: "Admin Dashboard"
+                    )
+                  }
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              width: "NARROW",
+              contents: {
+                #"SYSTEM_SYSRULES_ButtonLayout"(
+                  /*align: "END",*/
+                  primaryButtons:  #"SYSTEM_SYSRULES_ButtonWidget"(
+                    label: "Run SFTP Process",
+                    saveInto: #"SYSTEM_SYSRULES_startProcess"(
+                      processModel: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3852279"
+                    )
+                  )
+                )
+              }
+            )
+          }
+        )
+      }
+    )
+  ),
+  contents: a!localVariables(
+    local!chooseId: 1,
+    local!tableListMap: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3840152"(),
+    {
+      /*a!sectionLayout(*/
+        /*contents: {*/
+          /*a!richTextDisplayField(*/
+            /*value: a!richTextHeader(*/
+              /*size: "LARGE",*/
+              /*text: "DPP Recruiting Databus Integration"*/
+            /*)*/
+          /*)*/
+        /*},*/
+        /*divider: "BELOW",*/
+        /*dividerWeight: "MEDIUM"*/
+      /*),*/
+
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        showDividers: true,
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            width: "NARROW",
+            contents: {
+              #"SYSTEM_SYSRULES_cardLayout"(
+                showBorder: false,
+                style: "#0C3060"
+              ),
+              #"SYSTEM_SYSRULES_forEach"(
+                items: local!tableListMap,
+                expression: #"SYSTEM_SYSRULES_cardLayout"(
+                  showWhen: fv!item.isActive,
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    saveInto: a!save(local!chooseId, fv!index),
+                    showWhen: local!chooseId&lt;&gt;fv!index
+                  ),
+                  showBorder: false,
+                  style: if(
+                    fv!index=local!chooseId,
+                    "ACCENT",
+                    "STANDARD"
+                  ),
+                  contents: {
+                    #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      labelPosition: "COLLAPSED",
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextIcon"(
+                          icon: fv!item.icon,
+                          size: "MEDIUM"
+                        ),
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          size: "MEDIUM",
+                          /*style: "STRONG",*/
+                          text: " " &amp;fv!item.tableName
+                        )
+                      }
+                    )
+                  }
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                label: local!tableListMap[local!chooseId].tableName,
+                divider: "ABOVE",
+                contents: {
+                  choose(
+                    local!chooseId,
+                    /* audit history*/
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3814264"(),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3832682"(),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3814537"(),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3814644"(),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3814754"(),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3814850"(),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3840116"(),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3873101"(),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3873114"(),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_4036898"(),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_4037074"(),
+                    #"_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4059428"()
+                  )
+                }
+              )
+            }
+          )
+        }
+      )
+    }
+  )
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3893276"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4037160"/>
+        <historyInfo versionUuid="_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4059512"/>
+    </history>
+</contentHaul>

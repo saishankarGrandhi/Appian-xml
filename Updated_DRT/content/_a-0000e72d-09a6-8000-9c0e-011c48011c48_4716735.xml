@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6933959</versionUuid>
+    <rule>
+        <name>CAW_formatEmailRecipientsCC</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4716735</uuid>
+        <description>Rule to format email recipientsCC</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!recipients: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!recipients),
+    null,
+    #"SYSTEM_SYSRULES_forEach"(
+      items: split(ri!recipients,";"),
+      expression: if(
+        contains(
+          {
+            "DPP Operation Editors",
+            "HR Director",
+            "NBL",
+            "Deputy PPL",
+            "DPP PIC"
+          },
+          tostring(fv!item)
+        ),
+        fv!item,
+        clean(stripwith(fv!item," "))
+      )
+    )
+  ),
+  local!recipientsGroups: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!recipients),
+    null,
+    if(
+      and(
+        tointeger(ri!statusId)=#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617",
+        tointeger(property(ri!nomination,"subPositionTypeId",null)) &lt;&gt; #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688"
+      ),
+      remove(
+        local!recipients,
+        wherecontains("DPP PIC", local!recipients)
+      ),
+      local!recipients
+    )
+  ),
+  local!groups: a!flatten(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!recipientsGroups,
+      expression: a!groupsByName(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(fv!item))
+    )
+  ),
+  local!dppGroupMailBox: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!groups),
+    null,
+    if(
+      contains(
+        {
+          local!groups
+        },
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+      ),
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4718496",
+      null
+    )
+  ),
+  local!users: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!groups),
+    null,
+    #"SYSTEM_SYSRULES_forEach"(
+      items: remove(
+        local!groups,
+        wherecontains(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922",
+          local!groups
+        )
+      ),
+      expression: a!groupMembers(fv!item)
+    )
+  ),
+  local!recipientsCC: a!flatten(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!users,
+      expression: property(fv!item,"data",null)
+    )
+  ),
+  local!finalRecipientCC: if(
+    or(
+      tointeger(ri!statusId) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+      tointeger(ri!statusId) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932"
+    ),
+    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5115647"(
+      bu: tostring(property(ri!nomination,"originatingBU",null)),
+      statusId: ri!statusId
+    ),
+    toemailrecipient(
+      toemailaddress(
+        reject(
+          fn!isnull,
+          append(
+            touniformstring(local!recipientsCC),
+            tostring(local!dppGroupMailBox)
+          )
+        )
+      )
+    )
+  ),
+  union(
+    local!finalRecipientCC,
+    local!finalRecipientCC
+  )
+)
+
+
+</definition>
+        <namedTypedValue>
+            <name>recipients</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>statusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>DEV</a:name>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4149315"(
+  emailId: 4, 
+  returnCDT: true
+).recipientsCC</a:value>
+                    <a:nameRef>recipients</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:CAW" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:CAW_Nomination"/>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>statusId</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4719465"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5041087"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5379491"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5403565"/>
+        <historyInfo versionUuid="_a-0000e7eb-6026-8000-9c2c-011c48011c48_586030"/>
+        <historyInfo versionUuid="_a-0000e7eb-6013-8000-9c20-011c48011c48_6388888"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6848400"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6933959"/>
+    </history>
+</contentHaul>

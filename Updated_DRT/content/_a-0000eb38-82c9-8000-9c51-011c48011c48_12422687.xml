@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066271</versionUuid>
+    <constant>
+        <name>DRT_GRP_UPLOADED_ATTACHMENTS_DUE_DILIGENCE</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12422687</uuid>
+        <description>constant for groups of uploaded Attachments in due diligence</description>
+        <parentUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11571597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Group?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>_e-0000eb38-82c9-8000-9b9d-01075c01075c_3856</el>
+                <el>_e-0000e676-ab43-8000-9b41-01075c01075c_945</el>
+                <el>_e-0000e676-ab43-8000-9b41-01075c01075c_995</el>
+                <el>_e-0000eb38-82c9-8000-9b9d-01075c01075c_3858</el>
+                <el>_e-0000e676-ab43-8000-9b41-01075c01075c_959</el>
+                <el>_e-0000ef1d-503a-8000-9bb6-01075c01075c_4097</el>
+                <el>_e-0000ef1d-503a-8000-9bb6-01075c01075c_4101</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12466895"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12516652"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12650608"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066271"/>
+    </history>
+</contentHaul>

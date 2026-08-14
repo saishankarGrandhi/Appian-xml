@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef82-c68c-8000-9c6c-011c48011c48_14281438</versionUuid>
+    <rule>
+        <name>CAW_QE_getTask</name>
+        <uuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3066463</uuid>
+        <description>QE to get query CAW_Tasks</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!queryDataSubset:#"SYSTEM_SYSRULES_queryEntity_v1"(
+    entity: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3066595",
+    fetchtotalcount: ri!fetchTotalCount,
+    query: #"SYSTEM_SYSRULES_query"(
+      selection: if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!columns),
+        {},
+        #"SYSTEM_SYSRULES_querySelection"(
+          columns: #"SYSTEM_SYSRULES_forEach"(
+            items: ri!columns,
+            expression: #"SYSTEM_SYSRULES_queryColumn"(field:fv!item)
+          )
+        )
+      ),
+      logicalExpression: #"SYSTEM_SYSRULES_queryLogicalExpression"(
+        operator: "AND",
+        ignorefilterswithemptyvalues: true,
+        filters: {
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "taskId", 
+            operator: "=", 
+            value: ri!taskId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "requestId", 
+            operator: "=", 
+            value: ri!requestId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "version", 
+            operator: "=", 
+            value: ri!version, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "taskTypeId", 
+            operator: "=", 
+            value: ri!taskTypeId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "moduleTypeId", 
+            operator: "=", 
+            value: ri!moduleTypeId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "statusId", 
+            operator: "in", 
+            value: ri!statusId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "assigneeId", 
+            operator: "=", 
+            value: ri!assigneeId, 
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "isLocked",
+            operator: "=",
+            value: ri!isLocked
+          ),
+          #"SYSTEM_SYSRULES_queryFilter"(
+            field: "isCompleted",
+            operator: "=",
+            value: ri!isCompleted
+          )
+        }
+      ),
+      paginginfo: if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!pagingInfo),
+        #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: -1,
+          sort: {
+            #"SYSTEM_SYSRULES_sortInfo"(
+              field: "taskId",
+              ascending: true
+            )
+          },
+        ),
+        ri!pagingInfo
+      )
+    )
+  ),
+  if(
+    ri!returnCDT,
+    cast(
+      'type!{urn:com:appian:types:CAW}CAW_Task?list',
+      local!queryDataSubset.data
+    ),
+    local!queryDataSubset
+  )
+)
+
+</definition>
+        <namedTypedValue>
+            <name>taskId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>requestId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>taskTypeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>moduleTypeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>statusId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assigneeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isLocked</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isCompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>columns</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>returnCDT</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fetchTotalCount</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>version</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e676-ab43-8000-9bf5-011c48011c48_3166387"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_6161220"/>
+        <historyInfo versionUuid="_a-0000ef82-c68c-8000-9c6c-011c48011c48_14281438"/>
+    </history>
+</contentHaul>

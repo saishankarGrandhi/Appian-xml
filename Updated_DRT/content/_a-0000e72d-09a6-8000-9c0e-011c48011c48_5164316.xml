@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_13020253</versionUuid>
+    <rule>
+        <name>CAW_nominationExportHeaderFields</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5164316</uuid>
+        <description>list of headers used in "custom fields values " for nomination export process model </description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  "Nomination Record ID",
+  "Candidate Name",
+  "Current Status",
+  "Type of Position",
+  "Sub-type of Position",
+  "Non-Traditional Rotational Type",
+  "Employee Id",
+  "Job Function",
+  "Job Description",
+  "Job Family",
+  "Originating BU",
+  /*"Originating Region",*/
+  "Originating Home Office",
+  /*"Returning Region",*/
+  "Returning BU",
+  "Other Returning BU",
+  "Returning Home Office",
+  "Other Returning Home Office",
+  "Expected MD Promotion Date",
+  "Expected MD Promotion Date Comments",
+  /*"Expected Partner Promotion Date",*/
+  "Is this candidate in your partner pipeline?",
+  /*"Expected Partner Promotion Date Comments",*/
+  "Future Partner Promotion Date Comments",
+  "Rationale For Nomination",
+  "Client Considerations", 
+  "Years With Firm",
+  "Anticipated Start Date",
+  "Anticipated End Date",
+  "Recommended Group",
+  /*"Do you think this person would be a good candidate for a fellowship at the SEC, FASB or GASB?",*/
+  /*"Would you like to nominate the candidate to be an Audit Quality Support Partner upon their return to your BU?",*/
+  "Would you like to nominate the candidate to be part of the Audit Quality Support Network (AQSN)?",
+  "Primary Industry",
+  "Is additional follow up required?",
+  "Does the nomination need to be reapproved by the BU?",
+  "Operations Comments",
+  "Based on HR/Inspections findings, does the Operations team believe additional vetting is required?",
+  "Ops-requested Additional vetting",
+  "Does the individual have an AQR 1 or 2?",
+  "Is the candidate in good standing within the past 3 fiscal years?",
+  "HR-Additional vetting required?",
+  "HR/Other Comments",
+  "Provide Years of Service",
+  "Expected MD Promotion Date per latest available pipeline",
+  /*"Expected Partner Promotion Date per latest available pipeline",*/
+  "Does this candidate have negative inspections findings (PCAOB/QP)?",
+  "Inspections Comments",
+  "Interviewers",
+  "Are you supportive of the candidate being extended an offer for a DPP rotation?",
+  "Effective DPP Start Date",
+  "Effective End Date",
+  "DPP Group",
+  "New Cost Center"
+}</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5216372"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6912695"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6982173"/>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12334738"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12926719"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_13020253"/>
+    </history>
+</contentHaul>

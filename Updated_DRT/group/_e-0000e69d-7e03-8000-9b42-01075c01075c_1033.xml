@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1348</versionUuid>
+    <group>
+        <name>CAW IIG - Chief of Integrated Inquiries</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000e69d-7e03-8000-9b42-01075c01075c_1033</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <parentUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_999</parentUuid>
+        <description>Group for IIG - Chief</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups/>
+    </members>
+    <admins>
+        <users/>
+        <groups/>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000e69d-7e03-8000-9b42-01075c01075c_1040"/>
+        <historyInfo versionUuid="_e-0000e69d-7e03-8000-9b42-01075c01075c_1047"/>
+        <historyInfo versionUuid="_e-0000e69d-7e03-8000-9b42-01075c01075c_1056"/>
+        <historyInfo versionUuid="_e-0000e6eb-1d17-8000-9b54-01075c01075c_1348"/>
+    </history>
+</groupHaul>

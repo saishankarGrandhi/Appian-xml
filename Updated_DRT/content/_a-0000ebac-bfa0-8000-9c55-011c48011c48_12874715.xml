@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12874726</versionUuid>
+    <interface>
+        <name>DRTV4_CMP_AskVsNominationSummary</name>
+        <uuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12874715</uuid>
+        <description>The Summary table for the Rotational Ask vs Nomination Report</description>
+        <parentUuid>b6e2e847-4392-4d53-bbd2-931b68aca1d9</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!rotationalAskActualCompletedCount: sum(
+    index(ri!rotationalAskActual,"traditionalComplete",0),
+    index(ri!rotationalAskActual,"earlyCareerComplete",0),
+  ),
+  local!rotationalAskActualInProcessCount: sum(
+    index(ri!rotationalAskActual,"traditionalInProcess",0),
+    index(ri!rotationalAskActual,"earlyCareerInProcess",0),
+  ),
+  #"SYSTEM_SYSRULES_columnsLayout"(
+    spacing: "NONE",
+    columns: {
+      #"SYSTEM_SYSRULES_columnLayout"(
+        width: "WIDE",
+        contents: {
+          #"SYSTEM_SYSRULES_cardLayout"(
+            showShadow: true,
+            padding: "NONE",
+            contents: {
+              #"SYSTEM_SYSRULES_cardLayout"(
+                padding: "EVEN_LESS",
+                showBorder: false,
+                style: ri!color,
+                contents: {
+                  #"SYSTEM_SYSRULES_columnsLayout"(
+                    alignVertical: "BOTTOM",
+                    showDividers: true,
+                    columns: {
+                      #"SYSTEM_SYSRULES_columnLayout"(width: "NARROW"),
+                      /*PLAN*/
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        width: "EXTRA_NARROW",
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            align: "CENTER",
+                            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                              text: "Plan",
+                              style: "STRONG"
+                            )
+                          )
+                        }
+                      ),
+                      /*TOTAL ROTATIONALS VS ASK*/
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        width: "NARROW_PLUS",
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            align: "CENTER",
+                            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                              text: "Total Rotationals vs Ask",
+                              style: "STRONG"
+                            )
+                          ),
+                          #"SYSTEM_SYSRULES_columnsLayout"(
+                            columns: {
+                              #"SYSTEM_SYSRULES_columnLayout"(
+                                contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                  align: "CENTER",
+                                  value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                    text: "Confirmed",
+                                    style: "STRONG"
+                                  )
+                                )
+                              ),
+                              #"SYSTEM_SYSRULES_columnLayout"(
+                                contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                  align: "CENTER",
+                                  value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                    text: "In Process",
+                                    style: "STRONG"
+                                  )
+                                )
+                              ),
+                              #"SYSTEM_SYSRULES_columnLayout"(
+                                contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                  align: "CENTER",
+                                  value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                    text: "Total",
+                                    style: "STRONG"
+                                  )
+                                )
+                              )
+                            }
+                          )
+                        }
+                      ),
+                      /*VARIANCE*/
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            align: "CENTER",
+                            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                              text: "Variance",
+                              style: "STRONG"
+                            )
+                          )
+                        }
+                      ),
+                    }
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_cardLayout"(
+                showborder: false,
+                padding: "EVEN_LESS",
+                contents: #"SYSTEM_SYSRULES_columnsLayout"(
+                  showDividers: true,
+                  columns: {
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      width: "NARROW",
+                      contents: {
+                        #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          labelPosition: "COLLAPSED",
+                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            style: "STRONG",
+                            text: " Total Rotational Ask vs Actual"
+                          )
+                        )
+                      }
+                    ),
+                    /*PLAN*/
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      width: "EXTRA_NARROW",
+                      contents: {
+                        #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          align: "CENTER",
+                          labelPosition: "COLLAPSED",
+                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(
+                              sum(
+                                index(ri!rotationalAskPlan,"plan",{}),
+                              )
+                            ),
+                            style: "STRONG"
+                          )
+                        )
+                      }
+                    ),
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      width: "NARROW_PLUS",
+                      contents: {
+                        #"SYSTEM_SYSRULES_columnsLayout"(
+                          showDividers: false,
+                          spacing: "NONE",
+                          columns: {
+                            #"SYSTEM_SYSRULES_columnLayout"(
+                              contents: {
+                                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                  align: "CENTER",
+                                  labelPosition: "COLLAPSED",
+                                  value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                    text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(local!rotationalAskActualCompletedCount),
+                                    style: "STRONG"
+                                  )
+                                )
+                              }
+                            ),
+                            #"SYSTEM_SYSRULES_columnLayout"(
+                              contents: {
+                                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                  align: "CENTER",
+                                  labelPosition: "COLLAPSED",
+                                  value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                    text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(local!rotationalAskActualInProcessCount),
+                                    style: "STRONG"
+                                  )
+                                )
+                              }
+                            ),
+                            #"SYSTEM_SYSRULES_columnLayout"(
+                              contents: {
+                                #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                  align: "CENTER",
+                                  labelPosition: "COLLAPSED",
+                                  value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                    text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6635835"(
+                                      sum(
+                                        local!rotationalAskActualCompletedCount,
+                                        local!rotationalAskActualInProcessCount
+                                      )
+                                    ),
+                                    style: "STRONG"
+                                  )
+                                )
+                              }
+                            )
+                          }
+                        )
+                      }
+                    ),
+                    /*VARIANCE*/
+                    #"SYSTEM_SYSRULES_columnLayout"(
+                      contents: {
+                        #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          align: "CENTER",
+                          labelPosition: "COLLAPSED",
+                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6636024"(
+                              /*actual - planned*/
+                              sum(
+                                local!rotationalAskActualCompletedCount,
+                                local!rotationalAskActualInProcessCount
+                              ) - sum(
+                                index(ri!rotationalAskPlan,"plan",{}),
+                              )
+                            ),
+                            color: "NEGATIVE",
+                            style: "STRONG"
+                          )
+                        )
+                      }
+                    )
+                  }
+                )
+              )
+            }
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"()
+    },
+    showWhen: or(
+      a!isNullOrEmpty(ri!typeFilter),
+      ri!typeFilter = "Rotational"
+    )
+    
+  )
+)</definition>
+        <namedTypedValue>
+            <name>color</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>typeFilter</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rotationalAskActual</name>
+            <type>
+                <name>CAW_V_ASK_VS_NOMINATION?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rotationalAskPlan</name>
+            <type>
+                <name>CAW_RotationalAskDetail?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12874726"/>
+    </history>
+</contentHaul>

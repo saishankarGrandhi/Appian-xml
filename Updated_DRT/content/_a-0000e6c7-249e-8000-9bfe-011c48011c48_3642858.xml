@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000efa7-942c-8000-9c70-011c48011c48_14354844</versionUuid>
+    <interface>
+        <name>CAW_CMP_NominationSaveAndExit</name>
+        <uuid>_a-0000e6c7-249e-8000-9bfe-011c48011c48_3642858</uuid>
+        <description>Component to configure nomination save and exit button</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_ButtonWidget"(
+  label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155714",
+  value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155714",
+  disabled: ri!saveAndExitDisabled,
+  saveInto: {
+    ri!action,
+    a!save(
+      ri!nomination.modifiedBy,
+      ri!fullName
+    ),
+    a!save(
+      ri!nomination.vettingReviewersComment,
+      ri!reviwercomment
+    ),
+    a!save(
+      ri!nomination.modifiedOn,
+      now()
+    ),
+    if(
+      ri!isEdit,
+      {
+        a!save(
+          ri!task.modifiedBy,
+          ri!fullName
+        ),
+        a!save(
+          ri!task.modifiedOn,
+          now()
+        ),
+      },
+      {
+        if(
+          property(ri!nomination,"nominationTypeId",null)=#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562",
+          a!save(
+            ri!nomination.positionTypeId,
+            #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"
+          ),
+          null
+        ),
+        if(
+          isusermemberofgroups(
+            loggedInUser(),
+            #"_a-0000e825-ace1-8000-9c24-011c48011c48_6790160"
+          ),
+          a!save(
+            ri!nomination.isNonAuditLeader,
+            true
+          ),
+          a!save(
+            ri!nomination.isNonAuditLeader,
+            false
+          )
+        ),
+        a!save(
+          ri!nomination.isActive,
+          true
+        ),
+        a!save(
+          ri!nomination.createdBy,
+          touser(loggedInUser())
+        ),
+        a!save(
+          ri!nomination.createdOn,
+          now()
+        ),
+        a!save(
+          ri!task,
+          #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3239227"(
+            CAW_Task: ri!task,
+            taskId: null,
+            requestId: null,
+            moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+            statusId: if(ri!isEdit,null,#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578065"),
+            assigneeId: ri!loggedInUserId,
+            isAssigneeGroup: false,
+            isLocked: false,
+            isTaskAmend: false,
+            isCompleted: false,
+            version: 1,
+            createdBy: ri!fullName,
+            createdOn: now(),
+            modifiedBy: ri!fullName,
+            modifiedOn: now()
+          )
+        ),
+        a!save(
+          ri!nomination.statusId,
+          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578065"
+        ),
+        a!save(
+          ri!nomination.fiscalYear,
+          #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3953700"()
+        )
+      }
+    ),
+    /*COMMENT LOGIC*/
+    a!save(
+      ri!comment,
+      'type!{urn:com:appian:types:CAW}CAW_Comment'(
+        commentId: index(ri!comment,"commentId",null),
+        requestId: if(#"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!comment,"requestId",null)),index(ri!nomination,"nominationId",null),property(ri!comment,"requestId",null)),
+        moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+        comment: property(ri!comment,"comment",null),
+        isDraft: true,
+        isActive: true,
+        version: 1,
+        createdBy: loggedInUser(),
+        createdOn: now(),
+        modifiedBy: loggedInUser(),
+        modifiedOn: now()
+      )
+    ),
+    /*audit history for the intial creation of nomination as well as the save and exit on task*/
+    a!save(
+      ri!auditHistory,
+      {
+        /*'type!{urn:com:appian:types:CAW}CAW_Audit'(*/
+          /*auditId: null,*/
+          /*taskId: index(ri!task, "taskId", tointeger(null)),*/
+          /*requestId: index(ri!nomination, "nominationId", tointeger({})),*/
+          /*version: 1,*/
+          /*moduleTypeId: cons!CAW_INT_MODULE_NOMINATION_TYPE_ID,*/
+          /*statusId:  index(ri!task, "statusId",tointeger(null)),*/
+          /*action: cons!CAW_TXT_LABEL_SAVE_AND_EXIT,*/
+          /*description: null,*/
+          /*createdBy: loggedInUser(),*/
+          /*createdOn: now()*/
+        /*),*/
+        /*We only want the nomination created audit the first time they save and exit*/
+        if(
+          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(index(ri!task, "taskId",tointeger(null))),
+          'type!{urn:com:appian:types:CAW}CAW_Audit'(
+            auditId: null,
+            taskId: index(ri!task, "taskId", tointeger(null)),
+            requestId: index(ri!nomination, "nominationId", tointeger({})),
+            version: 1,
+            moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+            statusId:  index(ri!task, "statusId",tointeger(null)),
+            action: "Nomination created",
+            description: null,
+            createdBy: loggedInUser(),
+            createdOn: now()
+          ),
+          null
+        )
+      }
+    )
+  },
+  submit: true,
+  validate: true,
+  confirmHeader: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155714",
+  confirmMessage: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3254608",
+  tooltip: ri!saveAndExitToolTip,
+  loadingIndicator: true
+)
+</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isEdit</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>comment</name>
+            <type>
+                <name>CAW_Comment</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>loggedInUserId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fullName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>saveAndExitDisabled</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>saveAndExitToolTip</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>reviwercomment</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3646817"/>
+        <historyInfo versionUuid="_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3783676"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3934017"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3981460"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3981680"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3999934"/>
+        <historyInfo versionUuid="_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4055998"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4579007"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4692800"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5075005"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5201198"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6659663"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6800081"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11688196"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14354844"/>
+    </history>
+</contentHaul>

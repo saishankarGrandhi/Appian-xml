@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11725155</versionUuid>
+    <interface>
+        <name>CAW_COM_SelectAskApprover</name>
+        <uuid>_a-0000e69d-7e03-8000-9bf6-011c48011c48_3192683</uuid>
+        <description>component to select ASK approver</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!approverGroupNames: #"SYSTEM_SYSRULES_forEach"(
+    items: ri!DPPApproversList,
+    expression: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3374322"(
+      selectedGroup: togroup(fv!item)
+    )
+  ),
+  local!approverGroups:#"SYSTEM_SYSRULES_forEach"(
+    items: ri!DPPApproversList,
+    expression: togroup(fv!item)
+  ),
+  #"SYSTEM_SYSRULES_cardLayout"(
+  contents: {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      showDividers: true,
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_dropdownField_v1"(
+              label:"Select Additional Approver from DPP Leadership",
+              placeholder: "Select Approver",
+              choiceLabels: local!approverGroupNames,
+              choiceValues: local!approverGroups,
+              value: ri!selectedGroup,
+              saveInto: ri!selectedGroup,
+              disabled: or(#"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!isComplete),#"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!isSendToNMP))
+            )    
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_checkboxField"(
+              label:"Send to DPP PIC for Approval",
+              choiceLabels: "",
+              choiceValues: true,
+              value: ri!isSendToNMP,
+              saveInto: {
+                ri!isSendToNMP,
+                a!save(
+                  ri!nmpGroup,
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177089"
+                ),
+                if(
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!isSendToNMP),
+                  a!save(
+                    ri!nmpGroup,
+                    null
+                  ),
+                  null
+                )
+              },
+              disabled: or(#"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),#"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!isComplete))
+            )
+          },
+          showWhen: ri!askTypeId = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3161580"
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_checkboxField"(
+              label:"Mark as Complete",
+              choiceLabels: "Complete",
+              choiceValues: true,
+              value: ri!isComplete,
+              saveInto: ri!isComplete,
+              disabled: or(#"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),#"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!isSendToNMP))
+            )
+          }
+        )
+      }
+    )
+  },
+  showWhen: ri!showWhen
+  )
+)</definition>
+        <namedTypedValue>
+            <name>selectedGroup</name>
+            <type>
+                <name>Group</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showWhen</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isComplete</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nmpGroup</name>
+            <type>
+                <name>Group</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>DPPApproversList</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isSendToNMP</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>askTypeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="a:Group"/>
+                    <a:nameRef>selectedGroup</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>showWhen</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isComplete</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="a:Group"/>
+                    <a:nameRef>nmpGroup</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression"> #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11617061"(
+   reject(
+     fn!isnull,
+     #"SYSTEM_SYSRULES_forEach"(
+       items: if(true=true,
+       remove(#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3240923",10),
+       #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3240923"
+       ),
+       expression: if(
+         tointeger(a!groupMembers(fv!item).totalCount) &lt;&gt; 0,
+         fv!item,
+         null
+       )
+     )
+   ))</a:value>
+                    <a:nameRef>DPPApproversList</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isSendToNMP</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3163854"</a:value>
+                    <a:nameRef>askTypeId</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3240962"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3255203"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3350117"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4371351"/>
+        <historyInfo versionUuid="_a-0000e71a-415c-8000-9c0b-011c48011c48_4427407"/>
+        <historyInfo versionUuid="_a-0000e723-cc8a-8000-9c0d-011c48011c48_4429913"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5208865"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11725155"/>
+    </history>
+</contentHaul>

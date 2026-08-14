@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12551139</versionUuid>
+    <rule>
+        <name>CAW_coreASKExportLogicalExpression</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5242759</uuid>
+        <description>Logical Expression for core ASK export</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_queryLogicalExpression"(
+  ignorefilterswithemptyvalues: true,
+  operator: "AND",
+  filters: {
+    #"SYSTEM_SYSRULES_queryFilter"(
+      field: "fYear",
+      operator: "in",
+      value: ri!yearFilter
+    ),
+    #"SYSTEM_SYSRULES_queryFilter"(
+      field: "dppGroup",
+      operator: "in",
+      value: ri!dppGroup
+    ),
+    #"SYSTEM_SYSRULES_queryFilter"(
+      field: "levelNeed",
+      operator: "in",
+      value: ri!level
+    ),
+    #"SYSTEM_SYSRULES_queryFilter"(
+      field: "generalSpecialityNeed",
+      operator: "in",
+      value: ri!speciality
+    ),
+    #"SYSTEM_SYSRULES_queryFilter"(
+      field: "needReason",
+      operator: "in",
+      value: ri!reason
+    ),
+    #"SYSTEM_SYSRULES_queryFilter"(
+      field: "status",
+      operator: "in",
+      value: ri!askStatus
+    ),
+    #"SYSTEM_SYSRULES_queryFilter"(
+      field: "askDetailId",
+      operator: "in",
+      value: ri!askDetailId
+    ),
+  }
+)</definition>
+        <namedTypedValue>
+            <name>yearFilter</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dppGroup</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>level</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>speciality</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>reason</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>askStatus</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>askDetailId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5244708"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6980746"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12551139"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11718821</versionUuid>
+    <constant>
+        <name>CAW_TXT_BUPPP_BUPIC_LIST</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558110</uuid>
+        <description>Constant for list of BUPPP and BUPIC groups</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049809</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Bay Area BUPPP_BUPIC</el>
+                <el>Chesapeake BUPPP_BUPIC</el>
+                <el>Chicago Metro BUPPP_BUPIC</el>
+                <el>Coastal BUPPP_BUPIC</el>
+                <el>Dallas BUPPP_BUPIC</el>
+                <el>Denver BUPPP_BUPIC</el>
+                <el>Gateway West BUPPP_BUPIC</el>
+                <el>Houston BUPPP_BUPIC</el>
+                <el>Mid America BUPPP_BUPIC</el>
+                <el>Midsouth BUPPP_BUPIC</el>
+                <el>NEUNY BUPPP_BUPIC</el>
+                <el>New York FS BUPPP_BUPIC</el>
+                <el>New York Metro BUPPP_BUPIC</el>
+                <el>Northern Heartland BUPPP_BUPIC</el>
+                <el>Pacific Northwest BUPPP_BUPIC</el>
+                <el>Pacific Southwest BUPPP_BUPIC</el>
+                <el>Pennsylvania BUPPP_BUPIC</el>
+                <el>Washington Federal BUPPP_BUPIC</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4561243"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5613448"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11718821"/>
+    </history>
+</contentHaul>

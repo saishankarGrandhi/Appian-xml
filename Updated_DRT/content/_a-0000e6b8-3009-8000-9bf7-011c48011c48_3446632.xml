@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6c1-137f-8000-9bf9-011c48011c48_3575502</versionUuid>
+    <rule>
+        <name>CAW_rotationalAskAmendRelatedActionVisibility</name>
+        <uuid>_a-0000e6b8-3009-8000-9bf7-011c48011c48_3446632</uuid>
+        <description>Rule to determine visibility of roational ask amend related action</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!allAsks:#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3338676"(
+    askId: ri!askId,
+    returnCDT: true
+  ),
+  local!maxVersion: max(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!allAsks,
+      expression: tointeger(index(fv!item,"version",null))
+    )
+  ),
+  if(
+    ri!isCompleted = true,
+    and(
+      local!maxVersion = ri!version,
+      #"urn:appian:function:v1:fn:isusermemberofgroup?okey=isusermemberofgroup"(
+        loggedInUser(),
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+      )
+    ),
+    false
+  )
+)</definition>
+        <namedTypedValue>
+            <name>askId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>version</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isCompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6bc-0703-8000-9bf8-011c48011c48_3524538"/>
+        <historyInfo versionUuid="_a-0000e6c1-137f-8000-9bf9-011c48011c48_3575502"/>
+    </history>
+</contentHaul>

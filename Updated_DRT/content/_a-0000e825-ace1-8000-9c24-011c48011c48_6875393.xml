@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14125223</versionUuid>
+    <rule>
+        <name>CAW_returnNextRotationalAssigneeGroup</name>
+        <uuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6875393</uuid>
+        <description>returns the next assignee group for the rotational ask based of the next status id</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  ri!taskStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+  {
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177083",
+    /*cons!CAW_GRP_PPL_DELEGATE_ALL,*/
+    /*cons!CAW_GRP_PPL_DELEGATE_MD_ROTATIONAL*/
+  },
+  if(
+    ri!taskStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[3],
+    if(
+      ri!oldVersion = true,
+      if(
+        ri!regionId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206289",
+        #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3251699",
+        #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3251706"
+      ),
+      #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12648325"
+    ),
+    if(
+      ri!taskStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[4],
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177089",
+      if(
+        ri!taskStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[2],
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176497",
+        if(
+          ri!taskStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3344039",
+          null,
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>taskStatusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>regionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>oldVersion</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6876348"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11724255"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12651614"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14067096"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14124233"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14125223"/>
+    </history>
+</contentHaul>

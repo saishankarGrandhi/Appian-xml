@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12761370</versionUuid>
+    <interface>
+        <name>CAW_UI_deactivateUser</name>
+        <uuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12215879</uuid>
+        <description>interface to deactivate user</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+  #"SYSTEM_SYSRULES_formLayout_v1"(
+    label: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12256661"[1],
+    instructions: "Use this page to deactivate user from this application.",
+    contents: {
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: #"SYSTEM_SYSRULES_columnLayout"(
+          width: "MEDIUM_PLUS",
+          contents: {
+            #"SYSTEM_SYSRULES_pickerFieldUsers"(
+              label: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12256661"[3],
+              labelPosition: "ABOVE",
+              value: ri!deactivatedUsers,
+              saveInto: ri!deactivatedUsers,
+              required: true,
+              groupFilter: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219526",
+              requiredmessage: "Select Users to Deactivate",
+              maxSelections: 1,
+              validations: {
+                if(
+                  ri!deactivatedUsers = loggedInUser(),
+                  #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12256667"[1],
+                  {}
+                )
+              }
+            ),
+            
+          }
+        )
+      )/*a!pickerFieldUsers(*/
+      /*label: cons!CAW_LABEL_FOR_DEACTIVATE_USER[3],*/
+      /*labelPosition: "ABOVE",*/
+      /*value: ri!deactivatedUsers,*/
+      /*saveInto: ri!deactivatedUsers,*/
+      /*required: true,*/
+      /*groupFilter: cons!CAW_GRP_USER,*/
+      /*requiredmessage: "Select Users to Deactivate",*/
+      /*maxSelections: 1,*/
+      /*validations: if(*/
+      /*ri!deactivatedUsers = loggedInUser(),*/
+      /*cons!CAW_VALIDATION_MESSAGE_FOR_DEACTIVATE_USER[1],*/
+      /*{}*/
+      /*)*/
+      /*),*/
+      /*a!textField(*/
+      /*label: "RITM",*/
+      /*labelPosition: "ABOVE",*/
+      /*required: cons!CAW_RITM_REQUIRED_CONSTANT,*/
+      /*requiredMessage: "Please Enter the Value",*/
+      /*value: ri!ritm,*/
+      /*saveInto: ri!ritm,*/
+      /*refreshAfter: "KEYPRESS",*/
+      /*characterLimit: 15*/
+      /*)*/
+      
+    },
+    buttons: {
+      #"SYSTEM_SYSRULES_ButtonLayout"(
+        primaryButtons: {
+          #"SYSTEM_SYSRULES_ButtonWidgetSubmit"(
+            label: "REMOVE",
+            value: "REMOVE",
+            saveInto: { ri!buttonValue,  },
+            style: "DESTRUCTIVE",
+            disabled: a!isNullOrEmpty(ri!deactivatedUsers),
+            confirmheader: " Are you sure you want to remove this user?",
+            
+          )
+        },
+        secondaryButtons: #"SYSTEM_SYSRULES_ButtonWidgetSubmit"(
+          label: "Cancel",
+          value: "CANCEL",
+          saveInto: ri!buttonValue,
+          skipValidation: true,
+          confirmheader: " Are you sure you want to cancel ?",
+          
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>buttonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>deactivatedUsers</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12667671"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12761370"/>
+    </history>
+</contentHaul>

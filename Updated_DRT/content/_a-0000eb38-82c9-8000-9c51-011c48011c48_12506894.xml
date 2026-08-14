@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12518397</versionUuid>
+    <interface>
+        <name>DRTV4_FRM_EditTransferConfirmation</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12506894</uuid>
+        <description>Form to edit the transfer confirmation </description>
+        <parentUuid>b6e2e847-4392-4d53-bbd2-931b68aca1d9</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!text: #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12517210",
+  {
+    #"SYSTEM_SYSRULES_richTextDisplayField"(
+      value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+        text: "Edit Transfer Confirmation Verbiage: ",
+        style: "STRONG",
+        color: "ACCENT",
+        size: "MEDIUM_PLUS"
+      ),
+    ),
+    fn!richTextEditorField(
+      allowImageUpload: false,
+      showUsageBar: false,
+      height: "MEDIUM",
+      enableSpellChecker: true,
+      richTextValue: local!text,
+      richTextSaveInto: {
+        local!text,
+      
+      }
+    ),
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: #"SYSTEM_SYSRULES_buttonWidget_v1"(
+        label: "UPDATE",
+        style: "SOLID",
+        submit: TRUE,
+        confirmMessage: "Are you sure you want to make changes?",
+        confirmButtonLabel: "YES",
+        cancelButtonLabel: "NO",
+        value: "UPDATE",
+        saveInto: {
+          a!save(ri!buttonValue,"UPDATE"),
+          a!save(ri!updatedVerbiage,local!text)
+        }
+      ),
+      secondaryButtons: #"SYSTEM_SYSRULES_buttonWidget_v1"(
+        label: "EXIT",
+        value: "EXIT",
+        saveInto: a!save(ri!buttonValue,"EXIT"),
+        submit: true,
+        style: "OUTLINE",
+        validate: false,
+        confirmMessage: "Are you sure you want to exit? Your changes will not be saved",
+        confirmButtonLabel: "YES",
+        cancelButtonLabel: "NO"
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>updatedVerbiage</name>
+            <description>Updated Verbiage of the transfer Confirmation form</description>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonValue</name>
+            <description>RI to store the button value of the interface.</description>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12518397"/>
+    </history>
+</contentHaul>

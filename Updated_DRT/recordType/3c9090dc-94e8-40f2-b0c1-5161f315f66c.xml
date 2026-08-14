@@ -1,0 +1,1021 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>5667c8ab-f759-4746-89f6-5c9bfb602fc5</versionUuid>
+  <recordType a:uuid="3c9090dc-94e8-40f2-b0c1-5161f315f66c" name="CAW Nomination">
+    <a:pluralName>CAW Nominations</a:pluralName>
+    <a:description>Caw Nomination</a:description>
+    <a:urlStub>W-rTgw</a:urlStub>
+    <a:source
+      a:uuid="4d10ca03-d7a4-4024-9717-c36e600f89e3@_a-0000e676-ab43-8000-9bf5-011c48011c48_3049899" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridField"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "NominationId",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "NominationTypeId",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationTypeId",
+      value: #"SYSTEM_SYSRULES_linkField"(
+        links: {
+          #"SYSTEM_SYSRULES_recordLink"(
+            label: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationTypeId"],
+            recordType: #"urn:appian:record-type:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c",
+            identifier: fv!identifier
+          )
+        }
+      ),
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "NominationType",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationType",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationType"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "PositionTypeId",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/positionTypeId",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/positionTypeId"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "PositionType",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/positionType",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/positionType"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Sub Position TypeId",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/subPositionTypeId",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/subPositionTypeId"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Sub Position",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/subPosition",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/subPosition"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Nomination Status",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationStatus",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationStatus"]
+    ),
+    /*a!gridColumn(*/
+      /*label: "Nomineeid",*/
+      /*sortField: 'recordType!{3c9090dc-94e8-40f2-b0c1-5161f315f66c}CAW Nomination.fields.{nomineeId}',*/
+      /*value: fv!row['recordType!{3c9090dc-94e8-40f2-b0c1-5161f315f66c}CAW Nomination.fields.{nomineeId}'],*/
+      /*align: "END"*/
+    /*),*/
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Firstname",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/firstName",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/firstName"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Middlename",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/middleName",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/middleName"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Lastname",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/lastName",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/lastName"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Nonusemail",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nonUsEmail",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nonUsEmail"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Functionname",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/functionName",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/functionName"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Levelname",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/levelName",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/levelName"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Ismemberfirmpartner",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/ismemberFirmpartner",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/ismemberFirmpartner"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Currentpml",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/currentPML",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/currentPML"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Origmemberfirmcountry",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/origMemberFirmCountry",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/origMemberFirmCountry"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Returningmemberfirmcountry",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/returningMemberFirmCountry",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/returningMemberFirmCountry"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Originatingregion",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/originatingRegion",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/originatingRegion"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Originatingbu",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/originatingBU",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/originatingBU"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Originatinghomeoffice",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/originatingHomeOffice",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/originatingHomeOffice"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Returnregion",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/returnRegion",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/returnRegion"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Otherreturningregion",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/otherReturningRegion",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/otherReturningRegion"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Returnbu",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/returnBU",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/returnBU"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Otherreturningbu",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/otherReturningBU",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/otherReturningBU"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Returnhomeoffice",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/returnHomeOffice",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/returnHomeOffice"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Otherreturninghomeoffice",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/otherReturningHomeOffice",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/otherReturningHomeOffice"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Yearswithfirm",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/yearsWithFirm",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/yearsWithFirm"],
+      align: "END"
+    ),
+    /*a!gridColumn(*/
+      /*label: "Otheryearswithfirm",*/
+      /*sortField: 'recordType!{3c9090dc-94e8-40f2-b0c1-5161f315f66c}CAW Nomination.fields.{otherYearsWithFirm}',*/
+      /*value: fv!row['recordType!{3c9090dc-94e8-40f2-b0c1-5161f315f66c}CAW Nomination.fields.{otherYearsWithFirm}'],*/
+      /*align: "START"*/
+    /*),*/
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Mdpromotiondate",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/mdPromotionDate",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/mdPromotionDate"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Mdpromotiondatecomment",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/mdPromotionDateComment",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/mdPromotionDateComment"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Partnerpromotiondate",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/partnerPromotionDate",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/partnerPromotionDate"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Partnerpromotiondatecomment",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/partnerPromotionDateComment",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/partnerPromotionDateComment"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Clientconsiderationcomment",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/clientConsiderationComment",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/clientConsiderationComment"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Rationalfornomination",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/rationalForNomination",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/rationalForNomination"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Ispcaob",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isPcaob",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isPcaob"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Isisa",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isIsa",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isIsa"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Isifrsb",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isIfrsb",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isIfrsb"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Isusgaapb",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isUsGaapb",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isUsGaapb"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Isaicpa",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isAicpa",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isAicpa"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Pcaoblevel",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/pcaobLevel",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/pcaobLevel"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Isalevel",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isaLevel",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isaLevel"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Ifrsblevel",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/ifrsbLevel",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/ifrsbLevel"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Usgaapblevel",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/usGaapbLevel",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/usGaapbLevel"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Aicpalevel",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/aicpaLevel",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/aicpaLevel"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Recommendeddppgroupid",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/recommendedDppGroupId",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/recommendedDppGroupId"],
+      align: "END"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Dppgroup",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/dppGroup",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/dppGroup"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Dppgroupothercomment",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/dppGroupOtherComment",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/dppGroupOtherComment"],
+      align: "START"
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Roleconsideration",
+      sortField: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/roleConsideration",
+      value: fv!row[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/roleConsideration"],
+      align: "START"
+    )
+  },
+  pageSize: 50,
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:fieldCfg a:uuid="c09fb5b4-e4da-4555-b228-e2cc8b1e573a" name="status">
+      <a:isSortable>false</a:isSortable>
+      <a:isSearchable>false</a:isSearchable>
+      <a:isFacet>true</a:isFacet>
+      <a:facetType>EXPRESSION</a:facetType>
+      <a:isExclusiveFacet>true</a:isExclusiveFacet>
+      <a:facetExpr>#"SYSTEM_SYSRULES_recordFilterList"(
+  name: "Status",
+  options: #"SYSTEM_SYSRULES_forEach"(
+    items: #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3640108",
+    expression: #"SYSTEM_SYSRULES_recordFilterListOption"(
+      id: fv!index,
+      name: fv!item,
+      filter: #"SYSTEM_SYSRULES_queryFilter"(
+        field: #"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationStatus",
+        operator: "=",
+        value: fv!item
+      )
+    )
+  )
+)</a:facetExpr>
+      <a:sortOrderIndex>0</a:sortOrderIndex>
+      <a:facetOrderIndex>0</a:facetOrderIndex>
+      <a:visibilityExpr/>
+      <a:defaultOptionExpr/>
+      <a:allowMultipleSelections>true</a:allowMultipleSelections>
+      <a:relatedRecordUserFilterSort>UNSORTED</a:relatedRecordUserFilterSort>
+    </a:fieldCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3876008"(
+  nomination: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3851730"(
+    nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+    returnCDT: true
+  )
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:headerExpr/>
+      <a:relatedActionCfg>refId-bd74ce53-036b-4a98-8762-ca27858f530d</a:relatedActionCfg>
+      <a:relatedActionCfg>refId-0ff9e0ab-35a5-4baf-ad85-f074c892c7da</a:relatedActionCfg>
+      <a:relatedActionCfg>refId-b9d3dfb2-095e-41db-8c1d-813ed814483b</a:relatedActionCfg>
+      <a:relatedActionCfg>refId-a066422a-6590-4729-87cb-a13d04eee525</a:relatedActionCfg>
+      <a:relatedActionCfg>refId-cea9f8a8-950b-4d6a-ac0c-48504b563ada</a:relatedActionCfg>
+      <a:relatedActionCfg>refId-dc4c0417-dac4-4d4f-8c00-fb7ed849fc34</a:relatedActionCfg>
+      <a:relatedActionCfg>refId-b7b706da-d33a-406d-9961-1aa2e09e518d</a:relatedActionCfg>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Due Diligence"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5156243"(
+  documents: #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3700121"(
+    requestId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+    is_DueDiligenceDoc: true,
+    moduleId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+    version: 1,
+    returnCDT: true
+  ),
+  nomination: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+    nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+    returnCDT: true,
+   
+  )
+)</a:uiExpr>
+      <a:visibilityExpr>and(
+  isusermemberofgroups(
+    loggedInUser(),
+    {
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922",
+      #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12648325",
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6814637",
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177083",
+      #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066240",
+      #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066222",
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177089"
+    }
+  ),
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationTypeId"] = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557",
+  not(rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isDirectHire"] = true)
+)</a:visibilityExpr>
+      <a:urlStub>_LcdBzg</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Attachments"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3775387"(
+  documents: symmetricdifference(
+    #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3700121"(
+      requestId:rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+      moduleId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+      version: 1,
+      returnCDT: true
+      
+    ),
+    #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3700121"(
+      requestId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+      is_DueDiligenceDoc: true,
+      moduleId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+      version: 1,
+      returnCDT: true
+    ),
+  ),
+  nomination: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3851730"(
+    nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+    returnCDT: true
+  )
+)</a:uiExpr>
+      <a:visibilityExpr>true()</a:visibilityExpr>
+      <a:urlStub>_L1kkcA</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Interview/Office Visit"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6273944"(
+  interviews: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3499144"(
+    returnCDT: true,
+    nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+    isActive: true,
+    taskIdNotNull: true
+  ),
+  nomination: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+    returnCDT: true,
+    nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"]
+  )
+)</a:uiExpr>
+      <a:visibilityExpr>and(
+  not(
+    isusermemberofgroups(
+      loggedInUser(),
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6790160"
+    )
+  ),
+  not(rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isDirectHire"]=true)
+)
+</a:visibilityExpr>
+      <a:urlStub>_uB77AA</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Previous Comments"</a:nameExpr>
+      <a:uiExpr> #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3192543"(
+   comments:  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127169"(
+     moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+     requestId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+     version: 1,
+     isDraft: false,
+     returnCDT: true
+   ),
+   showWhen: true,
+   nomination: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"]).data
+ )</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_BZi_WQ</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Linked ASK"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5233377"(
+  positionTypeID: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/positionTypeId"],
+  askID:  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/askID"],
+  buID: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/buID"],
+  nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"]
+)
+</a:uiExpr>
+      <a:visibilityExpr>and(
+  isusermemberofgroups(
+    loggedInUser(),
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/askID"])
+)</a:visibilityExpr>
+      <a:urlStub>_UUsH5A</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Acceptance &amp; Onboarding"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e781-2d54-8000-9c18-011c48011c48_5427250"(
+  nomination: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+    nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+    returnCDT: true
+  ),
+  candidateDetails: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3934880"(
+    nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+    returnCDT: true
+  )
+)</a:uiExpr>
+      <a:visibilityExpr>and(
+  #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+    username: loggedInUser(),
+    groups: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  contains(
+    {
+      #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3927661",
+      #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3930284",
+      #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3935288",
+      #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3935295",
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4966786",
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4967023",
+      #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6445262",
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350"
+    },
+    rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/statusId"]
+  )
+)
+</a:visibilityExpr>
+      <a:urlStub>__erYPA</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:detailViewCfg>
+      <a:nameExpr>"Audit History"</a:nameExpr>
+      <a:uiExpr>#"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3440565"(
+  audit: #"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3442778"(
+    requestId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+    version: 1,
+    returnCDT: true
+  ),
+  nomination: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3851730"(
+    nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"],
+    returnCDT: true
+  ),
+  moduleTypeID: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394"
+)</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>_bMfILg</a:urlStub>
+      <a:headerExpr/>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+    </a:detailViewCfg>
+    <a:relatedActionCfg a:uuid="bd74ce53-036b-4a98-8762-ca27858f530d">
+      <a:target a:uuid="0002e6db-3f3b-8000-a13f-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"]/* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>a!localVariables(
+  local!userBU: a!refreshVariable(
+    value: union(
+      reject(
+        fn!isnull,
+        #"SYSTEM_SYSRULES_forEach"(
+          items: getgroupsformemberuser(user: loggedInUser()),
+          expression: {
+            a!localVariables(
+              local!groupName: group(fv!item, "groupName"),
+              local!list: split(local!groupName, " "),
+              local!length: length(local!list),
+              if(
+                and(
+                  local!length &gt; 2,
+                  contains(local!list, "CAW"),
+                  or(
+                    contains(local!list, "BUPPP"),
+                    contains(local!list, "BUPIC"),
+                    contains(local!list, "BUPPP_BUPIC"),
+                    contains(local!list, "BUCos"),
+                    contains(local!list, "CoS/Delegate")
+                  )
+                ),
+                joinarray(
+                  remove(local!list, { 1, local!length }),
+                  " "
+                ),
+                null
+              )
+            )
+          }
+        )
+      ),
+      reject(
+        fn!isnull,
+        #"SYSTEM_SYSRULES_forEach"(
+          items: getgroupsformemberuser(user: loggedInUser()),
+          expression: {
+            a!localVariables(
+              local!groupName: group(fv!item, "groupName"),
+              local!list: split(local!groupName, " "),
+              local!length: length(local!list),
+              if(
+                and(
+                  local!length &gt; 2,
+                  contains(local!list, "CAW"),
+                  or(
+                    contains(local!list, "BUPPP"),
+                    contains(local!list, "BUPIC"),
+                    contains(local!list, "BUPPP_BUPIC"),
+                    contains(local!list, "BUCos"),
+                    contains(local!list, "CoS/Delegate")
+                  )
+                ),
+                joinarray(
+                  remove(local!list, { 1, local!length }),
+                  " "
+                ),
+                null
+              )
+            )
+          }
+        )
+      )
+    ),
+    refreshAlways: true
+  ),
+  local!ismemberofusergroup: or(
+    contains(
+      touniformstring(local!userBU),
+      tostring(
+        rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/originatingBU"]
+      )
+    ),
+    contains(
+      touniformstring(local!userBU),
+      tostring(
+        rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/returnBU"]
+      )
+    ),
+    a!isNullOrEmpty(local!userBU)
+  ),
+  and(
+    #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+      username: loggedInUser(),
+      groups: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+    ),
+    rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationStatus"] &lt;&gt; #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3888843",
+    local!ismemberofusergroup
+  )
+)</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>refId-bd74ce53-036b-4a98-8762-ca27858f530d</a:refId>
+      <a:staticTitleString>Cancel Nomination</a:staticTitleString>
+      <a:staticDescriptionString/>
+      <a:referenceKey>cancelNomination</a:referenceKey>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg a:uuid="0ff9e0ab-35a5-4baf-ad85-f074c892c7da">
+      <a:target a:uuid="0002e81d-1d64-8000-00d0-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"], /* Number (Integer) */
+  isUpdate: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/statusId"] = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350"
+}</a:contextExpr>
+      <a:visibilityExpr>=and(
+  #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+    username: loggedInUser(),
+    groups: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  or(
+    rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/statusId"] = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3952384",
+    rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/statusId"] = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350"
+    ),
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isDirectHire"] = true
+)</a:visibilityExpr>
+      <a:iconId>f040</a:iconId>
+      <a:refId>refId-0ff9e0ab-35a5-4baf-ad85-f074c892c7da</a:refId>
+      <a:titleExpr>if(
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/statusId"] = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3952384",
+  "Fill Out Start",
+  "Update Start Form"
+)</a:titleExpr>
+      <a:staticDescriptionString/>
+      <a:referenceKey>fillOutStart</a:referenceKey>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg a:uuid="b9d3dfb2-095e-41db-8c1d-813ed814483b">
+      <a:target a:uuid="0008e6e1-d5c4-8000-a518-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"]
+}</a:contextExpr>
+      <a:visibilityExpr>and(
+  #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+    username: loggedInUser(),
+    groups: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/statusId"] = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3952384",
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationTypeId"]&lt;&gt;#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562",
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isDirectHire"]&lt;&gt;true
+)
+</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>refId-b9d3dfb2-095e-41db-8c1d-813ed814483b</a:refId>
+      <a:staticTitleString>Acceptance and Onboarding</a:staticTitleString>
+      <a:staticDescriptionString>Begin Acceptance and Onboarding process</a:staticDescriptionString>
+      <a:referenceKey>sendFormalNotification</a:referenceKey>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg a:uuid="a066422a-6590-4729-87cb-a13d04eee525">
+      <a:target a:uuid="0002e76c-c4e0-8000-d423-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  nominationID: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"]/* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>a!localVariables(
+  local!userBU: a!refreshVariable(
+    value: union(
+      reject(
+        fn!isnull,
+        #"SYSTEM_SYSRULES_forEach"(
+          items: getgroupsformemberuser(user: loggedInUser()),
+          expression: {
+            a!localVariables(
+              local!groupName: group(fv!item, "groupName"),
+              local!list: split(local!groupName, " "),
+              local!length: length(local!list),
+              if(
+                and(
+                  local!length &gt; 2,
+                  contains(local!list, "CAW"),
+                  or(
+                    contains(local!list, "BUPPP"),
+                    contains(local!list, "BUPIC"),
+                    contains(local!list, "BUPPP_BUPIC"),
+                    contains(local!list, "BUCos"),
+                    contains(local!list, "CoS/Delegate")
+                  )
+                ),
+                joinarray(
+                  remove(local!list, { 1, local!length }),
+                  " "
+                ),
+                null
+              )
+            )
+          }
+        )
+      ),
+      reject(
+        fn!isnull,
+        #"SYSTEM_SYSRULES_forEach"(
+          items: getgroupsformemberuser(user: loggedInUser()),
+          expression: {
+            a!localVariables(
+              local!groupName: group(fv!item, "groupName"),
+              local!list: split(local!groupName, " "),
+              local!length: length(local!list),
+              if(
+                and(
+                  local!length &gt; 2,
+                  contains(local!list, "CAW"),
+                  or(
+                    contains(local!list, "BUPPP"),
+                    contains(local!list, "BUPIC"),
+                    contains(local!list, "BUPPP_BUPIC"),
+                    contains(local!list, "BUCos"),
+                    contains(local!list, "CoS/Delegate")
+                  )
+                ),
+                joinarray(
+                  remove(local!list, { 1, local!length }),
+                  " "
+                ),
+                null
+              )
+            )
+          }
+        )
+      )
+    ),
+    refreshAlways: true
+  ),
+  local!ismemberofusergroup: or(
+    contains(
+      touniformstring(local!userBU),
+      tostring(
+        rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/originatingBU"]
+      )
+    ),
+    contains(
+      touniformstring(local!userBU),
+      tostring(
+        rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/returnBU"]
+      )
+    ),
+    a!isNullOrEmpty(local!userBU)
+  ),
+and(
+  #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+    username: loggedInUser(),
+    groups: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  not(rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/statusId"] = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3891969"),
+  local!ismemberofusergroup
+)
+)</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>refId-a066422a-6590-4729-87cb-a13d04eee525</a:refId>
+      <a:staticTitleString>Link ASK to Nomination</a:staticTitleString>
+      <a:staticDescriptionString/>
+      <a:referenceKey>linkASKtoNomination</a:referenceKey>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg a:uuid="cea9f8a8-950b-4d6a-ac0c-48504b563ada">
+      <a:target a:uuid="0002e7f5-96ca-8000-f6d9-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"] /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>=and(
+  #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+    username: loggedInUser(),
+    groups: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/statusId"] = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350",
+  not(rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isDirectHire"] = true),
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationTypeId"]&lt;&gt;#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562",
+)</a:visibilityExpr>
+      <a:iconId>f040</a:iconId>
+      <a:refId>refId-cea9f8a8-950b-4d6a-ac0c-48504b563ada</a:refId>
+      <a:staticTitleString>Update Transfer</a:staticTitleString>
+      <a:staticDescriptionString>Allows the user to update the transfer confirmation details and send back to the candidate for acknowledgement.</a:staticDescriptionString>
+      <a:referenceKey>updateTransferConfirmation</a:referenceKey>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg a:uuid="dc4c0417-dac4-4d4f-8c00-fb7ed849fc34">
+      <a:target a:uuid="000de759-c254-8000-cd31-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  isEdit: null, /* Boolean */
+  nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"], /* Number (Integer) */
+  taskId: null, /* Number (Integer) */
+  taskStatus: null, /* Text */
+  taskStatusId: null /* Number (Integer) */
+}</a:contextExpr>
+      <a:visibilityExpr>and(
+  #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+    loggedInUser(),
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/statusId"] = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350",
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/intakeSent"] = false(),
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationTypeId"] &lt;&gt; #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562",
+  
+)</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>refId-dc4c0417-dac4-4d4f-8c00-fb7ed849fc34</a:refId>
+      <a:staticTitleString>Send Intake Form</a:staticTitleString>
+      <a:staticDescriptionString/>
+      <a:referenceKey>sendIntakeForm</a:referenceKey>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:relatedActionCfg a:uuid="b7b706da-d33a-406d-9961-1aa2e09e518d">
+      <a:target a:uuid="0002ef8f-064e-8000-c550-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:contextExpr>{
+  Nominations: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(nominationId: rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"]).data, /* CAW_Nomination */
+  save: null /* Boolean */
+}</a:contextExpr>
+      <a:visibilityExpr>and(
+  #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+    username: loggedInUser(),
+    groups: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/statusId"] = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3952384",
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationTypeId"]=#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562",
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/isDirectHire"]&lt;&gt;true
+)</a:visibilityExpr>
+      <a:iconId>f0e7</a:iconId>
+      <a:refId>refId-b7b706da-d33a-406d-9961-1aa2e09e518d</a:refId>
+      <a:staticTitleString>Mark Nomination as Complete</a:staticTitleString>
+      <a:staticDescriptionString/>
+      <a:referenceKey>markAsCompleted</a:referenceKey>
+      <a:showInRecordList>false</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:relatedActionCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:dataSrcExpr/>
+    <a:facetsListExpr/>
+    <a:titleExpr>if(
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationTypeId"] = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562",
+  rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationType"],
+  if(
+    a!isNullOrEmpty(rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/originatingBU"]),
+    "Direct Hire",
+    rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/originatingBU"],
+  )
+) &amp; " - " &amp; rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/lastName"] &amp; " : " &amp; rv!record[#"urn:appian:record-field:v1:3c9090dc-94e8-40f2-b0c1-5161f315f66c/nominationId"]</a:titleExpr>
+    <a:defaultFiltersExpr/>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>true</a:hideNewsView>
+    <a:hideRelatedActionsView>true</a:hideRelatedActionsView>
+    <a:isExportable>true</a:isExportable>
+    <a:listViewSrcExpr/>
+    <a:recordViewSrcExpr/>
+    <a:recordListActionCfg a:uuid="d9e8fd0b-179f-4240-b43d-0d86d80b8404">
+      <a:staticTitle>Create Nomination</a:staticTitle>
+      <a:staticDescription/>
+      <a:iconId>f067</a:iconId>
+      <a:target a:uuid="0008e6c8-c88e-8000-9a51-7f0000014e7a" xsi:type="a:ProcessModel"/>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:referenceKey>createNomination</a:referenceKey>
+      <a:showInRecordList>true</a:showInRecordList>
+      <a:recordUiSecurityType>EXPRESSION</a:recordUiSecurityType>
+      <a:dialogWidth>FIT</a:dialogWidth>
+      <a:dialogHeight>FIT</a:dialogHeight>
+    </a:recordListActionCfg>
+    <a:recordTypeSearchCfg>
+      <searchFieldsSrc>DEFAULT</searchFieldsSrc>
+      <placeholderSrc>DEFAULT</placeholderSrc>
+      <placeholder/>
+    </a:recordTypeSearchCfg>
+    <a:iconId/>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>63</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>false</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+    <a:isVisibleInDataFabric>false</a:isVisibleInDataFabric>
+    <a:usesRollingSyncLimit>false</a:usesRollingSyncLimit>
+    <a:usesRecoverySync>false</a:usesRecoverySync>
+    <a:isScheduledIndexingEnabled>false</a:isScheduledIndexingEnabled>
+    <a:smartSearchAcceptableFailureRate>0.0</a:smartSearchAcceptableFailureRate>
+    <a:skipFailedSmartServicesSync>false</a:skipFailedSmartServicesSync>
+    <a:creationSource>UNKNOWN</a:creationSource>
+    <a:sqlEnabled>false</a:sqlEnabled>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+      </groups>
+    </role>
+    <role name="record_type_viewer">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e6b8-3009-8000-9b43-01075c01075c_1070</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="91d48cc3-4ac2-4b03-9590-cabb535d370d"/>
+    <historyInfo versionUuid="ba35a4d2-5034-4c05-9367-283d353356e0"/>
+    <historyInfo versionUuid="5e224cc4-03aa-43ae-8384-276280e65570"/>
+    <historyInfo versionUuid="6993e317-11fb-4cd8-a1dc-ce7cf4e47c3c"/>
+    <historyInfo versionUuid="5e4ce07d-6d66-4d45-93b9-a0f5dae84d9b"/>
+    <historyInfo versionUuid="593e6a21-cd06-4026-900c-b58630764a0e"/>
+    <historyInfo versionUuid="36c4863d-34d9-45fd-9f41-bb0151646f73"/>
+    <historyInfo versionUuid="61add85b-19c3-4dbe-b668-9ad0176a19ce"/>
+    <historyInfo versionUuid="1e4c8e71-967c-4556-890f-3eeea3b89c0c"/>
+    <historyInfo versionUuid="b2c26ed8-b35e-45c9-93a6-6f392c96e483"/>
+    <historyInfo versionUuid="63059488-ca64-49a9-82e7-ebe68faf592e"/>
+    <historyInfo versionUuid="7afd543d-f40a-465d-9d0e-eb333b2c00ef"/>
+    <historyInfo versionUuid="a95c844d-8acc-4f87-9dfe-48a3cd724afc"/>
+    <historyInfo versionUuid="f84ea5dc-547b-4fe2-b319-43d2ec83cc14"/>
+    <historyInfo versionUuid="720db6ec-e8ee-43ff-8a2f-a55b490556c4"/>
+    <historyInfo versionUuid="0e65fe61-46c3-433f-a1c1-96987403ed06"/>
+    <historyInfo versionUuid="cdcfa631-5fda-4359-a99c-dad212b77b5e"/>
+    <historyInfo versionUuid="335a8d00-a202-4484-bb3d-25a5ba159127"/>
+    <historyInfo versionUuid="e854e0fa-451f-4d53-bc3b-0ebbe4eb04a7"/>
+    <historyInfo versionUuid="1933a4ce-7954-41aa-905e-4201cea9400c"/>
+    <historyInfo versionUuid="fe1b7e96-90eb-4683-aa54-df1ecd290bb5"/>
+    <historyInfo versionUuid="fc8a6918-1e0a-448a-9e4b-f5449e61d27f"/>
+    <historyInfo versionUuid="a8386053-41ba-4e10-a9a1-f5e9fea8f3e4"/>
+    <historyInfo versionUuid="e0f9c91d-ef03-4949-96f7-cdea92644986"/>
+    <historyInfo versionUuid="99007ad3-81fe-475e-b72f-789209dbdd3c"/>
+    <historyInfo versionUuid="44fe56d6-3f42-45fe-b2ee-817bcb468857"/>
+    <historyInfo versionUuid="5adad6ba-e1c4-4976-9664-b64f9bf3b739"/>
+    <historyInfo versionUuid="01e2a78f-a6ac-442f-b9af-3400f9b89888"/>
+    <historyInfo versionUuid="8a34fe64-5284-4d4d-b82e-8a217c1e56cb"/>
+    <historyInfo versionUuid="5d26b7ff-fb90-4722-a9cb-0caee7595307"/>
+    <historyInfo versionUuid="2f5e2529-9917-4fe6-8e3d-bb5f82796de3"/>
+    <historyInfo versionUuid="1338604b-10cc-43f6-b3e6-40b5e830f9e7"/>
+    <historyInfo versionUuid="c9129c5b-f706-4665-8a65-a020f3fb3644"/>
+    <historyInfo versionUuid="2343aa3c-be69-4d30-a707-b87d4654ed86"/>
+    <historyInfo versionUuid="0c116934-bb58-470d-90e4-d9e286cf724b"/>
+    <historyInfo versionUuid="3c6d4c47-01ab-46ec-9626-524225927fd2"/>
+    <historyInfo versionUuid="5667c8ab-f759-4746-89f6-5c9bfb602fc5"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

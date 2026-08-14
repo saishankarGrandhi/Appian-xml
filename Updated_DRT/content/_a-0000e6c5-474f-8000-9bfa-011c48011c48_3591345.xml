@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12363848</versionUuid>
+    <interface>
+        <name>CAW_CMP_CandidatePositionSelection</name>
+        <uuid>_a-0000e6c5-474f-8000-9bfa-011c48011c48_3591345</uuid>
+        <description>Component for Candidate position selection</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isOldVersion:if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    false,
+    if(
+      todatetime(ri!nomination.createdOn)&lt;#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11589045",
+      true,
+      false)
+  ),
+  local!showDirectHire: and(
+    or(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.statusId),
+      ri!nomination.statusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578065",
+      isusermemberofgroups(
+        ri!nomination.createdBy,
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+      )
+    ),
+    isusermemberofgroups(
+      loggedInUser(),
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+    )
+  ),
+  local!positionTypes: index(
+    ri!nominationTypes,
+    wherecontains(
+      #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3595745",
+      tointeger(
+        index(ri!nominationTypes, "refTypeId", {})
+      )
+    ),
+    null
+  ),
+  local!subPositionTypes: if(
+    and(
+      ri!nomination.positionTypeId = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+      not(ri!nomination.isDirectHire = true)
+    ),
+    remove(
+      index(
+        ri!subPositionTypes,
+        wherecontains(
+          ri!nomination.positionTypeId,
+          tointeger(index(ri!subPositionTypes, "refId", {}))
+        ),
+        null
+      ),
+      wherecontains(
+        #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3718018",
+        tointeger(
+          index(ri!subPositionTypes, "subPositionId", {})
+        )
+      )
+    ),
+    index(
+      ri!subPositionTypes,
+      wherecontains(
+        ri!nomination.positionTypeId,
+        tointeger(index(ri!subPositionTypes, "refId", {}))
+      ),
+      null
+    )
+  ),
+  local!nonTraditionalRotationalTypeOther:#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11599196"(
+    nonTradRotationId: {#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11742624"[10]},
+  ),
+  local!nonTraditionalRotationalTypes: append(#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11599196"(
+    nonTradRotationId: {remove(#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11742624",#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11742624"[10])},
+    fetchTotalCount: true),
+    local!nonTraditionalRotationalTypeOther), 
+  /*local!createdOnDate: if(*/
+    /*rule!CAW_isBlank(ri!nomination.nominationId),*/
+    /*null,*/
+    /*index(*/
+      /*index(*/
+        /*rule!CAW_QE_getNomination(*/
+          /*nominationId: ri!nomination.nominationId*/
+        /*),*/
+        /*"data",*/
+        /*null*/
+      /*),*/
+      /*"createdOn",*/
+      /*null*/
+    /*)*/
+  /*),*/
+  #"SYSTEM_SYSRULES_cardLayout"(
+    contents: {
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_radioButtonField"(
+                label: "Is Candidate a Direct Hire?",
+                choiceLabels: { "Yes", "No" },
+                choiceValues: { true, false },
+                value: ri!nomination.isDirectHire,
+                saveInto: {
+                  ri!nomination.isDirectHire,
+                  a!save(
+                    ri!nomination.isDirectHireInternal,
+                    null
+                  ),
+                  a!save(ri!oldBu,null),
+                  a!save(ri!oldOffice,null),
+                  a!save(ri!nomination.employeeId, null),
+                  a!save(ri!nomination.firstName, null),
+                  a!save(ri!nomination.middleName, null),
+                  a!save(ri!nomination.lastName, null),
+                  a!save(ri!nomination.functionName, null),
+                  a!save(ri!nomination.currentPML, null),
+                  a!save(ri!nomination.levelName, null),
+                  a!save(ri!nomination.originatingRegion, null),
+                  a!save(
+                    ri!nomination.otherOriginatingRegion,
+                    null
+                  ),
+                  a!save(ri!nomination.originatingBU, null),
+                  a!save(ri!nomination.otherOriginatingBU, null),
+                  a!save(
+                    ri!nomination.originatingHomeOffice,
+                    null
+                  ),
+                  a!save(
+                    ri!nomination.otherOriginatingHomeOffice,
+                    null
+                  ),
+                  a!save(ri!nomination.returnRegion, null),
+                  a!save(
+                    ri!nomination.otherReturningRegion,
+                    null
+                  ),
+                  a!save(ri!nomination.returnBU, null),
+                  a!save(ri!nomination.otherReturningBU, null),
+                  a!save(ri!nomination.returnHomeOffice, null),
+                  a!save(
+                    ri!nomination.otherReturningHomeOffice,
+                    null
+                  ),
+                  a!save(ri!nomination.jobDescription, null),
+                  a!save(ri!nomination.employeeEmail, null),
+                  if(
+                    ri!nomination.isDirectHire = true,
+                    a!save(
+                      ri!nomination.recommendedDppGroupId,
+                      null
+                    ),
+                    {}
+                  ),
+                  if(
+                    ri!nomination.isDirectHire = true,
+                    a!save(
+                      ri!nomination.dppGroupOtherComment,
+                      null
+                    ),
+                    {}
+                  ),
+                  
+                },
+                showWhen: local!showDirectHire,
+                required: local!showDirectHire,
+                choiceLayout: "COMPACT"
+              ),
+              #"SYSTEM_SYSRULES_radioButtonField"(
+                label: "Is Direct Hire Internal or External?",
+                choiceLabels: #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596529",
+                choiceValues: { true, false },
+                value: ri!nomination.isDirectHireInternal,
+                saveInto: {
+                  ri!nomination.isDirectHireInternal,
+                  a!save(ri!oldBu,null),
+                  a!save(ri!oldOffice,null),
+                  a!save(ri!nomination.employeeId, null),
+                  a!save(ri!nomination.firstName, null),
+                  a!save(ri!nomination.middleName, null),
+                  a!save(ri!nomination.lastName, null),
+                  a!save(ri!nomination.functionName, null),
+                  a!save(ri!nomination.currentPML, null),
+                  a!save(ri!nomination.levelName, null),
+                  a!save(ri!nomination.originatingRegion, null),
+                  a!save(
+                    ri!nomination.otherOriginatingRegion,
+                    null
+                  ),
+                  a!save(ri!nomination.originatingBU, null),
+                  a!save(ri!nomination.otherOriginatingBU, null),
+                  a!save(
+                    ri!nomination.originatingHomeOffice,
+                    null
+                  ),
+                  a!save(
+                    ri!nomination.otherOriginatingHomeOffice,
+                    null
+                  ),
+                  a!save(ri!nomination.returnRegion, null),
+                  a!save(
+                    ri!nomination.otherReturningRegion,
+                    null
+                  ),
+                  a!save(ri!nomination.returnBU, null),
+                  a!save(ri!nomination.otherReturningBU, null),
+                  a!save(ri!nomination.returnHomeOffice, null),
+                  a!save(
+                    ri!nomination.otherReturningHomeOffice,
+                    null
+                  ),
+                  a!save(ri!nomination.jobDescription, null),
+                  a!save(ri!nomination.employeeEmail, null),
+                  
+                },
+                required: ri!nomination.isDirectHire,
+                showWhen: local!showDirectHire,
+                disabled: not(ri!nomination.isDirectHire = true),
+                choiceLayout: "COMPACT"
+              ),
+              #"SYSTEM_SYSRULES_dropdownField_v1"(
+                label: "Position Type",
+                placeholder: "-- Select Position Type --",
+                choiceLabels: index(local!positionTypes, "description", null),
+                choiceValues: index(local!positionTypes, "refId", null),
+                value: ri!nomination.positionTypeId,
+                saveInto: {
+                  ri!nomination.positionTypeId,
+                  a!save(ri!nomination.subPositionTypeId, null),
+                  a!save(
+                    ri!nomination.nonTraditionalTypeId,
+                    null
+                  ),
+                  a!save(
+                    ri!nomination.otherNonTraditionalRotationType,
+                    null
+                  ),
+                  if(
+                    ri!nomination.positionTypeId &lt;&gt; #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+                    a!save(
+                      ri!nomination.recommendedDppGroupId,
+                      null
+                    ),
+                    {}
+                  ),
+                  if(
+                    ri!nomination.positionTypeId &lt;&gt; #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+                    a!save(
+                      ri!nomination.dppGroupOtherComment,
+                      null
+                    ),
+                    {}
+                  ),
+                  if(
+                    ri!nomination.positionTypeId &lt;&gt; #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699",
+                    {
+                      a!save(
+                        ri!nomination.isPotentialSec_FasbCandidate,
+                        null
+                      ),
+                      a!save(ri!nomination.isAqspNomination, null)
+                    },
+                    {}
+                  )
+                },
+                required: true,
+                disabled: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.nominationTypeId)
+              ),
+              #"SYSTEM_SYSRULES_linkField"(
+                links: #"SYSTEM_SYSRULES_reportLink"(
+                  label: "Role Definitions",
+                  report: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196185",
+                  openLinkIn: "NEW_TAB"
+                )
+                ,showWhen: false()
+              ),
+              #"SYSTEM_SYSRULES_dropdownField_v1"(
+                label: "Position Sub-Type",
+                placeholder: "-- Select Position Sub-Type --",
+                choiceLabels: if(
+                  and(ri!nomination.positionTypeId=#"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699",
+                 toboolean(local!isOldVersion)=true),
+                #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11636837",
+                index(
+                  local!subPositionTypes,
+                  "subPosition",
+                  null
+                )),
+                choiceValues: if(
+                  and(
+                    ri!nomination.positionTypeId=#"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699",
+                 toboolean(local!isOldVersion)=true),
+                #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11636843",
+                index(
+                  local!subPositionTypes,
+                  "subPositionId",
+                  null
+                )),
+                value: ri!nomination.subPositionTypeId,
+                saveInto: {
+                  ri!nomination.subPositionTypeId,
+                  a!save(
+                    ri!nomination.nonTraditionalTypeId,
+                    null
+                  ),
+                  a!save(
+                    ri!nomination.otherNonTraditionalRotationType,
+                    null
+                  ),
+                  if(
+                    or(
+                      ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688",
+                      ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148695"
+                    ),
+                    {
+                      a!save(ri!nomination.mdPromotionDate, null),
+                      a!save(ri!nomination.isInspectionsReview, null)
+                    },
+                    a!save(ri!nomination.isAQR1or2, null)
+                  ),
+                  if(
+                    ri!nomination.subPositionTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688",
+                    a!save(
+                      ri!nomination.partnerPromotionDate,
+                      null
+                    ),
+                    {}
+                  )
+                },
+                required: true,
+                disabled: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.positionTypeId)
+              ),
+              #"SYSTEM_SYSRULES_dropdownField_v1"(
+                label: "Non-Traditional Rotational Type",
+                placeholder: "-- Select --",
+                choiceLabels: index(
+                  local!nonTraditionalRotationalTypes,
+                  "nontradrotationaltype",
+                  null
+                ),
+                choiceValues: index(
+                  local!nonTraditionalRotationalTypes,
+                  "nontradrotationid",
+                  null
+                ),
+                value: ri!nomination.nonTraditionalTypeId,
+                saveInto: {
+                  ri!nomination.nonTraditionalTypeId,
+                  a!save(
+                    ri!nomination.otherNonTraditionalRotationType,
+                    null
+                  ),
+                  
+                },
+                required: and(
+                  ri!nomination.subPositionTypeId = #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11599223",
+                  /*if(*/
+                    /*rule!CAW_isBlank(local!createdOnDate),*/
+                    /*true,*/
+                    /*if(*/
+                      /*todatetime(local!createdOnDate) &lt; cons!DRT_V3_DEPLOYMENT_DATE_TIME,*/
+                      /*false,*/
+                      /*true*/
+                    /*)*/
+                  /*)*/
+                  toboolean(local!isOldVersion)=false
+                ),
+                showWhen: and(
+                  ri!nomination.subPositionTypeId = #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11599223",
+                  /*if(*/
+                    /*rule!CAW_isBlank(local!createdOnDate),*/
+                    /*true,*/
+                    /*if(*/
+                      /*todatetime(local!createdOnDate) &lt; cons!DRT_V3_DEPLOYMENT_DATE_TIME,*/
+                      /*false,*/
+                      /*true*/
+                    /*)*/
+                  /*)*/
+                  toboolean(local!isOldVersion)=false
+                )
+              ),
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Other Non-Traditional Rotational Type",
+                value: ri!nomination.otherNonTraditionalRotationType,
+                saveInto: ri!nomination.otherNonTraditionalRotationType,
+                validations: if(
+                  regexmatch(
+                    #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11586353",
+                    ri!nomination.otherNonTraditionalRotationType
+                  ),
+                  #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11586372"[1],
+                  {}
+                ),
+                required: ri!nomination.nonTraditionalTypeId = #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11599217",
+                showWhen: ri!nomination.nonTraditionalTypeId = #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11599217",
+                characterLimit: 100,
+                showCharacterCount: true
+              )
+            }
+          )
+        }
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>subPositionTypes</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nominationTypes</name>
+            <type>
+                <name>CAW_REF_RefMaster?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>oldBu</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>oldOffice</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">'type!{urn:com:appian:types:CAW}CAW_Nomination'(
+  nominationTypeId: 10,
+  positionTypeId: 149
+)</a:value>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3595917"(
+  returnCDT: true,
+  isActive: true
+)</a:value>
+                    <a:nameRef>subPositionTypes</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+  refTypeId: 8,
+  isActive: true,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>nominationTypes</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>oldBu</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>oldOffice</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3670820"/>
+        <historyInfo versionUuid="_a-0000e6ca-52ed-8000-9bff-011c48011c48_3718191"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3827143"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3904567"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183285"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4187051"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4579091"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4599455"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4784096"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4850342"/>
+        <historyInfo versionUuid="_a-0000e7eb-6013-8000-9c20-011c48011c48_6388741"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6610969"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6674405"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11621831"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11683089"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11731473"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11742987"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11767640"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12363848"/>
+    </history>
+</contentHaul>

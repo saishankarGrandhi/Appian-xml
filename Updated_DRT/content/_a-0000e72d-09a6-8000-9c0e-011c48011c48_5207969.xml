@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11578776</versionUuid>
+    <rule>
+        <name>CAW_getASKstoLinktoNomination</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5207969</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!asks: if(
+    ri!positionTypeID = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+    /*false,*/
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3235974"(
+      returnCDT: false,
+      isCompleted: true,
+      askDetailId: ri!askDetailId,
+      pagingInfo: ri!pagingInfo,
+      fetchTotalCount: true
+    ),
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3338676"(
+      returnCDT: false,
+      fetchTotalCount: true,
+      isCompleted: true,
+      rotationalAskId: ri!askDetailId,
+      pagingInfo: ri!pagingInfo
+    )
+  ),
+  local!asks
+)</definition>
+        <namedTypedValue>
+            <name>positionTypeID</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>askDetailId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5233222"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_6223473"/>
+        <historyInfo versionUuid="_a-0000ea11-24bc-8000-9c45-011c48011c48_11578776"/>
+    </history>
+</contentHaul>

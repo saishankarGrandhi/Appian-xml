@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12554985</versionUuid>
+    <interface>
+        <name>CAW_GRID_userPreview</name>
+        <uuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12333872</uuid>
+        <description>Excel sheet value will be displayed in Grid </description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!valid: reject(fn!isnull,{ ri!validUser }),
+  local!invalidUser: reject(fn!isnull,{ri!userDataInvalid,ri!duplicateUserData,ri!duplicateValues}),
+  local!disabled,
+  local!allinstancescompleted,
+  local!value,
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      showwhen: a!isNullOrEmpty(local!value),
+      label: "Selected groups by the user",
+      contents: #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(),
+          #"SYSTEM_SYSRULES_columnLayout"(),
+          #"SYSTEM_SYSRULES_columnLayout"(),
+          #"SYSTEM_SYSRULES_columnLayout"()
+        }
+      )
+    ),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      showwhen: a!isNullOrEmpty(local!value),
+      contents: {
+        #"SYSTEM_SYSRULES_sideBySideLayout"(
+          items: {
+            #"SYSTEM_SYSRULES_sideBySideItem"(
+              item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value: {
+                  #"SYSTEM_SYSRULES_richTextItem_v1"(text: "Selected Groups", style: "STRONG")
+                }
+              )
+            ),
+            /*a!sideBySideItem(*/
+              /*item: a!richTextDisplayField(*/
+                /*value: {*/
+                  /*a!richTextItem(text: "SSO", style: "STRONG")*/
+                /*}*/
+              /*)*/
+            /*),*/
+            /*a!sideBySideItem(*/
+              /*item: a!richTextDisplayField(*/
+                /*value: {*/
+                  /*a!richTextItem(text: "Total User", style: "STRONG")*/
+                /*}*/
+              /*)*/
+            /*)*/
+          }
+        ),
+        #"SYSTEM_SYSRULES_sideBySideLayout"(
+          items: {
+            /*a!sideBySideItem(*/
+            /*item: a!richTextDisplayField(*/
+            /*value: { a!richTextItem(text:  */
+            /*rule!APN_distinct(index(index(ri!validUser,"groupNames",{} ),1,{})),*/
+            /*               */
+            /*)*/
+            /*}*/
+            /*)*/
+            /*),*/
+            #"SYSTEM_SYSRULES_sideBySideItem"(
+              item: #"SYSTEM_SYSRULES_textField"(
+                value: getgroupnames(ri!groupId),
+                readOnly: true
+              )
+            ),
+            /*a!sideBySideItem(*/
+              /*item: a!richTextDisplayField(*/
+                /*value: {*/
+                  /*a!richTextItem(text: if(ri!selection = true, "Yes", "No"))*/
+                /*}*/
+              /*)*/
+            /*),*/
+            /*a!sideBySideItem(*/
+              /*item: a!richTextDisplayField(*/
+                /*value: {*/
+                  /*a!richTextItem(*/
+                    /*text: ri!batchImportUser.requestedUserCount*/
+                  /*)*/
+                /*}*/
+              /*)*/
+            /*)*/
+          }
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      showwhen: a!isNullOrEmpty(local!value),
+      label: "List of Valid Users",
+      contents: {
+        #"SYSTEM_SYSRULES_gridField_v1"(
+          labelPosition: "ABOVE",
+          data: local!valid,
+          columns: {
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "First Name",
+              value: fv!row.firstName
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(
+              label: "Last Name",
+              value: fv!row.lastName
+            ),
+            #"SYSTEM_SYSRULES_gridColumn"(label: "Email Id", value: fv!row.userName),
+            #"SYSTEM_SYSRULES_gridColumn"(label: "Action", value: fv!row.userAction)
+          }
+        )
+      },
+      marginBelow: "EVEN_MORE"
+    ),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      showwhen: a!isNullOrEmpty(local!value),
+      label: "List of Invalid Users",
+      contents: {
+        #"SYSTEM_SYSRULES_sectionLayout_v1"(
+          label: "",
+          contents: {
+            #"SYSTEM_SYSRULES_gridField_v1"(
+              emptyGridMessage: "No invalid entries in the uploaded file",
+              data: local!invalidUser,
+              columns: {
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: " First Name",
+                  value: fv!row.firstName,
+                  width: "MEDIUM_PLUS"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(
+                  label: " Last Name",
+                  value: fv!row.lastName,
+                  width: "MEDIUM"
+                ),
+                #"SYSTEM_SYSRULES_gridColumn"(label: "Email Id", value: fv!row.userName),
+                #"SYSTEM_SYSRULES_gridColumn"(label: "Action", value: fv!row.userAction)
+              }
+            )
+          }
+        )
+      },
+      marginBelow: "LESS"
+    ),
+   
+    if(#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(ri!validUser), 
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      
+      primaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Submit",
+          loadingIndicator: true,
+          value: ri!valueButton,
+          saveInto: { a!save(ri!valueButton, "CANCEL") },
+          submit: true,
+          style: "PRIMARY",
+          
+        )
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "CANCEL",
+          value: ri!valueButton,
+          saveInto: { a!save(ri!valueButton, "CANCEL") },
+          submit: true(),
+          style: "PRIMARY"
+        )
+      }
+    ),
+    
+    {
+      #"SYSTEM_SYSRULES_ButtonLayout"(
+        showWhen:a!isNullOrEmpty(local!value),
+      primaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Submit",
+          loadingIndicator: true,
+          saveInto: {
+           
+            ri!valueButton,
+            a!save(local!disabled, true),
+            #"SYSTEM_SYSRULES_startProcess"(
+              processModel: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333886",
+              processParameters: {
+                addGroups: ri!groupId,
+                /*batchImport: ri!batchImportUser,*/
+                validUser: ri!validUser,
+                /*ritm:ri!ritm*/
+              },
+              onSuccess: {
+                a!save(
+                  local!allinstancescompleted,
+                  fv!processInfo.pv.allInstancesCompleted
+                ),
+                a!save(local!value, true),
+                
+              }
+            ),
+            
+          },
+          submit: false(),
+          style: "PRIMARY",
+          /*showWhen:a!isNullOrEmpty(index(ri!validUser,"emailId",null))*/
+        )
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "CANCEL",
+          value: ri!valueButton,
+          saveInto: { a!save(ri!valueButton, "CANCEL") },
+          submit: true(),
+          style: "PRIMARY"
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_cardLayout"(
+      showwhen: 
+        a!isNotNullOrEmpty(local!value),
+      contents: {
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          align: "CENTER",
+          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: "All Valid Users has been imported successfully, Please click on next button to check the status",
+            style: "STRONG",
+            color: "ACCENT",
+            size: "MEDIUM"
+          )
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      showwhen: 
+      a!isNotNullOrEmpty(local!value),
+      primaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "NEXT",
+          value: ri!valueButton,
+          saveInto: {
+            ri!valueButton,
+            a!save(ri!valueButton, "CREATE"),
+            a!save(ri!validUser, local!valid)
+          },
+          submit: true(),
+          style: "PRIMARY"
+        )
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "CANCEL",
+          value: ri!valueButton,
+          saveInto: { a!save(ri!valueButton, "CANCEL") },
+          submit: true(),
+          style: "PRIMARY"
+        )
+      }
+      
+    )}
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>valueButton</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>validUser</name>
+            <type>
+                <name>CAW_User?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selection</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>groupId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>userDataInvalid</name>
+            <type>
+                <name>CAW_User?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>duplicateUserData</name>
+            <type>
+                <name>CAW_User?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>duplicateValues</name>
+            <type>
+                <name>CAW_User?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12554985"/>
+    </history>
+</contentHaul>

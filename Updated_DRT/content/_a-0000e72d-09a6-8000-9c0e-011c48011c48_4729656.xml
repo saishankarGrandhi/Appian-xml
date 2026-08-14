@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12645313</versionUuid>
+    <rule>
+        <name>CAW_determineEmailTriggerId</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4729656</uuid>
+        <description>Rule to determine email trigger id based on task id</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  and(
+    not(isusermemberofgroups(
+      loggedInUser(),
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+      )
+    ),
+    ri!taskId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577779",
+    or(
+      ri!previousTaskId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578065",
+      tointeger(ri!previousTaskId) = 0,
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!previousTaskId)
+    )
+    /* when not a DPP Editor and nomination is new or in dpp review */
+  ),
+  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4733738",
+  if(
+    ri!taskId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489118",
+    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4733750",
+    if(
+      /*When  Inspections review is requested*/
+      ri!taskId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494074",
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4734194",
+      if(
+        /*When HR review completed by HR*/
+        and(
+          ri!previousTaskId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489118",
+          ri!taskId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577779",
+          isusermemberofgroups(
+            loggedInUser(),
+            #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12645233"
+          )
+        ),
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4733770",
+        if(
+          /*When Inspection Review is completed*/
+          and(
+            ri!previousTaskId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494074",
+            ri!taskId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577779",
+            isusermemberofgroups(
+              loggedInUser(),
+              #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4519640"
+            )
+          ),
+          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4734200",
+          if(
+            /*When Office visit availability requested*/
+            ri!taskId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4719036",
+            if(
+              /*When Office visit availability completed*/
+              and(
+                ri!previousTaskId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+                ri!taskId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458947"
+              ),
+              #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4733519",
+              if(
+                /*When interview availability requested*/
+                ri!taskId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+                #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4733549",
+                if(
+                  /*When interview availability completed*/
+                  and(
+                    ri!previousTaskId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+                    ri!taskId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458895"
+                  ),
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4733605",
+                  if(
+                    /* When incorrect Nomination is updated by DPP  */
+                    and(
+                      property(ri!nomination,"isReapprovedByBU",toboolean(null)) = true,
+                      ri!taskId=#"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431",                      
+                    ),
+                    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4753896",
+                    if(
+                      and(
+                        property(ri!nomination,"isOpsAdditionalVettingReq",toboolean(null)) = true,
+                        tointeger(ri!taskId)=#"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431"                    
+                      ),
+                      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5022410",
+                      if(
+                        and(
+                          /*Add is vetting requested condition*/
+                          toboolean(ri!isAdditionalFollowUpReq)=true,
+                          ri!taskId=#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617",
+                          property(ri!nomination,"isOpsAdditionalVettingReqCompleted",toboolean(null)) = true,
+                        ),
+                        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4985423",
+                        if(
+                          and(
+                            not(property(ri!nomination,"isOpsAdditionalVettingReq",toboolean(null)) = true),
+                            tointeger(ri!taskId)=#"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431" 
+                          ),
+                          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5046131",
+                          if(
+                            ri!taskId=#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617",
+                            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5046137",
+                            if(
+                              ri!taskId=#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577792",
+                              #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12459354",
+                              null
+                            )
+                          )
+                        )
+                      )   
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>taskId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>previousTaskId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isAdditionalFollowUpReq</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4769229"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5116020"/>
+        <historyInfo versionUuid="_a-0000e777-b242-8000-9c12-011c48011c48_5335557"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_6019395"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12459391"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12645313"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6858060</versionUuid>
+    <rule>
+        <name>CAW_returnNextCoreStatusId</name>
+        <uuid>_a-0000e69d-7e03-8000-9bf6-011c48011c48_3341997</uuid>
+        <description>rule to return next core status Id based on current status</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  ri!isEdit=false,
+  if(
+    ri!isUserInLeadershipGroup = true,
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295646",
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1]
+  ),
+  if(
+    ri!isComplete = true,
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3344039",
+    if(
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedLeadershipGroup),
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[2],
+      if(
+        ri!taskStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295646",
+        #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+        if(
+          ri!taskStatusId = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3165924",
+          if(
+            ri!isUserInLeadershipGroup = true,
+            #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295646",
+            #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+          ),
+          if(
+            contains(
+              {
+                #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+                #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[2]
+              },
+              ri!taskStatusId
+            ),
+            #"_a-0000e825-ace1-8000-9c24-011c48011c48_6791426",
+            if(
+              ri!taskStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3373079",
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+              null
+            )
+          )
+        )
+      )
+    )
+  )
+)
+</definition>
+        <namedTypedValue>
+            <name>taskStatusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isComplete</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedLeadershipGroup</name>
+            <type>
+                <name>Group</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isEdit</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isUserInLeadershipGroup</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3361332"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6858060"/>
+    </history>
+</contentHaul>

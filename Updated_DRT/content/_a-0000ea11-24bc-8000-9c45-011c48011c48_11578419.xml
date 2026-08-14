@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef99-54a0-8000-9c6e-011c48011c48_14282022</versionUuid>
+    <rule>
+        <name>DRT_SP_getDistinctRotationalAskDetIds</name>
+        <uuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11578419</uuid>
+        <description>Executing SP to get distinct rotational ds</description>
+        <parentUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11571591</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!askDetIds: a!flatten(
+    index(
+      #"SYSTEM_SYSRULES_executeStoredProcedureForQuery"(
+        dataSource: #"_a-0000ea11-24bc-8000-9c45-011c48011c48_11576702",
+        procedureName: #"_a-0000ea11-24bc-8000-9c45-011c48011c48_11578413"
+      ),
+      "results",
+      null
+    )
+  ),
+  tointeger(a!flatten(local!askDetIds.rotationalaskId))
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea11-24bc-8000-9c45-011c48011c48_11578431"/>
+        <historyInfo versionUuid="_a-0000ef99-54a0-8000-9c6e-011c48011c48_14282022"/>
+    </history>
+</contentHaul>

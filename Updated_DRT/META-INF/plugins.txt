@@ -1,0 +1,36 @@
+com.vuram.advancedrichtexteditor
+Advanced Rich Text Editor
+1.1.1
+
+com.appiancorp.plugins.regexfunctions
+Appian Regular Expression Functions
+2.1.2
+
+com.appiancorp.ps.plugins.contenttools
+Content Tools
+1.2.0
+
+com.appiancorp.solutionsconsulting.dateAndTimeUtilities
+Date and Time Utilities
+1.1.0
+
+com.appiancorp.cdtmanipulation
+Dictionary Manipulation
+2.0.1
+
+com.appiancorp.ps.exceltools
+Excel Tools
+2.2.10
+
+psshared.peoplefunctions
+People Functions
+1.11
+
+com.appiancorp.a2.process.runtime.activities.sftp
+SFTP Functions
+3.0.3
+
+sortutilities
+Sort Utilities
+1.0.0
+

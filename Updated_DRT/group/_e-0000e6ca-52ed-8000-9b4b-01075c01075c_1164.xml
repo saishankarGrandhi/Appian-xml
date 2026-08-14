@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1448</versionUuid>
+    <group>
+        <name>CAW BUCoS</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000e6ca-52ed-8000-9b4b-01075c01075c_1164</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <parentUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</parentUuid>
+        <description>Group for CAW BU Chief of Staff</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1393</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1397</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1395</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1389</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1411</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1423</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1401</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1421</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1399</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1415</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1427</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1405</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1413</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1425</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1403</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1419</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1409</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1417</groupUuid>
+            <groupUuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1407</groupUuid>
+        </groups>
+    </members>
+    <admins>
+        <users/>
+        <groups/>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000e6ca-52ed-8000-9b4b-01075c01075c_1165"/>
+        <historyInfo versionUuid="_e-0000e6eb-1d17-8000-9b54-01075c01075c_1448"/>
+    </history>
+</groupHaul>

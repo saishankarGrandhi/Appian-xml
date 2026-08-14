@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6310685</versionUuid>
+    <rule>
+        <name>CAW_CancelNominationTasks</name>
+        <uuid>c5c1c10a-8aca-4c62-92ab-cf4d0072b90e</uuid>
+        <description>Cancels all active tasks when a nomination is cancelled</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!tasks: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3066463"(
+    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+    requestId: ri!nominationId,
+    isCompleted: false,
+    returnCDT: true
+  ),
+  if(
+    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!tasks),
+    null,
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!tasks,
+      expression:  updatedictionary(
+        fv!item,
+        {
+          statusId: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3891969",
+          assigneeId: null,
+          isAssigneeGroup: false,
+          isLocked: false,
+          lockedBy: null,
+          processId: null,
+          isCompleted: true,
+          modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(loggedInUser()),
+          modifiedOn: now() 
+        }
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nominationId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3893710"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578338"/>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6310685"/>
+    </history>
+</contentHaul>

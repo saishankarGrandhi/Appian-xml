@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef82-c68c-8000-9c6c-011c48011c48_14274693</versionUuid>
+    <dataStore>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12555857</uuid>
+        <name>PE VIEW</name>
+        <description></description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>8683c45e-2916-482d-b557-900aef2f89c8</uuid>
+                <name>PE_SFTP_LANGUAGE_VIEW</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_LANGUAGE_VIEW</type>
+            </entity>
+            <entity>
+                <uuid>7bc1b20a-233a-495a-be75-8ec7e0183219</uuid>
+                <name>PE_SFTP_GET_ALL_DATA_VIEW</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_GET_ALL_DATA_VIEW</type>
+            </entity>
+            <entity>
+                <uuid>9ba40f7c-c7ad-4cfb-8a86-0fa7e789b506</uuid>
+                <name>PE_SFTP_FULL_OUTSIDER_VIEW</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_FULL_OUTSIDER_VIEW</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>a1aad5aa-f503-43a7-95cd-02cd42ac65d4</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>9a947529-6b64-45ca-993c-698071a99d29</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12614920"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12927168"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12927245"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12927330"/>
+        <historyInfo versionUuid="_a-0000ecc5-63bc-8000-9c60-011c48011c48_13581398"/>
+        <historyInfo versionUuid="_a-0000ef82-c68c-8000-9c6c-011c48011c48_14274693"/>
+    </history>
+</dataStoreHaul>

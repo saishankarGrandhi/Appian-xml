@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11890306</versionUuid>
+    <constant>
+        <name>DRT_BUPIC_BUPPP</name>
+        <uuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11888583</uuid>
+        <description>Constant for BUPIC, BUPPP separate groups</description>
+        <parentUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11571597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Bay Area BUPPP</el>
+                <el>Bay Area BUPIC</el>
+                <el>Chicago Metro BUPPP</el>
+                <el>Mid America BUPPP</el>
+                <el>Chicago Metro BUPIC</el>
+                <el>Mid America BUPIC</el>
+                <el>Great Lakes BUPIC</el>
+                <el>Great Lakes BUPPP</el>
+                <el>Mid-Atlantic BUPPP</el>
+                <el>Mid-Atlantic BUPIC</el>
+                <el>Pennsylvania BUPPP</el>
+                <el>Chesapeake BUPPP</el>
+                <el>Washington Federal BUPPP</el>
+                <el>Pennsylvania BUPIC</el>
+                <el>Chesapeake BUPIC</el>
+                <el>Washington Federal BUPIC</el>
+                <el>Mountain BUPPP</el>
+                <el>Mountain BUPIC</el>
+                <el>Denver BUPPP</el>
+                <el>Denver BUPIC</el>
+                <el>Northeast Commercial BUPIC</el>
+                <el>Northeast Commercial BUPPP</el>
+                <el>New York Metro BUPPP</el>
+                <el>NEUNY BUPPP</el>
+                <el>New York Metro BUPIC</el>
+                <el>NEUNY BUPIC</el>
+                <el>Northeast FS BUPPP</el>
+                <el>Northeast FS BUPIC</el>
+                <el>New York FS BUPPP</el>
+                <el>New York  FS BUPIC</el>
+                <el>North Central BUPIC</el>
+                <el>North Central BUPPP</el>
+                <el>Gateway West BUPPP</el>
+                <el>Northern Heartland BUPPP</el>
+                <el>Gateway West BUPIC</el>
+                <el>Northern Heartland BUPIC</el>
+                <el>Pacific Southwest BUPPP</el>
+                <el>Pacific Southwest BUPIC</el>
+                <el>Southeast BUPIC</el>
+                <el>Southeast BUPPP</el>
+                <el>Coastal BUPIC</el>
+                <el>Midsouth BUPIC</el>
+                <el>Coastal BUPPP</el>
+                <el>Midsouth BUPPP</el>
+                <el>South Central BUPIC</el>
+                <el>South Central BUPPP</el>
+                <el>Dallas BUPPP</el>
+                <el>Houston BUPPP</el>
+                <el>Dallas BUPIC</el>
+                <el>Houston BUPIC</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11890306"/>
+    </history>
+</contentHaul>

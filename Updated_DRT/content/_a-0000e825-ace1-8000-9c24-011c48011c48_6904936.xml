@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6955684</versionUuid>
+    <rule>
+        <name>CAW_constructCoreChartDataByLevelForSpecificGroup</name>
+        <uuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6904936</uuid>
+        <description>Constructs the necessary data format for the Core ASK Actual report charts by level</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!coreAskDetails: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3235974"(
+    returnCDT: true,
+    isCompleted: true,
+    isActive: true,
+    fiscalYear: ri!fiscalYear,
+    dppGroupId: ri!selectedGroup,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: -1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(
+        field: "askDetailId"
+      )
+    )
+  ),
+  local!coreAskDetailLatestCompletedVersion: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6753074"(
+    asks: local!coreAskDetails
+  ),
+  #"SYSTEM_SYSRULES_forEach"(
+    items: #"_a-0000e825-ace1-8000-9c24-011c48011c48_6911873",
+    expression: a!localVariables(
+      local!actualIdsForLevel: #"_a-0000e825-ace1-8000-9c24-011c48011c48_6911879"(
+        level: fv!item
+      ),
+      local!plan: if(
+        a!isNullOrEmpty(local!coreAskDetailLatestCompletedVersion),
+        0,
+        sum(
+          index(
+            index(local!coreAskDetailLatestCompletedVersion, "headCountAmount", {}),
+            wherecontains(
+              local!actualIdsForLevel,
+              index(local!coreAskDetailLatestCompletedVersion, "levelNeedId", {})
+            )
+          )
+        )
+      ),
+      local!actual: if(
+        a!isNullOrEmpty(ri!actualNominations),
+        {},
+        index(
+          ri!actualNominations,
+          intersection(
+            wherecontains(
+              local!actualIdsForLevel,
+              index(ri!actualNominations, "levelNeedId", {})
+            ),
+            wherecontains(
+              ri!selectedGroup,
+              index(ri!actualNominations, "dppGroupId", {})
+            )
+          )
+        )
+      ),
+      local!confirmed: length(
+        index(
+          local!actual,
+          wherecontains(
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350",
+            tointeger(index(local!actual, "statusId", {}))
+          )
+        )
+      ),
+      local!inProcess: length(local!actual) - local!confirmed,
+      a!map(
+        level: fv!item,
+        plan: local!plan,
+        confirmed: local!confirmed,
+        inProcess: local!inProcess,
+        open: if(
+          local!plan - sum(local!confirmed, local!inProcess) &lt; 0,
+          0,
+          local!plan - sum(local!confirmed, local!inProcess)
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>fiscalYear</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedGroup</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>actualNominations</name>
+            <type>
+                <name>CAW_V_CORE_NOMINATION_ASKS?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6955684"/>
+    </history>
+</contentHaul>

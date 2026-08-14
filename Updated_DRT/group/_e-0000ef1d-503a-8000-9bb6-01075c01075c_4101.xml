@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000ef99-5036-8000-9bba-01075c01075c_4112</versionUuid>
+    <group>
+        <name>CAW PPL Delegate ALL</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000ef1d-503a-8000-9bb6-01075c01075c_4101</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <parentUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</parentUuid>
+        <description>Group for PPL delegate - ALL</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups/>
+    </members>
+    <admins>
+        <users/>
+        <groups/>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000ef1d-503a-8000-9bb6-01075c01075c_4102"/>
+        <historyInfo versionUuid="_e-0000ef1d-503a-8000-9bb6-01075c01075c_4106"/>
+        <historyInfo versionUuid="_e-0000ef99-5036-8000-9bba-01075c01075c_4112"/>
+    </history>
+</groupHaul>

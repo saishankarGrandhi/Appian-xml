@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef82-c68c-8000-9c6c-011c48011c48_14278776</versionUuid>
+    <interface>
+        <name>CAW_uiCancelRotationalAsk</name>
+        <uuid>_a-0000ef82-c68c-8000-9c6c-011c48011c48_14275904</uuid>
+        <description>This is to cancel the Rotational Ask.</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_formLayout_v1"(
+  label: "Cancel Rotational Ask: " &amp;
+    concat(
+      "Rotational " &amp; ri!rotationalaskview.askName &amp; " : " &amp; ri!rotationalaskview.askId &amp; " - V" &amp; ri!rotationalaskview.version
+    )
+   &amp; " - " &amp; ri!rotationalaskview.askId,
+  contents: {
+    #"SYSTEM_SYSRULES_boxLayout"(
+      label: "Rotational Details",
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          spacing: "DENSE",
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              width: "NARROW",
+              contents: {
+                #"SYSTEM_SYSRULES_textField"(
+                  label: "Name of the ASK",
+                  value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(value: ri!rotationalaskview.askName),
+                  readOnly: true
+                ),
+                
+              }
+            ),
+            /*a!columnLayout(*/
+            /*contents: {*/
+            /*a!textField(*/
+            /*label: "DPP Group",*/
+            /*value: rule!CAW_displayReadOnlyField(value: ri!coreAsksView.dppGroup),*/
+            /*readOnly: true*/
+            /*)*/
+            /*                */
+            /*}*/
+            /*),*/
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_textField"(
+                  label: "Fiscal Year",
+                  value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(value: ri!rotationalaskview.fYear),
+                  readOnly: true
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_textField"(
+                  label: "Version",
+                  value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(value: ri!rotationalaskview.version),
+                  readOnly: true
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_textField"(
+                  label: "Request #",
+                  value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(value: ri!rotationalaskview.askId),
+                  readOnly: true
+                )
+              }
+            )
+          },
+          
+        )
+      },
+      style: "ACCENT",
+      marginBelow: "STANDARD"
+    ),
+    #"SYSTEM_SYSRULES_boxLayout"(
+      label: "Cancellation Comment",
+      contents: {
+        #"SYSTEM_SYSRULES_paragraphField"(
+          label: "",
+          labelPosition: "COLLAPSED",
+          value: index(ri!comment, "comment", {}),
+          saveInto: ri!comment.comment,
+          characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137",
+          required: true,
+          requiredMessage: "A comment is required to cancel this nomination"
+        )
+      },
+      isCollapsible: false,
+      marginBelow: "STANDARD",
+      style: "ACCENT"
+    )
+  },
+  buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+    primaryButtons: {
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+        value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+        submit: true,
+        style: "PRIMARY",
+        validate: true,
+        confirmMessage: "Are you sure you want to cancel this nomination. This action cannot be undone.",
+        loadingIndicator: true,
+        saveInto: {
+          ri!buttonClicked,
+          a!save(
+            ri!ask.statusId,
+            #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3891969"
+          ),
+          /*COMMENT LOGIC*/
+          a!save(
+            ri!comment,
+            'type!{urn:com:appian:types:CAW}CAW_Comment'(
+              commentId: null,
+              requestId: index(ri!rotationalaskview, "askId", null),
+              moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+              comment: property(ri!comment, "comment", null),
+              isDraft: false,
+              isActive: true,
+              version: 1,
+              createdBy: loggedInUser(),
+              createdOn: now(),
+              modifiedBy: loggedInUser(),
+              modifiedOn: now()
+            )
+          ),
+          /*AUDIT*/
+          a!save(
+            ri!auditHistory,
+            'type!{urn:com:appian:types:CAW}CAW_Audit'(
+              auditId: null,
+              taskId: null,
+              requestId: ri!rotationalaskview.askId,
+              moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+              statusId: #"_a-0000ef82-c68c-8000-9c6c-011c48011c48_14274552",
+              version: 1,
+              action: "Rotational Ask Cancelled",
+              description: index(ri!comment, "comment", {}),
+              createdBy: loggedInUser(),
+              createdOn: now()
+            )
+          ),
+          /*a!save(ri!coreAsksView.askID, null),*/
+          a!save(
+            ri!ask.modifiedBy,
+            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(loggedInUser())
+          ),
+          a!save(ri!ask.modifiedOn, now())
+        }
+      )
+    },
+    secondaryButtons: {
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+        value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+        saveInto: { ri!buttonClicked },
+        submit: true,
+        style: "NORMAL",
+        validate: false
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>comment</name>
+            <type>
+                <name>CAW_Comment</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonClicked</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ask</name>
+            <type>
+                <name>CAW_Ask</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rotationalaskview</name>
+            <type>
+                <name>CAW_V_ROTATIONAL_ASK</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ef82-c68c-8000-9c6c-011c48011c48_14278776"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12646722</versionUuid>
+    <rule>
+        <name>PE_querySelectionDataStoreLanguage</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12553395</uuid>
+        <description>query selection used in Export DSE to CSV in language file</description>
+        <parentUuid>29a5d1a0-0cee-4539-9a25-a36937648dd0</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>
+#"SYSTEM_SYSRULES_querySelection"(
+  columns: {
+    
+    
+    #"SYSTEM_SYSRULES_queryColumn"(field: "translator"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "emplid"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "languageCode"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "lastupddttm"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "nativeLanguage"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "readProficiency"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "speakProficiency"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "writeProficiency")
+  }
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12646722"/>
+    </history>
+</contentHaul>

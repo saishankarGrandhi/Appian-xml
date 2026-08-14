@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12650631</versionUuid>
+    <rule>
+        <name>PE_SFTP_getDocumentsToDelete</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12556854</uuid>
+        <description>Get document name which need to be deleted</description>
+        <parentUuid>29a5d1a0-0cee-4539-9a25-a36937648dd0</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>reject(
+  #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12461260",
+  #"SYSTEM_SYSRULES_forEach"(
+    items: getdocumentsfromfolder(#"_a-0000eb38-82c9-8000-9c51-011c48011c48_12422620", true),
+    expression: if(
+      elapseddays(document(fv!item, "dateCreated"), now())&gt;#"_a-0000eb38-82c9-8000-9c51-011c48011c48_12556847",
+      fv!item,
+      null
+    )
+  )
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>Sample test case</a:name>
+                <a:description/>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12650631"/>
+    </history>
+</contentHaul>

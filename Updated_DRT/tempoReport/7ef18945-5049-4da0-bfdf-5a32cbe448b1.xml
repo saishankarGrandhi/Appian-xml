@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tempoReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>bbfd5ff8-7bba-4090-af49-b1a889b08e02</versionUuid>
+    <tempoReport a:uuid="7ef18945-5049-4da0-bfdf-5a32cbe448b1" name="CAW Role Definitions">
+        <a:description></a:description>
+        <a:uiExpr>=#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196036"()</a:uiExpr>
+        <a:urlStub>QNc-pg</a:urlStub>
+    </tempoReport>
+    <roleMap>
+        <role name="report_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+            </groups>
+        </role>
+        <role name="report_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="bbfd5ff8-7bba-4090-af49-b1a889b08e02"/>
+    </history>
+</tempoReportHaul>

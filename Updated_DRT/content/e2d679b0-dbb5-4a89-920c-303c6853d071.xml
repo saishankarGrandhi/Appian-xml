@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-aa93-8000-9c30-011c48011c48_771249</versionUuid>
+    <decision>
+        <name>DEPRECATED_CAW_decisionForAskTaskAssignment</name>
+        <uuid>e2d679b0-dbb5-4a89-920c-303c6853d071</uuid>
+        <description>Decision for ask task assignment</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>fn!override_exception_appian_internal(fn!with(local!decisiondefinition: a!decisiondesigner_cache(uuid: "e2d679b0-dbb5-4a89-920c-303c6853d071",versionKey: "53978182-6a36-4858-8b50-06ae470062d2",value: #"SYSTEM_SYSRULES_dd_dd"('hitPolicy': #"SYSTEM_SYSRULES_dd_dhp"("UNIQUE"), 'inputs': {#"SYSTEM_SYSRULES_dd_di"('name': "taskType", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'id': 1, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("LOOKUP"), 'restriction': #"SYSTEM_SYSRULES_dd_dirl"('allowedLabels': {"DPP Ops Initiate", "DPP Leadership Initiate", "DPP Ops Review", "NBL Approve", "NBL Return", "DPP Leadership Approve", "DPP Leadership Return", "RPPP Approve", "RPPP Return", "NMP Approve", "NMP Return", "Completed"}, 'allowedValues': {"DPP Ops Initiate", "DPP Leadership Initiate", "DPP Ops Review", "NBL Approve", "NBL Return", "DPP Leadership Approve", "DPP Leadership Return", "RPPP Approve", "RPPP Return", "NMP Approve", "NMP Return", "Completed"})), #"SYSTEM_SYSRULES_dd_di"('name': "action", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'id': 3, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("LOOKUP"), 'restriction': #"SYSTEM_SYSRULES_dd_dirl"('allowedLabels': {"SUBMIT", "RETURN"}, 'allowedValues': {"SUBMIT", "RETURN"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_do"('id': 1, 'name': "assigne", 'type': 'type!{http://www.appian.com/ae/types/2009}UserOrGroup', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("NONE"), 'returnListType': true), #"SYSTEM_SYSRULES_dd_do"('id': 2, 'name': "status", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("LOOKUP"), 'restriction': #"SYSTEM_SYSRULES_dd_dorl"('allowedLabels': {"DPP Ops Initiate", "DPP Leadership Initiate", "DPP Ops Review", "NBL Approve", "NBL Return", "DPP Leadership Approve", "DPP Leadership Return", "RPPP Approve", "RPPP Return", "NMP Approve", "NMP Return", "Completed"}, 'allowedValues': {"DPP Ops Initiate", "DPP Leadership Initiate", "DPP Ops Review", "NBL Approve", "NBL Return", "DPP Leadership Approve", "DPP Leadership Return", "RPPP Approve", "RPPP Return", "NMP Approve", "NMP Return", "Completed"}), 'returnListType': false)}, 'rules': {#"SYSTEM_SYSRULES_dd_dr"('id': 8, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 18, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Leadership Initiate"})), #"SYSTEM_SYSRULES_dd_dri"('id': 19, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"SUBMIT"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 8, 'decisionOutputId': 1, 'value': {fn!cast('type!{http://www.appian.com/ae/types/2009}UserOrGroup',a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_945",defaultId:232))}), #"SYSTEM_SYSRULES_dd_dro"('id': 12, 'decisionOutputId': 2, 'value': "DPP Ops Review")}, 'annotation': "Action taken by Dpp Ops"), #"SYSTEM_SYSRULES_dd_dr"('id': 10, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 22, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Ops Initiate", "DPP Ops Review"})), #"SYSTEM_SYSRULES_dd_dri"('id': 23, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"SUBMIT"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 13, 'decisionOutputId': 1, 'value': {fn!cast('type!{http://www.appian.com/ae/types/2009}UserOrGroup',a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_995",defaultId:215))}), #"SYSTEM_SYSRULES_dd_dro"('id': 14, 'decisionOutputId': 2, 'value': "NBL Approve")}, 'annotation': "Action taken by NBL"), #"SYSTEM_SYSRULES_dd_dr"('id': 11, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 24, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Ops Initiate", "DPP Ops Review"})), #"SYSTEM_SYSRULES_dd_dri"('id': 25, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"RETURN"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 15, 'decisionOutputId': 1, 'value': {fn!cast('type!{http://www.appian.com/ae/types/2009}UserOrGroup',a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_995",defaultId:215))}), #"SYSTEM_SYSRULES_dd_dro"('id': 16, 'decisionOutputId': 2, 'value': "NBL Return")}, 'annotation': "Action taken by NBL"), #"SYSTEM_SYSRULES_dd_dr"('id': 12, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 26, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"NBL Return"})), #"SYSTEM_SYSRULES_dd_dri"('id': 27, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"SUBMIT"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 17, 'decisionOutputId': 1, 'value': {fn!cast('type!{http://www.appian.com/ae/types/2009}UserOrGroup',a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_945",defaultId:232))}), #"SYSTEM_SYSRULES_dd_dro"('id': 18, 'decisionOutputId': 2, 'value': "DPP Ops Review")}, 'annotation': "Action taken by Dpp Ops")}, 'isUnique': true, 'defaultOutputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1), #"SYSTEM_SYSRULES_dd_dro"('id': 2, 'decisionOutputId': 2)})),#"SYSTEM_SYSRULES_dd_exr"(decisionDefinition:local!decisiondefinition,executionInputs:{#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:1,value:'ri!taskType'),#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:3,value:'ri!action')})))</definition>
+        <namedTypedValue>
+            <name>taskType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <inputMetadataList>
+            <inputMetadata>
+                <inputId>1</inputId>
+                <nameRef>taskType</nameRef>
+                <allowedLabelsExpr>{
+  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179809"
+
+}</allowedLabelsExpr>
+                <allowedValuesExpr>{
+  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179809"
+
+}</allowedValuesExpr>
+            </inputMetadata>
+            <inputMetadata>
+                <inputId>3</inputId>
+                <nameRef>action</nameRef>
+                <allowedLabelsExpr>{
+  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155721"
+}</allowedLabelsExpr>
+                <allowedValuesExpr>{
+  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155721"
+}</allowedValuesExpr>
+            </inputMetadata>
+        </inputMetadataList>
+        <outputMetadataList>
+            <outputMetadata>
+                <outputId>1</outputId>
+                <nameRef>assigne</nameRef>
+                <typeName>{http://www.appian.com/ae/types/2009}UserOrGroup?list</typeName>
+            </outputMetadata>
+            <outputMetadata>
+                <outputId>2</outputId>
+                <nameRef>status</nameRef>
+                <allowedLabelsExpr>{
+  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179809"
+}</allowedLabelsExpr>
+                <allowedValuesExpr>{
+  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179809"
+}</allowedValuesExpr>
+                <typeName>{http://www.appian.com/ae/types/2009}Text</typeName>
+            </outputMetadata>
+        </outputMetadataList>
+        <hitPolicy>UNIQUE</hitPolicy>
+    </decision>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3231314"/>
+        <historyInfo versionUuid="_a-0000e825-aa93-8000-9c30-011c48011c48_771249"/>
+    </history>
+</contentHaul>

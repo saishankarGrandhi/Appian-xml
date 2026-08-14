@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000efa7-942c-8000-9c70-011c48011c48_14340312</versionUuid>
+    <rule>
+        <name>PE_querySelectionDataStoreResource</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12552328</uuid>
+        <description>query selection used in Export DSE to CSV in resource file</description>
+        <parentUuid>29a5d1a0-0cee-4539-9a25-a36937648dd0</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_querySelection"(
+  columns: {
+
+    #"SYSTEM_SYSRULES_queryColumn"(field: "emplid"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "email"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "legalName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "prefFirstName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "prefLastName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "prefMiddleName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "adjustedServiceDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "costCenter"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "costCenterDescription"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "geoLocation"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "jobTitle"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "pmPriIndSector"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "pmSecIndSector"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "mgrfirstname"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "mgrlastname"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "pmlEmailAdd"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "jobEntryDt"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "nominationtype"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "costCenterDescriptionDpp"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "dppGroup"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "originatingbu"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "otheroriginatingbu"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "originatinghomeoffice"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "returnbu"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "otherreturningbu"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "returnhomeoffice"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "dppStartDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "dppEndDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "systemStartDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "aqsnNominated"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "positionType"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "subPosition"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "numOfCounselees"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "yos"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "pmlFlag"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "stdHours"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "auditLearningFlag"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "usCitizenValidate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "activeCpa"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "state"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "PM_PRI_IND_SEGMT"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "PM_SEC_IND_SEGMT"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "PM_PRI_IND_LOB"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "PM_SEC_IND_LOB")
+
+  }
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12890233"/>
+        <historyInfo versionUuid="_a-0000ecc5-63bc-8000-9c60-011c48011c48_13584076"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14340312"/>
+    </history>
+</contentHaul>

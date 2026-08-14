@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6276664</versionUuid>
+    <interface>
+        <name>CAW_InterviewerPickerField</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3895335</uuid>
+        <description>Interface to pick interviewer</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!selectedEmployee,
+  #"SYSTEM_SYSRULES_pickerFieldCustom"(
+    label: "Interviewer Name",
+    placeholder: "Enter at least " &amp; #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3895397" &amp; " characters to search for a user",
+    value: ri!interview.interviewerId,
+    required: true,
+    maxSelections: 1,
+    selectedLabels: if(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!interview.interviewerId),
+      null,
+      if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!interview.interviewerFullName),
+        index(local!selectedEmployee,"fullNameDerived",null),
+        ri!interview.interviewerFullName
+      )
+    ),
+    suggestFunction: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3874364"(
+      filter:_
+    ),
+    saveInto: {
+      ri!interview.interviewerId,
+      a!save(
+        local!selectedEmployee,
+        #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924363"(employeeId:ri!interview.interviewerId)
+      ),
+      a!save(ri!interview.interviewerFirstName, local!selectedEmployee.firstName),
+      a!save(ri!interview.interviewerLastName, local!selectedEmployee.lastName),
+      a!save(ri!interview.interviewerEmail, local!selectedEmployee.email),
+      a!save(ri!interview.interviewerFullName, local!selectedEmployee.fullNameDerived)
+    }
+    )
+)</definition>
+        <namedTypedValue>
+            <name>interview</name>
+            <type>
+                <name>CAW_Interview</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3907287"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4160620"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4561419"/>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6276664"/>
+    </history>
+</contentHaul>

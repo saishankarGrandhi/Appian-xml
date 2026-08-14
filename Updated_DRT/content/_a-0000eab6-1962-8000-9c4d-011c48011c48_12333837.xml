@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12334775</versionUuid>
+    <rule>
+        <name>CAW_QE_getDataCawUser</name>
+        <uuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12333837</uuid>
+        <description>gets data from the CAW user tabel </description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  and(
+    #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(ri!status),
+    #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(ri!userAction),
+    #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(ri!isActive),
+    #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(ri!username)
+  ),
+  {},
+  #"SYSTEM_SYSRULES_queryEntity_v2"(
+    entity: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12334105",
+    query: {
+      #"SYSTEM_SYSRULES_query"(
+        logicalExpression: #"SYSTEM_SYSRULES_queryLogicalExpression"(
+          operator: "AND",
+          filters: {
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "status",
+              operator: "in",
+              value: ri!status,
+              applyWhen: not(
+                isnull(
+                  ri!status
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "userAction",
+              operator: "=",
+              value: ri!userAction,
+              applyWhen: not(
+                isnull(
+                  ri!userAction
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "isActive",
+              operator: "=",
+              value: ri!isActive,
+              applyWhen: not(
+                isnull(
+                  ri!isActive
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_queryFilter"(
+              field: "userName",
+              operator: "in",
+              value: ri!username,
+              applyWhen: not(
+                isnull(
+                  ri!username
+                )
+              )
+            )
+          },
+          ignoreFiltersWithEmptyValues: true
+        ),
+        pagingInfo: if(
+          a!isNullOrEmpty(ri!pagingInfo),
+          #"SYSTEM_SYSRULES_pagingInfo"(
+            startIndex: 1,
+            batchSize: -1
+          ),
+          ri!pagingInfo
+        )
+      )
+    }
+  ).data
+)</definition>
+        <namedTypedValue>
+            <name>status</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>userAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>username</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12334775"/>
+    </history>
+</contentHaul>

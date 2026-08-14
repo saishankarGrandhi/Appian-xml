@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4059455</versionUuid>
+    <interface>
+        <name>CAW_SFTP_RefProcessTypesGrid</name>
+        <uuid>_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4059428</uuid>
+        <description></description>
+        <parentUuid>_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3751507</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_gridField_v1"(
+  shadeAlternateRows: false,
+  pageSize: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3851952",
+  data: #"_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4059337"(
+    pagingInfo: fv!pagingInfo
+  ),
+  columns: {
+    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3840347"(id: 12)
+  }
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4059455"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12949231</versionUuid>
+    <rule>
+        <name>CAW_constructBUTotalResourcesChartData</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759694</uuid>
+        <description>Constructs the necessary data format for the selected BU's Total Resources charts</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!buTotalResourcesData: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+    fiscalYear: ri!fiscalYear,
+    /*origRegion: if(ri!region = cons!CAW_INT_LABEL_WEST_ASK_REGION_ID,"West","East"),*/
+    origBU: ri!bu,
+    isActive: true,
+    notCancelled: true,
+    columns: {"statusId","subPositionTypeId"}
+  ).data,
+  /*local!buTotalResourcesData*/
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!subPositions,
+    expression: a!localVariables(
+      local!confirmedIndex: wherecontains(
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350",
+        tointeger(index(local!buTotalResourcesData,"statusId",{}))
+      ),
+      local!buConfirmed: index(
+        local!buTotalResourcesData,
+        local!confirmedIndex
+      ),
+      local!buInProcess: remove(
+        local!buTotalResourcesData,
+        local!confirmedIndex
+      ),
+      a!map(
+        subPosition: fv!item.subPosition,
+        confirmed: count(index(
+          local!buConfirmed,
+          wherecontains(
+            fv!item.subPositionId,
+            tointeger(index(local!buConfirmed,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        inProcess: count(index(
+          local!buInProcess,
+          wherecontains(
+            fv!item.subPositionId,
+            tointeger(index(local!buInProcess,"subPositionTypeId",{}))
+          ),
+          {}
+        ))
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>bu</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fiscalYear</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>region</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>subPositions</name>
+            <type>
+                <name>CAW_RefSubPosition?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759783"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12949231"/>
+    </history>
+</contentHaul>

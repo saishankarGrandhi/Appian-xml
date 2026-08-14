@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6907714</versionUuid>
+    <rule>
+        <name>CAW_constructRotationalChartData</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6758529</uuid>
+        <description>Constructs the necessary data format for the Rotational ASK Actual report charts</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!rotationalAskActual: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6653797"(
+    fiscalYear: ri!fiscalYear,
+    regionId: ri!region,
+    returnCDT: true
+  ),
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!bus,
+    expression: a!localVariables(
+      local!actualIndex: wherecontains(
+        index(fv!item,"buId",{}),
+        index(local!rotationalAskActual,"buId",{})
+      ),
+      local!plan: if(
+        a!isNullOrEmpty(ri!rotationalPlan),
+        0,
+        index(index(
+          ri!rotationalPlan.plan,
+          wherecontains(
+            index(fv!item,"buId",{}),
+            index(ri!rotationalPlan,"buId",{})
+          )
+        ),1,0)
+      ),
+      local!confirmed: if(
+        a!isNullOrEmpty(local!actualIndex),
+        0,
+        sum(
+          local!rotationalAskActual[local!actualIndex].traditionalComplete,
+          local!rotationalAskActual[local!actualIndex].earlyCareerComplete
+        )
+      ),
+      local!inProcess: if(
+        a!isNullOrEmpty(local!actualIndex),
+        0,
+        sum(
+          local!rotationalAskActual[local!actualIndex].traditionalInProcess,
+          local!rotationalAskActual[local!actualIndex].earlyCareerInProcess
+        )
+      ),
+      a!map(
+        bu: index(fv!item,"bu"),
+        buId: index(fv!item,"buId"),
+        plan: local!plan,
+        confirmed: local!confirmed,
+        inProcess: local!inProcess,
+        open: if(
+          local!plan - sum(local!confirmed,local!inProcess) &lt; 0,
+          0,
+          local!plan - sum(local!confirmed,local!inProcess)
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>fiscalYear</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>region</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>bus</name>
+            <type>
+                <name>CAW_REF_BaseUnit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rotationalPlan</name>
+            <type>
+                <name>CAW_V_ROTATIONAL_ASK_PLAN?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759219"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6907714"/>
+    </history>
+</contentHaul>

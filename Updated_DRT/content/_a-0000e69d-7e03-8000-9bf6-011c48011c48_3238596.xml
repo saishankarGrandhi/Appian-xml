@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6800716</versionUuid>
+    <rule>
+        <name>DEPRECATED_CAW_Construct_ASK</name>
+        <uuid>_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238596</uuid>
+        <description>Constructor rule for CAW_ASK</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>'type!{urn:com:appian:types:CAW}CAW_Ask'(
+  askId: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!askId,replacementValue: ri!CAW_ASK.askId),
+  fYear: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!fYear,replacementValue: ri!CAW_ASK.fYear),
+  regionId: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!regionId,replacementValue: ri!CAW_ASK.regionId),
+  typeId: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!typeId, replacementValue: ri!CAW_ASK.typeId),
+  statusId: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!statusId,replacementValue: ri!CAW_ASK.statusId),
+  isActive: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isActive,replacementValue: ri!CAW_ASK.isActive),
+  isCompleted: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!isCompleted,replacementValue: ri!CAW_ASK.isCompleted),
+  version: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!version,replacementValue: ri!CAW_ASK.version),
+  createdBy: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!createdBy,replacementValue: ri!CAW_ASK.createdBy),
+  createdOn: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!createdOn,replacementValue: ri!CAW_ASK.createdOn),
+  modifiedBy: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!modifiedBy,replacementValue: ri!CAW_ASK.modifiedBy),
+  modifiedOn: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(nullableValue: ri!modifiedOn,replacementValue: ri!CAW_ASK.modifiedOn)
+)</definition>
+        <namedTypedValue>
+            <name>CAW_ASK</name>
+            <type>
+                <name>CAW_Ask</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>askId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fYear</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>regionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>typeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>statusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isActive</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isCompleted</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>version</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>modifiedOn</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238780"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3275557"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6800716"/>
+    </history>
+</contentHaul>

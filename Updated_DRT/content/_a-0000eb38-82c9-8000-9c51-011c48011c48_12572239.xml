@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12591094</versionUuid>
+    <interface>
+        <name>DRTV4_deleteRoleDefinitionCategory</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12572239</uuid>
+        <description>Interface to delete the Categories of the Role Definitions</description>
+        <parentUuid>b6e2e847-4392-4d53-bbd2-931b68aca1d9</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!categoryData: #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12561183"(
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(startIndex: 1,batchSize: -1),
+    isActive: true
+  ),
+  local!selectedCategory,
+  local!deleteData,
+    #"SYSTEM_SYSRULES_headerContentLayout"(
+      header:  #"SYSTEM_SYSRULES_billboardLayout_v1"(
+        backgroundMedia: #"SYSTEM_SYSRULES_documentImage"(
+          document: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3192515"
+
+        ),
+        height: "EXTRA_SHORT",
+        overlay: #"SYSTEM_SYSRULES_barOverlay"(
+          contents: {
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              labelPosition: "COLLAPSED",
+              value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: "   Delete Role Definition Category",
+                color: "#FFFFFF",
+                size: "MEDIUM_PLUS",
+                style: "STRONG"
+              )
+            )
+          }
+        )
+      ),
+      contents: {
+        #"SYSTEM_SYSRULES_gridField_v2"(
+        selectable: true,
+        data: local!categoryData,
+        columns: #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Category Name",
+          value: fv!row.category
+        ),
+        selectionValue: local!selectedCategory,
+       selectionSaveInto: {
+        local!selectedCategory,
+        a!save(
+          local!deleteData,
+          append(local!deleteData, fv!selectedRows)
+        ),
+        a!save(
+          local!deleteData,
+          difference(local!deleteData, fv!deselectedRows)
+        ),
+       
+        
+       }
+       
+      ),
+      #"SYSTEM_SYSRULES_textField"(readOnly: true),
+      #"SYSTEM_SYSRULES_ButtonLayout"(
+        primaryButtons: #"SYSTEM_SYSRULES_buttonWidget_v1"(
+          label: "DELETE",
+          style: "SOLID",
+          submit: TRUE,
+          confirmMessage: "Are you sure you want to Delete?",
+          confirmButtonLabel: "YES",
+          cancelButtonLabel: "NO",
+          value: "DELETE",
+          saveInto: {
+            a!save(
+              ri!selectedCategorytoDelete,
+              #"SYSTEM_SYSRULES_forEach"(
+                items: local!deleteData,
+               expression: #"urn:appian:function:v1:a:update"(
+                 fv!item,"isActive",false
+               )
+              )
+            ),
+            a!save(ri!deleteButtonValue, "DELETE"),
+
+          }
+        ),
+        secondaryButtons: #"SYSTEM_SYSRULES_buttonWidget_v1"(
+          label: "EXIT",
+          value: "EXIT",
+          saveInto: a!save(ri!deleteButtonValue,"EXIT"),
+          submit: true,
+          style: "OUTLINE",
+          validate: false,
+          confirmMessage: "Are you sure you want to exit? Your changes will not be saved",
+          confirmButtonLabel: "YES",
+          cancelButtonLabel: "NO"
+        )
+      )
+      }
+    )
+    
+  
+  )</definition>
+        <namedTypedValue>
+            <name>deleteButtonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedCategorytoDelete</name>
+            <type>
+                <name>DRTV4_Ref_Roledefinition_Category?list</name>
+                <namespace>urn:com:appian:types:DRTV4</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12591094"/>
+    </history>
+</contentHaul>

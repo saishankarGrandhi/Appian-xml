@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14165635</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049855</uuid>
+        <name>CAW Data Store</name>
+        <description>Data store for all CAW tables</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>aeeeaa6e-abc3-4905-a33e-b364cef2be79</uuid>
+                <name>CAW_REF_RefMaster</name>
+                <type>{urn:com:appian:types:CAW}CAW_REF_RefMaster</type>
+            </entity>
+            <entity>
+                <uuid>7a887c93-f24d-4bd9-bc6b-1c23b5d44891</uuid>
+                <name>CAW_REF_RefTypes</name>
+                <type>{urn:com:appian:types:CAW}CAW_REF_RefTypes</type>
+            </entity>
+            <entity>
+                <uuid>276654ae-937d-45cb-b89d-90f208a3afac</uuid>
+                <name>CAW_User</name>
+                <type>{urn:com:appian:types:CAW}CAW_User</type>
+            </entity>
+            <entity>
+                <uuid>c8c5a9f6-0b50-442f-bf87-84d24f5ad119</uuid>
+                <name>CAW_REF_BaseUnit</name>
+                <type>{urn:com:appian:types:CAW}CAW_REF_BaseUnit</type>
+            </entity>
+            <entity>
+                <uuid>426b70b1-c28a-4e62-8965-ae89303d3e73</uuid>
+                <name>CAW_Ask</name>
+                <type>{urn:com:appian:types:CAW}CAW_Ask</type>
+            </entity>
+            <entity>
+                <uuid>4bfdcb8d-0f97-4f90-9e7c-c80c85b9c59d</uuid>
+                <name>CAW_RotationalAskDetail</name>
+                <type>{urn:com:appian:types:CAW}CAW_RotationalAskDetail</type>
+            </entity>
+            <entity>
+                <uuid>9beb6d9c-405c-4bf0-a6de-c9166aa77249</uuid>
+                <name>CAW_CoreAskDetail</name>
+                <type>{urn:com:appian:types:CAW}CAW_CoreAskDetail</type>
+            </entity>
+            <entity>
+                <uuid>4beea9a1-ce89-414f-ab94-37699095c3d3</uuid>
+                <name>CAW_Comment</name>
+                <type>{urn:com:appian:types:CAW}CAW_Comment</type>
+            </entity>
+            <entity>
+                <uuid>b4c1391a-f160-49e0-b2aa-cc48082e01e9</uuid>
+                <name>CAW_Task</name>
+                <type>{urn:com:appian:types:CAW}CAW_Task</type>
+            </entity>
+            <entity>
+                <uuid>c64033e3-2ce7-4864-acd7-df6c90a348d1</uuid>
+                <name>CAW_Audit</name>
+                <type>{urn:com:appian:types:CAW}CAW_Audit</type>
+            </entity>
+            <entity>
+                <uuid>6fb7bae6-661d-4cc4-a3a2-a36d5734bde8</uuid>
+                <name>CAW_Nomination</name>
+                <type>{urn:com:appian:types:CAW}CAW_Nomination</type>
+            </entity>
+            <entity>
+                <uuid>ffa5f5f5-9cad-4402-8a28-bfc498cbafdf</uuid>
+                <name>CAW_RefIndustry</name>
+                <type>{urn:com:appian:types:CAW}CAW_RefIndustry</type>
+            </entity>
+            <entity>
+                <uuid>564708f5-5f38-4ffc-8edc-13321bb06c4a</uuid>
+                <name>CAW_RefOffice</name>
+                <type>{urn:com:appian:types:CAW}CAW_RefOffice</type>
+            </entity>
+            <entity>
+                <uuid>e593e4df-1a0b-4d6d-9cdc-661852296405</uuid>
+                <name>CAW_Interview</name>
+                <type>{urn:com:appian:types:CAW}CAW_Interview</type>
+            </entity>
+            <entity>
+                <uuid>1063ea87-55ed-4687-b0cf-6f9c35359e31</uuid>
+                <name>CAW_RefSubPosition</name>
+                <type>{urn:com:appian:types:CAW}CAW_RefSubPosition</type>
+            </entity>
+            <entity>
+                <uuid>d9fd3795-d5c5-4020-b044-b639a456c96c</uuid>
+                <name>CAW_Document</name>
+                <type>{urn:com:appian:types:CAW}CAW_Document</type>
+            </entity>
+            <entity>
+                <uuid>a4ecb1fb-cc3e-4ede-becd-71ac51c46233</uuid>
+                <name>CAW_EMPLOYEE</name>
+                <type>{urn:com:appian:types:CAW}CAW_EMPLOYEE</type>
+            </entity>
+            <entity>
+                <uuid>eba91fc7-a186-44cb-9483-cc0e3d6e3eea</uuid>
+                <name>CAW_CandidateDetails</name>
+                <type>{urn:com:appian:types}CAW_CandidateDetails</type>
+            </entity>
+            <entity>
+                <uuid>c54e8ec4-5a52-4d70-a774-fe579f2860dc</uuid>
+                <name>CAW_EmailNotification</name>
+                <type>{urn:com:appian:types:CAW}CAW_EmailNotification</type>
+            </entity>
+            <entity>
+                <uuid>18dfd354-eef6-412c-8d04-4b5f3db28f27</uuid>
+                <name>CAW_MAP_CandidateInquiryInterest</name>
+                <type>{urn:com:appian:types}CAW_MAP_CandidateInquiryInterest</type>
+            </entity>
+            <entity>
+                <uuid>a8374b32-35b4-40df-87ee-9a8626aea593</uuid>
+                <name>CAW_MAP_CandidateAccountingInterest</name>
+                <type>{urn:com:appian:types}CAW_MAP_CandidateAccountingInterest</type>
+            </entity>
+            <entity>
+                <uuid>c575b0f7-9b44-4c86-bc71-fa9e22a124bb</uuid>
+                <name>CAW_MAP_CandidateLanguageSkill</name>
+                <type>{urn:com:appian:types}CAW_MAP_CandidateLanguageSkill</type>
+            </entity>
+            <entity>
+                <uuid>031d3e68-8fba-4589-974a-7492ac59f52f</uuid>
+                <name>CAW_MAP_CandidateIndustryExperience</name>
+                <type>{urn:com:appian:types}CAW_MAP_CandidateIndustryExperience</type>
+            </entity>
+            <entity>
+                <uuid>07d4a7d4-0d8e-4fff-840b-e4b5d7898a32</uuid>
+                <name>CAW_CandidateTransferConfirmation</name>
+                <type>{urn:com:appian:types}CAW_CandidateTransferConfirmation</type>
+            </entity>
+            <entity>
+                <uuid>f8fd32e1-7157-46c2-98fa-3f098d387160</uuid>
+                <name>CAW_RefOfficeVisitDates</name>
+                <type>{urn:com:appian:types:CAW}CAW_RefOfficeVisitDates</type>
+            </entity>
+            <entity>
+                <uuid>632b6ace-8fdf-4a91-8a15-33d43cd46166</uuid>
+                <name>DRT_CAW_RefNonTraditionalRotational</name>
+                <type>{urn:com:appian:types:DRT}DRT_CAW_RefNonTraditionalRotational</type>
+            </entity>
+            <entity>
+                <uuid>d18aab46-7a6d-4068-b730-77128229fc46</uuid>
+                <name>DRTV4_Ref_Roledefinition_Category</name>
+                <type>{urn:com:appian:types:DRTV4}DRTV4_Ref_Roledefinition_Category</type>
+            </entity>
+            <entity>
+                <uuid>cb3e5e92-5300-4b75-8821-03b5c4706e81</uuid>
+                <name>DRTV4_userRoles_Status</name>
+                <type>{urn:com:appian:types:DRTV4}DRTV4_userRoles_Status</type>
+            </entity>
+            <entity>
+                <uuid>d603ba6a-a1a0-436d-85d3-13661ec03d4e</uuid>
+                <name>CAW_CandidateClients</name>
+                <type>{urn:com:appian:types:CAW}CAW_CandidateClients</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3237427"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3241052"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3376773"/>
+        <historyInfo versionUuid="_a-0000e6bc-0703-8000-9bf8-011c48011c48_3498847"/>
+        <historyInfo versionUuid="_a-0000e6c1-137f-8000-9bf9-011c48011c48_3570745"/>
+        <historyInfo versionUuid="_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3595907"/>
+        <historyInfo versionUuid="_a-0000e6ca-52ed-8000-9bff-011c48011c48_3700118"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3935017"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4015072"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4113010"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4124369"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4149803"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4187581"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4187636"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4187883"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4983118"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5141600"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5188317"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6445456"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6653587"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6766615"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6778833"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6970951"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11599055"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11809161"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11865173"/>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12346334"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12358315"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12561174"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12874399"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12947782"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14140847"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14155740"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14165635"/>
+    </history>
+</dataStoreHaul>

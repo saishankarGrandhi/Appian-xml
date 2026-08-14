@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12820202</versionUuid>
+    <rule>
+        <name>CAW_candidateIntakeExportSheet2HeaderFields</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759537</uuid>
+        <description>list of headers used in "custom fields values " for second part of candidate intake export</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  "Candidate Name",
+  "Were you ever a KPMG National Instructor?",
+  "If previously a KPMG National Instructor - what was your most recent year taught?",
+  "Have you ever facilitated a local office training?",
+  "Have you ever developed a local office training?",
+  "Have you ever completed an international rotation?",
+  "List all international rotations, if applicable",
+  "Are you part of any internal firm committees / task forces that you plan to stay on while in DPP, excluding Business Resource Groups (BRGs)?",
+  "Do you have any client related commitments that you are requesting approval to keep while in DPP?",
+  "Do you have any non client roles that you are requesting approval to keep while in DPP?",
+  "Any other roles we should be aware of?",
+  "Topic Team Interest - Inquiries",
+  "Topic Team Interest - Accounting Guidance",
+  "Level of Experience - Risk Assessment (including RIAs and RAARs)",
+  "Level of Experience - Materiality &amp; Evaluate Results",
+  "Level of Experience - Internal Control Over Financial Reporting (ICFR)",
+  "Level of Experience - Professional Skepticism",
+  "Level of Experience - Group Audits and Scoping",
+  "Level of Experience - SOC 1 Reports",
+  "Level of Experience - Cryptocurrency, Initial Coin Offering, and Block Chain",
+  "Level of Experience - Data &amp; Analytics, Software Audit Tools",
+  "Level of Experience - Inventory Accounting and Audit Issues",
+  "Level of Experience - Plan Accounting and Audit Issues",
+  "Level of Experience - Income Tax Accounting and Audit Issues",
+  "Level of Experience - Substantive Analytical Procedures",
+  "Level of Experience - Journal Entries",
+  "Level of Experience - Deficiencies &amp; Material Weaknesses",
+  "Level of Experience - Going Concern",
+  "Level of Experience - Audit Reporting Matters",
+  "Level of Experience - Critical Audit Matters (CAMs)",
+  "Level of Experience - Rep Letters and Other Communications",
+  "Level of Experience - Work Paper Access and Documentation",
+  "Level of Experience - Attestation and SSARS",
+  "Level of Experience - Estimates &amp; Specialists",
+  "Level of Experience - PowerBI",
+  "Are you proficient in other languages besides English?",
+  "Level of Language Proficiency ",
+  "Any other comments you would like us to take into consideration when assigning projects?"
+}</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759706"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12816834"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12820202"/>
+    </history>
+</contentHaul>

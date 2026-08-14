@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12947853</versionUuid>
+    <constant>
+        <name>CAW_ERROR_Messages</name>
+        <uuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923</uuid>
+        <description>constant contains error messages for create user</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049809</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>userName is required</el>
+                <el>The user already exists</el>
+                <el>email cannot exceed 73 characters</el>
+                <el>!#$%^&amp;*()+={}[]:;"",&lt;&gt;?/~` </el>
+                <el>email contains invalid characters</el>
+                <el>First Name is required</el>
+                <el>First Name cannot exceed 35 characters</el>
+                <el>Email is required</el>
+                <el>Please enter the value</el>
+                <el>Please enter valid values to the field</el>
+                <el>Please enter a valid KPMG email</el>
+                <el>Last Name is required</el>
+                <el>Last Name cannot exceed 35 characters</el>
+                <el>The Email Id already exists</el>
+                <el>Import is in progress please try after some time </el>
+                <el>The user is already active</el>
+                <el>One or more emails are non-KPMG emails and/or the email addresses are not separated by comma (,).  Please correct accordingly and try again</el>
+                <el>Please Do not enter duplicate email ids</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12640254"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12947853"/>
+    </history>
+</contentHaul>

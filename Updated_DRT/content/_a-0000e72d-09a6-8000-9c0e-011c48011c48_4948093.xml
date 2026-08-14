@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6982572</versionUuid>
+    <rule>
+        <name>CAW_CreateNominationSubmitButtonAuditHistory</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4948093</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!submitAction: #"6a645ec3-d28e-4146-a08c-2fe3502cd6c4"(
+    currentStatusID: ri!currentNominationStatus
+  ),
+  local!isUserDPPEditor: isusermemberofgroups(
+    loggedInUser(),
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  local!isDPPWorkflow: and(
+    or(
+      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!currentNominationStatus),
+      ri!currentNominationStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4951511",
+      ri!currentNominationStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617",
+      ri!currentNominationStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577792"
+      ri!currentNominationStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578520",
+      ri!currentNominationStatus = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458895",
+      ri!currentNominationStatus = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458947",
+      ri!currentNominationStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577779"
+    ),
+    local!isUserDPPEditor
+  ),
+  local!action: if(
+    ri!isComplete,
+    "Nomination process completed",
+    if(
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!submitAction),
+      local!submitAction,
+      if(
+        ri!task.statusId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+        "Interview availability requested",
+        if(
+          and(
+            or(
+              #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!task.requestId),
+              ri!currentNominationStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4951511"
+            ),
+            not(local!isUserDPPEditor)
+          ),
+          "Nomination submitted",
+          if(
+            ri!task.statusId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+            "Office visit availability requested",
+            if(
+              ri!task.statusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489118",
+              "Submitted for HR review",
+              if(
+                ri!task.statusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494074",
+                "Submitted for Inspections review",
+                if(
+                  ri!task.statusId = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924800",
+                  "Interviewer feedback requested",
+                  if(
+                    /*submit audit for DPP and send to BU for Reapproval */
+                    and(
+                      ri!nomination.isReapprovedByBU = true,
+                      local!isDPPWorkflow
+                    ),
+                    "Submitted for BU reapproval",
+                    /*submit audit for DPP and send for additional vetting */
+                    if(
+                      and(
+                        ri!nomination.isOpsAdditionalVettingReq = true,
+                        local!isDPPWorkflow
+                      ),
+                      "Additional vetting approval requested",
+                      /*submit audit for DPP and send to approver */
+                      "Submitted for approval",
+                    )
+                  )
+                )
+              )
+            )
+          )
+        ) 
+      )
+    )
+  ),
+  {
+    'type!{urn:com:appian:types:CAW}CAW_Audit'(
+      taskId: ri!task.taskId,
+      requestId: ri!task.requestId,
+      version: 1,
+      moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+      statusId:  ri!task.statusId,
+      action: local!action,
+      createdBy: loggedInUser(),
+      createdOn: now()
+    ),
+    /*We only want the nomination created audit the first time they save and exit*/
+    if(
+      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!task.taskId),
+      'type!{urn:com:appian:types:CAW}CAW_Audit'(
+        version: 1,
+        moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+        statusId:  ri!task.statusId,
+        action: "Nomination created",
+        createdBy: loggedInUser(),
+        createdOn: now()
+      ),
+      {}
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>isComplete</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>currentNominationStatus</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5116263"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6496305"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6526926"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6892599"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6982572"/>
+    </history>
+</contentHaul>

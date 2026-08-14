@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14136254</versionUuid>
+    <interface>
+        <name>CAW_CMP_NominationExportFilters</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5160288</uuid>
+        <description>Filter Component for Nomination Export</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_cardLayout"(
+  contents: {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              labelPosition: "COLLAPSED",
+              value: {
+                #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: "Filters",
+                  color: "STANDARD",
+                  size: "MEDIUM",
+                  style: "STRONG"
+                )
+              }
+            )
+          }
+        )       
+      }
+    ),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_multipleDropdownField_v1"(
+              label: "Fiscal Year",
+              placeholder: "Fiscal Year",
+              choiceLabels: ri!fYearDropDown,
+              choiceValues: ri!fYearDropDown,
+              value: ri!yearFilter,
+              saveInto: {
+                ri!yearFilter,
+                a!save(
+                  ri!documentId,
+                  null
+                ),
+                a!save(
+                  ri!paging,
+                  #"SYSTEM_SYSRULES_pagingInfo"(
+                    startIndex: 1,
+                    batchSize: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3919954",
+                    sort: #"SYSTEM_SYSRULES_sortInfo"(field: "nominationId")
+                  )
+                )
+              }
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_multipleDropdownField_v1"(
+              label: "Type",
+              placeholder: "Select a Type",
+              choiceLabels: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3934538",
+              choiceValues: {#"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557", #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562"},
+              value: ri!nominationTypeFilter,
+              saveInto: {
+                ri!nominationTypeFilter,
+                a!save(
+                  ri!documentId,
+                  null
+                ),
+                a!save(
+                  ri!paging,
+                  #"SYSTEM_SYSRULES_pagingInfo"(
+                    startIndex: 1,
+                    batchSize: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3919954",
+                    sort: #"SYSTEM_SYSRULES_sortInfo"(field: "nominationId")
+                  )
+                )
+              }
+            )
+          }
+        ),
+        /*a!columnLayout(*/
+          /*contents: {*/
+            /*a!multipleDropdownField(*/
+              /*label: "Region",*/
+              /*placeholder: "Select a Region",*/
+              /*choiceLabels: cons!CAW_TXT_ASK_REGION_LIST,*/
+              /*choiceValues: cons!CAW_TXT_ASK_REGION_LIST,*/
+              /*value: ri!regionFilter,*/
+              /*saveInto: {*/
+                /*ri!regionFilter,*/
+                /*a!save(*/
+                  /*ri!documentId,*/
+                  /*null*/
+                /*),*/
+                /*a!save(*/
+                  /*ri!paging,*/
+                  /*a!pagingInfo(*/
+                    /*startIndex: 1,*/
+                    /*batchSize: cons!CAW_INT_GRID_BATCH_SIZE,*/
+                    /*sort: a!sortInfo(field: "nominationId")*/
+                  /*)*/
+                /*)*/
+              /*}*/
+            /*)*/
+          /*}*/
+        /*),*/
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_multipleDropdownField_v1"(
+              label: "Originating BU",
+              placeholder: "Select an Originating BU",
+              choiceLabels: ri!originatingBuDropDown,
+              choiceValues: ri!originatingBuDropDown,
+              value: ri!originatingBuFilter,
+              saveInto: {
+                ri!originatingBuFilter,
+                a!save(
+                  ri!documentId,
+                  null
+                )
+              },
+              /*showWhen: a!isNullOrEmpty(ri!userBu)*/
+            )
+          }
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_multipleDropdownField_v1"(
+              label: "Position",
+              placeholder: "Select a Position",
+              choiceLabels: {#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3371522",#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3371544"},
+              choiceValues: {#"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",#"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699"},
+              value: ri!positionFilter,
+              saveInto: {
+                ri!positionFilter,
+                if(
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!positionFilter),
+                  a!save(
+                    ri!subPositionFilter,
+                    null
+                  ),
+                  null
+                ),
+                a!save(
+                  ri!documentId,
+                  null
+                ),
+                a!save(
+                  ri!paging,
+                  #"SYSTEM_SYSRULES_pagingInfo"(
+                    startIndex: 1,
+                    batchSize: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3919954",
+                    sort: #"SYSTEM_SYSRULES_sortInfo"(field: "nominationId")
+                  )
+                )
+              }
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_multipleDropdownField_v1"(
+              label: "Sub-position",
+              placeholder: "Select a Sub-position",
+              choiceLabels: property(ri!subPositionDropDown,"subPosition",tostring(null)),
+              choiceValues: property(ri!subPositionDropDown,"subPositionId",tostring(null)),
+              value: ri!subPositionFilter,
+              saveInto: {
+                ri!subPositionFilter,
+                a!save(
+                  ri!documentId,
+                  null
+                ),
+                a!save(
+                  ri!paging,
+                  #"SYSTEM_SYSRULES_pagingInfo"(
+                    startIndex: 1,
+                    batchSize: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3919954",
+                    sort: #"SYSTEM_SYSRULES_sortInfo"(field: "nominationId")
+                  )
+                )
+              },
+              disabled: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!positionFilter)
+            )
+          }
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_pickerFieldCustom"(
+            label: "Candidate Name",
+            placeholder: "Enter at least " &amp; #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3895397" &amp; " characters to search for a candidate",
+            suggestFunction: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_4036061"(filter: _),
+            selectedLabels: ri!nameFilter,
+            value: ri!nameFilter,
+            saveInto: {
+              ri!nameFilter,
+              a!save(
+                ri!documentId,
+                null
+              ),
+              a!save(
+                ri!paging,
+                #"SYSTEM_SYSRULES_pagingInfo"(
+                  startIndex: 1,
+                  batchSize: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3919954",
+                  sort: #"SYSTEM_SYSRULES_sortInfo"(field: "nominationId")
+                )
+              )
+            }
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_multipleDropdownField_v1"(
+              label: "Status",
+              placeholder: "Select a Status",
+              choiceLabels: #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3640108",
+              choiceValues: #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3640108",
+              value: ri!statusFilter,
+              saveInto: {
+                ri!statusFilter,
+                a!save(
+                  ri!documentId,
+                  null
+                ),
+                a!save(
+                  ri!paging,
+                  #"SYSTEM_SYSRULES_pagingInfo"(
+                    startIndex: 1,
+                    batchSize: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3919954",
+                    sort: #"SYSTEM_SYSRULES_sortInfo"(field: "nominationId")
+                  )
+                )
+              }
+            )
+          }
+        )
+      }
+    )
+  },
+  style: "ACCENT",
+  marginBelow: "STANDARD"
+)</definition>
+        <namedTypedValue>
+            <name>statusFilter</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nominationTypeFilter</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nameFilter</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>paging</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>regionFilter</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>originatingBuFilter</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>positionFilter</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>subPositionFilter</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>originatingBuDropDown</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>subPositionDropDown</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>yearFilter</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>documentId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fYearDropDown</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>userBu</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e777-b242-8000-9c12-011c48011c48_5335933"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_6197472"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6912559"/>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12350336"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14136254"/>
+    </history>
+</contentHaul>

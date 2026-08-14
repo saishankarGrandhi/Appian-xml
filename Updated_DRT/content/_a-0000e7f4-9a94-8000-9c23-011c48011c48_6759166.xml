@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12957401</versionUuid>
+    <rule>
+        <name>CAW_constructTotalResourcesChartData</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759166</uuid>
+        <description>Constructs the necessary data format for the BU Region Total Resources charts</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!totalResourcesData: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+    nominationTypeId: #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557",
+    /*origRegion: if(*/
+      /*ri!region = cons!CAW_INT_LABEL_WEST_ASK_REGION_ID,*/
+      /*"West",*/
+      /*if(*/
+        /*ri!region = cons!CAW_INT_LABEL_EAST_ASK_REGION_ID,*/
+        /*"East",*/
+        /*null*/
+      /*)*/
+    /*),*/
+    fiscalYear: ri!fiscalYear,
+    subPositionTypeId: index(ri!subPositions,"subPositionId",{}),
+    isActive: true,
+    notCancelled: true,
+    columns: {"statusId","subPositionTypeId","originatingBU"}
+  ).data,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: ri!bus.bu,
+    expression: a!localVariables(
+      local!buSubPositions: index(
+        local!totalResourcesData,
+        wherecontains(
+          fv!item,
+          touniformstring(index(local!totalResourcesData,"originatingBU",{}))
+        )
+      ),
+      a!map(
+        bu: fv!item,
+        transitionalCore: count(index(
+          local!buSubPositions,
+          wherecontains(
+            #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4147895",
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        coreProfessional: count(index(
+          local!buSubPositions,
+          wherecontains(
+            #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148681",
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        corePartner: count(index(
+          local!buSubPositions,
+          wherecontains(
+            #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148688",
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        coreMD: count(index(
+          local!buSubPositions,
+          wherecontains(
+            #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4148695",
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        rotTraditional: count(index(
+          local!buSubPositions,
+          wherecontains(
+            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4454629",
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        rotEarlyCareer: count(index(
+          local!buSubPositions,
+          wherecontains(
+            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4454622",
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        rotSECRP: count(index(
+          local!buSubPositions,
+          wherecontains(
+            #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759452",
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        rotEVS: count(index(
+          local!buSubPositions,
+          wherecontains(
+            #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759465",
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        rotNonTraditional: count(index(
+          local!buSubPositions,
+          wherecontains(
+            #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6644741",
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        rotTechAssurance: count(index(
+          local!buSubPositions,
+          wherecontains(
+            #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759471",
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        directCore: count(index(
+          local!buSubPositions,
+          wherecontains(
+            2,
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        inspectionsRotational: count(index(
+          local!buSubPositions,
+          wherecontains(
+            11,
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        traditionalRotationalEQCR: count(index(
+          local!buSubPositions,
+          wherecontains(
+            18,
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        traditionalRotationalwithoutEQCR: count(index(
+          local!buSubPositions,
+          wherecontains(
+            19,
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        earlyCarrerRotational: count(index(
+          local!buSubPositions,
+          wherecontains(
+            20,
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        nonTradionalRotational: count(index(
+          local!buSubPositions,
+          wherecontains(
+            21,
+            tointeger(index(local!buSubPositions,"subPositionTypeId",{}))
+          ),
+          {}
+        )),
+        
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>bus</name>
+            <type>
+                <name>CAW_REF_BaseUnit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>subPositions</name>
+            <type>
+                <name>CAW_RefSubPosition?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>region</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fiscalYear</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759744"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12957401"/>
+    </history>
+</contentHaul>

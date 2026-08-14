@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6874939</versionUuid>
+    <decision>
+        <name>DEPRECATED_CAW_decisionForGettingAskStatusIds</name>
+        <uuid>_a-0000e69d-7e03-8000-9bf6-011c48011c48_3191488</uuid>
+        <description>Decision to get Ask status Ids based on status text</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>fn!override_exception_appian_internal(fn!with(local!decisiondefinition: a!decisiondesigner_cache(uuid: "_a-0000e69d-7e03-8000-9bf6-011c48011c48_3191488",versionKey: "4500990c-a10e-42e1-bea5-6759e6700dfd",value: #"SYSTEM_SYSRULES_dd_dd"('hitPolicy': #"SYSTEM_SYSRULES_dd_dhp"("UNIQUE"), 'inputs': {#"SYSTEM_SYSRULES_dd_di"('name': "taskStatus", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'id': 1, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("LOOKUP"), 'restriction': #"SYSTEM_SYSRULES_dd_dirl"('allowedLabels': {}, 'allowedValues': {"DPP Ops Initiate", "DPP Leadership Initiate", "DPP Ops Review", "NBL Review", "NBL Return", "DPP Leadership Review", "DPP Leadership Return", "RPPP Review", "RPPP Return", "DPP PIC Review", "DPP PIC Return", "Completed", "Waiting For DPP Leadership Approval", "DPP Ops Review - Return", "DPP Ops Review - Final"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_do"('id': 1, 'name': "id", 'type': 'type!{http://www.appian.com/ae/types/2009}Integer', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("NONE"), 'returnListType': false)}, 'rules': {#"SYSTEM_SYSRULES_dd_dr"('id': 1, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 1, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Ops Initiate"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': {125})}), #"SYSTEM_SYSRULES_dd_dr"('id': 2, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 3, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Leadership Initiate"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 2, 'decisionOutputId': 1, 'value': 126)}), #"SYSTEM_SYSRULES_dd_dr"('id': 3, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 6, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"NBL Review"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 3, 'decisionOutputId': 1, 'value': 127)}), #"SYSTEM_SYSRULES_dd_dr"('id': 5, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 10, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"NBL Return"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 5, 'decisionOutputId': 1, 'value': 128)}), #"SYSTEM_SYSRULES_dd_dr"('id': 6, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 12, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Leadership Review"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 6, 'decisionOutputId': 1, 'value': 129)}), #"SYSTEM_SYSRULES_dd_dr"('id': 7, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 13, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Leadership Return"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 7, 'decisionOutputId': 1, 'value': 130)}), #"SYSTEM_SYSRULES_dd_dr"('id': 8, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 14, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"RPPP Review"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 8, 'decisionOutputId': 1, 'value': 131)}), #"SYSTEM_SYSRULES_dd_dr"('id': 9, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 15, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"RPPP Return"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 9, 'decisionOutputId': 1, 'value': 132)}), #"SYSTEM_SYSRULES_dd_dr"('id': 10, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 16, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP PIC Review"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 10, 'decisionOutputId': 1, 'value': 133)}), #"SYSTEM_SYSRULES_dd_dr"('id': 11, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 17, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP PIC Return"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 11, 'decisionOutputId': 1, 'value': 134)}), #"SYSTEM_SYSRULES_dd_dr"('id': 12, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 18, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"Completed"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 12, 'decisionOutputId': 1, 'value': 135)}), #"SYSTEM_SYSRULES_dd_dr"('id': 13, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 19, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Ops Review"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 13, 'decisionOutputId': 1, 'value': 145)}), #"SYSTEM_SYSRULES_dd_dr"('id': 14, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 20, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"Waiting For DPP Leadership Approval"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 14, 'decisionOutputId': 1, 'value': 146)}), #"SYSTEM_SYSRULES_dd_dr"('id': 15, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 21, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Ops Review - Return"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 15, 'decisionOutputId': 1, 'value': 147)}), #"SYSTEM_SYSRULES_dd_dr"('id': 16, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 22, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Ops Review - Final"}))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 16, 'decisionOutputId': 1, 'value': 148)})}, 'isUnique': true, 'defaultOutputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1)})),#"SYSTEM_SYSRULES_dd_exr"(decisionDefinition:local!decisiondefinition,executionInputs:{#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:1,value:'ri!taskStatus')})))</definition>
+        <namedTypedValue>
+            <name>taskStatus</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <inputMetadataList>
+            <inputMetadata>
+                <inputId>1</inputId>
+                <nameRef>taskStatus</nameRef>
+                <allowedLabelsExpr></allowedLabelsExpr>
+                <allowedValuesExpr>{
+  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179809"
+
+}</allowedValuesExpr>
+            </inputMetadata>
+        </inputMetadataList>
+        <outputMetadataList>
+            <outputMetadata>
+                <outputId>1</outputId>
+                <nameRef>id</nameRef>
+                <typeName>{http://www.appian.com/ae/types/2009}Integer</typeName>
+            </outputMetadata>
+        </outputMetadataList>
+        <hitPolicy>UNIQUE</hitPolicy>
+    </decision>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3240922"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3258154"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3291191"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4371910"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6874939"/>
+    </history>
+</contentHaul>

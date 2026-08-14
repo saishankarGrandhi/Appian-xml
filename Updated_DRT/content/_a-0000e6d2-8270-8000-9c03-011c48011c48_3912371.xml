@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_7052493</versionUuid>
+    <rule>
+        <name>CAW_createInterviewerTasks</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3912371</uuid>
+        <description>expression rule to create the list of interviewer tasks needed for a nomination</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  ri!interview.isActive = false,
+  null,
+  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3239227"(
+    requestId: ri!nominationId,
+    taskName: concat(
+      "Nomination Interview: ",
+      ri!candidateName
+    ),
+    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+    statusId: #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+    assigneeId: ri!interviewerId,
+    isAssigneeGroup: false,
+    isLocked: false,
+    isTaskAmend: false,
+    isCompleted: false,
+    version: 1,
+    createdBy: ri!loggedInUser,
+    createdOn: now(),
+    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(ri!loggedInUser),
+    modifiedOn: now()
+  )
+)</definition>
+        <namedTypedValue>
+            <name>interview</name>
+            <type>
+                <name>CAW_Interview</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nominationId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>interviewerId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>loggedInUser</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3931816"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4008318"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4099324"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4112084"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578378"/>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6276598"/>
+        <historyInfo versionUuid="_a-0000e7eb-6013-8000-9c20-011c48011c48_6356510"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6809995"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6904423"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_7052493"/>
+    </history>
+</contentHaul>

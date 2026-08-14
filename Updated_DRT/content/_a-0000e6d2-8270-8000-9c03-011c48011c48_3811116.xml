@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3811394</versionUuid>
+    <rule>
+        <name>CAW_SFTP_getAllProcessTypes</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3811116</uuid>
+        <description></description>
+        <parentUuid>_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3751507</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>cast(
+  typeof({'type!{urn:com:appian:types}CAW_SFTP_REF_ProcessTypes'()}),
+  #"SYSTEM_SYSRULES_queryEntity_v1"(
+    entity: #"_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3789185",
+    fetchtotalcount: false,
+    query: #"SYSTEM_SYSRULES_query"(
+      paginginfo: #"SYSTEM_SYSRULES_pagingInfo"(
+        startIndex: 1,
+        batchSize: -1,
+        sort: #"SYSTEM_SYSRULES_sortInfo"(
+          field: "processName",
+          ascending: true
+        )
+      )
+    )
+  ).data
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3811394"/>
+    </history>
+</contentHaul>

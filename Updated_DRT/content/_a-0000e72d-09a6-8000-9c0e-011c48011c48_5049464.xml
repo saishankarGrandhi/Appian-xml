@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef82-c68c-8000-9c6c-011c48011c48_14276241</versionUuid>
+    <document>
+        <name>CAW_transferConfirmationEmailTemplate</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5049464</uuid>
+        <description>Email template for candidate transfer confirmation</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049843</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+    </document>
+    <file>file.html</file>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5051544"/>
+        <historyInfo versionUuid="_a-0000e776-631d-8000-9c0f-011c48011c48_5279532"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5371983"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5400994"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6790303"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_7197665"/>
+        <historyInfo versionUuid="_a-0000ef82-c68c-8000-9c6c-011c48011c48_14276241"/>
+    </history>
+</contentHaul>

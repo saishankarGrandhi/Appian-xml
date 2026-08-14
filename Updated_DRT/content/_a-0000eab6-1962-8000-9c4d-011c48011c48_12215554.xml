@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ec0b-8ea4-8000-9c5a-011c48011c48_13277953</versionUuid>
+    <interface>
+        <name>CAW_UI_oneUser</name>
+        <uuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12215554</uuid>
+        <description>DPP user creation for one user.</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  #"SYSTEM_SYSRULES_formLayout_v1"(
+    label: "",
+    contents: {
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218859"[1],
+        contents: {
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                width: "MEDIUM_PLUS",
+                contents: {
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218859"[4],
+                    labelPosition: "ADJACENT",
+                    instructions: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218859"[5],
+                    value: lower(ri!email),
+                    saveInto: {
+                      a!save(ri!email, lower(save!value)),
+                      a!save(ri!cawUser.userName, lower(save!value))
+                    },
+                    refreshAfter: "UNFOCUS",
+                    required: true(),
+                    requiredmessage: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923"[8],
+                    validations: {
+                      if(
+                        a!isNullOrEmpty(ri!email),
+                        #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923"[9],
+                        if(
+                          and(
+                            a!isNotNullOrEmpty(ri!email),
+                            search("@kpmg.com", ri!email),
+                            validateemailaddress(trim(ri!email)),
+                            regexmatch(
+                              pattern: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218930",
+                              searchString: trim(ri!email),
+                              regexFlags: "si"
+                            )
+                          ),
+                          {
+                            if(
+                              regexmatch(#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218930", trim(ri!email)),
+                              {},
+                              #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923"[10]
+                            )
+                          },
+                          #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923"[11]
+                        )
+                      ),
+                      if(
+                        a!isNotNullOrEmpty(#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333837"(username: ri!email)),
+                        /*isuserNametaken(ri!email),*/
+                        #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923"[2],
+                        if(
+                          len(ri!email) &gt; 73,
+                          #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923"[3],
+                          if(
+                            len(ri!email) &lt;&gt; len(
+                              stripwith(ri!email, #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923"[4])
+                            ),
+                            #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923"[5],
+                            {}
+                          )
+                        )
+                      )/*if(*/
+                      /*and(*/
+                      /*or(isusernameavailablefornewaccount(username: touser(ri!email)) =false,*/
+                      /*isusernameavailablefornewaccount(username: rule!UGM_UT_userAlias(userName: ri!email)) =false),*/
+                      /*        */
+                      /*not(rule!UGM_isBlank(ri!email))*/
+                      /*),*/
+                      /*cons!UGM_Error_Messages[14],*/
+                      /*""*/
+                      /*) */
+                      
+                    }
+                  ),
+                  /*a!textField(*/
+                  /**/
+                  /*label: cons!CAW_CREATE_USER_DISPLAY_FIELDS[3],*/
+                  /*labelPosition: "ADJACENT",*/
+                  /*value: lower(ri!cawUser.firstName),*/
+                  /*saveInto: {*/
+                  /*a!save(*/
+                  /*ri!cawUser.firstName,*/
+                  /*lower(save!value)*/
+                  /*)*/
+                  /*},*/
+                  /*refreshAfter: "KEYPRESS",*/
+                  /*required: true(),*/
+                  /*requiredMessage: cons!CAW_ERROR_Messages[6],*/
+                  /*validations: if(*/
+                  /*len(ri!cawUser.firstName) &gt; 250,*/
+                  /*cons!CAW_ERROR_Messages[7],*/
+                  /*{}*/
+                  /*)*/
+                  /*),*/
+                  /*a!textField(*/
+                  /**/
+                  /*label: cons!CAW_CREATE_USER_DISPLAY_FIELDS[6],*/
+                  /*labelPosition: "ADJACENT",*/
+                  /*value: lower(ri!cawUser.lastName),*/
+                  /*saveInto: {*/
+                  /*a!save(*/
+                  /*ri!cawUser.lastName,*/
+                  /*lower(save!value)*/
+                  /*)*/
+                  /*},*/
+                  /*refreshAfter: "KEYPRESS",*/
+                  /*required: true(),*/
+                  /*requiredMessage: cons!CAW_ERROR_Messages[12],*/
+                  /*validations: if(*/
+                  /*len(ri!cawUser.lastName) &gt; 250,*/
+                  /*cons!CAW_ERROR_Messages[13],*/
+                  /*{}*/
+                  /*)*/
+                  /*)*/
+                  
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                width: "MEDIUM_PLUS",
+                contents: {
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218859"[3],
+                    labelPosition: "ADJACENT",
+                    value: lower(ri!cawUser.firstName),
+                    saveInto: {
+                      a!save(ri!cawUser.firstName, lower(save!value))
+                    },
+                    refreshAfter: "KEYPRESS",
+                    required: true(),
+                    requiredMessage: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923"[6],
+                    validations: if(
+                     regexmatch(
+                       "^[a-zA-Z]+[a-zA-Z\d\s]*$",
+                       ri!cawUser.firstName
+                     ),
+                     if(
+                       len(ri!cawUser.firstName) &lt;= 35,
+                       {},
+                       "Please enter less than 35 characters"
+                     ),
+                      "Please Enter a valid first name"
+                      
+                    )
+                  ),
+                  
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                width: "MEDIUM_PLUS",
+                contents: {
+                  #"SYSTEM_SYSRULES_textField"(
+                    label: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218859"[6],
+                    labelPosition: "ADJACENT",
+                    value: lower(ri!cawUser.lastName),
+                    saveInto: {
+                      a!save(ri!cawUser.lastName, lower(save!value))
+                    },
+                    refreshAfter: "KEYPRESS",
+                    required: true(),
+                    requiredMessage: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218923"[12],
+                    validations: if(
+                      regexmatch(
+                        "^[a-zA-Z\d ]+$",
+                        ri!cawUser.lastName
+                      ),
+                      if(
+                        len(ri!cawUser.lastName) &lt;= 35,
+                        {},
+                        "Please enter less than 35 characters"
+                      ),
+                      "Please Enter a valid last name"
+
+                    )
+                  ),
+                  
+                }
+              )/*a!columnLayout(*/
+              /*contents: {*/
+              /*a!textField(*/
+              /**/
+              /*label: cons!CAW_CREATE_USER_DISPLAY_FIELDS[4],*/
+              /*labelPosition: "ADJACENT",*/
+              /*instructions: cons!CAW_CREATE_USER_DISPLAY_FIELDS[5],*/
+              /*value: lower(ri!email),*/
+              /*saveInto: { a!save(ri!email, lower(save!value)) },*/
+              /*refreshAfter: "UNFOCUS",*/
+              /*required: true(),*/
+              /*requiredmessage: cons!CAW_ERROR_Messages[8],*/
+              /*validations: {*/
+              /*if(*/
+              /*a!isNullOrEmpty(ri!email),*/
+              /*cons!CAW_ERROR_Messages[9],*/
+              /*if(*/
+              /*and(*/
+              /*a!isNotNullOrEmpty(ri!email),*/
+              /*search("@kpmg.com", ri!email),*/
+              /*validateemailaddress(trim(ri!email)),*/
+              /*regexmatch(*/
+              /*pattern: cons!CAW_EMAIL_REGEX,*/
+              /*searchString: trim(ri!email),*/
+              /*regexFlags: "si"*/
+              /*)*/
+              /*),*/
+              /*{*/
+              /*if(*/
+              /*regexmatch(cons!CAW_EMAIL_REGEX, trim(ri!email) ),*/
+              /*{},*/
+              /*cons!CAW_ERROR_Messages[10]*/
+              /**/
+              /*)*/
+              /**/
+              /*},*/
+              /*cons!CAW_ERROR_Messages[11]*/
+              /**/
+              /*)*/
+              /*)*/
+              /*if(*/
+              /*and(*/
+              /*or(isusernameavailablefornewaccount(username: touser(ri!email)) =false,*/
+              /*isusernameavailablefornewaccount(username: rule!UGM_UT_userAlias(userName: ri!email)) =false),*/
+              /*                              */
+              /*not(rule!UGM_isBlank(ri!email))*/
+              /*),*/
+              /*cons!UGM_Error_Messages[14],*/
+              /*""*/
+              /*) */
+              /*}*/
+              /*),*/
+              /*a!textField(*/
+              /**/
+              /*label: cons!CAW_CREATE_USER_DISPLAY_FIELDS[6],*/
+              /*labelPosition: "ADJACENT",*/
+              /*value: lower(ri!cawUser.lastName),*/
+              /*saveInto: {*/
+              /*a!save(*/
+              /*ri!cawUser.lastName,*/
+              /*lower(save!value)*/
+              /*)*/
+              /*},*/
+              /*refreshAfter: "KEYPRESS",*/
+              /*required: true(),*/
+              /*requiredMessage: cons!CAW_ERROR_Messages[12],*/
+              /*validations: if(*/
+              /*len(ri!cawUser.lastName) &gt; 250,*/
+              /*cons!CAW_ERROR_Messages[13],*/
+              /*{}*/
+              /*)*/
+              /*)*/
+              /*}*/
+              /*)*/
+              
+            }
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(),
+      /*a!sectionLayout(*/
+      /*contents: {*/
+      /*a!sideBySideLayout(*/
+      /*items: {*/
+      /*a!sideBySideItem(*/
+      /*item: a!radioButtonField_23r3(*/
+      /*label: cons!CAW_CREATE_USER_DISPLAY_FIELDS[7],*/
+      /*labelPosition: "ADJACENT",*/
+      /*choiceLabels: {*/
+      /*if(*/
+      /*cons!CAW_SSO_SHOWWHEN_CONSTANT,*/
+      /*cons!CAW_CREATE_USER_DISPLAY_FIELDS[8],*/
+      /*{cons!CAW_CREATE_USER_DISPLAY_FIELDS[8],*/
+      /*cons!CAW_CREATE_USER_DISPLAY_FIELDS[9]},*/
+      /*),*/
+      /**/
+      /*},*/
+      /*choiceValues: if(cons!CAW_SSO_SHOWWHEN_CONSTANT,*/
+      /**/
+      /*{true},*/
+      /*{ true, false },*/
+      /*),*/
+      /*value: if(*/
+      /*a!isNullOrEmpty(local!selection),*/
+      /*true,*/
+      /*local!selection*/
+      /*),*/
+      /*saveInto: {*/
+      /*local!selection,*/
+      /*a!save(ri!selection, local!selection)*/
+      /*},*/
+      /*choiceLayout: "COMPACT"*/
+      /*)*/
+      /*),*/
+      /*a!sideBySideItem(*/
+      /*item: */
+      /*a!textField(*/
+      /*label: "RITM",*/
+      /*labelPosition: "ADJACENT",*/
+      /*required: cons!CAW_RITM_REQUIRED_CONSTANT,*/
+      /*refreshAfter: "KEYPRESS",*/
+      /*value: ri!ritm,*/
+      /*saveInto: ri!ritm,*/
+      /*characterLimit: 15*/
+      /*)*/
+      /**/
+      /*)*/
+      /*}*/
+      /*),*/
+      /**/
+      /**/
+      /*}*/
+      /*),*/
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218859"[10],
+        contents: {
+          #"SYSTEM_SYSRULES_pickerFieldGroups"(
+            label: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218859"[11],
+            labelPosition: "ADJACENT",
+            instructions: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12218859"[12],
+            groupFilter: #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219526",
+            maxSelections: 10,
+            value: ri!groups,
+            saveinto: {
+              ri!groups,
+              a!save(ri!groups, #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3076078"(ri!groups)),
+              
+            }
+          )
+        }
+      )
+    },
+    buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "CREATE",
+          saveInto: {
+            /*if(*/
+            /*a!isNullOrEmpty(local!selection),*/
+            /*a!save(ri!selection, true),*/
+            /*local!selection*/
+            /*),*/
+            a!save(
+              ri!groups,
+              #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3076078"(append(ri!groups, #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12240482"))
+            )
+          },
+          submit: true(),
+          style: "PRIMARY",
+          confirmMessage: "Are you sure you want to create the user?",
+          disabled: if(
+            and(
+              a!isNotNullOrEmpty(ri!cawUser.firstName),
+              a!isNotNullOrEmpty(ri!email),
+              a!isNotNullOrEmpty(ri!cawUser.lastName),
+              a!isNotNullOrEmpty(ri!cawUser.userName),
+              a!isNotNullOrEmpty(ri!groups)
+            ),
+            false,
+            true
+          )
+        )
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "CANCEL",
+          value: ri!cancel,
+          confirmMessage: "Are you sure you want to cancel ?",
+          saveInto: { a!save(ri!cancel, true) },
+          submit: true(),
+          style: "NORMAL",
+          validate: false()
+        )
+      }
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>cawUser</name>
+            <type>
+                <name>CAW_User</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>email</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>cancel</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>groups</name>
+            <type>
+                <name>Group?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12640341"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12742899"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12743161"/>
+        <historyInfo versionUuid="_a-0000ec0b-8ea4-8000-9c5a-011c48011c48_13277953"/>
+    </history>
+</contentHaul>

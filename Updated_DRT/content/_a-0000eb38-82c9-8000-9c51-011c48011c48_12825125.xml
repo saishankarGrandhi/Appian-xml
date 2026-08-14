@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12830007</versionUuid>
+    <interface>
+        <name>DRT_CMP_DueDiligenceDocumentsReadOnly</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12825125</uuid>
+        <description>Read only component for displaying all due diligence uploaded documents</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isNewVersion: if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    true,
+    if(
+      todatetime(ri!nomination.createdOn) &gt; #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333392",
+      true,
+      false
+    )
+  ),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+  showWhen: local!isNewVersion,
+  contents: {
+    #"SYSTEM_SYSRULES_cardLayout"(
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: {
+            #"SYSTEM_SYSRULES_columnLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_gridField_v1"(
+                  /*label: "Uploaded Attachments",*/
+                  labelPosition: "ABOVE",
+                  data: ri!documents,
+                  emptyGridMessage: "No Attachments Uploaded",
+                  columns: {
+                    #"SYSTEM_SYSRULES_gridColumn"(
+                      label: "Document Name",
+                      value: document(fv!row.docId,"name"),
+                      align: "CENTER"
+                    ),
+                    #"SYSTEM_SYSRULES_gridColumn"(
+                      label: "Extension",
+                      value: upper(document(fv!row.docId,"extension")),
+                      align: "CENTER",
+                      width: "NARROW_PLUS"
+                    ),
+                    #"SYSTEM_SYSRULES_gridColumn"(
+                      label: "Download",
+                      align: "CENTER",
+                      width: "NARROW_PLUS",
+                      value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: #"SYSTEM_SYSRULES_richTextIcon"(
+                          icon: "download",
+                          color: "ACCENT",
+                          link:  #"SYSTEM_SYSRULES_documentDownloadLink"(
+                            label:  document(fv!row.docId,"name"),
+                            document: todocument(fv!row.docId)
+                          ),
+                          linkStyle: "STANDALONE"
+                        )
+                      )
+                    )
+                  }
+                )
+              }
+            )
+          }
+        )
+      },
+      height: "AUTO",
+      style: "NONE",
+      marginBelow: "STANDARD"
+    )
+  }
+)
+)</definition>
+        <namedTypedValue>
+            <name>documents</name>
+            <type>
+                <name>CAW_Document?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3700121"(
+  returnCDT: true,
+  requestId: 188,
+  version: 1
+)</a:value>
+                    <a:nameRef>documents</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12825139"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12830007"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12161685</versionUuid>
+    <rule>
+        <name>CAW_generatePromotionDate</name>
+        <uuid>_a-0000e6bc-0703-8000-9bf8-011c48011c48_3521215</uuid>
+        <description>Rule to generate promotion date for nomination form</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!currentYear:year(today()),
+  local!yearToDisplay:if(
+    month(today()) &lt; #"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3440558",
+    local!currentYear,
+    local!currentYear + 1
+  )-6,
+  local!datesToGenerate:#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3521276"+6,
+  {
+    a!flatten(
+      #"SYSTEM_SYSRULES_forEach"(
+        items: enumerate(local!datesToGenerate),
+        expression: {
+          year:if(
+            fv!isLast,
+            concat(tostring(date(local!yearToDisplay + fv!item,#"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3440558",#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3521308"))," " ,#"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4234042"),
+            concat(tostring(date(local!yearToDisplay + fv!item,#"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3440558",#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3521308")))
+          ),
+          display:if(
+            fv!isLast,
+            concat(
+              date(local!yearToDisplay + fv!item,#"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3440558",#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3521308"),
+              " (FY", 
+              right(local!yearToDisplay + fv!item + 1 , 2),
+              ")",
+              " ",
+              #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4234042"
+            ),
+            concat(
+              date(local!yearToDisplay + fv!item,#"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3440558",#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3521308"),
+              " (FY", 
+              right(local!yearToDisplay + fv!item + 1 , 2),
+              ")"
+            )
+          )
+        }
+      )
+    ),
+    {
+      year: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185",
+      display: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185"
+    }
+  }
+  
+)
+
+
+</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6bc-0703-8000-9bf8-011c48011c48_3533874"/>
+        <historyInfo versionUuid="_a-0000e6ca-52ed-8000-9bff-011c48011c48_3674220"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4177227"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4234066"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577627"/>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12161685"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12816815</versionUuid>
+    <rule>
+        <name>CAW_candidateIntakeExportSheet1HeaderFields</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759505</uuid>
+        <description>list of headers used in "custom fields values " for first part of candidate intake export</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  "Candidate Name",
+  "KPMG User ID",
+  "Position Type",
+  "Position Sub-Type",
+  "Non-Traditional Rotational Type",
+  "Fiscal Year",
+  "Capacity Reporting Name",
+  "City",
+  "State",
+  "Are you interested in relocating to NY?",
+  "Industry Experience - What is your primary industry?",
+  "Industry Experience - Primary Industry Other",
+  "Industry Experience - What other industry experience do you have as a manager level or above?",
+  "Industry Experience - What is your level of experience in these other industries?",
+  "Types of Audit Engagements - PCAOB Audit - Integrated",
+  "Types of Audit Engagements - PCAOB Audit - FSA-Public",
+  "Types of Audit Engagements - AICPA Audit",
+  "Types of Audit Engagements - Attestation Engagement",
+  "Types of Audit Engagements - Group Audit Experience",
+  "Types of Audit Engagements - Are you IFRS Accredited?",
+  "Types of Audit Engagements - Broker-Dealer",
+  "Types of Audit Engagements - Bankruptcy",
+  "Types of Audit Engagements - Single Audit Experience",
+  "Types of Audit Engagements - Other Control Testing Experience",
+  "Recent Clients",
+  "Audit Inititiative Support Networks - Alteryx",
+  "Audit Inititiative Support Networks - Accredited Sampling Professional",
+  "Audit Inititiative Support Networks - Continuous Improvement Champion",
+  "Audit Inititiative Support Networks - Engagement Management Champion",
+  "Audit Inititiative Support Networks - KPMG Clara Workflow Deployment Lead",
+  "Audit Inititiative Support Networks - Workflow (eAudIT &amp; Related Tool) Champion",
+  "Audit Inititiative Support Networks - IT Audit Champion",
+  "Audit Inititiative Support Networks - AQSP Methodology Support",
+  "Audit Inititiative Support Networks - BU Audit Technology Lead (Supporting KCw Advanced Capabilities)",
+  "Audit Inititiative Support Networks - BU Audit Technology Lead",
+  "Audit Inititiative Support Networks - KPMG Clara Workflow Large Engagement Team Champion",
+  "Audit Inititiative Support Networks - KPMG Clara for Clients Champion",
+  "Audit Inititiative Support Networks - KPMG Extend Champion",
+  "Audit Inititiative Support Networks - Workflow (SAW ONLY) Champion",
+  "Audit Inititiative Support Networks - IT Audit Lead Champion",
+  "Audit Inititiative Support Networks - Tech Assurance IT Automation Lead"
+}</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6760285"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12611167"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12816815"/>
+    </history>
+</contentHaul>

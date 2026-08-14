@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11883025</versionUuid>
+    <constant>
+        <name>DRT_OLD_GROUPS</name>
+        <uuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11752319</uuid>
+        <description>Old group names</description>
+        <parentUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11571597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>CAW Denver BUPPP</el>
+                <el>CAW Denver BUPIC</el>
+                <el>CAW Denver BUPPP_BUPIC</el>
+                <el>CAW Chicago Metro BUPPP</el>
+                <el>CAW Mid-America BUPPP</el>
+                <el>CAW Chicago BUPIC</el>
+                <el>CAW Mid-America BUPIC</el>
+                <el>CAW Chicago BUPPP_BUPIC</el>
+                <el>CAW Mid-America BUPPP_BUPIC</el>
+                <el>CAW Dallas BUPPP</el>
+                <el>CAW Houston BUPPP</el>
+                <el>CAW Dallas BUPIC</el>
+                <el>CAW Houston BUPIC</el>
+                <el>CAW Dallas BUPPP_BUPIC</el>
+                <el>CAW Houston BUPPP_BUPIC</el>
+                <el>CAW Coastal BUPIC</el>
+                <el>CAW Midsouth BUPIC</el>
+                <el>CAW Coastal BUPPP</el>
+                <el>CAW Midsouth BUPPP</el>
+                <el>CAW Coastal BUPPP_BUPIC</el>
+                <el>CAW Midsouth BUPPP_BUPIC</el>
+                <el>CAW New York Metro BUPPP</el>
+                <el>CAW NEUNY BUPPP</el>
+                <el>CAW New York Metro BUPIC</el>
+                <el>CAW NEUNY BUPIC</el>
+                <el>CAW New York Metro BUPPP</el>
+                <el>CAW NEUNY BUPPP</el>
+                <el>CAW Gateway West BUPPP</el>
+                <el>CAW Northern Heartland BUPPP</el>
+                <el>CAW Gateway West BUPIC</el>
+                <el>CAW Northern Heartland BUPIC</el>
+                <el>CAW Gateway West BUPPP_BUPIC</el>
+                <el>CAW Northern Heartland BUPPP_BUPIC</el>
+                <el>CAW Pennsylvania BUPPP</el>
+                <el>CAW Chesapeake BUPPP</el>
+                <el>CAW Washington Federal BUPPP</el>
+                <el>CAW Pennsylvania BUPIC</el>
+                <el>CAW Chesapeake BUPIC</el>
+                <el>CAW Washington Federal BUPIC</el>
+                <el>CAW Pennsylvania BUPPP_BUPIC</el>
+                <el>CAW Chesapeake BUPPP_BUPIC</el>
+                <el>CAW Washington Federal BUPPP_BUPIC</el>
+                <el>CAW New York FS BUPPP</el>
+                <el>CAW New York  FS BUPIC</el>
+                <el>CAW New York  FS BUPPP_BUPIC</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11752323"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11883025"/>
+    </history>
+</contentHaul>

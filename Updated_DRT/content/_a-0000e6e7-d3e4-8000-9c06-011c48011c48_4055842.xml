@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6817321</versionUuid>
+    <interface>
+        <name>CAW_FRM_ReassignTask</name>
+        <uuid>_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4055842</uuid>
+        <description>Interface to reassigne task</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isinterviewer: ri!task.statusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+  local!oldAssignee: a!refreshVariable(
+    value: ri!assignee,
+    refreshOnReferencedVarChange: false
+  ),
+  local!oldAssigneeName: tostring(if(
+    ri!task.isAssigneeGroup=true,
+    local!oldAssignee,
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!oldAssignee)
+  )),
+  local!selectedUser,
+  local!statusName: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!task.statusId),
+    null,
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+      refId: ri!task.statusId,
+      returnCDT: true,
+      isActive: true
+    ).description
+  ),
+  #"SYSTEM_SYSRULES_formLayout_v1"(
+    label: if(
+      local!isinterviewer,
+      "Reassign Interview Task",
+      "Reassign Task"
+    ),
+    contents: {
+      #"SYSTEM_SYSRULES_gridLayout"(
+        headerCells: {
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Task"),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Current Assignee"),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "New Assignee"),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Status"),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Created By"),
+          #"SYSTEM_SYSRULES_gridLayoutHeaderCell"(label: "Created Date")
+        },
+        rows: #"SYSTEM_SYSRULES_gridRowLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_textField"(
+              value: ri!task.taskName,
+              readOnly: true
+            ),
+            #"SYSTEM_SYSRULES_textField"(
+              value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!oldAssignee),
+              readOnly: true
+            ),
+            if(
+              local!isinterviewer,
+              #"SYSTEM_SYSRULES_pickerFieldCustom"(
+                placeholder: "Enter at least " &amp; #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3895397" &amp; " characters to search for a user",
+                value: index(local!selectedUser,"employeeId",null),
+                maxSelections: 1,
+                selectedLabels: if(
+                  a!isNullOrEmpty(index(local!selectedUser,"employeeId",null)),
+                  null,
+                  index(
+                    local!selectedUser,
+                    "fullNameDerived",
+                    null
+                  )
+                ),
+                suggestFunction: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3874364"(filter: _),
+                saveInto: {
+                  ri!interview.interviewerId,
+                  a!save(
+                    local!selectedUser,
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924363"(employeeId: ri!interview.interviewerId)
+                  ),
+                  a!save(
+                    ri!interview.interviewerFirstName,
+                    local!selectedUser.firstName
+                  ),
+                  a!save(
+                    ri!interview.interviewerLastName,
+                    local!selectedUser.lastName
+                  ),
+                  a!save(
+                    ri!interview.interviewerEmail,
+                    local!selectedUser.email
+                  ),
+                  a!save(
+                    ri!interview.interviewerFullName,
+                    local!selectedUser.fullNameDerived
+                  ),
+                  a!save(
+                    ri!assignee,
+                    local!selectedUser.email
+                  )
+                },
+                required: true
+              ),
+              #"SYSTEM_SYSRULES_pickerFieldUsers"(
+                placeholder: "-- Select a User -- ",
+                value: if(
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!selectedUser),
+                  {},
+                  if(
+                    isusernametaken(local!selectedUser),
+                    { local!selectedUser },
+                    togroup(
+                      tointeger(
+                        a!groupsByName(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(local!selectedUser))
+                      )
+                    )
+                  )
+                ),
+                saveInto: {
+                  local!selectedUser,
+                  a!save(ri!assignee, local!selectedUser),
+                  a!save(
+                    ri!assigneeId,
+                    property(
+                      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3070432"(
+                        userName: local!selectedUser,
+                        columns: { "userId" },
+                        returnCDT: true
+                      ),
+                      "userId",
+                      null
+                    )
+                  )
+                },
+                maxSelections: 1,
+                groupFilter: #"_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4057340"(
+                  moduleId: ri!task.moduleTypeId,
+                  statusId: ri!task.statusId,
+                  regionId: ri!regionId
+                ),
+                required: true,
+                validations: if(
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!selectedUser),
+                  "Select a User",
+                  null
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_textField"(value: local!statusName, readOnly: true),
+            #"SYSTEM_SYSRULES_textField"(
+              value: ri!task.createdBy,
+              readOnly: true
+            ),
+            #"SYSTEM_SYSRULES_textField"(
+              value: ri!task.createdOn,
+              readOnly: true
+            )
+          }
+        )
+      )
+    },
+    buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+          value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+          submit: true,
+          style: "PRIMARY",
+          validate: true,
+          loadingIndicator: true,
+          saveInto: {
+            ri!buttonClicked,
+            a!save(
+              ri!auditHistory,
+              'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                taskId: ri!task.taskId,
+                requestId: ri!task.requestId,
+                version: ri!task.version,
+                moduleTypeId: ri!task.moduleTypeId,
+                statusId: ri!task.statusId,
+                action: concat(
+                  if(local!isinterviewer,"Interview task","Task"),
+                  " reassigned from ",
+                  local!oldAssigneeName,
+                  " to ",
+                  if(
+                    local!isinterviewer,
+                    ri!interview.interviewerFirstName&amp;" "&amp;ri!interview.interviewerLastName,
+                    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(ri!assignee)
+                  )
+                ),
+                createdBy: loggedInUser(),
+                createdOn: now()
+              )
+            )
+          },
+          disabled: if(
+            local!isinterviewer,
+            ri!interview.interviewerEmail = local!oldAssignee,
+            ri!task.assigneeId = ri!assigneeId
+          ),
+          confirmHeader: "Reassign Task",
+          confirmMessage: "Are you sure you want to reassign the task?"
+        )
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+          value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+          saveInto: { ri!buttonClicked },
+          submit: true,
+          style: "DESTRUCTIVE",
+          validate: false
+        )
+      }
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonClicked</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assignee</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>interview</name>
+            <type>
+                <name>CAW_Interview</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>regionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assigneeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177276"(
+  taskId:414,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>task</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonClicked</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:CAW" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:CAW_Audit"/>
+                    <a:nameRef>auditHistory</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">"skiflemariam@kpmg.com"</a:value>
+                    <a:nameRef>assignee</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:CAW" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:CAW_Interview"/>
+                    <a:nameRef>interview</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>regionId</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>assigneeId</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4099143"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4114274"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4127790"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5021970"/>
+        <historyInfo versionUuid="_a-0000e7eb-6013-8000-9c20-011c48011c48_6320992"/>
+        <historyInfo versionUuid="_a-0000e7eb-6013-8000-9c20-011c48011c48_6355678"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6817321"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000efa7-942c-8000-9c70-011c48011c48_14376955</versionUuid>
+    <interface>
+        <name>CAW_CMP_NominationApprove</name>
+        <uuid>_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3748039</uuid>
+        <description>Component to configure nomination Approve button</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isnewVersion: if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    true,
+    if(
+      todatetime(ri!nomination.createdOn) &gt; #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333392",
+      true,
+      false
+    )
+  ),
+  #"SYSTEM_SYSRULES_ButtonWidget"(
+    label: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295308",
+    value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295308",
+    submit: true,
+    saveInto: {
+      ri!action,
+      /*NOMINATION*/
+      a!save(ri!nomination.modifiedBy, ri!fullName),
+      a!save(ri!nomination.modifiedOn, now()),
+      if(
+        a!isNullOrEmpty(ri!reviwercomment),
+        null(),
+        a!save(
+          ri!nomination.vettingReviewersComment,
+          ri!reviwercomment
+        )
+      ),
+      /*Audit History*/
+      if(
+        and(
+          property(
+            ri!nomination,
+            "statusId",
+            tointeger(null)
+          ) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431",
+          or(
+            index(
+              ri!nomination,
+              "isReapprovedByBU",
+              toboolean(null)
+            ) = true,
+            index(
+              ri!nomination,
+              "isOpsAdditionalVettingReq",
+              toboolean(null)
+            ) = true
+          )
+        ),
+        a!save(
+          ri!auditHistory,
+          'type!{urn:com:appian:types:CAW}CAW_Audit'(
+            auditId: null,
+            taskId: index(ri!task, "taskId", tointeger(null)),
+            requestId: index(
+              ri!nomination,
+              "nominationId",
+              tointeger({})
+            ),
+            version: 1,
+            moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+            statusId: index(ri!task, "statusId", tointeger(null)),
+            action: if(
+              index(
+                ri!nomination,
+                "isReapprovedByBU",
+                toboolean(null)
+              ) = true,
+              "Nomination reapproved",
+              "Additional vetting approval received",
+              
+            ),
+            description: null,
+            createdBy: loggedInUser(),
+            createdOn: now()
+          )
+        ),
+        a!save(
+          ri!auditHistory,
+          'type!{urn:com:appian:types:CAW}CAW_Audit'(
+            auditId: null,
+            taskId: index(ri!task, "taskId", tointeger(null)),
+            requestId: index(
+              ri!nomination,
+              "nominationId",
+              tointeger({})
+            ),
+            version: 1,
+            moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+            statusId: if(
+              isusermemberofgroups(
+                loggedInUser(),
+                {
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177083",
+                  #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066240",
+                  #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066222"
+                }
+              ),
+              391,
+              if(
+                isusermemberofgroups(loggedInUser(), #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177089"),
+                392,
+                index(ri!task, "statusId", tointeger(null))
+              )
+            ),
+            action: "Nomination approved",
+            description: null,
+            createdBy: loggedInUser(),
+            createdOn: now()
+          )
+        )
+      ),
+      /*Update BU Reapproval Completed flags when current status is BU Reapproval*/
+      if(
+        and(
+          property(
+            ri!nomination,
+            "statusId",
+            tointeger(null)
+          ) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431",
+          index(
+            ri!nomination,
+            "isReapprovedByBU",
+            toboolean(null)
+          ) = true
+        ),
+        {
+          a!save(
+            ri!nomination.isReapprovedByBUCompleted,
+            true
+          ),
+          a!save(ri!nomination.isReapprovedByBU, null)
+        },
+        null
+      ),
+      /*Update ops additional vetting req Completed flags when current status is ops additional vetting req*/
+      if(
+        and(
+          property(
+            ri!nomination,
+            "statusId",
+            tointeger(null)
+          ) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431",
+          index(
+            ri!nomination,
+            "isOpsAdditionalVettingReq",
+            toboolean(null)
+          ) = true
+        ),
+        {
+          /*this variable is used for email trigger purposes*/
+          a!save(ri!isOpsAdditionalVettingReq, true),
+          a!save(
+            ri!nomination.isOpsAdditionalVettingReqCompleted,
+            true
+          ),
+          a!save(
+            ri!nomination.additionalVettingCompletedDate,
+            now()
+          ),
+          a!save(
+            ri!nomination.isOpsAdditionalVettingReq,
+            null
+          )
+        },
+        null
+      ),
+      a!save(
+        ri!nomination.statusId,
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617"
+      ),
+      /*TASK*/
+      a!save(
+        ri!task.statusId,
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617"
+      ),
+      a!save(ri!task.isApproved, true),
+      a!save(
+        ri!task.assigneeId,
+        property(
+          ri!assignee,
+          "assigneeId",
+          tointeger(null)
+        )
+      ),
+      a!save(
+        ri!task.isAssigneeGroup,
+        property(
+          ri!assignee,
+          "isAssigneeGroup",
+          toboolean(null)
+        )
+      ),
+      a!save(ri!task.modifiedBy, ri!fullName),
+      a!save(ri!task.modifiedOn, now()),
+      /*Create the whole comment CDT*/
+      a!save(
+        ri!comment,
+        'type!{urn:com:appian:types:CAW}CAW_Comment'(
+          commentId: index(ri!comment, "commentId", null),
+          requestId: if(
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!comment, "requestId", null)),
+            index(ri!nomination, "nominationId", null),
+            property(ri!comment, "requestId", null)
+          ),
+          moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+          comment: property(ri!comment, "comment", null),
+          isDraft: false,
+          isActive: true,
+          version: 1,
+          createdBy: loggedInUser(),
+          createdOn: now(),
+          modifiedBy: loggedInUser(),
+          modifiedOn: now()
+        )
+      ),
+      
+    },
+    style: "PRIMARY",
+    showWhen: ri!showWhen,
+    confirmHeader: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295308",
+    confirmMessage: #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4160874",
+    disabled: if(
+      and(
+        toboolean(local!isnewVersion) = true(),
+        ri!nomination.nominationTypeId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557"
+      ),
+      if(
+        and(
+          #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+            loggedInUser(),
+            {
+              #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[1],
+              #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[2],
+              #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[3],
+              #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[7],
+              #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[8],
+              
+            }
+          ),
+          if(
+            ri!nomination.isOpsAdditionalVettingReq = false(),
+            false(),
+            if(
+              or(
+                a!isNullOrEmpty(
+                  ri!nomination.isOpsAdditionalVettingReq
+                ),
+                ri!nomination.isOpsAdditionalVettingReq = true()
+              ),
+              if(
+                or(
+                  if(
+                    a!isNullOrEmpty(ri!reviwercomment),
+                    false(),
+                    true()
+                  ),
+                  a!isNotNullOrEmpty(ri!nomination.vettingReviewersComment),
+                  
+                ),
+                false(),
+                true(),
+                
+              ),
+              false(),
+              
+            )
+          )
+        ),
+        true,
+        false
+      ),
+      false
+    ),
+    
+  )
+)</definition>
+        <namedTypedValue>
+            <name>comment</name>
+            <type>
+                <name>CAW_Comment</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showWhen</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assignee</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fullName</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isOpsAdditionalVettingReq</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>reviwercomment</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3781193"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3945900"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3999763"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4037508"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4160905"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4203050"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578650"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4614574"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4615778"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4782936"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5083604"/>
+        <historyInfo versionUuid="_a-0000e781-2d54-8000-9c18-011c48011c48_5419669"/>
+        <historyInfo versionUuid="_a-0000e781-2d54-8000-9c18-011c48011c48_5420229"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5632778"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6631463"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11688691"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12696052"/>
+        <historyInfo versionUuid="_a-0000ebe3-046c-8000-9c56-011c48011c48_13113540"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066773"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14102002"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14185145"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14185652"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14186037"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14200636"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14357122"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14376426"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14376955"/>
+    </history>
+</contentHaul>

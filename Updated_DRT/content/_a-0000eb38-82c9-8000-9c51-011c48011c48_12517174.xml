@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12517178</versionUuid>
+    <constant>
+        <name>DRTV4_LINK_RISK_AND_CONTROL</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12517174</uuid>
+        <description>1. Old Link
+2. New Link</description>
+        <parentUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11571597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el> https://kcentralint.us.kpmg.com/Audit/AQPP-Collab/_layouts/15/WopiFrame.aspx?sourcedoc=/Audit/AQPP-Collab/Main%20Document%20Library2/Resource%20Management%20-%20RCM.XLSX&amp;action=default</el>
+                <el>https://kpmgus.sharepoint.com/:x:/r/sites/US-DPP/_layouts/15/Doc.aspx?sourcedoc=%7BD8580E58-DE7C-42F0-8283-81ABEF0FD7EF%7D&amp;file=Resource%20Management%20-%20RCM.xlsx&amp;action=default&amp;mobileredirect=true</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12517178"/>
+    </history>
+</contentHaul>

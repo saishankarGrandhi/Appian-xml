@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6858055</versionUuid>
+    <rule>
+        <name>CAW_determineTriggerIdForCoreAsk</name>
+        <uuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6857859</uuid>
+        <description>returns the trigger id needed for the current Core ASK workflow notification email</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  ri!statusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295646",
+  #"_a-0000e825-ace1-8000-9c24-011c48011c48_6857970",
+  if(
+    ri!statusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6857976",
+    ri!statusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[2],
+    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6857982",
+    if(
+      ri!statusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3373079",
+      if(
+        ri!previousStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+        #"_a-0000e825-ace1-8000-9c24-011c48011c48_6857988",
+        #"_a-0000e825-ace1-8000-9c24-011c48011c48_6858030"
+      ),
+      if(
+        ri!statusId = #"_a-0000e825-ace1-8000-9c24-011c48011c48_6791426",
+        if(
+          ri!previousStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6858036",
+          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6858044"
+        ),
+        -1
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>statusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>previousStatusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6858055"/>
+    </history>
+</contentHaul>

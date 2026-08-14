@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6950911</versionUuid>
+    <rule>
+        <name>CAW_getDPPGroupIdsForGroupCategory</name>
+        <uuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6906592</uuid>
+        <description>Rule to get specific DPP group IDs based on group category name</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  ri!group = "ASG",
+  {
+    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948678", 
+    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948684", 
+    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948697"
+  },
+  if(
+    ri!group = "Audit",
+    {
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948706", 
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948713", 
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948720", 
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948727", 
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948734", 
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948741", 
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948748", 
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948817"
+    },
+    if(
+      ri!group = "PA",
+      {
+        #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948755", 
+        #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948762"
+      },
+      if(
+        ri!group = "RCCG",
+        {
+          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948769", 
+          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948782"
+        },
+        if(
+          ri!group = "SOQC",
+          {
+            #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948789", 
+            #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948796"
+          },
+          if(
+            ri!group = "P&amp;P",
+            {
+              #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948803"
+            },
+            if(
+              ri!group = "L&amp;D",
+              {
+                #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948824"
+              },
+              {}
+            )
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>group</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6950911"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3892995</versionUuid>
+    <interface>
+        <name>CAW_SFTP_EmployeeGrid</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3832682</uuid>
+        <description></description>
+        <parentUuid>_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3751507</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!locationData: index(
+    #"SYSTEM_SYSRULES_queryEntity_v1"(
+      entity: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3872635",
+      fetchtotalcount: false(),
+      query: #"SYSTEM_SYSRULES_query"(
+        selection: #"SYSTEM_SYSRULES_querySelection"(columns: { #"SYSTEM_SYSRULES_queryColumn"(field: "descr") }),
+        paginginfo: #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: - 1,
+          sort: #"SYSTEM_SYSRULES_sortInfo"(field: "location", ascending: true)
+        )
+      )
+    ).data,
+    "descr",
+    {}
+  ),
+  local!locations: union(
+    local!locationData,
+    local!locationData
+  ),
+  local!BUs: index(
+    #"SYSTEM_SYSRULES_queryEntity_v1"(
+      entity: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3892805",
+      fetchtotalcount: false(),
+      query: #"SYSTEM_SYSRULES_query"(
+        selection: #"SYSTEM_SYSRULES_querySelection"(columns: { #"SYSTEM_SYSRULES_queryColumn"(field: "descr") }),
+        paginginfo: #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: - 1,
+          sort: #"SYSTEM_SYSRULES_sortInfo"(field: "descr", ascending: true)
+        )
+      )
+    ).data,
+    "descr",
+    {}
+  ),
+  local!jobFunctions: index(
+    #"SYSTEM_SYSRULES_queryEntity_v1"(
+      entity: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3872841",
+      fetchtotalcount: false(),
+      query: #"SYSTEM_SYSRULES_query"(
+        selection: #"SYSTEM_SYSRULES_querySelection"(
+          columns: {
+            #"SYSTEM_SYSRULES_queryColumn"(field: "xlatlongname"),
+            #"SYSTEM_SYSRULES_queryColumn"(field: "fieldname")
+          }
+        ),
+        filter: #"SYSTEM_SYSRULES_queryFilter"(
+          field: "fieldname",
+          operator: "=",
+          value: "PM_SERVICE_2"
+        ),
+        paginginfo: #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: - 1,
+          sort: #"SYSTEM_SYSRULES_sortInfo"(field: "xlatlongname", ascending: true)
+        )
+      )
+    ).data,
+    "xlatlongname",
+    {}
+  ),
+  local!jobFamilies: index(
+    #"SYSTEM_SYSRULES_queryEntity_v1"(
+      entity: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3872403",
+      fetchtotalcount: false(),
+      query: #"SYSTEM_SYSRULES_query"(
+        selection: #"SYSTEM_SYSRULES_querySelection"(columns: { #"SYSTEM_SYSRULES_queryColumn"(field: "descr") }),
+        paginginfo: #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: - 1,
+          sort: #"SYSTEM_SYSRULES_sortInfo"(field: "descr", ascending: true)
+        )
+      )
+    ).data,
+    "descr",
+    {}
+  ),
+  local!bu,
+  local!jobFamily,
+  local!jobFunction,
+  local!location,
+  local!lastName,
+  local!firstName,
+  local!employeeId,
+{
+  #"SYSTEM_SYSRULES_cardLayout"(
+    style: "STANDARD",
+    showBorder: false,
+    contents: {
+      
+      #"SYSTEM_SYSRULES_sideBySideLayout"(
+        alignVertical: "MIDDLE",
+        items: {
+          #"SYSTEM_SYSRULES_sideBySideItem"(
+            item: #"SYSTEM_SYSRULES_dropdownField_v1"(
+              label: "Job Function",
+              placeholder: "-- Select -- ",
+              value: local!jobFunction,
+              choicelabels: local!jobFunctions,
+              choiceValues: local!jobFunctions,
+              saveInto: local!jobFunction
+            )
+          ),
+          #"SYSTEM_SYSRULES_sideBySideItem"(
+            item: #"SYSTEM_SYSRULES_dropdownField_v1"(
+              label: "BU",
+              placeholder: "-- Select --",
+              value: local!bu,
+              saveInto: local!bu,
+              choiceLabels: local!BUs,
+              choiceValues: local!BUs
+            )
+          ),
+          #"SYSTEM_SYSRULES_sideBySideItem"(
+            item: #"SYSTEM_SYSRULES_dropdownField_v1"(
+              label: "Job Family",
+              placeholder: "-- Select --",
+              value: local!jobFamily,
+              saveInto: local!jobFamily,
+              choiceLabels: local!jobFamilies,
+              choiceValues: local!jobFamilies
+            )
+          ),
+          #"SYSTEM_SYSRULES_sideBySideItem"(
+            item: #"SYSTEM_SYSRULES_dropdownField_v1"(
+              label: "Office",
+              placeholder: "-- Select --",
+              value: local!location,
+              saveInto: local!location,
+              choiceLabels: local!locations,
+              choiceValues: local!locations
+            )
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_sideBySideLayout"(
+        alignVertical: "BOTTOM",
+        items: {
+          #"SYSTEM_SYSRULES_sideBySideItem"(
+            item: #"SYSTEM_SYSRULES_textField"(
+              label: "Last Name",
+              value: local!lastName,
+              saveInto: local!lastName,
+              placeholder: "Enter at least 5 characters to search"
+            )
+          ),
+          #"SYSTEM_SYSRULES_sideBySideItem"(
+            item: #"SYSTEM_SYSRULES_textField"(
+              label: "First Name",
+              value: local!firstName,
+              saveInto: local!firstName,
+              placeholder: "Enter at least 5 characters to search"
+            )
+          ),
+          #"SYSTEM_SYSRULES_sideBySideItem"(
+            item: #"SYSTEM_SYSRULES_textField"(
+              label: "Employee ID",
+              value: local!employeeId,
+              saveInto: local!employeeId,
+              placeholder: "Enter exact Employee ID"
+            )
+          ),
+          #"SYSTEM_SYSRULES_sideBySideItem"(
+            item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+              align: "RIGHT",
+              value: {
+                #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: "refresh",
+                  linkStyle: "STANDALONE",
+                  /*size: "MEDIUM",*/
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    saveInto: a!save(
+                      { local!jobFamily, local!bu,local!jobFunction,local!location },
+                      null
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: " Clear Filters",
+                  /*size: "MEDIUM",*/
+                  style: "STRONG",
+                  linkStyle: "STANDALONE",
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    saveInto: a!save(
+                      { local!jobFamily, local!bu,local!jobFunction,local!location },
+                      null
+                    )
+                  )
+                )
+              }
+            )
+          )
+        }
+      )
+    }
+  ),
+  #"SYSTEM_SYSRULES_gridField_v1"(
+    data: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3832657"(
+      pagingInfo: fv!pagingInfo,
+      jobFamily: local!jobFamily,
+      office: local!location,
+      bu: local!bu,
+      jobFunction: local!jobFunction,
+      firstName: local!firstName,
+      lastName: local!lastName,
+      employeeId: local!employeeId
+    ),
+    initialSorts: #"SYSTEM_SYSRULES_sortInfo"(field: "employeeId", ascending: true),
+    shadeAlternateRows: false,
+    columns: {
+      #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3840347"(id: 2)
+    },
+    pageSize: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3851952"
+  )
+}
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3892995"/>
+    </history>
+</contentHaul>

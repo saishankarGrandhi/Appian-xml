@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4059381</versionUuid>
+    <rule>
+        <name>CAW_SFTP_dashboardTables</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3840152</uuid>
+        <description></description>
+        <parentUuid>_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3751507</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 1,
+    tableName: "Audit History",
+    icon: "align-left",
+    isActive: true()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 2,
+    tableName: "Employee",
+    icon: "address-book",
+    isActive: true()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 3,
+    tableName: "PS Personal - Databus",
+    icon: "users",
+    isActive: true()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 4,
+    tableName: "PS Subsegment - Databus",
+    icon: "building",
+    isActive: true()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 5,
+    tableName: "BU Roll-Up - Databus",
+    icon: "cogs",
+    isActive: true()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 6,
+    tableName: "IAM Identity Data - Databus",
+    icon: "id-card",
+    isActive: false()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 7,
+    tableName: "Job Family - Databus",
+    icon: "briefcase",
+    isActive: true()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 8,
+    tableName: "Location - Databus",
+    icon: "location-arrow",
+    isActive: true()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 9,
+    tableName: "Translation - Databus",
+    icon: "random",
+    isActive: true()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 10,
+    tableName: "Job Code - Databus",
+    icon: "suitcase",
+    isActive: true()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 11,
+    tableName: "BU Descriptions - Reference Table",
+    icon: "reorder",
+    isActive: true()
+  ),
+  'type!{urn:com:appian:types}CAW_SFTP_DashboardTableDetails'(
+    id: 12,
+    tableName: "Process Types - Reference Table",
+    icon: "reorder",
+    isActive: true()
+  )
+}</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3873348"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4037017"/>
+        <historyInfo versionUuid="_a-0000e6e7-d3e4-8000-9c06-011c48011c48_4059381"/>
+    </history>
+</contentHaul>

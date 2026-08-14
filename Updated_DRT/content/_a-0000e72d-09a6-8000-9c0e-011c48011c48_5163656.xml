@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12926700</versionUuid>
+    <rule>
+        <name>CAW_nominationExportQuerySelecton</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5163656</uuid>
+        <description>a!queryselection for nomination export</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_querySelection"(
+  columns: {
+    #"SYSTEM_SYSRULES_queryColumn"(field: "recordName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "fullName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "nominationStatus"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "positionType"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "subPosition"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "nonTradRotationalType"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "employeeId"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "functionName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "jobDescription"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "jobFamily"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "originatingBU"),
+    /*a!queryColumn(field: "originatingRegion"),*/
+    #"SYSTEM_SYSRULES_queryColumn"(field: "originatingHomeOffice"),
+    /*a!queryColumn(field: "returnRegion"),*/
+    #"SYSTEM_SYSRULES_queryColumn"(field: "returnBU"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "otherReturningBU"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "returnHomeOffice"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "otherReturningHomeOffice"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "mdPromotionDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "mdPromotionDateComment"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "candidatePartnerPipeline"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "partnerPromotionDateComment"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "rationalForNomination"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "clientConsiderationComment"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "yearsWithFirm"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "anticipatedStartDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "anticipatedEndDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "dppGroup"),
+    /*a!queryColumn(field: "isPotentialSecFasbCandidate"),*/
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isAqspNomination"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "industry"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isAdditionalFollowUpReq"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isReapprovedByBU"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "operationsComments"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isOpsAdditionalVettingReq"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "vettingComments"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isAQR1or2"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isCandidateGoodStanding"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isVettingRequired"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "hrComments"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "yearsofServiceHR"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "mdPromotionDateHR"),
+    /*a!queryColumn(field: "partnerPromotionDateHR"),*/
+    #"SYSTEM_SYSRULES_queryColumn"(field: "negativeInspectionFindings"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "inspectionComments"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "interviewerNames"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "supportExtensionOfOffer"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "candidateProjectedStartDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "rotationEndDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "candidateDetailsDppGroup"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "costCenter") 
+  }
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5216884"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6912762"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6982077"/>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12350303"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12775310"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12926700"/>
+    </history>
+</contentHaul>

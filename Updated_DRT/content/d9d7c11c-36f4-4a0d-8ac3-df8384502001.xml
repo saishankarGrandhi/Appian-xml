@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6849714</versionUuid>
+    <decision>
+        <name>CAW_determineTriggerIDforRotationalASKEmail</name>
+        <uuid>d9d7c11c-36f4-4a0d-8ac3-df8384502001</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>fn!override_exception_appian_internal(fn!with(local!decisiondefinition: a!decisiondesigner_cache(uuid: "d9d7c11c-36f4-4a0d-8ac3-df8384502001",versionKey: "3d29dee4-29c7-4590-88c4-403ef22d31c9",value: #"SYSTEM_SYSRULES_dd_dd"('hitPolicy': #"SYSTEM_SYSRULES_dd_dhp"("UNIQUE"), 'inputs': {#"SYSTEM_SYSRULES_dd_di"('name': "currentStatus", 'type': 'type!{http://www.appian.com/ae/types/2009}Text', 'id': 3, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("LOOKUP"), 'restriction': #"SYSTEM_SYSRULES_dd_dirl"('allowedLabels': {}, 'allowedValues': {"DPP Ops Initiate", "DPP Leadership Initiate", "DPP Ops Review", "PPL Review", "PPL Return", "DPP Leadership Review", "DPP Leadership Return", "RPPP Review", "RPPP Return", "DPP PIC Review", "DPP PIC Return", "Completed", "Waiting For DPP Leadership Approval", "DPP Ops Review - Return", "DPP Ops Review - Final"})), #"SYSTEM_SYSRULES_dd_di"('name': "nextStatusID", 'type': 'type!{http://www.appian.com/ae/types/2009}Integer', 'id': 1, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("LOOKUP"), 'restriction': #"SYSTEM_SYSRULES_dd_dirl"('allowedLabels': {"PPL Review", "DPP Leadership Review", "RPPP Review", "DPP PIC Review", "Completed", "DPP Ops Review", "DPP Ops Review - Return", "DPP Ops Review - Final"}, 'allowedValues': {127, 129, 131, 133, 135, 145, 147, 148})), #"SYSTEM_SYSRULES_dd_di"('name': "isDPPPICApproval", 'type': 'type!{http://www.appian.com/ae/types/2009}Boolean', 'id': 4, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("NONE"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_do"('id': 1, 'name': "triggerID", 'type': 'type!{http://www.appian.com/ae/types/2009}Integer', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("NONE"), 'returnListType': false)}, 'rules': {#"SYSTEM_SYSRULES_dd_dr"('id': 1, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 1, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {127})), #"SYSTEM_SYSRULES_dd_dri"('id': 15, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IS_NULL"))), #"SYSTEM_SYSRULES_dd_dri"('id': 22, 'decisionInputId': 4, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IS_NULL")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': 378)}, 'annotation': "Rotational ASK submitted for PPL Approval"), #"SYSTEM_SYSRULES_dd_dr"('id': 2, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 3, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {147})), #"SYSTEM_SYSRULES_dd_dri"('id': 16, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"PPL Review"})), #"SYSTEM_SYSRULES_dd_dri"('id': 23, 'decisionInputId': 4, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IS_NULL")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 2, 'decisionOutputId': 1, 'value': 379)}, 'annotation': "Rotational ASK Returned By PPL"), #"SYSTEM_SYSRULES_dd_dr"('id': 4, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 7, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {131})), #"SYSTEM_SYSRULES_dd_dri"('id': 18, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"PPL Review"})), #"SYSTEM_SYSRULES_dd_dri"('id': 25, 'decisionInputId': 4, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IS_NULL")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 4, 'decisionOutputId': 1, 'value': 380)}, 'annotation': "Rotational ASK submitted for RPPP Approval"), #"SYSTEM_SYSRULES_dd_dr"('id': 5, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 9, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {147})), #"SYSTEM_SYSRULES_dd_dri"('id': 19, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"RPPP Review"})), #"SYSTEM_SYSRULES_dd_dri"('id': 26, 'decisionInputId': 4, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IS_NULL")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 5, 'decisionOutputId': 1, 'value': 381)}, 'annotation': "Rotational ASK Returned by RPPP"), #"SYSTEM_SYSRULES_dd_dr"('id': 6, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 11, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {148})), #"SYSTEM_SYSRULES_dd_dri"('id': 20, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"RPPP Review"})), #"SYSTEM_SYSRULES_dd_dri"('id': 27, 'decisionInputId': 4, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IS_NULL")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 6, 'decisionOutputId': 1, 'value': 382)}, 'annotation': "Rotational ASK Approved By RPPP"), #"SYSTEM_SYSRULES_dd_dr"('id': 7, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 13, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {133})), #"SYSTEM_SYSRULES_dd_dri"('id': 21, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Ops Review - Final"})), #"SYSTEM_SYSRULES_dd_dri"('id': 28, 'decisionInputId': 4, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': true))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 7, 'decisionOutputId': 1, 'value': 383)}, 'annotation': "Rotational ASK submitted for DPP PIC Approval"), #"SYSTEM_SYSRULES_dd_dr"('id': 9, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 32, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP PIC Review"})), #"SYSTEM_SYSRULES_dd_dri"('id': 33, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {147})), #"SYSTEM_SYSRULES_dd_dri"('id': 34, 'decisionInputId': 4, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IS_NULL")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 9, 'decisionOutputId': 1, 'value': 384)}, 'annotation': "Rotational ASK returned by DPP PIC"), #"SYSTEM_SYSRULES_dd_dr"('id': 10, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 35, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP PIC Review"})), #"SYSTEM_SYSRULES_dd_dri"('id': 36, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {148})), #"SYSTEM_SYSRULES_dd_dri"('id': 37, 'decisionInputId': 4, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IS_NULL")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 10, 'decisionOutputId': 1, 'value': 385)}, 'annotation': "Rotational ASK approved by DPP PIC"), #"SYSTEM_SYSRULES_dd_dr"('id': 11, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 38, 'decisionInputId': 3, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {"DPP Ops Review - Final"})), #"SYSTEM_SYSRULES_dd_dri"('id': 39, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {135})), #"SYSTEM_SYSRULES_dd_dri"('id': 40, 'decisionInputId': 4, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IS_NULL")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 11, 'decisionOutputId': 1, 'value': 386)}, 'annotation': "Rotational ASK marked as Complete")}, 'isUnique': true, 'defaultOutputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': 0)})),#"SYSTEM_SYSRULES_dd_exr"(decisionDefinition:local!decisiondefinition,executionInputs:{#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:3,value:'ri!currentStatus'),#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:1,value:'ri!nextStatusID'),#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:4,value:'ri!isDPPPICApproval')})))</definition>
+        <namedTypedValue>
+            <name>currentStatus</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextStatusID</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isDPPPICApproval</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <inputMetadataList>
+            <inputMetadata>
+                <inputId>3</inputId>
+                <nameRef>currentStatus</nameRef>
+                <allowedLabelsExpr></allowedLabelsExpr>
+                <allowedValuesExpr>#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179809"</allowedValuesExpr>
+            </inputMetadata>
+            <inputMetadata>
+                <inputId>1</inputId>
+                <nameRef>nextStatusID</nameRef>
+                <allowedLabelsExpr>{
+  "PPL Review",
+  "DPP Leadership Review",
+  "RPPP Review",
+  "DPP PIC Review",
+  "Completed",
+  "DPP Ops Review",
+  "DPP Ops Review - Return",
+  "DPP Ops Review - Final",
+}</allowedLabelsExpr>
+                <allowedValuesExpr>#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"</allowedValuesExpr>
+            </inputMetadata>
+        </inputMetadataList>
+        <outputMetadataList>
+            <outputMetadata>
+                <outputId>1</outputId>
+                <nameRef>triggerID</nameRef>
+                <typeName>{http://www.appian.com/ae/types/2009}Integer</typeName>
+            </outputMetadata>
+        </outputMetadataList>
+        <hitPolicy>UNIQUE</hitPolicy>
+    </decision>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e777-b242-8000-9c12-011c48011c48_5300627"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6849714"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebe3-046c-8000-9c56-011c48011c48_13068240</versionUuid>
+    <interface>
+        <name>CAW_RPT_UserExport</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6700993</uuid>
+        <description>Interface for user Report with Export to Excel</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_sectionLayout_v1"(
+  contents: {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_ButtonLayout"(
+              secondaryButtons: {
+                #"SYSTEM_SYSRULES_ButtonWidget"(
+                  label: "Go Back",
+                  saveInto: { a!save(ri!chooseId, 1) },
+                  
+                )
+              }
+            )
+          }
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_gridField_v1"(
+      userFilters:{ #"urn:appian:user-filter:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/919df492-3725-4047-b80e-762b8162497e",#"urn:appian:user-filter:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/9bfd033c-8f3c-4ec6-ba1e-3a01d04067da",#"urn:appian:user-filter:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/c8c2258b-72c2-4b1f-a01e-b6cb42714e85"},
+      data: #"urn:appian:record-type:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda",
+      showExportButton: true,
+      columns: {
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Name",
+          value: fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/fullname"],
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Email",
+          value: fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/username"],
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Role(s)",
+          value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: 
+              #"SYSTEM_SYSRULES_richTextBulletedList"(
+                items: split(tostring(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/role"]),";")
+
+              ),
+            
+          )
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Added Date",
+          value: fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/createdon"]
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Added By",
+          value: fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/createdby"]
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Modified Date",
+          value: fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/modifiedon"]
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "Modified By",
+          value: fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/modifiedby"]
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "DRT Tool Status",
+          value: #"SYSTEM_SYSRULES_tagField"(
+            tags: #"SYSTEM_SYSRULES_tagItem"(
+              text: if(
+                toboolean(
+                  fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/isactive"]
+                ) = 1,
+                "Active",
+                "Inactive"
+              ),
+              backgroundColor: if(
+                toboolean(
+                  fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/isactive"]
+                ) = 1,
+                "#43b02a",
+                "NEGATIVE"
+              ),
+              textColor: "#ffffff"
+            )
+          ),
+          sortField: "isactive"
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          helpTooltip: "If User account is inactive in Appian, roles won't be visible",
+          label: "Appian Account Status",
+          value: #"SYSTEM_SYSRULES_tagField"(
+            tags: #"SYSTEM_SYSRULES_tagItem"(
+              text: if(
+                toboolean(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/appianstatus"]),
+                "Active",
+                "Inactive"
+              ),
+              backgroundColor: if(
+                toboolean(fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/appianstatus"]),
+                "#43b02a",
+                "NEGATIVE"
+              ),
+              textColor: "#ffffff"
+            ),
+
+          ),
+
+        ),
+        #"SYSTEM_SYSRULES_gridColumn"(
+          label: "",
+          value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: #"SYSTEM_SYSRULES_richTextIcon"(
+              icon: "edit",
+              caption: "Click here to edit the user role",
+              color: "#0D3DB8",
+              link: #"SYSTEM_SYSRULES_startProcessLink"(
+                processModel: #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12942826",
+                processParameters: {
+                  user: fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/username"],
+                  originalStatus:fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/isactive"],
+                  newStatus:fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/isactive"],
+                  userId:fv!row[#"urn:appian:record-field:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/userid"],
+                }
+              ),
+              linkStyle: "STANDALONE"
+            ),
+            align: "LEFT"
+          )
+        )
+      },
+      recordActions: #"SYSTEM_SYSRULES_recordActionItem"(
+        action:#"urn:appian:record-action:v1:59ca4583-3bc8-42f7-b927-6b57a969ffda/be1bcacc-c041-44a9-b65e-ea0f2ef9b256"
+      ),
+      actionsStyle: "TOOLBAR_PRIMARY"
+    ),
+    /*a!gridField_23r3(*/
+      /*userFilters: 'recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.filters.{feaa699b-385f-4e76-913b-1f32cbe053a8}Status',*/
+      /*data: 'recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User',*/
+      /*showExportButton: true,*/
+      /*columns: {*/
+        /*a!gridColumn(*/
+          /*label: "Name",*/
+          /*value: fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{fullName}fullName']*/
+        /*),*/
+        /*a!gridColumn(*/
+          /*label: "Email",*/
+          /*value: fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userName}userName']*/
+        /*),*/
+        /*a!gridColumn(*/
+          /*label: "Role(s)",*/
+          /*value: a!richTextDisplayField(*/
+            /*value: if(*/
+              /*and(*/
+                /*isusernametaken(*/
+                  /*fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userName}userName']*/
+                /*),*/
+                /*isuseractive(*/
+                  /*fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userName}userName']*/
+                /*)*/
+              /*),*/
+              /*a!richTextBulletedList(*/
+                /*items: replace(*/
+                  /*rule!CAW_getGroupsForUsers(*/
+                    /*groups: getgroupsformemberuser(*/
+                      /*fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userName}userName']*/
+                    /*),*/
+                    /*user: fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userName}userName']*/
+                  /*),*/
+                  /*1,*/
+                  /*4,*/
+                  /*""*/
+                /*),*/
+/*                */
+              /*),*/
+              /*{}*/
+            /*)*/
+          /*)*/
+        /*),*/
+        /*a!gridColumn(*/
+          /*label: "Added Date",*/
+          /*value: fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{createdOn}createdOn']*/
+        /*),*/
+        /*a!gridColumn(*/
+          /*label: "Added By",*/
+          /*value: fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{createdBy}createdBy']*/
+        /*),*/
+        /*a!gridColumn(*/
+          /*label: "Modified Date",*/
+          /*value: fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{modifiedOn}modifiedOn']*/
+        /*),*/
+        /*a!gridColumn(*/
+          /*label: "Modified By",*/
+          /*value: fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{modifiedBy}modifiedBy']*/
+        /*),*/
+        /*a!gridColumn(*/
+          /*label: "DRT Tool Status",*/
+          /*value: a!tagField(*/
+            /*tags: a!tagItem(*/
+              /*text: if(*/
+                /*toboolean(*/
+                  /*fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{isActive}isActive']*/
+                /*) = 1,*/
+                /*"Active",*/
+                /*"Inactive"*/
+              /*),*/
+              /*backgroundColor: if(*/
+                /*toboolean(*/
+                  /*fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{isActive}isActive']*/
+                /*) = 1,*/
+                /*"#43b02a",*/
+                /*"NEGATIVE"*/
+              /*),*/
+              /*textColor: "#ffffff"*/
+            /*)*/
+          /*),*/
+          /*sortField: "isActive"*/
+        /*),*/
+        /*a!gridColumn(*/
+          /*helpTooltip: "If User account is inactive in Appian, roles won't be visible",*/
+          /*label: "Appian Account Status",*/
+          /*value: a!tagField(*/
+            /*tags: a!tagItem(*/
+              /*text: if(*/
+                /*and(*/
+                  /*isusernametaken(*/
+                    /*fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userName}userName']*/
+                  /*),*/
+                  /*isuseractive(*/
+                    /*fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userName}userName']*/
+                  /*)*/
+                /*),*/
+                /*"Active",*/
+                /*"Inactive"*/
+              /*),*/
+              /*backgroundColor: if(*/
+                /*and(*/
+                  /*isusernametaken(*/
+                    /*fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userName}userName']*/
+                  /*),*/
+                  /*isuseractive(*/
+                    /*fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userName}userName']*/
+                  /*)*/
+                /*),*/
+                /*"#43b02a",*/
+                /*"NEGATIVE"*/
+              /*),*/
+              /*textColor: "#ffffff"*/
+            /*),*/
+/*            */
+          /*),*/
+/*          */
+        /*),*/
+        /*a!gridColumn(*/
+          /*label: "",*/
+          /*value: a!richTextDisplayField(*/
+            /*value: a!richTextIcon(*/
+              /*icon: "edit",*/
+              /*caption: "Click here to edit the user role",*/
+              /*color: "#0D3DB8",*/
+              /*link: a!startProcessLink(*/
+                /*processModel: cons!DRTV4_PM_EDIT_USER,*/
+                /*processParameters: {*/
+                  /*user: fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userName}userName'],*/
+                  /*originalStatus:fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{isActive}isActive'],*/
+                  /*newStatus:fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{isActive}isActive'],*/
+                  /*userId:fv!row['recordType!{8e8499ab-dd27-4fd3-96a2-67dd5b7ddd52}CAW User.fields.{userId}userId']*/
+                /*}*/
+              /*),*/
+              /*linkStyle: "STANDALONE"*/
+            /*),*/
+            /*align: "LEFT"*/
+          /*)*/
+        /*)*/
+      /*}*/
+    /*),*/
+    
+  }
+)</definition>
+        <namedTypedValue>
+            <name>chooseId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6743803"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6744350"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6744482"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6816076"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12952968"/>
+        <historyInfo versionUuid="_a-0000ebe3-046c-8000-9c56-011c48011c48_13068240"/>
+    </history>
+</contentHaul>

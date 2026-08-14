@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12960110</versionUuid>
+    <rule>
+        <name>DRTV4_setUserRolesData</name>
+        <uuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12951491</uuid>
+        <description>Expression to set user roles data</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!userData: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3070432"(
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(startIndex: 1, batchSize: - 1,sort: #"SYSTEM_SYSRULES_sortInfo"(field: "userId",ascending: true)),
+    returnCDT: true
+  ),
+  local!rolesData: #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12951503"(fetchTotalCount: true),
+  a!flatten(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!userData,
+      expression: if(
+        #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(fv!item.userName),
+        {},
+        {
+          'type!{urn:com:appian:types:DRTV4}DRTV4_userRoles_Status'(
+            id: index(
+              index(
+                local!rolesData,
+                wherecontains(
+                  fv!item.userId,
+                  tointeger(index(local!rolesData, "userId", null))
+                ),
+                null
+              ),
+              "id",
+              null
+            ),
+            userId: index(fv!item, "userId", null),
+            role: if(
+              and(
+                isusernametaken(fv!item.userName),
+                isuseractive(fv!item.userName)
+              ),
+              
+              #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12960088"(fv!item.userName),
+                
+              null
+            ),
+            appianStatus: if(
+              and(
+                isusernametaken(fv!item.userName),
+                isuseractive(fv!item.userName)
+              ),
+              true,
+              false
+            ),
+            
+          )
+        }
+      )
+    )
+  )
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12960110"/>
+    </history>
+</contentHaul>

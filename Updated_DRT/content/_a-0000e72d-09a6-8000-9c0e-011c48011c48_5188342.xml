@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11755387</versionUuid>
+    <interface>
+        <name>CAW_FRM_LinkNominationAndASK</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5188342</uuid>
+        <description>Form to link a nomination to an ASK</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(1, 10),
+  local!selectedRowIndex: tointeger({}),
+  local!selectedRow,
+  local!nominationView: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3851730"(
+    returnCDT: true,
+    nominationId: ri!nomination.nominationId
+  ),
+  local!coreAskDetailsIds: #"_a-0000ea11-24bc-8000-9c45-011c48011c48_11578368"(),
+  local!rotationalIds: #"_a-0000ea11-24bc-8000-9c45-011c48011c48_11578419"(),
+  local!linkingASKs: #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5207969"(
+    askDetailId: if(
+      ri!nomination.positionTypeId = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+      local!coreAskDetailsIds,
+      local!rotationalIds
+    ),
+    positionTypeID: ri!nomination.positionTypeId,
+    pagingInfo: local!pagingInfo,
+    
+  ),
+  local!rotationalAskDetails: if(
+    and(
+      or(
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!linkingASKs),
+        tointeger(local!linkingASKs.totalCount)=0
+        ),
+      ri!nomination.positionTypeId &lt;&gt; #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+      not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!selectedRow))
+    ),
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127143"(
+      returnCDT: true,
+      version: index(local!selectedRow, "version", 0),
+      askId: index(local!selectedRow, "askId", 0)
+    ),
+    null
+  ),
+  local!currentASKRotationalDetails: if(
+    and(
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedRow),
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!rotationalAskDetails)
+    ),
+    index(
+      local!rotationalAskDetails,
+      wherecontains(
+        local!selectedRow.askId,
+        local!rotationalAskDetails.askId
+      ),
+      {}
+    ),
+    null
+  ),
+  local!bUs: if(
+    and(
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedRow),
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!currentASKRotationalDetails)
+    ),
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3084520"(
+      regionId: local!selectedRow.regionId,
+      isActive: true,
+      columns: { "buId", "regionId", "bu" },
+      returnCDT: true
+    ),
+    null
+  ),
+  local!selectedBURowIndex: tointeger({}),
+  local!selectedBURow,
+  #"SYSTEM_SYSRULES_formLayout_v1"(
+    label: "Link Nomination to ASK: " &amp; local!nominationView.nominationType &amp; " - " &amp; local!nominationView.nominationId,
+    contents: {
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Candidate Details",
+        contents: {
+          #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3662875"(nominationView: local!nominationView)
+        },
+        isCollapsible: true,
+        divider: "ABOVE",
+        dividerWeight: "MEDIUM",
+        dividerColor: "ACCENT",
+        marginBelow: "STANDARD"
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Available ASKs",
+        contents: {
+          /*CORE GRID*/
+          #"SYSTEM_SYSRULES_gridField_v1"(
+            label: "Core ASKs",
+            labelPosition: "COLLAPSED",
+            instructions: "Please select a core ASK to link to this nomination",
+            emptyGridMessage: "No Core ASKs Found",
+            data: local!linkingASKs,
+            columns: {
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Request Number",
+                sortField: "askId",
+                value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                    text: index(
+                      split(fv!row.dppGroup, "–"),
+                      1,
+                      tointeger(null)
+                    ) &amp; " - " &amp; "FY" &amp; right(fv!row.fyear, 2),
+                    link: #"SYSTEM_SYSRULES_recordLink"(
+                      recordType: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3310219",
+                      identifier: fv!row.askDetailId,
+                      openLinkIn: "NEW_TAB"
+                    )
+                  )
+                )
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "DPP Group",
+                sortField: "dppGroup",
+                value: fv!row.dppGroup
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Level",
+                sortField: "levelNeed",
+                value: if(
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.levelNeed),
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3372378",
+                  fv!row.levelNeed
+                )
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Outgoing Resource",
+                sortField: "outGoingResource",
+                value: if(
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.outGoingResource),
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3372378",
+                  fv!row.outGoingResource
+                )
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Reason",
+                sortField: "needReason",
+                value: if(
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.needReason),
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3372378",
+                  fv!row.needReason
+                )
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Year",
+                sortField: "fYear",
+                value: fv!row.fYear
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Projected Start Date",
+                sortField: "projectedStartDate",
+                value: if(
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.projectedStartDate),
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3372378",
+                  fv!row.projectedStartDate
+                )
+              ),
+              #"SYSTEM_SYSRULES_gridColumn"(
+                label: "Retirement/ End Date",
+                sortField: "endDate",
+                value: if(
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(fv!row.endDate),
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3372378",
+                  fv!row.endDate
+                )
+              )
+            },
+            showWhen: ri!nomination.positionTypeId = #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+            selectable: true,
+            selectionStyle: "ROW_HIGHLIGHT",
+            selectionValue: local!selectedRowIndex,
+            selectionSaveInto: {
+              local!selectedRowIndex,
+              a!save(
+                local!selectedRow,
+                index(
+                  fv!selectedRows,
+                  length(fv!selectedRows),
+                  null
+                )
+              ),
+              a!save(
+                local!selectedRowIndex,
+                index(save!value, length(save!value), null)
+              )
+            },
+            selectionRequired: true,
+            selectionRequiredMessage: "Please select an ASK",
+            spacing: "DENSE",
+            borderStyle: "LIGHT",
+            shadeAlternateRows: true(),
+            rowHeader: 1,
+            pagingSaveInto: local!pagingInfo
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            showWhen: ri!nomination.positionTypeId &lt;&gt; #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+            showDividers: true,
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_gridField_v1"(
+                    label: "Rotational ASKs",
+                    labelPosition: "ABOVE",
+                    instructions: "Please select an ASK to view a list of BUs",
+                    emptyGridMessage: "No Rotational ASKs Found",
+                    data: local!linkingASKs,
+                    columns: {
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: "Rotational Request",
+                        sortField: "askId",
+                        value: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: if(tointeger(fv!row.regionId)=#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11596299",
+                            fv!row.askName,fv!row.region &amp; " - " &amp; "FY" &amp; right(fv!row.fyear, 2)),
+                            link: #"SYSTEM_SYSRULES_recordLink"(
+                              recordType: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3340173",
+                              identifier: fv!row.rotationalAskId
+                            )
+                          )
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: "Version",
+                        sortField: "version",
+                        value: fv!row.version,
+                        align: "CENTER"
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: "Region",
+                        sortField: "region",
+                        value: fv!row.region,
+                        align: "CENTER"
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: "Year",
+                        sortField: "fYear",
+                        value: fv!row.fYear,
+                        align: "CENTER"
+                      )
+                    },
+                    selectable: true,
+                    selectionStyle: "ROW_HIGHLIGHT",
+                    selectionValue: local!selectedRowIndex,
+                    selectionSaveInto: {
+                      a!save(
+                        local!selectedRow,
+                        index(
+                          fv!selectedRows,
+                          length(fv!selectedRows),
+                          null
+                        )
+                      ),
+                      a!save(
+                        local!selectedRowIndex,
+                        index(save!value, length(save!value), null)
+                      ),
+                      a!save(
+                        {
+                          local!selectedBURow,
+                          local!selectedBURowIndex
+                        },
+                        null
+                      )
+                    },
+                    selectionRequired: true,
+                    selectionRequiredMessage: "Please select an ASK",
+                    spacing: "DENSE",
+                    borderStyle: "LIGHT",
+                    shadeAlternateRows: true(),
+                    rowHeader: 1,
+                    pagingSaveInto: local!pagingInfo
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: "No Rotational ASK selected to display BUs",
+                      color: "SECONDARY",
+                      size: "MEDIUM",
+                      style: "EMPHASIS"
+                    ),
+                    showWhen: #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!selectedRowIndex)
+                  ),
+                  #"SYSTEM_SYSRULES_gridField_v1"(
+                    label: "BUs",
+                    labelPosition: "ABOVE",
+                    instructions: "Please select a BU to link to this nomination",
+                    emptyGridMessage: "No Rotational ASKs Found",
+                    data: local!currentASKRotationalDetails,
+                    columns: {
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: "BU",
+                        sortField: "askId",
+                        value: property(
+                          index(
+                            local!bUs,
+                            wherecontains(
+                              tointeger(fv!row.buId),
+                              tointeger(property(local!bUs, "buId", null))
+                            ),
+                            {}
+                          ),
+                          "bu",
+                          null
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_gridColumn"(
+                        label: "Plan",
+                        sortField: "plan",
+                        value: if(
+                          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(index(fv!row, "plan", tointeger({}))),
+                          0,
+                          index(fv!row, "plan", tointeger({}))
+                        ),
+                        align: "CENTER"
+                      )
+                    },
+                    showWhen: and(
+                      ri!nomination.positionTypeId &lt;&gt; #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692",
+                      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedRow)
+                    ),
+                    selectable: true,
+                    selectionStyle: "ROW_HIGHLIGHT",
+                    selectionValue: local!selectedBURowIndex,
+                    selectionSaveInto: {
+                      a!save(
+                        local!selectedBURow,
+                        index(
+                          fv!selectedRows,
+                          length(fv!selectedRows),
+                          null
+                        )
+                      ),
+                      a!save(
+                        local!selectedBURowIndex,
+                        index(save!value, length(save!value), null)
+                      )
+                    },
+                    selectionRequired: true,
+                    selectionRequiredMessage: "Please select a BU",
+                    spacing: "DENSE",
+                    borderStyle: "LIGHT",
+                    shadeAlternateRows: true(),
+                    rowHeader: 1
+                  )
+                }
+              )
+            }
+          )
+        },
+        isCollapsible: true,
+        divider: "ABOVE",
+        dividerWeight: "MEDIUM",
+        dividerColor: "ACCENT",
+        marginBelow: "STANDARD"
+      ),
+      
+    },
+    buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+          value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+          saveInto: {
+            ri!buttonClicked,
+            /*save askDetailId for Core and rotationalAskId*/
+            a!save(
+              ri!nomination.askID,
+              index(
+                local!selectedRow,
+                "askId",
+                tointeger(null)
+              )
+            ),
+            /*if(*/
+            /*ri!nomination.positionTypeId = cons!CAW_INT_CORE_POSITION_TYPE_ID,*/
+            /*a!save(*/
+            /*ri!nomination.askID,*/
+            /*index(local!selectedRow, "askDetailId", tointeger(null))*/
+            /*),*/
+            /*a!save(*/
+            /*ri!nomination.askID,*/
+            /*index(local!selectedRow, "askId", tointeger(null))*/
+            /*)*/
+            /*),*/
+            /*save BU ID*/
+            a!save(
+              ri!nomination.buID,
+              index(
+                local!selectedBURow,
+                "buId",
+                tointeger(null)
+              )
+            ),
+            a!save(
+              ri!nomination.modifiedBy,
+              #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(loggedInUser())
+            ),
+            a!save(ri!nomination.modifiedOn, now()),
+            /*AUDIT*/
+            a!save(
+              ri!auditHistory,
+              'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                auditId: null,
+                taskId: null,
+                requestId: ri!nomination.nominationId,
+                moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+                statusId: null,
+                version: 1,
+                action: "ASK linked to Nomination",
+                description: null,
+                createdBy: loggedInUser(),
+                createdOn: now()
+              )
+            )
+          },
+          submit: true,
+          style: "PRIMARY",
+          /*disabled: rule!CAW_isBlank(local!selectedRowIndex),*/
+          loadingIndicator: true,
+          validate: true,
+          confirmMessage: "Are you sure you want to submit?"
+        )
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+          value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+          saveInto: { ri!buttonClicked },
+          submit: true,
+          validate: false,
+          style: "NORMAL"
+        )
+      }
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonClicked</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>distinctASKids</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+  /*nominationId: 194,*/
+  nominationId: 163,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonClicked</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:CAW" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:CAW_Audit"/>
+                    <a:nameRef>auditHistory</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>distinctASKids</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5230670"/>
+        <historyInfo versionUuid="_a-0000e781-2d54-8000-9c18-011c48011c48_5419707"/>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6306851"/>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6307200"/>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6307325"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6851483"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11613654"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11755387"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef99-54a0-8000-9c6e-011c48011c48_14286638</versionUuid>
+    <rule>
+        <name>CAW_determineEmailRecipientCC</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5115647</uuid>
+        <description>Rule to get email recipientsCC</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!region: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3084520"(
+    bu: #"_a-0000e602-3559-8000-9bee-011c48011c48_2486848"(
+      nullableValue: ri!bu,
+      replacementValue: - 1
+    ),
+    returnCDT: true
+  ),
+  local!regionId: if(
+    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(
+      property(
+        local!region,
+        "regionId",
+        tointeger(null)
+      )
+    ),
+    null,
+    property(
+      local!region,
+      "regionId",
+      tointeger(null)
+    )
+  ),
+  {
+    #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11617061"(
+      a!flatten(
+        reject(
+          fn!isnull,
+          toemailrecipient(
+            toemailaddress(
+              #"SYSTEM_SYSRULES_forEach"(
+                items: {
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177083",
+                  #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066240",
+                  #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066222"
+                },
+                expression: property(a!groupMembers(fv!item), "data", null),
+                
+              ),
+              property(
+                a!groupMembers(#"_a-0000e825-ace1-8000-9c24-011c48011c48_6814637"),
+                "data",
+                null
+              ),
+              #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4718496",
+              if(
+                or(
+                  ri!statusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5211777",
+                  ri!statusId = #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6473610",
+                  ri!statusId = #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6717952"
+                ),
+                {
+                  /*property(a!groupMembers(cons!CAW_GRP_HUMAN_RESOURCE),"data",null),*/
+                  property(
+                    a!groupMembers(#"_a-0000eb38-82c9-8000-9c51-011c48011c48_12645233"),
+                    "data",
+                    null
+                  ),
+                  property(
+                    a!groupMembers(#"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6510745"),
+                    "data",
+                    null
+                  ),
+                  property(
+                    a!groupMembers(#"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6510871"),
+                    "data",
+                    null
+                  )
+                },
+                null
+              ),
+              if(
+                or(
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!regionId),
+                  ri!isNonAuditLeader
+                ),
+                null,
+                {
+                  if(
+                    contains(
+                      tointeger(local!regionId),
+                      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206296"
+                    ),
+                    {
+                      property(
+                        a!groupMembers(#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3251706"),
+                        "data",
+                        null
+                      ),
+                      property(
+                        a!groupMembers(#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4792602"),
+                        "data",
+                        null
+                      )
+                    },
+                    if(
+                      contains(
+                        tointeger(local!regionId),
+                        #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206289"
+                      ),
+                      {
+                        property(
+                          a!groupMembers(#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3251699"),
+                          "data",
+                          null
+                        ),
+                        property(
+                          a!groupMembers(#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4792595"),
+                          "data",
+                          null
+                        )
+                      },
+                      {
+                        property(
+                          a!groupMembers(#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3251699"),
+                          "data",
+                          null
+                        ),
+                        property(
+                          a!groupMembers(#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4792595"),
+                          "data",
+                          null
+                        ),
+                        property(
+                          a!groupMembers(#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3251706"),
+                          "data",
+                          null
+                        ),
+                        property(
+                          a!groupMembers(#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4792602"),
+                          "data",
+                          null
+                        )
+                      }
+                    )
+                  ),
+                  if(tostring(ri!bu)=tostring("other"),null(),
+                  property(
+                    a!groupMembers(
+                      a!groupsByName(
+                        concat(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(ri!bu), " BUPPP")
+                      )
+                    ),
+                    "data",
+                    null
+                  )),
+                  if(tostring(ri!bu)=tostring("other"),null(),
+                  property(
+                    a!groupMembers(
+                      a!groupsByName(
+                        concat(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(ri!bu), " BUPIC")
+                      )
+                    ),
+                    "data",
+                    null
+                  )),
+                }
+              ),
+              if(ri!isNonAuditLeader, ri!createdBy, null)
+            )
+          )
+        )
+      )
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>bu</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>statusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>createdBy</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isNonAuditLeader</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5115659"/>
+        <historyInfo versionUuid="_a-0000e776-631d-8000-9c0f-011c48011c48_5279541"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5376149"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6442986"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6510923"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6730262"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6895499"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11731141"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12645381"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14082565"/>
+        <historyInfo versionUuid="_a-0000ef99-54a0-8000-9c6e-011c48011c48_14286638"/>
+    </history>
+</contentHaul>

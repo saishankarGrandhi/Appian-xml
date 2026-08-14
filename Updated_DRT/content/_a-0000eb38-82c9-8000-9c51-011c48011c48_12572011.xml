@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12591112</versionUuid>
+    <interface>
+        <name>DRTV4_AddNewRoleDefinitionCategory</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12572011</uuid>
+        <description>Interface to Add a new category in the Role definitions Page</description>
+        <parentUuid>b6e2e847-4392-4d53-bbd2-931b68aca1d9</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_headerContentLayout"(
+  header: #"SYSTEM_SYSRULES_billboardLayout_v1"(
+    backgroundMedia: #"SYSTEM_SYSRULES_documentImage"(document: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3192515"),
+    height: "EXTRA_SHORT",
+    overlay: #"SYSTEM_SYSRULES_barOverlay"(
+      contents: {
+        #"SYSTEM_SYSRULES_richTextDisplayField"(
+          labelPosition: "COLLAPSED",
+          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: "Add New Category to the Role Definitions",
+            color: "#FFFFFF",
+            size: "MEDIUM_PLUS",
+            style: "STRONG"
+          )
+        )
+      }
+    )
+  ),
+  contents: {
+    #"SYSTEM_SYSRULES_cardLayout"(
+      showShadow: true,
+      contents: {
+        #"SYSTEM_SYSRULES_columnsLayout"(
+          columns: #"SYSTEM_SYSRULES_columnLayout"(
+            width: "MEDIUM_PLUS",
+            contents:  #"SYSTEM_SYSRULES_textField"(
+              label: "Category Name",
+              required: true,
+              value: ri!newCategory.category,
+              saveInto: ri!newCategory.category,
+              placeholder: "Please enter the Category name",
+              characterLimit: 100,
+            )
+          )
+        ),
+        #"SYSTEM_SYSRULES_textField"(readOnly: true),
+        fn!richTextEditorField(
+          label: "Category Description",
+          required: true,
+          height: "MEDIUM",
+          richTextValue: ri!newCategory.Description,
+          richTextSaveInto: {ri!newCategory.Description,
+          a!save(ri!newCategory.isActive,true)},
+        ),
+        #"SYSTEM_SYSRULES_textField"(readOnly: true),
+        #"SYSTEM_SYSRULES_ButtonLayout"(
+          primaryButtons: #"SYSTEM_SYSRULES_buttonWidget_v1"(
+            label: "ADD",
+            style: "SOLID",
+            submit: TRUE,
+            confirmMessage: "Are you sure you want to make changes?",
+            confirmButtonLabel: "YES",
+            cancelButtonLabel: "NO",
+            value: "ADD",
+            saveInto: {
+              a!save(ri!addButtonValue,"ADD"),
+
+            }
+          ),
+          secondaryButtons: #"SYSTEM_SYSRULES_buttonWidget_v1"(
+            label: "EXIT",
+            value: "EXIT",
+            saveInto: a!save(ri!addButtonValue,"EXIT"),
+            submit: true,
+            style: "OUTLINE",
+            validate: false,
+            confirmMessage: "Are you sure you want to exit? Your changes will not be saved",
+            confirmButtonLabel: "YES",
+            cancelButtonLabel: "NO"
+          )
+        )
+       
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>newCategory</name>
+            <type>
+                <name>DRTV4_Ref_Roledefinition_Category</name>
+                <namespace>urn:com:appian:types:DRTV4</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>addButtonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12591112"/>
+    </history>
+</contentHaul>

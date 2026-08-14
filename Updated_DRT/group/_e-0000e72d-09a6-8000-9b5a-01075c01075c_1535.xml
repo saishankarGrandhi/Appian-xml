@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000e790-a118-8000-9b67-01075c01075c_1694</versionUuid>
+    <group>
+        <name>CAW Midsouth BUPPP_BUPIC</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000e72d-09a6-8000-9b5a-01075c01075c_1535</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <parentUuid>_e-0000e72d-09a6-8000-9b5a-01075c01075c_1512</parentUuid>
+        <description>Combined BUPPP and BUPIC group for Mid-South
+Old Name: CAW Mid-South BUPPP_BUPIC</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups/>
+    </members>
+    <admins>
+        <users/>
+        <groups/>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000e72d-09a6-8000-9b5a-01075c01075c_1536"/>
+        <historyInfo versionUuid="_e-0000e790-a118-8000-9b67-01075c01075c_1694"/>
+    </history>
+</groupHaul>

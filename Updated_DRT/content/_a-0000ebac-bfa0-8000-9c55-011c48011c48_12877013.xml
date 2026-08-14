@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebe3-046c-8000-9c56-011c48011c48_13068819</versionUuid>
+    <interface>
+        <name>DRT_CMP_RotationalAskCharts_FY24</name>
+        <uuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12877013</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+
+  local!fiscalYearLabel: "FY"&amp;right(ri!fiscalYear,2),
+  local!subPositions: #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3595917"(
+    refId: {#"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596699", #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3596692"},
+    /*isActive: true,*/
+    returnCDT: true
+  ),
+  local!rotationalAskVsActualData: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6758529"(
+    fiscalYear: ri!fiscalYear,
+    /*region: ri!region,*/
+    bus: ri!bus,
+    rotationalPlan: ri!rotationalAskPlan
+  ),
+  local!totalResourcesData: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759166"(
+    bus: ri!bus,
+    subPositions: local!subPositions,
+    /*region: ri!region,*/
+    fiscalYear: ri!fiscalYear
+  ),
+  local!buTotalResourcesData: if(
+    a!isNullOrEmpty(ri!selectedBU),
+    {},
+    #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6759694"(
+      bu: ri!selectedBU,
+      fiscalYear: ri!fiscalYear,
+      /*region: ri!region,*/
+      subPositions: local!subPositions
+    )
+  ),
+  local!sortedData: todatasubset(
+    local!buTotalResourcesData,
+    #"SYSTEM_SYSRULES_pagingInfo"(startIndex: 1, batchSize: -1, sort: #"SYSTEM_SYSRULES_sortInfo"(field: "subPosition",ascending: true))
+  ),
+ 
+    {
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Rotational ASK",
+        contents: {
+          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6779100"(
+            message: "The Rotational ASK is inclusive of only traditional and early career rotational types. For additional nomination types submitted by your BU, see the chart under Total Resources."
+          ),
+          #"SYSTEM_SYSRULES_cardLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_columnChartField"(
+                label: local!fiscalYearLabel&amp;" "&amp;" - Rotational ASK Actual",
+                categories: index(local!rotationalAskVsActualData,"bu",{}),
+                series: {
+                  #"SYSTEM_SYSRULES_chartSeries"(label: "Open", data: index(local!rotationalAskVsActualData,"open")),
+                  #"SYSTEM_SYSRULES_chartSeries"(label: "In Process", data: index(local!rotationalAskVsActualData,"inprocess")),
+                  #"SYSTEM_SYSRULES_chartSeries"(label: "Confirmed", data: index(local!rotationalAskVsActualData,"confirmed"))
+                },
+                xAxisTitle: "",
+                stacking: "NORMAL",
+                showLegend: true,
+                showDataLabels: true,
+                colorScheme: #"SYSTEM_SYSRULES_colorSchemeCustom"(colors: { #"_a-0000e825-ace1-8000-9c24-011c48011c48_6778348", #"_a-0000e825-ace1-8000-9c24-011c48011c48_6778342", #"_a-0000e825-ace1-8000-9c24-011c48011c48_6777992" })
+              ),
+              #"SYSTEM_SYSRULES_gridField_v1"(
+                label: local!fiscalYearLabel&amp;" "&amp;" - Rotational ASK vs Actual",
+                data: local!rotationalAskVsActualData,
+                columns: {
+                  #"SYSTEM_SYSRULES_gridColumn"(label: "BU",sortField: "bu", value: index(fv!row,"bu"),width: "2X"),
+                  #"SYSTEM_SYSRULES_gridColumn"(label: "Plan", sortField: "plan", value: index(fv!row,"plan"),align: "END",width: "1X"),
+                  #"SYSTEM_SYSRULES_gridColumn"(label: "Confirmed", sortField: "confirmed", value: index(fv!row,"confirmed"),align: "END",width: "1X"),
+                  #"SYSTEM_SYSRULES_gridColumn"(label: "In Process", sortField: "inProcess", value: index(fv!row,"inProcess"),align: "END",width: "1X"),
+                  #"SYSTEM_SYSRULES_gridColumn"(label: "Total Confirmed and In Process", value: sum(index(fv!row,"confirmed"),index(fv!row,"inProcess")),align: "END",width: "1X"),
+                  #"SYSTEM_SYSRULES_gridColumn"(label: "Open", sortField: "open", value: index(fv!row,"open"),align: "END",width: "1X")
+                },
+                pageSize: 15
+              )
+            },
+            padding: "STANDARD",
+            showBorder: false
+          )
+        },
+        isCollapsible: true
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Total Resources",
+        contents: #"SYSTEM_SYSRULES_cardLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_columnChartField"(
+              label: local!fiscalYearLabel&amp;" "&amp;"- Total Resources",
+              instructions: "Click on a BU to see a breakdown chart.",
+              categories: index(local!totalResourcesData,"bu",{}),
+              series: {
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Transitional Core",
+                  data: index(local!totalResourcesData,"transitionalCore",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Core Professional",
+                  data: index(local!totalResourcesData,"coreProfessional",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Core MD",
+                  data: index(local!totalResourcesData,"coreMD",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Core Partner",
+                  data: index(local!totalResourcesData,"corePartner",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "EVS Rotational",
+                  data: index(local!totalResourcesData,"rotEVS",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Tech Assurance Rotational",
+                  data: index(local!totalResourcesData,"rotTechAssurance",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "ST SECRP Rotational",
+                  data: index(local!totalResourcesData,"rotSECRP",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Non-Traditional Rotational",
+                  data: index(local!totalResourcesData,"rotNonTraditional",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Early Career Rotational",
+                  data: index(local!totalResourcesData,"rotEarlyCareer",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Traditional Rotational",
+                  data: index(local!totalResourcesData,"rotTraditional",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Direct Core",
+                  data: index(local!totalResourcesData,"directCore",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Inspections Rotational",
+                  data: index(local!totalResourcesData,"inspectionsRotational",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Traditional Rotational with EQCR Center",
+                  data: index(local!totalResourcesData,"traditionalRotationalEQCR",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Traditional Rotational without EQCR Center",
+                  data: index(local!totalResourcesData,"traditionalRotationalwithoutEQCR",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Early Career Rotational",
+                  data: index(local!totalResourcesData,"earlyCarrerRotational",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_chartSeries"(
+                  label: "Non Traditional Rotational",
+                  data: index(local!totalResourcesData,"nonTradionalRotational",{}),
+                  links: #"SYSTEM_SYSRULES_forEach"(
+                    items: index(local!totalResourcesData,"bu",{}),
+                    expression: #"SYSTEM_SYSRULES_dynamicLink"(
+                      value: fv!item,
+                      saveInto: ri!selectedBU
+                    )
+                  )
+                )
+              },
+              stacking: "NORMAL",
+              colorScheme: #"SYSTEM_SYSRULES_colorSchemeCustom"(colors: #"_a-0000e825-ace1-8000-9c24-011c48011c48_6778632")
+            ),
+            #"SYSTEM_SYSRULES_columnChartField"(
+              label: local!fiscalYearLabel&amp;" "&amp;ri!selectedBU&amp;" BU - Total Resources",
+              categories:sorttextarray(index(local!subPositions,"subPosition",{}),false),
+              series: {
+                #"SYSTEM_SYSRULES_chartSeries"(label: "In Process", data: index(local!sortedData.data,"inProcess",{})),
+                #"SYSTEM_SYSRULES_chartSeries"(label: "Confirmed", data: index(local!sortedData.data,"confirmed",{}))
+              },
+              stacking: "NORMAL",
+              showWhen: a!isNotNullOrEmpty(ri!selectedBU),
+              colorScheme: #"SYSTEM_SYSRULES_colorSchemeCustom"(colors: { #"_a-0000e825-ace1-8000-9c24-011c48011c48_6778342", #"_a-0000e825-ace1-8000-9c24-011c48011c48_6777992" })
+            )
+          },
+          padding: "STANDARD",
+          showBorder: false
+        ),
+        isCollapsible: true
+      )
+    }
+  
+)</definition>
+        <namedTypedValue>
+            <name>fiscalYear</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>region</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedBU</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>rotationalAskPlan</name>
+            <type>
+                <name>CAW_V_ROTATIONAL_ASK_PLAN?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>bus</name>
+            <type>
+                <name>CAW_REF_BaseUnit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">2024</a:value>
+                    <a:nameRef>fiscalYear</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>region</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>selectedBU</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e825-ace1-8000-9c24-011c48011c48_6906867"(fiscalYear: 2024)</a:value>
+                    <a:nameRef>rotationalAskPlan</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">a!localVariables(
+  local!bus: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3084520"(returnCDT: true, isActive: true),
+  local!oldBus: index(
+    local!bus,
+    wherecontains(
+      {
+        #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206289",
+        #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206296"
+      },
+      index(local!bus, "regionId", {})
+    )
+  ),
+  local!newBus: index(
+    local!bus,
+    wherecontains(406, index(local!bus, "regionId", {}))
+  ),
+  local!newBus
+  )</a:value>
+                    <a:nameRef>bus</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12957899"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_13019812"/>
+        <historyInfo versionUuid="_a-0000ebe3-046c-8000-9c56-011c48011c48_13068819"/>
+    </history>
+</contentHaul>

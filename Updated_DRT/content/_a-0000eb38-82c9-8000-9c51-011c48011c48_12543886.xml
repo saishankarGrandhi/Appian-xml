@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12925993</versionUuid>
+    <rule>
+        <name>PE_searchForProcessNameReduce</name>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12543886</uuid>
+        <description>Reduce process name</description>
+        <parentUuid>29a5d1a0-0cee-4539-9a25-a36937648dd0</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  not(#"_a-0000eb38-82c9-8000-9c51-011c48011c48_12461260"(ri!currentValue)),
+  ri!currentValue,
+  if(
+    search(ri!processType.fileExtensionSubstring,ri!fileName)&gt;0,
+    ri!processType,
+    null
+  )
+)</definition>
+        <namedTypedValue>
+            <name>fileName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>processType</name>
+            <type>
+                <name>PE_SFTP_REF_PROCESS_TYPES</name>
+                <namespace>urn:com:appian:types:PE</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>currentValue</name>
+            <type>
+                <name>PE_SFTP_REF_PROCESS_TYPES</name>
+                <namespace>urn:com:appian:types:PE</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12646730"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12925993"/>
+    </history>
+</contentHaul>

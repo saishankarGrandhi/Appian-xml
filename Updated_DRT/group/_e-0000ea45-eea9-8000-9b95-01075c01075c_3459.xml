@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000ea45-eea9-8000-9b95-01075c01075c_3547</versionUuid>
+    <group>
+        <name>CAW North Central BUPIC</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000ea45-eea9-8000-9b95-01075c01075c_3459</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <parentUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_943</parentUuid>
+        <description>Newly created group for Gateway West &amp; Northern Heartland BUPIC</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups>
+            <groupUuid>_e-0000e6ca-52ed-8000-9b4b-01075c01075c_1152</groupUuid>
+            <groupUuid>_e-0000ea45-eea9-8000-9b95-01075c01075c_3461</groupUuid>
+            <groupUuid>_e-0000e6ca-52ed-8000-9b4b-01075c01075c_1158</groupUuid>
+        </groups>
+    </members>
+    <admins>
+        <users/>
+        <groups/>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000ea45-eea9-8000-9b95-01075c01075c_3526"/>
+        <historyInfo versionUuid="_e-0000ea45-eea9-8000-9b95-01075c01075c_3547"/>
+    </history>
+</groupHaul>

@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11767333</versionUuid>
+    <interface>
+        <name>CAW_CMP_CandidateSelection</name>
+        <uuid>_a-0000e6c5-474f-8000-9bfa-011c48011c48_3592451</uuid>
+        <description>Component for Candidate selection</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isOldVersion:if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    false,
+    if(
+      todatetime(ri!nomination.createdOn)&lt;#"_a-0000ea45-eea9-8000-9c49-011c48011c48_11589045",
+      true,
+      false)
+  ),
+
+  local!selectedEmployee: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924363"(employeeId: ri!nomination.employeeId),
+  local!regionId: if(
+    toboolean(local!isOldVersion)=true,
+    if(
+    ri!nomination.originatingRegion = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206267"[1],
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206289",
+    if(
+      ri!nomination.originatingRegion = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206267"[2],
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206296",
+      null
+    )
+  ),
+  #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11596299"),
+  local!validRegionDropdown: {
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206267"[1],
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3206267"[2],
+    #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3566688",
+    #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3566706",
+    #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185"
+  },
+  local!updatedRegionDropdown: if(
+    contains(local!validRegionDropdown, ri!nomination.originatingRegion),
+    local!validRegionDropdown,
+    reject(
+      fn!isnull,
+      append(local!validRegionDropdown, ri!nomination.originatingRegion),
+    )
+  ),
+  local!buId: 
+   intersection(
+     tointeger(
+       property(
+      index(
+        ri!originatingBU,
+        wherecontains(
+          ri!nomination.originatingBU,
+          touniformstring(index(ri!originatingBU,"bu",{}))
+        ),
+        null
+      ),
+      "buId",
+      null
+    )),
+    tointeger(property(
+      index(
+        ri!originatingBU,
+        wherecontains(
+          tostring(local!regionId),
+          touniformstring(index(ri!originatingBU,"regionId",{}))
+        ),
+        null
+      ),
+      "buId",
+      null
+    ))
+  ),
+  local!busForDropdown: if(
+    a!isNullOrEmpty(local!regionId),
+    {#"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630", #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185"},
+    reject(fn!isnull,
+    touniformstring(
+      property(
+        index(
+          ri!originatingBU,
+          wherecontains(
+            tointeger(local!regionId),
+            tointeger(index(ri!originatingBU,"regionId",{}))
+          ),
+          null
+        ),
+        "bu",
+        {}
+      ),
+      if(toboolean(local!isOldVersion)=true,#"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",null),
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185"
+    ))
+  ),
+  local!updatedOriginatingBUDropdown: 
+    if(
+      contains(
+        local!busForDropdown,
+        ri!nomination.originatingBU
+      ),
+      local!busForDropdown,
+      if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!oldBu),
+      reject(
+        fn!isnull,
+        append(
+          local!busForDropdown,
+          ri!nomination.originatingBU
+        )/*local!busForDropdown*/
+
+      ),
+      local!busForDropdown
+    ),
+    
+  ),
+  local!officeForDropdown: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!regionId),
+    union(
+      index(ri!offices,"office",null),
+      touniformstring({})
+    ),
+    property(
+      index(
+        ri!offices,
+        wherecontains(
+          local!buId,
+          tointeger(index(ri!offices,"buId",{}))
+        ),
+        null
+      ),
+      "office",
+      {}
+    )
+  ),
+  local!validHomeOfficeDropdown: touniformstring(
+    reject(
+      fn!isnull,
+      {local!officeForDropdown, #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185", #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"}
+    )
+  ),
+  local!updatedHomeOfficeDropdown: if(
+    contains(local!validHomeOfficeDropdown, ri!nomination.originatingHomeOffice),
+    local!validHomeOfficeDropdown,
+    if(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!oldOffice),
+    reject(
+      fn!isnull,
+      append(local!validHomeOfficeDropdown, ri!nomination.originatingHomeOffice)
+    ),
+    local!validHomeOfficeDropdown
+    )
+  ),
+  #"SYSTEM_SYSRULES_cardLayout"(
+    contents: {
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3874642"(
+                nomination: ri!nomination,
+                selectedEmployee: local!selectedEmployee,
+                oldBu: ri!oldBu,
+                oldOffice: ri!oldOffice
+              ),
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Job Function",
+                value: ri!nomination.functionName,
+                saveInto: ri!nomination.functionName,
+                required: not(ri!nomination.isDirectHire = true),
+                disabled: or(
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId),
+                  and(
+                    not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId)),
+                    not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(index(local!selectedEmployee, "jobFunction", null)))
+                  )
+                )
+              ),
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Job Family",
+                value: ri!nomination.levelName,
+                saveInto: ri!nomination.levelName,
+                required: not(ri!nomination.isDirectHire = true),
+                disabled: or(
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId),
+                  and(
+                    not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId)),
+                    not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(index(local!selectedEmployee, "jobFamily", null)))
+                  )
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Employee ID",
+                value: ri!nomination.employeeId,
+                saveInto: ri!nomination.employeeId,
+                required: not(ri!nomination.isDirectHire = true),
+                disabled: true
+              ),
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Job Description",
+                value: ri!nomination.jobDescription,
+                saveInto: ri!nomination.jobDescription,
+                required: not(ri!nomination.isDirectHire = true),
+                disabled: or(
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId),
+                  and(
+                    not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId)),
+                    not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(index(local!selectedEmployee, "jobDescription", null)))
+                  )
+                )
+              ),
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Current PML",
+                value: ri!nomination.currentPML,
+                saveInto: ri!nomination.currentPML,
+                required: not(ri!nomination.isDirectHire = true),
+                disabled: or(
+                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId),
+                  and(
+                    not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId)),
+                    not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(index(local!selectedEmployee, "currentPml", null)))
+                  )
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_dropdownField_v1"(
+                label: "Originating Region",
+                value: ri!nomination.originatingRegion,
+                saveInto: {
+                  ri!nomination.originatingRegion,
+                  a!save(ri!nomination.returnRegion, save!value),
+                  if(
+                    ri!nomination.originatingRegion &lt;&gt; #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                    {
+                      a!save(ri!nomination.otherOriginatingRegion, null),
+                      a!save(ri!nomination.otherReturningRegion,null)
+                    },
+                    {}
+                  ),
+                  if(
+                    contains(
+                      {
+                        #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3566688",
+                        #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3566706",
+                        #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"
+                      },
+                      ri!nomination.originatingRegion
+                    ),
+                    {
+                      a!save(
+                        ri!nomination.originatingBU,
+                        #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"
+                      ),
+                      a!save(
+                        ri!nomination.returnBU,
+                        #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"
+                      )
+                    },
+                    {}
+                  )
+                },
+                required: not(ri!nomination.isDirectHire = true),
+                disabled: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId),
+                choiceValues: local!updatedRegionDropdown,
+                choiceLabels: local!updatedRegionDropdown,
+                placeholder: "-- Select Region --",
+                validations: if(
+                  or(
+                    contains(local!validRegionDropdown, ri!nomination.originatingRegion),
+                    a!isNullOrEmpty(ri!nomination.originatingRegion)
+                  ),
+                  "",
+                  "Please select a valid originating region"
+                ),
+                showWhen: if(toboolean(local!isOldVersion)=true,true,false)
+              ),
+              #"SYSTEM_SYSRULES_dropdownField_v1"(
+                label: "Originating Audit BU",
+                placeholder: "-- Select BU --",
+                choiceLabels:reject(fn!isnull,local!updatedOriginatingBUDropdown),
+                choiceValues:reject(fn!isnull,local!updatedOriginatingBUDropdown),
+                value:  ri!nomination.originatingBU,
+                saveInto: {
+                  if(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!oldBu),a!save(ri!oldBu,ri!nomination.originatingBU),{}),
+                  a!save(ri!nomination.originatingHomeOffice,null),
+                  a!save(ri!nomination.returnHomeOffice,null),
+                  ri!nomination.originatingBU,
+                  a!save(ri!nomination.otherReturningHomeOffice,null),
+                  a!save(ri!nomination.otherOriginatingHomeOffice,null),
+                  
+                  a!save(ri!nomination.returnBU, save!value),
+                  
+                  if(
+                    ri!nomination.originatingBU &lt;&gt; #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                    {
+                      a!save(ri!nomination.otherOriginatingBU,null),
+                      a!save(ri!nomination.otherReturningBU,null)
+                    },
+                    {}
+                  )
+                },
+                required: not(ri!nomination.isDirectHire = true),
+                disabled: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId),
+                validations: if(
+                  or(
+                    contains(local!busForDropdown, ri!nomination.originatingBU),
+                    a!isNullOrEmpty(ri!nomination.originatingBU)
+                  ),
+                  "",
+                  "Please select a valid originating Audit BU"
+                )
+              ),
+              #"SYSTEM_SYSRULES_dropdownField_v1"(
+                label: "Originating Home Office",
+                value: ri!nomination.originatingHomeOffice,
+                saveInto: {
+                  
+                  if(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!oldOffice),a!save(ri!oldOffice,ri!nomination.originatingHomeOffice),{}),
+                  ri!nomination.originatingHomeOffice,
+                  a!save(ri!nomination.returnHomeOffice, save!value),
+                  if(
+                    ri!nomination.originatingHomeOffice &lt;&gt; #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                    {
+                      a!save(ri!nomination.otherOriginatingHomeOffice, null),
+                      a!save(ri!nomination.otherReturningHomeOffice,null)
+                    },
+                    {}
+                  )
+                },
+                required: not(ri!nomination.isDirectHire = true),
+                disabled: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.employeeId),
+                choiceLabels: local!updatedHomeOfficeDropdown,
+                choiceValues: local!updatedHomeOfficeDropdown,
+                placeholder: "-- Select Home Office --",
+                validations: if(
+                  or(
+                    contains(local!validHomeOfficeDropdown, ri!nomination.originatingHomeOffice),
+                    a!isNullOrEmpty(ri!nomination.originatingHomeOffice)
+                  ),
+                  "",
+                  "Please select a valid originating home office"
+                )
+              )
+            }
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Other Originating Region",
+                required: ri!nomination.originatingRegion = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                value: ri!nomination.otherOriginatingRegion,
+                saveInto: {
+                  ri!nomination.otherOriginatingRegion
+                },
+                disabled: not(ri!nomination.originatingRegion = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"),
+                characterLimit: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3958020",
+                showWhen: if(toboolean(local!isOldVersion)=true,true,false)
+              ),
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Other Originating Audit BU",
+                required: ri!nomination.originatingBU = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                value: ri!nomination.otherOriginatingBU,
+                saveInto: {
+                  ri!nomination.otherOriginatingBU
+                },
+                disabled: not(ri!nomination.originatingBU = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"),
+                characterLimit: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3958020",
+                validations: if(
+                  regexmatch(
+                    #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11586353",
+                    ri!nomination.otherOriginatingBU
+                  ),
+                  #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11586372"[1],
+                  {}
+                ),
+              ),
+              #"SYSTEM_SYSRULES_textField"(
+                label: "Other Originating Home Office",
+                required: ri!nomination.originatingHomeOffice = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+                value: ri!nomination.otherOriginatingHomeOffice,
+                saveInto: {
+                  ri!nomination.otherOriginatingHomeOffice
+                },
+                disabled: not(ri!nomination.originatingHomeOffice = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"),
+                characterLimit: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3958020"
+              )
+            }
+          )
+        }
+      )
+    },
+    style: "STANDARD"
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>originatingBU</name>
+            <type>
+                <name>CAW_REF_BaseUnit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>offices</name>
+            <type>
+                <name>CAW_RefOffice?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>oldBu</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>oldOffice</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">'type!{urn:com:appian:types:CAW}CAW_Nomination'()</a:value>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3084520"(isActive: true,returnCDT: true)</a:value>
+                    <a:nameRef>originatingBU</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3567098"(isActive: true,returnCDT: true)</a:value>
+                    <a:nameRef>offices</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>oldBu</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>oldOffice</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3664992"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3924998"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4180522"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4493714"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4787129"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4974714"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5401471"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6581139"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6674280"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6680089"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6908977"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_7011331"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_7144673"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11677871"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11732214"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11767333"/>
+    </history>
+</contentHaul>

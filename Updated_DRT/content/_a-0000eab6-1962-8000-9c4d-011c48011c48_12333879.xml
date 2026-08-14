@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12334515</versionUuid>
+    <rule>
+        <name>CAW_getDuplicateUsers</name>
+        <uuid>_a-0000eab6-1962-8000-9c4d-011c48011c48_12333879</uuid>
+        <description>Expression to get duplicate user.</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(ri!emailIds),
+  null,
+  a!localVariables(
+    local!unionData: union(ri!emailIds, ri!emailIds),
+    local!duplicates: #"SYSTEM_SYSRULES_forEach"(
+      local!unionData,
+      if(
+        length(
+          wherecontains(
+            tostring(fv!item),
+            touniformstring(ri!emailIds)
+          )
+        ) &gt; 1,
+        a!map(
+          userName:fv!item,
+          indices: wherecontains(
+            tostring(fv!item),
+            touniformstring(ri!emailIds)
+          )
+        ),
+        null
+      )
+    ),
+    if(
+      #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12219631"(local!duplicates),
+      null,
+      reject(fn!Isnull, local!duplicates)
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>emailIds</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12334515"/>
+    </history>
+</contentHaul>

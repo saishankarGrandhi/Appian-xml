@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5243158</versionUuid>
+    <interface>
+        <name>CAW_FRM_LockedTask</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5180153</uuid>
+        <description>Interface to show when a task is locked</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_formLayout_v1"(
+  label: "",
+  contents: {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_cardLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_sideBySideLayout"(
+                marginBelow: "NONE",
+                items: {
+                  #"SYSTEM_SYSRULES_sideBySideItem"(
+                    item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                      align: "CENTER",
+                      value: {
+                        #"SYSTEM_SYSRULES_richTextIcon"(icon: "info-circle", size: "MEDIUM_PLUS",color: "NEGATIVE"),
+                        char(10),
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          style: "STRONG",
+                          size: "MEDIUM_PLUS",
+                          text: {
+                            " Task locked "
+                          },
+                          color: "NEGATIVE"
+                        ),
+                        char(10),
+                        char(10),
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          size: "MEDIUM",
+                          text: property(ri!task,"taskName",tostring(null)),
+                          style: "STRONG"
+                        ),
+                        char(10),
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          size: "MEDIUM",
+                          text: "is currently locked by "
+                        ),
+                        #"SYSTEM_SYSRULES_richTextItem_v1"(
+                          size: "MEDIUM",
+                          text: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(property(ri!task,"lockedBy",tostring(null))),
+                          style: "STRONG"
+                        )
+                      }
+                    )
+                  )
+                }
+              )
+            },
+            style:"ERROR",
+            marginBelow: "STANDARD",
+            showShadow: true
+          ),
+          width: "WIDE"
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"()
+      }
+    )
+  },
+  buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+    primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+      label: "Close",
+      submit: true,
+      value: "Close",
+      saveInto: {ri!action}
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3066463"(
+  moduleTypeId:#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+  returnCDT: true
+)[1]</a:value>
+                    <a:nameRef>task</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>action</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5243158"/>
+    </history>
+</contentHaul>

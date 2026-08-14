@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_7070640</versionUuid>
+    <interface>
+        <name>CAW_CMP_AskVsNominationTableHeader</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6630753</uuid>
+        <description>The header for the Ask Vs Nomination Report table</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!hexOrange: "#FFDFBF",
+  local!hexGreen: "#D3F8D3",
+  #"SYSTEM_SYSRULES_columnsLayout"(
+    columns: {
+      #"SYSTEM_SYSRULES_columnLayout"(width: "NARROW"),
+      /*Rotational Ask Columns*/
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: #"SYSTEM_SYSRULES_cardLayout"(
+          contents: #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: "Plan", 
+                      style: "STRONG"
+                    )
+                  },
+                  align: "CENTER"
+                ),
+                width: "EXTRA_NARROW"
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    value: {
+                      #"SYSTEM_SYSRULES_richTextItem_v1"(
+                        text: "Traditional Rotational", 
+                        style: "STRONG"
+                      )
+                    },
+                    preventWrapping: true,
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_columnsLayout"(
+                    columns: {
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            labelPosition: "COLLAPSED",
+                            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                              text: if(
+                                #"SYSTEM_SYSRULES_isPageWidth"("DESKTOP_NARROW"),
+                                "Conf.",
+                                "Confirmed"
+                              ),
+                              style: "STRONG"
+                            ),
+                            preventWrapping: true,
+                            align: "CENTER"
+                          )
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            labelPosition: "COLLAPSED",
+                            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                              text: "In Process",
+                              style: "STRONG"
+                            ),
+                            preventWrapping: true,
+                            align: "CENTER"
+                          )
+                        }
+                      )
+                    },
+                    spacing: "NONE"
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_richTextDisplayField"(
+                    value: {
+                      #"SYSTEM_SYSRULES_richTextItem_v1"(
+                        text: "Early Career Rotational", 
+                        style: "STRONG"
+                      )
+                    },
+                    preventWrapping: true,
+                    align: "CENTER"
+                  ),
+                  #"SYSTEM_SYSRULES_columnsLayout"(
+                    columns: {
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            labelPosition: "COLLAPSED",
+                            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                              text: if(
+                                #"SYSTEM_SYSRULES_isPageWidth"("DESKTOP_NARROW"),
+                                "Conf.",
+                                "Confirmed"
+                              ),
+                              style: "STRONG"
+                            ),
+                            preventWrapping: true,
+                            align: "CENTER"
+                          )
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_columnLayout"(
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            labelPosition: "COLLAPSED",
+                            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                              text: "In Process",
+                              style: "STRONG"
+                            ),
+                            preventWrapping: true,
+                            align: "CENTER"
+                          )
+                        }
+                      )
+                    },
+                    spacing: "NONE"
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                  value: {
+                    #"SYSTEM_SYSRULES_richTextItem_v1"(
+                      text: "Var.", 
+                      style: "STRONG"
+                    )
+                  },
+                  align: "CENTER"
+                ),
+                width: "EXTRA_NARROW"
+              )
+            },
+            alignVertical: "BOTTOM",
+            showDividers: true
+          ),
+          style: local!hexOrange
+        ),
+        width: if(
+          #"SYSTEM_SYSRULES_isPageWidth"({"DESKTOP_NARROW","DESKTOP"}),
+          "MEDIUM",
+          "WIDE"
+        ),
+        showWhen: or(a!isNullOrEmpty(ri!typeFilter),ri!typeFilter="Rotational")
+      ),
+      /* Non-traditional &amp; Other Rotationals*/
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6619708"(
+          color: local!hexGreen,
+          title: "Non-Traditional/Other Rotational"
+        ),
+        width: "NARROW",
+        showWhen: or(a!isNullOrEmpty(ri!typeFilter),ri!typeFilter="Rotational")
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6619708"(
+          color: local!hexGreen,
+          title: "Transitional Core"
+        ),
+        width: "NARROW",
+        showWhen: or(a!isNullOrEmpty(ri!typeFilter),ri!typeFilter="Core")
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6619708"(
+          color: local!hexGreen,
+          title: "Core Partner/Professional"
+        ),
+        width: "NARROW",
+        showWhen: or(a!isNullOrEmpty(ri!typeFilter),ri!typeFilter="Core")
+      ),
+      #"SYSTEM_SYSRULES_columnLayout"(
+        contents: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6619708"(
+          color: "INFO",
+          title: "Total"
+        ),
+        width: "NARROW"
+      )
+    },
+    alignVertical: "BOTTOM",
+    marginBelow: "NONE",
+    spacing: "NONE"
+  )
+)</definition>
+        <namedTypedValue>
+            <name>typeFilter</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6664360"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_7070640"/>
+    </history>
+</contentHaul>

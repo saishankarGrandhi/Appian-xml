@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14190511</versionUuid>
+    <interface>
+        <name>CAW_UI_InterviewOfficeVisitSummary</name>
+        <uuid>_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6273944</uuid>
+        <description>Interface for the Interview/Office Visit summary tab on a nomination record</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!completedInterviews: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!interviews),
+    null,
+    index(
+      ri!interviews,
+      wherecontains(true, index(ri!interviews,"isComplete",false))
+    )
+  ),
+  local!inProgressInterviews: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!interviews),
+    null,
+    index(
+      ri!interviews,
+      wherecontains(false, index(ri!interviews,"isComplete",true))
+    )
+  ),
+    local!userBU: a!refreshVariable(
+      value: union(
+        reject(
+          fn!isnull,
+          #"SYSTEM_SYSRULES_forEach"(
+            items: getgroupsformemberuser(user: loggedInUser()),
+            expression: {
+              a!localVariables(
+                local!groupName: group(fv!item, "groupName"),
+                local!list: split(local!groupName, " "),
+                local!length: length(local!list),
+                if(
+                  and(
+                    local!length &gt; 2,
+                    contains(local!list, "CAW"),
+                    or(
+                      contains(local!list, "BUPPP"),
+                      contains(local!list, "BUPIC"),
+                      contains(local!list, "BUPPP_BUPIC"),
+                      contains(local!list, "BUCos"),
+                      contains(local!list, "CoS/Delegate")
+                    )
+                  ),
+                  joinarray(
+                    remove(local!list, { 1, local!length }),
+                    " "
+                  ),
+                  null
+                )
+              )
+            }
+          )
+        ),
+        reject(
+          fn!isnull,
+          #"SYSTEM_SYSRULES_forEach"(
+            items: getgroupsformemberuser(user: loggedInUser()),
+            expression: {
+              a!localVariables(
+                local!groupName: group(fv!item, "groupName"),
+                local!list: split(local!groupName, " "),
+                local!length: length(local!list),
+                if(
+                  and(
+                    local!length &gt; 2,
+                    contains(local!list, "CAW"),
+                    or(
+                      contains(local!list, "BUPPP"),
+                      contains(local!list, "BUPIC"),
+                      contains(local!list, "BUPPP_BUPIC"),
+                      contains(local!list, "BUCos"),
+                      contains(local!list, "CoS/Delegate")
+                    )
+                  ),
+                  joinarray(
+                    remove(local!list, { 1, local!length }),
+                    " "
+                  ),
+                  null
+                )
+              )
+            }
+          )
+        )
+      ),
+      refreshAlways: true
+    ),
+    local!ismemberofusergroup:or(
+      contains(
+        touniformstring(local!userBU),
+        tostring(ri!nomination.originatingBU)
+      ),
+      contains(
+        touniformstring(local!userBU),
+        tostring(ri!nomination.returnBU)
+      ),
+      a!isNullOrEmpty(local!userBU)),
+      if(
+        local!ismemberofusergroup,
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      divider: "BELOW",
+      label: "Interview Date/Time Availability",
+      labelColor: "SECONDARY",
+      isCollapsible: if(
+        or(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.interviewAvailability),
+          ri!nomination.statusId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889"
+        ),
+        false,
+        true
+      ),
+      contents: {
+        if(
+          or(
+            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.interviewAvailability),
+            ri!nomination.statusId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889"
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: {
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: "N/A",
+                style: "STRONG"
+              )
+            },
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_cardLayout"(
+                    showBorder: false,
+                    contents: {
+                      #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: ri!nomination.interviewAvailability,
+                            style: {"STRONG", "EMPHASIS"},
+                            size: "MEDIUM"
+                          )
+                        }
+                      )
+                    }
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(),
+              #"SYSTEM_SYSRULES_columnLayout"()
+            }
+          )
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      divider: "BELOW",
+      label: "Office Visit Date/Time Availability",
+      labelColor: "SECONDARY",
+      isCollapsible: if(
+        or(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.officeVisitAvailability),
+          ri!nomination.statusId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932"
+        ),
+        false,
+        true
+      ),
+      contents: {
+        if(
+          or(
+            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!nomination.officeVisitAvailability),
+            ri!nomination.statusId = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932"
+          ),
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: {
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: "N/A",
+                style: "STRONG"
+              )
+            },
+            align: "CENTER"
+          ),
+          #"SYSTEM_SYSRULES_columnsLayout"(
+            columns: {
+              #"SYSTEM_SYSRULES_columnLayout"(
+                contents: {
+                  #"SYSTEM_SYSRULES_cardLayout"(
+                    showBorder: false,
+                    contents: {
+                      #"SYSTEM_SYSRULES_richTextDisplayField"(
+                        value: {
+                          #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: ri!nomination.officeVisitAvailability,
+                            style: {"STRONG", "EMPHASIS"},
+                            size: "MEDIUM"
+                          )
+                        }
+                      )
+                    }
+                  )
+                }
+              ),
+              #"SYSTEM_SYSRULES_columnLayout"(),
+              #"SYSTEM_SYSRULES_columnLayout"()
+            }
+          )
+        )
+      }
+    ),
+    if(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!interviews),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Interviews",
+        labelColor: "SECONDARY",
+        contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+          labelPosition: "COLLAPSED",
+          value: {
+            #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: "No Interviews Found",
+              style: "STRONG"
+            )
+          },
+          showWhen: #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!interviews),
+          align: "CENTER"
+        )
+      ),
+      {
+        #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3856248"(
+          interviews: local!inProgressInterviews,
+          isInterviewerTask: false,
+          showWhen: not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!inProgressInterviews)),
+          sectionLabel: "Requested Interviews"
+        ),
+        #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3856248"(
+          interviews: local!completedInterviews,
+          isInterviewerTask: false,
+          showWhen: not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!completedInterviews)),
+          sectionLabel: "Completed Interviews"
+        )
+      }
+    )
+  },
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    contents: #"SYSTEM_SYSRULES_cardLayout"(
+      contents: #"SYSTEM_SYSRULES_richTextDisplayField"(
+        value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+          text: "You are not able to view this nomination because you are not a part of the  " &amp; touniformstring(ri!nomination.originatingBU) &amp;" Group", 
+          style: "STRONG",
+          size: "MEDIUM",
+
+        )
+      )
+    )
+  ),
+
+      )
+)
+</definition>
+        <namedTypedValue>
+            <name>interviews</name>
+            <type>
+                <name>CAW_Interview?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6275765"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6571431"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14185749"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14190511"/>
+    </history>
+</contentHaul>

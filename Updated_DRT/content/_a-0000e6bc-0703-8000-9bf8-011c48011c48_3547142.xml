@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12682284</versionUuid>
+    <interface>
+        <name>CAW_CMP_RotationalAskApprove</name>
+        <uuid>_a-0000e6bc-0703-8000-9bf8-011c48011c48_3547142</uuid>
+        <description>Component to configure Rotational Ask approve button</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_ButtonWidget"(
+  label: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295308",
+  value:  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295308",
+  submit: true,
+  saveInto: {
+    ri!buttonValue,
+    /* ask updates */
+    a!save(ri!ask.statusId, ri!nextStatusId),
+    a!save(ri!ask.modifiedBy, loggedInUser()),
+    a!save(ri!ask.modifiedOn, now()),
+    /* audit history */
+    a!save(
+      ri!auditHistory,
+      'type!{urn:com:appian:types:CAW}CAW_Audit'(
+        taskId: ri!task.taskId,
+        requestId: ri!ask.askId,
+        version: ri!task.version,
+        moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+        statusId:  ri!nextStatusId,
+        action: "Approved",
+        description: if(
+          ri!task.statusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+          "PPL review complete",
+          if(
+            ri!task.statusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[3],
+            "APPP review complete",
+            if(
+              ri!task.statusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[2],
+              "DPP Leadership review complete",
+              if(
+                ri!task.statusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[4],
+                "DPP PIC review complete",
+                null
+              )
+            )
+          )
+        ),
+        createdBy: loggedInUser(),
+        createdOn: now()
+      )
+    ),
+    /* task updates */
+    a!save(ri!task.statusId, ri!nextStatusId),
+    a!save(ri!task.assigneeId, ri!assigneeId),
+    a!save(ri!task.isAssigneeGroup, tointeger(index(ri!assignee, "totalCount", null)) &gt; 1),
+    a!save(ri!task.modifiedBy, loggedInUser()),
+    a!save(ri!task.modifiedOn, now()),
+    /*COMMENT LOGIC*/
+    if(
+      and(
+        a!isNullOrEmpty(ri!previousComment),
+        a!isNotNullOrEmpty(ri!comment.comment)
+      ),
+      /*Create the whole comment CDT*/
+      a!save(
+        ri!comment,
+        'type!{urn:com:appian:types:CAW}CAW_Comment'(
+          commentId: ri!comment.commentId,
+          requestId: ri!ask.askId,
+          moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+          comment: ri!comment.comment,
+          isDraft: false,
+          isActive: true,
+          version: ri!task.version,
+          createdBy: loggedInUser(),
+          createdOn: now(),
+          modifiedBy: loggedInUser(),
+          modifiedOn: now()
+        )
+      ),
+      if(
+        and(
+          a!isNotNullOrEmpty(ri!previousComment),
+          a!isNullOrEmpty(ri!comment.comment)
+        ),
+        /*Clear the comment/Delete the row of data */
+        a!save(ri!commentIDtoDelete, ri!comment.commentId),
+        if(
+          ri!comment.comment &lt;&gt; ri!previousComment,
+          /*update the comment fields*/
+          {
+            a!save(ri!comment.modifiedBy, loggedInUser()),
+            a!save(ri!comment.modifiedOn, now()),
+            a!save(ri!comment.isDraft, false)
+          },
+          a!save(ri!comment.isDraft, false)
+        )
+      )
+    )
+  },
+  style: "PRIMARY",
+  showWhen:  and(
+    ri!isReview,
+    ri!task.statusId &lt;&gt; #"_a-0000e825-ace1-8000-9c24-011c48011c48_6791426"
+  ),
+  confirmMessage: #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4160874"
+)</definition>
+        <namedTypedValue>
+            <name>ask</name>
+            <type>
+                <name>CAW_Ask</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>comment</name>
+            <type>
+                <name>CAW_Comment</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReview</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assigneeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextStatusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assignee</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fullName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>previousComment</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>commentIDtoDelete</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127036"(
+  askId: 89,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>ask</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3066463"(
+  requestId:  89,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>task</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonValue</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">=#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127169"(  
+  requestId: 89, 
+  returnCDT: true,
+  isDraft: true
+)</a:value>
+                    <a:nameRef>comment</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">true</a:value>
+                    <a:nameRef>isReview</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>auditHistory</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>assigneeId</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>nextStatusId</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>assignee</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>fullName</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>previousComment</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>commentIDtoDelete</a:nameRef>
+                    <a:id>12</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e6bc-0703-8000-9bf8-011c48011c48_3547156"/>
+        <historyInfo versionUuid="_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3601583"/>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3620652"/>
+        <historyInfo versionUuid="_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3789254"/>
+        <historyInfo versionUuid="_a-0000e71a-415c-8000-9c0b-011c48011c48_4426584"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4693034"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5487207"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5510837"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6631383"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6848708"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11688504"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12682284"/>
+    </history>
+</contentHaul>

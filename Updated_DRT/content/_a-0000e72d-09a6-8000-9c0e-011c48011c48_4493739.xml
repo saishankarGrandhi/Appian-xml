@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4593667</versionUuid>
+    <rule>
+        <name>CAW_calculateNominationNextStatusID</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4493739</uuid>
+        <description>Calculates the next status ID for a task in the nomination workflow</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  or(
+    toboolean(property(ri!nomination,"isDirectHire",null))=true,
+    toboolean(property(ri!nomination,"isReadyForOnboarding",null))=true
+  ),
+  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4586114",
+  if(
+    toboolean(property(ri!nomination,"isInterviewRequested",null))=true,
+    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+    /*Interview Availability*/
+    if(
+      and(
+        toboolean(property(ri!nomination,"isInterviewAvailabilityRequested",toboolean(null)))=true,
+        not(property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889")
+        ),
+      #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+      if(
+        and(
+          toboolean(property(ri!nomination,"isInterviewAvailabilityRequested",toboolean(null)))=true,
+          property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889"
+        ),
+        #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458895",
+        /*Office Visit Availability*/
+        if(
+          and(
+            toboolean(property(ri!nomination,"isOfficeVisitAvailabilityRequested",toboolean(null)))=true,
+            not(property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932")
+          ),
+          #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+          if(
+            and(
+              toboolean(property(ri!nomination,"isOfficeVisitAvailabilityRequested",toboolean(null)))=true,
+              property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932"
+            ),
+            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458947",
+            if(
+              /*HR REVIEW*/
+              and(
+                toboolean(property(ri!nomination,"isHRReview",null))=true,
+                not(property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489118")
+              ),
+              #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489118",
+              if(
+                /*INSPECTIONS REVIEW*/
+                and(
+                  toboolean(property(ri!nomination,"isInspectionsReview",null))=true,
+                  not(property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494074")
+                ),
+                #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494074",
+                if(
+                  and(
+                    toboolean(ri!isUserDPPEditor),
+                    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedReviewer)
+                  ),
+                  #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431",
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577779"
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  ) 
+),</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isUserDPPEditor</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedReviewer</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4593667"/>
+    </history>
+</contentHaul>

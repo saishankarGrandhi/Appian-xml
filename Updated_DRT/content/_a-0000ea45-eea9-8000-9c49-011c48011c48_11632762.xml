@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11742592</versionUuid>
+    <constant>
+        <name>DRT_DPP_GROUP_NOMINATION</name>
+        <uuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11632762</uuid>
+        <description>[V1] List of recommended dpp group in nominations</description>
+        <parentUuid>_a-0000ea11-24bc-8000-9c45-011c48011c48_11571597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Accounting Standards</el>
+                <el>Audit – General</el>
+                <el>Audit – Banking</el>
+                <el>Audit – Public Sector</el>
+                <el>Audit – PSG</el>
+                <el>Audit – GAMG</el>
+                <el>Audit – SAT/D&amp;A</el>
+                <el>Practice Advisory</el>
+                <el>Root Cause and Collaboration</el>
+                <el>System of Quality Control</el>
+                <el>People and Process Other</el>
+                <el>Audit L&amp;D</el>
+                <el>Audit – Tech Assurance</el>
+                <el>Audit – ESG</el>
+                <el>Other</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11680429"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11742592"/>
+    </history>
+</contentHaul>

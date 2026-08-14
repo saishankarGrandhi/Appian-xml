@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6468557</versionUuid>
+    <constant>
+        <name>CAW_INT_NOMINATION_STATUS_ID_LIST</name>
+        <uuid>_a-0000e6c7-249e-8000-9bfe-011c48011c48_3622146</uuid>
+        <description>In Progress: 4
+Ready for Acceptance and On boarding: 6
+Interview Requested: 7
+Returned for Review: 8
+Completed: 9
+Cancelled: 179
+Pending Approval: 180
+Transfer Confirmation Requested: 186
+Transfer Confirmation Accepted: 187
+Formal Selection Notification Sent: 188
+Formal Selection Notification Accepted: 189
+Candidate Information Intake Sent : 190
+Candidate Information Intake Complete : 191
+Approved : 192
+Interview Completed: 193
+Request Interview Availability: 310
+Interview Availability Completed: 311
+Request Office Visit Availability: 312
+Office Visit Availability Completed: 313
+In Review - DPP: 314 
+In Review - HR: 315 
+In Review - Inspections: 316
+Updated Transfer Confirmation Requested - 396</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049809</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>4</el>
+                <el>6</el>
+                <el>7</el>
+                <el>8</el>
+                <el>9</el>
+                <el>179</el>
+                <el>180</el>
+                <el>186</el>
+                <el>187</el>
+                <el>188</el>
+                <el>189</el>
+                <el>190</el>
+                <el>191</el>
+                <el>192</el>
+                <el>193</el>
+                <el>310</el>
+                <el>311</el>
+                <el>312</el>
+                <el>313</el>
+                <el>314</el>
+                <el>315</el>
+                <el>316</el>
+                <el>396</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3641036"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3956815"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577755"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4864494"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6468557"/>
+    </history>
+</contentHaul>

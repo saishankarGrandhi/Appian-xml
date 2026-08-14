@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e776-631d-8000-9c0f-011c48011c48_5277455</versionUuid>
+    <rule>
+        <name>CAW_getRotationalASKEmailNotifications</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_5263340</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!triggerID: #"d9d7c11c-36f4-4a0d-8ac3-df8384502001"(
+    currentStatus: ri!currentStatus,
+    nextStatusID:  ri!nextStatusID,
+    isDPPPICApproval: ri!isDPPPICApproval
+  ),
+  /*local!triggerID: 378,*/
+  local!emailNotification: if(
+    local!triggerID = 0, 
+    null, 
+    #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4149315"(
+      moduleId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+      triggerId: local!triggerID,
+      isActive:true,
+      returnCDT: true
+    )
+  ),
+  local!fiscalYear:  if(
+    local!triggerID = 0, 
+    null, 
+    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3953700"()
+  ),
+  local!subject: if(
+    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!emailNotification),
+    null,
+    index(local!emailNotification, "subject",tostring(null))
+  ),
+  local!subjectUpdated: if(
+    and(
+      /*email notification is not blank */
+      local!triggerID &lt;&gt; 0,
+      /*fiscal year is included in message*/
+      search(
+        "fiscalYear",
+        local!subject,
+        1
+      ) &lt;&gt; 0,
+    ),
+    substitute(local!subject,"fiscalYear",local!fiscalYear),
+    if(
+      /*email notification is not blank */
+      local!triggerID &lt;&gt; 0,
+      local!subject,
+      null
+    )
+  ),
+  local!emailBody: if(
+    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!emailNotification),
+    null,
+    index(local!emailNotification, "emailBody",tostring(null))
+  ),
+  local!emailBodyUpdated:if(
+    and(
+      /*email notification is not blank */
+      local!triggerID &lt;&gt; 0,
+      /*fiscal year is included in message*/
+      search(
+        "fiscalYear",
+        local!emailBody,
+        1
+      ) &lt;&gt; 0,
+    ),
+    substitute(local!emailBody,"fiscalYear",local!fiscalYear),
+    if(
+      /*email notification is not blank */
+      local!triggerID &lt;&gt; 0,
+      local!emailBody,
+      null
+    )
+  ),
+  if(
+    local!triggerID = 0, 
+    null, 
+    'type!{urn:com:appian:types:CAW}CAW_EmailNotification'(
+      emailId: index(local!emailNotification, "emailId",tointeger(null)),
+      moduleId: index(local!emailNotification, "moduleId",tointeger(null)),
+      triggerId: index(local!emailNotification, "triggerId",tointeger(null)),
+      recipients: index(local!emailNotification, "recipients",tostring(null)),
+      recipientsCC: index(local!emailNotification, "recipientsCC",tostring(null)),
+      subject: local!subjectUpdated,
+      title: index(local!emailNotification, "title",tostring(null)),
+      recipientName: index(local!emailNotification, "recipientName",tostring(null)),
+      emailBody: local!emailBodyUpdated,
+      emailFooter: index(local!emailNotification, "emailFooter",tostring(null)),
+      isActive: index(local!emailNotification, "isActive",toboolean(null)),
+      isLocked: index(local!emailNotification, "isLocked",toboolean(null)),
+      createdBy: index(local!emailNotification, "createdBy",tostring(null)),
+      createdOn: index(local!emailNotification, "createdOn",todatetime(null)),
+      modifiedBy: index(local!emailNotification, "modifiedBy",tostring(null)),
+      modifiedOn: index(local!emailNotification, "modifiedOn",todatetime(null))
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>currentStatus</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextStatusID</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isDPPPICApproval</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e776-631d-8000-9c0f-011c48011c48_5277455"/>
+    </history>
+</contentHaul>

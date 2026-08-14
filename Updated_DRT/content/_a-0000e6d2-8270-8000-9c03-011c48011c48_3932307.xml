@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3932455</versionUuid>
+    <interface>
+        <name>CAW_TEST_NewUserForGroup</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3932307</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!firstName,
+  local!lastName,
+  local!email,
+  #"SYSTEM_SYSRULES_formLayout_v1"(
+    label: "TEST add user",
+    contents: {
+      #"SYSTEM_SYSRULES_textField"(
+        label: "first name",
+        value: local!firstName,
+        saveInto: local!firstName
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        label: "last name",
+        value: local!lastName,
+        saveInto: local!lastName
+      ),
+      #"SYSTEM_SYSRULES_textField"(
+        label: "email",
+        value: local!email,
+        saveInto: local!email
+      )
+    },
+    buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: "submit",
+        saveInto: #"SYSTEM_SYSRULES_startProcess"(
+          processModel: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3932301",
+          processParameters: {
+            firstName: local!firstName,
+            lastName: local!lastName,
+            username: local!email
+          }
+        )
+      )
+    )
+  )
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3932455"/>
+    </history>
+</contentHaul>

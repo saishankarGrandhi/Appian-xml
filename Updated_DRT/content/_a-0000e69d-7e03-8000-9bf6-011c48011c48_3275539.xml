@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-aa93-8000-9c30-011c48011c48_771251</versionUuid>
+    <interface>
+        <name>DEPRECATED_CAW_FRM_RotationalAskDecisionButtons</name>
+        <uuid>_a-0000e69d-7e03-8000-9bf6-011c48011c48_3275539</uuid>
+        <description>Component to configure Rotational Ask Decision buttons</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!loggedInUser: loggedInUser(),
+  local!loggedInUserDetail: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3070432"(
+    userName: tostring(local!loggedInUser),
+    returnCDT: true
+  ),
+  local!fullName: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+  {
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        /*SAVE AND EXIT*/
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155714",
+          value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155714",
+          saveInto: {
+            ri!action,
+            a!save(ri!rotationalAskDetails, ri!selectedBUs),
+            if(
+              ri!isEdit,
+              {
+                a!save(
+                  ri!ask,
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238596"(
+                    CAW_ASK: ri!ask,
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                ),
+                a!save(
+                  ri!task,
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3239227"(
+                    CAW_Task: ri!task,
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                ),
+                a!save(
+                  ri!comment,
+                  'type!{urn:com:appian:types:CAW}CAW_Comment'(
+                    commentId: index(ri!comment, "commentId", null),
+                    requestId: if(
+                      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!comment, "requestId", null)),
+                      property(ri!ask, "askId", null),
+                      property(ri!comment, "requestId", null)
+                    ),
+                    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                    comment: property(ri!comment, "comment", null),
+                    isDraft: true,
+                    isActive: true,
+                    version: 1,
+                    createdBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    createdOn: now(),
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                )
+              },
+              {
+                a!save(
+                  ri!ask,
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238596"(
+                    CAW_ASK: ri!ask,
+                    askId: null,
+                    fYear: year(today()),
+                    regionId: ri!region,
+                    typeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3161580",
+                    statusId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3161628",
+                    isActive: true,
+                    isCompleted: false,
+                    version: 1,
+                    createdBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    createdOn: now(),
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                ),
+                a!save(
+                  ri!task,
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3239227"(
+                    CAW_Task: ri!task,
+                    taskId: null,
+                    requestId: null,
+                    taskName: concat(
+                      index(ri!ask, "fYear", tointeger(null)) &amp; " " &amp; ri!region &amp; " Rotational ASK"
+                    ),
+                    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                    statusId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3165924",
+                    assigneeId: property(local!loggedInUserDetail, "userId", null),
+                    isAssigneeGroup: false,
+                    isTaskAmend: false,
+                    isLocked: false,
+                    isCompleted: false,
+                    version: 1,
+                    createdBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    createdOn: now(),
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                ),
+                a!save(
+                  ri!comment,
+                  'type!{urn:com:appian:types:CAW}CAW_Comment'(
+                    commentId: null,
+                    requestId: null,
+                    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                    comment: ri!comment.comment,
+                    isActive: true,
+                    isDraft: true,
+                    version: 1,
+                    createdBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    createdOn: now(),
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                )
+              }
+            ),
+            a!save(
+              ri!auditHistory,
+              'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                auditId: null,
+                taskId: ri!task.taskId,
+                requestId: ri!ask.askId,
+                moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                statusId: ri!task.statusId,
+                action: "Save &amp; Exit Task",
+                description: null,
+                createdBy: local!fullName,
+                createdOn: now()
+              )
+            )
+          },
+          submit: true,
+          style: "SECONDARY",
+          confirmMessage: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3254608"
+        ),
+        /*RETURN*/
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155721",
+          value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155721",
+          saveInto: {
+            ri!action,
+            a!save(
+              ri!ask,
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238596"(
+                CAW_ASK: ri!ask,
+                statusId: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3373079",
+                modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                modifiedOn: now()
+              )
+            ),
+            a!save(
+              ri!task,
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3239227"(
+                CAW_Task: ri!task,
+                statusId: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3373079",
+                assigneeId: ri!dppOPSReviewassigneeId,
+                isAssigneeGroup: tointeger(
+                  index(
+                    ri!dppOPSReviewAssignee,
+                    "totalCount",
+                    tointeger({})
+                  )
+                ) &gt; 1,
+                modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                modifiedOn: now()
+              )
+            ),
+            a!save(
+              ri!comment,
+              'type!{urn:com:appian:types:CAW}CAW_Comment'(
+                commentId: ri!comment.commentId,
+                requestId: property(ri!ask, "askId", null),
+                moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                comment: ri!comment.comment,
+                isActive: true,
+                isDraft: false,
+                version: 1,
+                createdBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                createdOn: now(),
+                modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                modifiedOn: now()
+              )
+            ),
+            a!save(
+              ri!auditHistory,
+              'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                auditId: null,
+                taskId: ri!task.taskId,
+                requestId: ri!ask.askId,
+                moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                statusId: ri!task.statusId,
+                action: ri!taskStatus &amp; " Returned to DPP Operation Editors",
+                description: null,
+                createdBy: local!fullName,
+                createdOn: now()
+              )
+            )
+          },
+          submit: true,
+          style: "DESTRUCTIVE",
+          showWhen: and(
+            ri!isReview,
+            not(
+              exact(
+                tostring(ri!taskStatus),
+                index(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179809", 15, null)
+              )
+            )
+          ),
+          validate: true,
+          disabled: #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!comment, "comment", null)),
+          confirmMessage: "Are you sure you want to return this ASK to the DPP Review Editors?"
+        ),
+        /*SUBMIT*/
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+          value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+          saveInto: {
+            ri!action,
+            a!save(ri!rotationalAskDetails, ri!selectedBUs),
+            if(
+              ri!isEdit,
+              {
+                a!save(
+                  ri!ask,
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238596"(
+                    CAW_ASK: ri!ask,
+                    statusId: if(
+                      ri!isComplete,
+                      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3344039",
+                      ri!nextStatusId
+                    ),
+                    isCompleted: if(ri!isComplete, true, false),
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                ),
+                a!save(
+                  ri!task,
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3239227"(
+                    taskId: property(ri!task, "taskId", null),
+                    requestId: property(ri!task, "requestId", null),
+                    taskName: property(ri!task, "taskName", null),
+                    moduleTypeId: property(ri!task, "moduleTypeId", null),
+                    statusId: if(
+                      ri!isComplete,
+                      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3344039",
+                      ri!nextStatusId
+                    ),
+                    assigneeId: if(ri!isComplete, null, ri!assigneeId),
+                    isAssigneeGroup: if(
+                      ri!isComplete,
+                      null,
+                      tointeger(index(ri!assignee, "totalCount", null)) &gt; 1
+                    ),
+                    isLocked: property(ri!task, "isLocked", null),
+                    isTaskAmend: property(ri!task, "isTaskAmend", null),
+                    isCompleted: if(ri!isComplete, true, false),
+                    version: property(ri!task, "version", null),
+                    createdBy: property(ri!task, "createdBy", null),
+                    createdOn: property(ri!task, "createdOn", null),
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                ),
+                a!save(
+                  ri!comment,
+                  'type!{urn:com:appian:types:CAW}CAW_Comment'(
+                    commentId: if(
+                      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!comment, "commentId", null)),
+                      null,
+                      property(ri!comment, "commentId", null)
+                    ),
+                    requestId: if(
+                      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!comment, "requestId", null)),
+                      property(ri!ask, "askId", null),
+                      property(ri!comment, "requestId", null)
+                    ),
+                    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                    comment: ri!comment.comment,
+                    isActive: true,
+                    isDraft: false,
+                    version: 1,
+                    createdBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    createdOn: now(),
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                )
+              },
+              {
+                a!save(
+                  ri!ask,
+                  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238596"(
+                    CAW_ASK: ri!ask,
+                    askId: null,
+                    fYear: year(today()),
+                    statusId: ri!nextStatusId,
+                    isActive: true,
+                    version: 1,
+                    createdBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    createdOn: now(),
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                ),
+                a!save(
+                  ri!task,
+                  'type!{urn:com:appian:types:CAW}CAW_Task'(
+                    taskId: null,
+                    requestId: null,
+                    taskName: concat(
+                      index(ri!ask, "fYear", tointeger(null)) &amp; " " &amp; ri!region &amp; " Rotational ASK"
+                    ),
+                    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                    statusId: ri!nextStatusId,
+                    assigneeId: ri!assigneeId,
+                    isAssigneeGroup: tointeger(index(ri!assignee, "totalCount", null)) &gt; 1,
+                    isLocked: false,
+                    isCompleted: false,
+                    version: 1,
+                    createdBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    createdOn: now(),
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                ),
+                a!save(
+                  ri!comment,
+                  'type!{urn:com:appian:types:CAW}CAW_Comment'(
+                    commentId: null,
+                    requestId: null,
+                    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                    comment: ri!comment.comment,
+                    isActive: true,
+                    isDraft: false,
+                    version: 1,
+                    createdBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    createdOn: now(),
+                    modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                    modifiedOn: now()
+                  )
+                )
+              }
+            ),
+            /*I moved this if statement from the approve button to the submit button. I updated the task and ASK when the status is complete.
+          The foreach to update each rotational records also make sense. Lets review the audit story constructor to make sure it
+          is working as expected. Any reason we are appending? */
+            if(
+              ri!isComplete,
+              {
+                a!save(
+                  ri!auditHistory,
+                  append(
+                    ri!auditHistory,
+                    {
+                      'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                        auditId: null,
+                        taskId: ri!task.taskId,
+                        requestId: ri!ask.askId,
+                        moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                        statusId: ri!task.statusId,
+                        action: ri!taskStatus &amp; " Approved",
+                        description: null,
+                        createdBy: local!fullName,
+                        createdOn: now()
+                      ),
+                      'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                        auditId: null,
+                        taskId: ri!task.taskId,
+                        requestId: ri!ask.askId,
+                        moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                        statusId: ri!task.statusId,
+                        action: "Completed",
+                        description: null,
+                        createdBy: local!fullName,
+                        createdOn: now()
+                      )
+                    }
+                  )
+                ),
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: ri!rotationalAskDetails,
+                  expression: a!save(fv!item.iscompleted, true)
+                )
+              },
+              null
+            ),
+            a!save(
+              ri!auditHistory,
+              'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                auditId: null,
+                taskId: ri!task.taskId,
+                requestId: ri!ask.askId,
+                moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                statusId: ri!task.statusId,
+                action: "Submit Task",
+                description: if(
+                  ri!task.statusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3373079",
+                  "DPP Operator Editors resubmitted the returned rotational ASK for review",
+                  "DPP Operator Editors submitted rotational ASK for review"
+                ),
+                createdBy: local!fullName,
+                createdOn: now()
+              )
+            ),
+            
+          },
+          validationGroup: "SUBMIT",
+          submit: true,
+          style: "PRIMARY",
+          showWhen: or(
+            not(ri!isReview),
+            exact(
+              tostring(ri!taskStatus),
+              index(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179809", 15, null)
+            )
+          ),
+          validate: true,
+          confirmMessage: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3215506"
+        ),
+        /*APPROVE*/
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295308",
+          value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295308",
+          submit: true,
+          saveInto: {
+            ri!action,
+            /*APPROVE AND SEND TO NEXT APPROVER*/
+            a!save(
+              ri!ask,
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238596"(
+                CAW_ASK: ri!ask,
+                statusId: ri!nextStatusId,
+                modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                modifiedOn: now()
+              )
+            ),
+            a!save(
+              ri!task,
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3239227"(
+                CAW_Task: ri!task,
+                statusId: ri!nextStatusId,
+                assigneeId: ri!assigneeId,
+                isAssigneeGroup: tointeger(index(ri!assignee, "totalCount", null)) &gt; 1,
+                modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                modifiedOn: now()
+              )
+            ),
+            a!save(
+              ri!comment,
+              'type!{urn:com:appian:types:CAW}CAW_Comment'(
+                commentId: ri!comment.commentId,
+                requestId: property(ri!ask, "askId", null),
+                moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                comment: ri!comment.comment,
+                isActive: true,
+                isDraft: false,
+                version: 1,
+                createdBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                createdOn: now(),
+                modifiedBy: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(local!loggedInUser),
+                modifiedOn: now()
+              )
+            ),
+            a!save(
+              ri!auditHistory,
+              'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                auditId: null,
+                taskId: ri!task.taskId,
+                requestId: ri!ask.askId,
+                moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                statusId: ri!task.statusId,
+                action: "Approved",
+                description: ri!taskStatus &amp; " Approved",
+                createdBy: local!fullName,
+                createdOn: now()
+              )
+            )
+          },
+          style: "PRIMARY",
+          showWhen: and(
+            ri!isReview,
+            not(
+              exact(
+                tostring(ri!taskStatus),
+                index(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179809", 15, null)
+              )
+            )
+          ),
+          confirmMessage: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3215506"
+        )
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+          value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+          saveInto: { ri!action },
+          submit: true,
+          style: "DESTRUCTIVE",
+          validate: false,
+          confirmMessage: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3215431"
+        )
+      },
+      showWhen: ri!showWhen
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>rotationalAskDetails</name>
+            <type>
+                <name>CAW_RotationalAskDetail?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ask</name>
+            <type>
+                <name>CAW_Ask</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showWhen</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>taskStatus</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>comment</name>
+            <type>
+                <name>CAW_Comment</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedBUs</name>
+            <type>
+                <name>CAW_RotationalAskDetail?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isEdit</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>region</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isReview</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assigneeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextStatusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assignee</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dppOPSReviewAssignee</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dppOPSReviewassigneeId</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isComplete</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127143"(
+  askId: 89,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>rotationalAskDetails</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127036"(
+  askId: 89,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>ask</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3066463"(
+  requestId:  89,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>task</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">true</a:value>
+                    <a:nameRef>showWhen</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>action</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3179809"[15]</a:value>
+                    <a:nameRef>taskStatus</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">=#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127169"(  
+  requestId: 89, 
+  returnCDT: true,
+  isDraft: true
+)</a:value>
+                    <a:nameRef>comment</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>selectedBUs</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isEdit</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">"East"</a:value>
+                    <a:nameRef>region</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">true</a:value>
+                    <a:nameRef>isReview</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>auditHistory</a:nameRef>
+                    <a:id>12</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>assigneeId</a:nameRef>
+                    <a:id>13</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:int"/>
+                    <a:nameRef>nextStatusId</a:nameRef>
+                    <a:id>14</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>assignee</a:nameRef>
+                    <a:id>15</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>dppOPSReviewAssignee</a:nameRef>
+                    <a:id>16</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>dppOPSReviewassigneeId</a:nameRef>
+                    <a:id>17</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">true</a:value>
+                    <a:nameRef>isComplete</a:nameRef>
+                    <a:id>18</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3277970"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3376486"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3414508"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3424899"/>
+        <historyInfo versionUuid="_a-0000e6bc-0703-8000-9bf8-011c48011c48_3475433"/>
+        <historyInfo versionUuid="_a-0000e6bc-0703-8000-9bf8-011c48011c48_3485133"/>
+        <historyInfo versionUuid="_a-0000e6bc-0703-8000-9bf8-011c48011c48_3490920"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3892756"/>
+        <historyInfo versionUuid="_a-0000e825-aa93-8000-9c30-011c48011c48_771251"/>
+    </history>
+</contentHaul>

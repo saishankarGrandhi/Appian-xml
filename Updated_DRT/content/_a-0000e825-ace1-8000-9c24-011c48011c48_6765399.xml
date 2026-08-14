@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12816844</versionUuid>
+    <rule>
+        <name>CAW_candidateIntakeExportSheet2QuerySelection</name>
+        <uuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6765399</uuid>
+        <description>a!queryselection for candidate intake sheet 2 export</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_querySelection"(
+  columns: {
+    #"SYSTEM_SYSRULES_queryColumn"(field: "fullName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isKpmgNationalInstructor"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "kpmgInstructorYear"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isFacilitatedLocalOfficeTraining"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isDevelopedLocalOfficeTraining"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isInternationalRotationComplete"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "internationalRotations"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "internalFirmCommittees"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "clientRelatedCommitments"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "nonClientRoles"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "otherRoles"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "topicTeamInterestInquiries"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "topicTeamInterestAccounting"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "riskAssessmentExp"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "materialEvalResults"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "intCtrlFinancialReporting"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "profSkepticism"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "groupAuditScoping"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "soc1reports"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "cryptoBlockChain"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "dataSoftwareTools"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "inventoryTools"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "planAccountingAuditIssues"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "incomeTaxAccountingIssues"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "substAnalyticalProcedures"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "journalEntries"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "deficienciesWeakness"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "goingConcern"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "auditReportingMatters"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "cams"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "repLettersOthers"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "workPaperAccessDoc"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "attestationSSARS"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "estimatesSpecialists"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "powerBI"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "languageSkillName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "levelOfExperience"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "otherCandidateIntakeComments")
+  }
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6770130"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12816844"/>
+    </history>
+</contentHaul>

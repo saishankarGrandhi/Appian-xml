@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6966319</versionUuid>
+    <rule>
+        <name>DEPRECATED_CAW_constructInterviewValidation</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3874739</uuid>
+        <description>rule to generate a default CAW_GENERIC_Interview_Validation object</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!interview),
+  'type!{urn:com:appian:types:CAW}CAW_GENERIC_Interview_Validation'(
+    interviewer: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3874725"
+  ),
+  if(
+    property(ri!interview,"isComplete",false)=true,
+    'type!{urn:com:appian:types:CAW}CAW_GENERIC_Interview_Validation'(),
+    if(
+      ri!interviewerTask = true,
+      'type!{urn:com:appian:types:CAW}CAW_GENERIC_Interview_Validation'(
+        interviewFeedback: if(
+          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!interview,"interviewFeedback",null)),
+          #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3874725",
+          null
+        ),
+        supportExtensionOfOffer: if(
+          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!interview,"supportExtensionOfOffer",null)),
+          #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3874725",
+          null
+        )
+      ),
+      'type!{urn:com:appian:types:CAW}CAW_GENERIC_Interview_Validation'(
+        interviewer: if(
+          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!interview,"interviewerId",null)),
+          #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3874725",
+          null
+        ),
+        interviewLocation: if(
+          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!interview,"interviewDateTime",null)),
+          null,
+          if(
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!interview,"interviewLocation",null)),
+            #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3874725",
+            null
+          )
+        ),
+        officeLocation: if(
+          and(
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(ri!interview,"interviewOfficeLocation",null)),
+            property(ri!interview,"interviewLocation","") = "Office"
+          ),
+          #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3874725",
+          null
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>interview</name>
+            <type>
+                <name>CAW_Interview</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>interviewerTask</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3957314"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4166332"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6966319"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12816805</versionUuid>
+    <rule>
+        <name>CAW_candidateIntakeExportSheet1QuerySelection</name>
+        <uuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6765171</uuid>
+        <description>a!queryselection for candidate intake sheet 1 export</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_querySelection"(
+  columns: {
+    #"SYSTEM_SYSRULES_queryColumn"(field: "fullName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "employeeId"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "positionType"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "subpositionType"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "nonTradRotationalType"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "fiscalYear"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "capacityReportingName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "currentCity"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "currentState"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "relocateNy"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "primaryIndustry"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "primaryIndustryOther"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "candidateIndustry"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "levelOfExperience"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "pcaobAuditIntegrated"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "pcaobAuditFSAPublic"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "aicpaAudit"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "attestationEngagement"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "groupAuditExperience"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "ifrsAccredited"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "brokerDealer"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "bankrupcy"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "singleAuditExperience"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "otherControlTestingExpierence"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "clientsWorkedOn"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "alteryx"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "accreditedSamplingProfessional"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "contImprovementChamp"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "engagementMgmtChamp"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "kpmgWorkflowLead"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "workflowChamp"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "itAuditChampion"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "aqspMethodologySupport"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "buAuditTechnologyLeadKCW"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "buAuditTechLeader"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "kpmgClaraLETeamChampion"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "kpmgClaraClients"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "kpmgExtendChamp"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "workflowSawChamp"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "itAuditLeadChampion"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "techAssuranceItAutoLead")
+  }
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6770142"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12611180"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12816805"/>
+    </history>
+</contentHaul>

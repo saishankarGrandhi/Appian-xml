@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_e-0000e7f4-9a94-8000-9b6f-01075c01075c_2119</versionUuid>
+    <group>
+        <name>CAW IIG</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000e6eb-1d17-8000-9b54-01075c01075c_1353</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <parentUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_1001</parentUuid>
+        <description>Group for IIG CoS</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups/>
+    </members>
+    <admins>
+        <users/>
+        <groups/>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="_e-0000e6eb-1d17-8000-9b54-01075c01075c_1354"/>
+        <historyInfo versionUuid="_e-0000e7f4-9a94-8000-9b6f-01075c01075c_2119"/>
+    </history>
+</groupHaul>

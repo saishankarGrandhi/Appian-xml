@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6468582</versionUuid>
+    <constant>
+        <name>CAW_TXT_NOMINATION_STATUS_LIST</name>
+        <uuid>_a-0000e6c7-249e-8000-9bfe-011c48011c48_3640108</uuid>
+        <description>Constant for List of nomination status names</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049809</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>In Progress</el>
+                <el>Ready for Acceptance and Onboarding</el>
+                <el>Interview Requested</el>
+                <el>Returned for Review</el>
+                <el>Completed</el>
+                <el>Cancelled</el>
+                <el>Pending Approval</el>
+                <el>Transfer Confirmation Requested</el>
+                <el>Transfer Confirmation Accepted</el>
+                <el>Formal Selection Notification Sent</el>
+                <el>Formal Selection Notification Accepted</el>
+                <el>Candidate Information Intake Sent</el>
+                <el>Candidate Information Intake Complete</el>
+                <el>Approved</el>
+                <el>Interview Completed</el>
+                <el>Request Interview Availability</el>
+                <el>Interview Availability Completed</el>
+                <el>Request Office Visit Availability</el>
+                <el>Office Visit Availability Completed</el>
+                <el>In Review - DPP</el>
+                <el>In Review - HR</el>
+                <el>In Review - Inspections</el>
+                <el>Updated Transfer Confirmation Requested</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3640113"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3891028"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3907651"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3956833"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577685"/>
+        <historyInfo versionUuid="_a-0000e777-b242-8000-9c12-011c48011c48_5327089"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6468582"/>
+    </history>
+</contentHaul>

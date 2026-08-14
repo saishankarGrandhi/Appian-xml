@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000efa7-8fc2-8000-9c86-011c48011c48_3460534</versionUuid>
+    <interface>
+        <name>CAW_FRM_DirectHireStart</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6700867</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isOldVersion: if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    false,
+    if(
+      todatetime(ri!nomination.createdOn) &lt; #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11589045",
+      true,
+      false
+    )
+  ),
+  local!isNewVersion: if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    true,
+    if(
+      todatetime(ri!nomination.createdOn) &gt; #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333392",
+      true,
+      false
+    )
+  ),
+  local!isNewVersionP2: if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    true,
+    if(
+      todatetime(ri!nomination.createdOn) &gt; #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12888338",
+      true,
+      false
+    )
+  ),
+  local!costCenterDropdown: if(
+    local!isNewVersion,
+    if(
+      contains(
+        #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12506922",
+        ri!candidateDetails.costCenter
+      ),
+      #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12506922",
+      reject(
+        fn!isnull,
+        append(
+          #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12506922",
+          ri!candidateDetails.costCenter
+        )
+      )
+    ),
+    if(
+      contains(
+        #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6570079",
+        ri!candidateDetails.costCenter
+      ),
+      #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6570079",
+      reject(
+        fn!isnull,
+        append(
+          #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6570079",
+          ri!candidateDetails.costCenter
+        )
+      )
+    )
+  ),
+  local!subPositionTypes: #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3595917"(returnCDT: true),
+  local!refData: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+    refTypeId: { #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3595745" },
+    returnCDT: true
+  ),
+  local!refOffices: union(
+    index(
+      #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3567098"(
+        returnCDT: true,
+        isActive: true,
+        pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: - 1,
+          sort: #"SYSTEM_SYSRULES_sortInfo"(field: "office", ascending: true)
+        )
+      ),
+      "office",
+      {}
+    ),
+    touniformstring({})
+  ),
+  local!officesForDropdown: {
+    local!refOffices,
+    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185",
+    #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630"
+  },
+  local!updatedOfficesForDropdown: if(
+    contains(
+      local!officesForDropdown,
+      ri!nomination.returnHomeOffice
+    ),
+    local!officesForDropdown,
+    reject(
+      fn!isnull,
+      append(
+        local!officesForDropdown,
+        ri!nomination.returnHomeOffice
+      )
+    )
+  ),
+  local!choice: if(ri!isUpdate = true, "complete", null),
+  {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: if(
+        ri!isUpdate = true,
+        "Updated DPP Start Notification",
+        "DPP New Start Notification"
+      ),
+      contents: {
+        #"SYSTEM_SYSRULES_cardLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: {
+                    #"SYSTEM_SYSRULES_textField"(
+                      label: "Candidate Name",
+                      value: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3928917"(
+                        firstName: ri!nomination.firstName,
+                        middleName: ri!nomination.middleName,
+                        lastName: ri!nomination.lastName
+                      ),
+                      readOnly: true
+                    ),
+                    #"SYSTEM_SYSRULES_dateField"(
+                      label: "Effective DPP Start Date",
+                      value: ri!candidateDetails.candidateProjectedStartDate,
+                      saveInto: ri!candidateDetails.candidateProjectedStartDate,
+                      required: true,
+                      requiredMessage: "Transfer Date is required",
+                      
+                    )
+                  }
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: {
+                    #"SYSTEM_SYSRULES_textField"(
+                      label: "Position Type",
+                      value: displayvalue(
+                        ri!nomination.positionTypeId,
+                        index(local!refData, "refId", {}),
+                        index(local!refData, "description", {}),
+                        null
+                      ),
+                      readOnly: true
+                    ),
+                    #"SYSTEM_SYSRULES_dateField"(
+                      label: "Effective System Transfer Date",
+                      value: ri!candidateDetails.effectiveTransferDate,
+                      saveInto: ri!candidateDetails.effectiveTransferDate,
+                      required: true,
+                      
+                    )
+                  }
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: {
+                    #"SYSTEM_SYSRULES_textField"(
+                      label: "Position Sub Type",
+                      value: displayvalue(
+                        ri!nomination.subPositionTypeId,
+                        index(
+                          local!subPositionTypes,
+                          "subPositionId",
+                          {}
+                        ),
+                        index(
+                          local!subPositionTypes,
+                          "subPosition",
+                          {}
+                        ),
+                        null
+                      ),
+                      readOnly: true
+                    ),
+                    #"SYSTEM_SYSRULES_dateField"(
+                      label: "Effective End Date",
+                      value: ri!candidateDetails.rotationEndDate,
+                      saveInto: ri!candidateDetails.rotationEndDate,
+                      required: if(
+                        and(
+                          local!isNewVersionP2 = true,
+                          or(
+                            ri!nomination.subPositionTypeId = #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12928147"[1],
+                            ri!nomination.subPositionTypeId = #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12928147"[2],
+                            ri!nomination.subPositionTypeId = #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12928147"[3]
+                          )
+                        ),
+                        false,
+                        true
+                      )
+                    )
+                  }
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: {
+                    #"SYSTEM_SYSRULES_dropdownField_v1"(
+                      label: "Cost Center",
+                      choiceLabels: local!costCenterDropdown,
+                      choiceValues: local!costCenterDropdown,
+                      value: ri!candidateDetails.costCenter,
+                      saveInto: ri!candidateDetails.costCenter,
+                      placeholder: "Select Cost Center",
+                      required: true,
+                      validations: if(
+                        local!isNewVersion,
+                        if(
+                          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!candidateDetails.costCenter),
+                          "",
+                          if(
+                            contains(
+                              #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12506922",
+                              ri!candidateDetails.costCenter
+                            ),
+                            "",
+                            "Please select a new cost center"
+                          )
+                        ),
+                        if(
+                          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!candidateDetails.costCenter),
+                          "",
+                          if(
+                            contains(
+                              #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6570079",
+                              ri!candidateDetails.costCenter
+                            ),
+                            "",
+                            "Please select a new cost center"
+                          )
+                        )
+                      )
+                    ),
+                    #"SYSTEM_SYSRULES_dropdownField_v1"(
+                      label: "Returning Office",
+                      value: ri!nomination.returnHomeOffice,
+                      saveInto: ri!nomination.returnHomeOffice,
+                      choiceValues: local!updatedOfficesForDropdown,
+                      choiceLabels: local!updatedOfficesForDropdown,
+                      placeholder: "Select Office",
+                      validations: if(
+                        and(
+                          a!isNotNullOrEmpty(ri!nomination.returnHomeOffice),
+                          contains(
+                            local!officesForDropdown,
+                            ri!nomination.returnHomeOffice
+                          ) = false
+                        ),
+                        "Please select a valid returning office",
+                        ""
+                      )
+                    )
+                  }
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_dropdownField_v1"(
+                    label: "DPP Group",
+                    placeholder: "Select Group",
+                    choiceLabels: if(
+                      local!isNewVersion,
+                      #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12525382",
+                      sorttextarray(
+                        if(
+                          toboolean(local!isOldVersion) = true,
+                          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5263396",
+                          #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11664820"
+                        ),
+                        false
+                      )
+                    ),
+                    choiceValues: if(
+                      local!isNewVersion,
+                      #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12525382",
+                      sorttextarray(
+                        if(
+                          toboolean(local!isOldVersion) = true,
+                          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5263396",
+                          #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11664820"
+                        ),
+                        false
+                      )
+                    ),
+                    value: ri!candidateDetails.dppGroup,
+                    saveInto: {
+                      ri!candidateDetails.dppGroup,
+                      if(
+                        ri!candidateDetails.dppGroup &lt;&gt; #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12525382"[9],
+                        a!save(ri!candidateDetails.dppGroupOther, null),
+                        {}
+                      )
+                    },
+                    required: true
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_textField"(
+                    label: "Email",
+                    placeholder: "Enter Email",
+                    showWhen: ri!nomination.isDirectHireInternal = false,
+                    value: ri!nomination.employeeEmail,
+                    saveInto: ri!nomination.employeeEmail,
+                    required: ri!nomination.isDirectHireInternal = false,
+                    validations: if(
+                      regexmatch(
+                        pattern: "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+                        searchString: ri!nomination.employeeEmail
+                      ),
+                      if(
+                        right(ri!nomination.employeeEmail, 9) &lt;&gt; "@kpmg.com",
+                        "Email Must Be @kpmg.com",
+                        null
+                      ),
+                      "Invalid Email Address"
+                    )
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_textField"(
+                    label: "New Geo Location",
+                    value: ri!candidateDetails.newGeoLocation,
+                    saveInto: ri!candidateDetails.newGeoLocation,
+                    characterLimit: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3958020"
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: #"SYSTEM_SYSRULES_textField"(
+                    label: "New Business Area",
+                    value: ri!candidateDetails.newBusinessArea,
+                    saveInto: ri!candidateDetails.newBusinessArea,
+                    characterLimit: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3958020"
+                  )
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                #"SYSTEM_SYSRULES_columnLayout"(
+                  showWhen: ri!candidateDetails.dppGroup = #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12525382"[9],
+                  contents: #"SYSTEM_SYSRULES_paragraphField"(
+                    label: "Other",
+                    value: ri!candidateDetails.dppGroupOther,
+                    saveInto: ri!candidateDetails.dppGroupOther,
+                    characterLimit: 200,
+                    required: true,
+                    showCharacterCount: true
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"()
+              }
+            )
+          },
+          marginBelow: "STANDARD"
+        )
+      },
+      divider: "ABOVE",
+      dividerWeight: "MEDIUM",
+      dividerColor: "ACCENT",
+      marginBelow: "STANDARD"
+    ),
+    #"SYSTEM_SYSRULES_radioButtonField"(
+      labelPosition: "COLLAPSED",
+      choiceLabels: {
+        "Mark Nomination as Complete",
+        "Send Experience Intake Form"
+      },
+      choiceValues: {
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4574328",
+        #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3982629"
+      },
+      value: local!choice,
+      saveInto: local!choice,
+      required: true,
+      choiceStyle: "CARDS",
+      requiredMessage: "Please select an option.",
+      showWhen: not(ri!isUpdate = true)
+    ),
+    #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3953596"(
+          nomination: ri!nomination,
+          buttonValue: ri!buttonValue,
+          task: ri!task,
+          auditHistory: ri!auditHistory,
+          newStatusId: if(
+            local!choice = "complete",
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350",
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4966786"
+          ),
+          isCandidate: false,
+          isComplete: local!choice = "complete",
+          candidateDetails: ri!candidateDetails,
+          isAssigneeGroup: false,
+          assigneeId: if(
+            local!choice = "complete",
+            null,
+            ri!nomination.candidateUserId
+          )
+        )
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "EXIT",
+          value: #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3602779",
+          saveInto: ri!buttonValue,
+          submit: true,
+          style: "DESTRUCTIVE",
+          validate: false,
+          confirmMessage: "Are you sure you want to exit? Your changes will not be saved"
+        )
+      }
+    ),
+    
+  }
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateDetails</name>
+            <type>
+                <name>CAW_CandidateDetails</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isUpdate</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+  nominationId: 319,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3934880"(
+  nominationId: 319,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>candidateDetails</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3066463"(
+  requestId:  319,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>task</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonValue</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>auditHistory</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:boolean"/>
+                    <a:nameRef>isUpdate</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6749622"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6775683"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6836726"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6933382"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6965485"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11665726"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11738065"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11767357"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11774884"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11775217"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12506966"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12527333"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12928303"/>
+        <historyInfo versionUuid="_a-0000efa7-8fc2-8000-9c86-011c48011c48_3460534"/>
+    </history>
+</contentHaul>

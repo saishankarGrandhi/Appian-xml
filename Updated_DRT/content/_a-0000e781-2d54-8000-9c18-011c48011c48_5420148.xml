@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12741319</versionUuid>
+    <rule>
+        <name>CAW_nominationStatusExportQuerySelecton</name>
+        <uuid>_a-0000e781-2d54-8000-9c18-011c48011c48_5420148</uuid>
+        <description>a!queryselection for nomination status summary export</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_querySelection"(
+  columns: {
+    #"SYSTEM_SYSRULES_queryColumn"(field: "fiscalYear"),
+    /*a!queryColumn(field: "originatingRegion"),*/
+    #"SYSTEM_SYSRULES_queryColumn"(field: "originatingBU"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "positionType"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "subPosition"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "fullName"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "submittedOn"),
+    /*a!queryColumn(field: "OpsReview"),*/
+    #"SYSTEM_SYSRULES_queryColumn"(field: "inspectionReviewCompletedDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "hrReviewCompletedDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "isVettingRequired"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "vettingComments"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "opsAdditionalVettingCompletedDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "interviewCompletedDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "officeVisitCompletedDate"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "approvedOn"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "approvedBy"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "offerSent"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "candidateResponse"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "transConfirmationSent"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "transConfirmationAck"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "intakeFormSent"),
+    #"SYSTEM_SYSRULES_queryColumn"(field: "intakeFormReceived")
+  }
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e781-2d54-8000-9c18-011c48011c48_5420160"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12592564"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12741319"/>
+    </history>
+</contentHaul>

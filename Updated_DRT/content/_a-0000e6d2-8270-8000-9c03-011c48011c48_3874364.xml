@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e9a1-ea0a-8000-9c3c-011c48011c48_10817051</versionUuid>
+    <rule>
+        <name>CAW_NomineePickerSuggestFunction</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3874364</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  or(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!filter),
+    len(ri!filter)&lt;#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3895397"
+  ),
+  #"SYSTEM_SYSRULES_dataSubset"(data: {}, identifiers: {}),
+  a!localVariables(
+    local!results: #"SYSTEM_SYSRULES_queryEntity_v1"(
+      entity: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924660",
+      query: #"SYSTEM_SYSRULES_query"(
+        selection: #"SYSTEM_SYSRULES_querySelection"(
+          columns: {
+            #"SYSTEM_SYSRULES_queryColumn"(field: "fullNameDerived"),
+            #"SYSTEM_SYSRULES_queryColumn"(field: "employeeId"),
+            #"SYSTEM_SYSRULES_queryColumn"(field: "email")
+          }
+        ),
+        paginginfo: #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: -1
+        ),
+        filter: #"SYSTEM_SYSRULES_queryFilter"(
+          field: "fullNameDerived",
+          operator: "includes",
+          value: ri!filter
+        )
+      )
+    ),
+    #"SYSTEM_SYSRULES_dataSubset"(
+      data: #"SYSTEM_SYSRULES_forEach"(
+        items: index(local!results, "data", {}),
+        expression: concat(
+          index(fv!item, "fullNameDerived", {}),
+          " (",
+          index(fv!item, "email", {}),
+          ")"
+        )
+      ),
+      identifiers: index(local!results.data, "employeeId", {})
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>filter</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3955215"/>
+        <historyInfo versionUuid="_a-0000e9a1-ea0a-8000-9c3c-011c48011c48_10817051"/>
+    </history>
+</contentHaul>

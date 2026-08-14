@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e790-a118-8000-9c1b-011c48011c48_5604981</versionUuid>
+    <rule>
+        <name>CAW_formatInterviewEmailSubject</name>
+        <uuid>_a-0000e781-2d54-8000-9c18-011c48011c48_5420416</uuid>
+        <description>Rule to format Interview email subject</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!nominationInstance:
+  index(
+    ri!nomination,
+    wherecontains(
+      tointeger(property(ri!interview,"nominationId",null)),
+      tointeger(property(ri!nomination,"nominationId",null))
+    ),
+    null
+  ),
+
+  if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!nominationInstance),
+    null,
+    if(
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4717821" = #"_a-0000e790-a118-8000-9c1b-011c48011c48_5604382",
+      concat(
+        ri!subject,
+        " - ",
+        property(local!nominationInstance,"lastName",null),
+        ", ",
+        property(local!nominationInstance,"firstName",null),
+        if(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(property(local!nominationInstance,"middleName",null)),
+          null,
+          if(
+            len(property(local!nominationInstance,"middleName",null))&gt;0,
+            " " &amp; left(property(local!nominationInstance,"middleName",null),1),
+            null
+          )
+        )
+      ),
+      concat(
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4717821",
+        " : ",
+        ri!subject,
+        " - ",
+        property(local!nominationInstance,"lastName",null),
+        ", ",
+        property(local!nominationInstance,"firstName",null),
+        if(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(property(local!nominationInstance,"middleName",null)),
+          null,
+          if(
+            len(property(local!nominationInstance,"middleName",null))&gt;0,
+            " " &amp; left(property(local!nominationInstance,"middleName",null),1),
+            null
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>subject</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>interview</name>
+            <type>
+                <name>CAW_Interview</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e781-2d54-8000-9c18-011c48011c48_5420459"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5604981"/>
+    </history>
+</contentHaul>

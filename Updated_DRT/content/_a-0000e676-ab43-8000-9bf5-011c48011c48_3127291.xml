@@ -1,0 +1,946 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14125089</versionUuid>
+    <interface>
+        <name>CAW_FRM_InitiateCoreAsk</name>
+        <uuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3127291</uuid>
+        <description>Main form for Core ASK request</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isNewVersion: if(
+    a!isNullOrEmpty(ri!ask.createdOn),
+    true,
+    if(
+      todatetime(ri!ask.createdOn) &gt; #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12888338",
+      true,
+      false
+    )
+  ),
+  local!isOldVersion: if(
+    a!isNullOrEmpty(ri!ask.createdOn),
+    false,
+    if(
+      todatetime(ri!ask.createdOn) &lt; #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11589045",
+      true,
+      false
+    )
+  ),
+  local!selectedTab: 1,
+  local!refData: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+    refTypeId: {
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5245536",
+      #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12926741",
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5245543",
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5245550",
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5245730",
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3135783",
+      "30"
+    },
+    isActive: true,
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: - 1,
+      sort: #"SYSTEM_SYSRULES_sortInfo"(field: "description", ascending: true)
+    )
+  ).data,
+  local!isrequestAfterV4Deployment: if(
+    a!isNullOrEmpty(ri!ask.createdOn),
+    true,
+    if(
+      todatetime(ri!ask.createdOn) &gt; #"_a-0000ebe3-046c-8000-9c56-011c48011c48_13092616",
+      true,
+      false
+    )
+  ),
+ 
+  local!dppgroupHyperCareDropDown: index(
+    local!refData,
+    wherecontains(
+      30,
+      tointeger(
+        property(local!refData, "refTypeId", null)
+      )
+    )
+  ),
+  
+  local!dppGroup: if(
+    toboolean(local!isNewVersion),
+    index(
+      local!refData,
+      wherecontains(
+        #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12926741",
+        tointeger(
+          property(local!refData, "refTypeId", null)
+        )
+      ),
+      {}
+    ),
+    index(
+      local!refData,
+      wherecontains(
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5245536",
+        tointeger(
+          property(local!refData, "refTypeId", null)
+        )
+      ),
+      {}
+    )
+  ),
+  local!dppGroupDropdown: if(
+    or(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!coreAskDetails.dppGroupId),
+      contains(
+        tointeger(index(local!dppGroup, "refId", {})),
+        ri!coreAskDetails.dppGroupId
+      )
+    ),
+    local!dppGroup,
+    reject(
+      fn!isnull,
+      append(
+        local!dppGroup,
+        { refId: ri!coreAskDetails.dppGroupId }
+      )
+    )
+  ),
+  local!needReason: index(
+    local!refData,
+    wherecontains(
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5245543",
+      tointeger(
+        property(local!refData, "refTypeId", null)
+      )
+    ),
+    {}
+  ),
+  local!levelNeed: index(
+    local!refData,
+    wherecontains(
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5245550",
+      tointeger(
+        property(local!refData, "refTypeId", null)
+      )
+    ),
+    {}
+  ),
+  local!specialityNeed: index(
+    local!refData,
+    wherecontains(
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5245730",
+      tointeger(
+        property(local!refData, "refTypeId", null)
+      )
+    ),
+    {}
+  ),
+  local!rolePosting: index(
+    local!refData,
+    wherecontains(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3135783",
+      tointeger(
+        property(local!refData, "refTypeId", null)
+      )
+    ),
+    {}
+  ),
+  local!isUserInLeadershipGroup: isusermemberofgroups(
+    loggedInUser(),
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176497"
+  ),
+  local!nextStatusId: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3341997"(
+    taskStatusId: ri!task.statusId,
+    isEdit: ri!isEdit,
+    isUserInLeadershipGroup: local!isUserInLeadershipGroup
+  ),
+  local!nextAssigneeGroup: #"_a-0000e825-ace1-8000-9c24-011c48011c48_6851428"(taskStatusId: local!nextStatusId),
+  local!assignee: if(
+    a!isNullOrEmpty(local!nextAssigneeGroup),
+    null,
+    a!groupMembers(local!nextAssigneeGroup)
+  ),
+  local!assigneeId: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(
+      index(local!assignee, "totalCount", null)
+    ),
+    null,
+    if(
+      local!assignee.totalCount &gt; 1,
+      if(
+        toboolean(local!isOldVersion) = true,
+        property(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+            description: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3374322"(local!nextAssigneeGroup),
+            refTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177789"
+          ).data,
+          "refId",
+          null
+        ),
+        property(
+          #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050345"(
+            description: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3374322"(local!nextAssigneeGroup),
+            refTypeId: #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11818616"
+          ).data,
+          "refId",
+          null
+        )
+      ),
+      property(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3070432"(
+          userName: if(
+            or(
+              #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!assignee.data),
+              local!assignee.totalCount = 0
+            ),
+            - 1,
+            tostring(property(local!assignee, "data", null))
+          )
+        ).data,
+        "userId",
+        null
+      )
+    )
+  ),
+  local!selectedGroup: tostring(
+    index(
+      index(local!dppGroup, "description", {}),
+      wherecontains(
+        ri!coreAskDetails.dppGroupId,
+        tointeger(index(local!dppGroup, "refId", {}))
+      )
+    )
+  ),
+  local!appianDocs: a!refreshVariable(
+    value: if(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!documents),
+      null,
+      #"SYSTEM_SYSRULES_forEach"(
+        items: ri!documents,
+        expression: todocument(fv!item.docId)
+      )
+    ),
+    refreshOnReferencedVarChange: false
+  ),
+  local!version: if(
+    isnull(ri!ask.version),
+    1,
+    if(
+      and(ri!isTaskAmend = true, ri!isEdit = false),
+      ri!ask.version + 1,
+      ri!ask.version
+    )
+  ),
+  local!selectedEmployee: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924363"(
+    employeeId: property(ri!coreAskDetails, "employeeId", null),
+    
+  ),
+  local!rolePostingRequired: contains(
+    {
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197132"[1],
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197132"[2],
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197132"[3]
+    },
+    ri!coreAskDetails.levelNeedId
+  ),
+  #"SYSTEM_SYSRULES_formLayout_v1"(
+    label: if(
+      ri!isTaskAmend,
+      "Amend Core ASK ",
+      "Core ASK "
+    ) &amp; if(
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!task.statusId),
+      "",
+      " : " &amp; local!selectedGroup
+    ),
+    contents: {
+      #"_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3769972"(
+        selectedTab: local!selectedTab,
+        showWhen: not(#"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!ask.askId)),
+        previousCommentsShowWhen: and(
+          ri!isEdit = true,
+          ri!task.statusId &lt;&gt; #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3165924"
+        ),
+        isReview: false
+      ),
+      /*DETAILS*/
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "ASK Details",
+        contents: {
+          #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3341961"(task: ri!task),
+          #"SYSTEM_SYSRULES_cardLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_columnsLayout"(
+                columns: {
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "Name of the ASK",
+                        required: true,
+                        value: ri!coreAskDetails.coreAskName,
+                        saveInto: ri!coreAskDetails.coreAskName,
+                        showWhen: if(
+                          toboolean(local!isNewVersion) = true,
+                          true,
+                          false
+                        ),
+                        characterLimit: 200
+                      ),
+                      if(
+                        toboolean(local!isrequestAfterV4Deployment) = true,
+                        #"SYSTEM_SYSRULES_dropdownField_v1"(
+                          label: "DPP Group",
+                          placeholder: "Select DPP Group",
+                          choiceLabels: index(
+                            local!dppgroupHyperCareDropDown,
+                            "description",
+                            {}
+                          ),
+                          choiceValues: index(local!dppgroupHyperCareDropDown, "refId", {}),
+                          value: ri!coreAskDetails.dppGroupId,
+                          saveInto: ri!coreAskDetails.dppGroupId,
+                          required: true,
+                          requiredMessage: "A DPP group is required.",
+                         
+                        ),
+                      #"SYSTEM_SYSRULES_dropdownField_v1"(
+                        label: "DPP Group",
+                        placeholder: "Select DPP Group",
+                        choiceLabels: index(
+                          local!dppGroupDropdown,
+                          "description",
+                          {}
+                        ),
+                        choiceValues: index(local!dppGroupDropdown, "refId", {}),
+                        value: ri!coreAskDetails.dppGroupId,
+                        saveInto: ri!coreAskDetails.dppGroupId,
+                        required: true,
+                        requiredMessage: "A DPP group is required.",
+                        validations: if(
+                          contains(
+                            tointeger(index(local!dppGroup, "refId", {})),
+                            ri!coreAskDetails.dppGroupId
+                          ),
+                          null,
+                          "Please select a valid DPP Group"
+                        )
+                      ),
+                      ),
+                      #"SYSTEM_SYSRULES_dropdownField_v1"(
+                        label: "Reason for DPP Need *",
+                        placeholder: "Select Reason",
+                        choiceLabels: property(local!needReason, "description", null),
+                        choiceValues: property(local!needReason, "refId", null),
+                        value: ri!coreAskDetails.needReasonId,
+                        saveInto: {
+                          ri!coreAskDetails.needReasonId,
+                          if(
+                            ri!coreAskDetails.needReasonId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196368"[1],
+                            {
+                              a!save(
+                                ri!coreAskDetails.outgoingResource,
+                                null
+                              ),
+                              a!save(ri!coreAskDetails.employeeId, null),
+                              a!save(
+                                ri!coreAskDetails.projectedStartDate,
+                                null
+                              ),
+                              a!save(ri!coreAskDetails.endDate, null)
+                            },
+                            {}
+                          )
+                        },
+                        required: true,
+                        validationGroup: "main"
+                      ),
+                      #"SYSTEM_SYSRULES_dropdownField_v1"(
+                        label: "General/Specialty Needed *",
+                        placeholder: "Select Specialty",
+                        choiceLabels: property(
+                          local!specialityNeed,
+                          "description",
+                          null
+                        ),
+                        choiceValues: property(local!specialityNeed, "refId", null),
+                        value: ri!coreAskDetails.generalSpecialityNeedId,
+                        saveInto: {
+                          ri!coreAskDetails.generalSpecialityNeedId,
+                          if(
+                            ri!coreAskDetails.generalSpecialityNeedId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196391"[1],
+                            a!save(
+                              ri!coreAskDetails.generalSpecialityNeedComment,
+                              null
+                            ),
+                            {}
+                          )
+                        },
+                        required: true,
+                        validationGroup: "main"
+                      ),
+                      #"SYSTEM_SYSRULES_dropdownField_v1"(
+                        label: "Level Needed *",
+                        placeholder: "Select Level",
+                        choiceLabels: property(local!levelNeed, "description", null),
+                        choiceValues: property(local!levelNeed, "refId", null),
+                        value: ri!coreAskDetails.levelNeedId,
+                        saveInto: {
+                          ri!coreAskDetails.levelNeedId,
+                          if(
+                            contains(
+                              {
+                                #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197132"[1],
+                                #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197132"[2],
+                                #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197132"[3]
+                              },
+                              ri!coreAskDetails.levelNeedId
+                            ),
+                            {},
+                            a!save(ri!coreAskDetails.rolePostingId, null)
+                          )
+                        },
+                        required: true,
+                        validationGroup: "main"
+                      ),
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "PML",
+                        placeholder: "Please enter the name of the PML",
+                        characterLimit: 99,
+                        value: ri!coreAskDetails.pml,
+                        saveInto: ri!coreAskDetails.pml,
+                        showWhen: if(
+                          toboolean(local!isNewVersion) = true,
+                          true,
+                          false
+                        )
+                      ),
+                      
+                    }
+                  ),
+                  #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_sideBySideLayout"(
+                        items: {
+                          #"SYSTEM_SYSRULES_sideBySideItem"(
+                            item: #"SYSTEM_SYSRULES_dateField"(
+                              label: "Projected Start Date ",
+                              value: ri!coreAskDetails.projectedStartDate,
+                              saveInto: ri!coreAskDetails.projectedStartDate,
+                              required: true,
+                              requiredMessage: "A projected start date is required."
+                            )
+                          ),
+                          #"SYSTEM_SYSRULES_sideBySideItem"(
+                            item: if(
+                              ri!coreAskDetails.needReasonId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196368"[1],
+                              #"SYSTEM_SYSRULES_textField"(
+                                label: "Retirement/End Date",
+                                value: "N/A",
+                                disabled: true
+                              ),
+                              #"SYSTEM_SYSRULES_dateField"(
+                                label: "Retirement/End Date *",
+                                value: ri!coreAskDetails.endDate,
+                                saveInto: ri!coreAskDetails.endDate,
+                                required: true,
+                                validations: if(
+                                  ri!coreAskDetails.endDate &lt; today(),
+                                  "End date cannot be earlier than today.",
+                                  if(
+                                    ri!coreAskDetails.endDate &lt;= ri!coreAskDetails.projectedStartDate,
+                                    "End date must be after start date",
+                                    null
+                                  )
+                                ),
+                                validationGroup: "main"
+                              )
+                            )
+                          )
+                        }
+                      ),
+                      if(
+                        ri!coreAskDetails.needReasonId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196368"[1],
+                        #"SYSTEM_SYSRULES_textField"(
+                          label: "Outgoing Resource",
+                          value: "N/A",
+                          disabled: true
+                        ),
+                        #"_a-0000e71a-415c-8000-9c0b-011c48011c48_4412304"(
+                          selectedEmployee: local!selectedEmployee,
+                          coreAskDetails: ri!coreAskDetails,
+                          validationGroup: "main"
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_sideBySideLayout"(
+                        items: {
+                          #"SYSTEM_SYSRULES_sideBySideItem"(
+                            item: #"SYSTEM_SYSRULES_integerField"(
+                              label: "Number of Resources *",
+                              helpTooltip: "Indicate the amount of people who could fill the FTE need (i.e. if two people can fill one FTE)",
+                              value: ri!coreAskDetails.headCountAmount,
+                              saveInto: {
+                                ri!coreAskDetails.headCountAmount,
+                                if(
+                                  #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!coreAskDetails.headCountAmount),
+                                  a!save(ri!coreAskDetails.fteAmount, null),
+                                  {}
+                                )
+                              },
+                              required: true,
+                              validationGroup: "main"
+                            )
+                          ),
+                          #"SYSTEM_SYSRULES_sideBySideItem"(
+                            item: #"SYSTEM_SYSRULES_integerField"(
+                              label: "DPP FTE Amount",
+                              value: ri!coreAskDetails.fteAmount,
+                              saveInto: ri!coreAskDetails.fteAmount,
+                              required: true,
+                              disabled: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!coreAskDetails.headCountAmount),
+                              validations: if(
+                                ri!coreAskDetails.headCountAmount &lt; ri!coreAskDetails.fteAmount,
+                                "The FTE amount cannot be more than the number of resources.",
+                                null
+                              ),
+                              validationGroup: "main"
+                            )
+                          )
+                        }
+                      ),
+                      #"SYSTEM_SYSRULES_dropdownField_v1"(
+                        label: if(
+                          local!rolePostingRequired,
+                          "Role Posting *",
+                          "Role Posting"
+                        ),
+                        placeholder: "Select Role Posting",
+                        choiceLabels: property(local!rolePosting, "description", null),
+                        choiceValues: property(local!rolePosting, "refId", null),
+                        value: ri!coreAskDetails.rolePostingId,
+                        saveInto: ri!coreAskDetails.rolePostingId,
+                        disabled: local!rolePostingRequired = false,
+                        required: local!rolePostingRequired,
+                        validationGroup: "main"
+                      ),
+                      #"SYSTEM_SYSRULES_dropdownField_v1"(
+                        label: "Titling Category",
+                        placeholder: "Select a value: ",
+                        choiceLabels: #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12874420",
+                        choiceValues: #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12874420",
+                        value: ri!coreAskDetails.titlingCategory,
+                        saveInto: ri!coreAskDetails.titlingCategory,
+                        required: true,
+                        showWhen: if(
+                          toboolean(local!isNewVersion) = true,
+                          true,
+                          false
+                        )
+                      ),
+                      #"SYSTEM_SYSRULES_textField"(
+                        label: "Transitional Coach",
+                        placeholder: "Please enter the Transitional Coach's Name",
+                        characterLimit: 99,
+                        value: ri!coreAskDetails.transitionalCoach,
+                        saveInto: ri!coreAskDetails.transitionalCoach,
+                        showWhen: if(
+                          toboolean(local!isNewVersion) = true,
+                          true,
+                          false
+                        )
+                      )
+                    }
+                  )
+                },
+                stackWhen: { "PHONE", "TABLET_PORTRAIT" }
+              ),
+              #"SYSTEM_SYSRULES_paragraphField"(
+                label: "Role Summary *",
+                helpTooltip: "Overview of the basic function and purpose of the job.",
+                value: ri!coreAskDetails.roleSummary,
+                saveInto: ri!coreAskDetails.roleSummary,
+                characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3426796",
+                required: true,
+                validationGroup: "main"
+              ),
+              #"SYSTEM_SYSRULES_paragraphField"(
+                label: "Role Responsibilities *",
+                helpTooltip: "Primary duties and responsibilities.",
+                value: ri!coreAskDetails.roleResponsibility,
+                saveInto: ri!coreAskDetails.roleResponsibility,
+                characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3426796",
+                required: true,
+                validationGroup: "main"
+              ),
+              #"SYSTEM_SYSRULES_paragraphField"(
+                label: "Role Qualifications *",
+                helpTooltip: "The skills, abilities, specific knowledge, education and minimum experience necessary to perform this job.",
+                value: ri!coreAskDetails.roleQualification,
+                saveInto: ri!coreAskDetails.roleQualification,
+                characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3426796",
+                required: true,
+                validationGroup: "main"
+              ),
+              #"SYSTEM_SYSRULES_paragraphField"(
+                label: if(
+                  ri!coreAskDetails.generalSpecialityNeedId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196391"[1],
+                  "Specialty Comment",
+                  "Specialty Comment *"
+                ),
+                value: ri!coreAskDetails.generalSpecialityNeedComment,
+                saveInto: {
+                  ri!coreAskDetails.generalSpecialityNeedComment,
+                  if(
+                    ri!coreAskDetails.generalSpecialityNeedId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196391"[1],
+                    a!save(
+                      ri!coreAskDetails.generalSpecialityNeedComment,
+                      null
+                    ),
+                    {}
+                  )
+                },
+                characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137",
+                disabled: ri!coreAskDetails.generalSpecialityNeedId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196391"[1],
+                required: ri!coreAskDetails.generalSpecialityNeedId &lt;&gt; #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3196391"[1],
+                validationGroup: "main"
+              )
+            },
+            marginBelow: "STANDARD"
+          )
+        },
+        showWhen: local!selectedTab = 1,
+        isCollapsible: true,
+        divider: "ABOVE",
+        dividerWeight: "MEDIUM",
+        dividerColor: "ACCENT",
+        marginBelow: "STANDARD"
+      ),
+      /*ATTACHMENTS*/
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Attachments",
+        contents: {
+          #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3599978"(
+            appianDoc: local!appianDocs,
+            document: ri!documents,
+            moduleId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+            requestId: ri!ask.askId,
+            taskId: ri!task.taskId,
+            version: local!version,
+            documentsToDelete: ri!documentsToDelete,
+            isNomination: false
+          )
+        },
+        showWhen: local!selectedTab = 1,
+        isCollapsible: true,
+        divider: "ABOVE",
+        dividerWeight: "MEDIUM",
+        dividerColor: "ACCENT",
+        marginBelow: "STANDARD"
+      ),
+      /*CURRENT COMMENT*/
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "Comment",
+        contents: #"SYSTEM_SYSRULES_paragraphField"(
+          value: ri!comment.comment,
+          saveInto: {
+            if(
+              #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!comment.commentId),
+              a!save(
+                ri!comment,
+                'type!{urn:com:appian:types:CAW}CAW_Comment'(
+                  commentId: ri!comment.commentId,
+                  requestId: ri!ask.askId,
+                  moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                  comment: save!value,
+                  isActive: true,
+                  isDraft: true,
+                  version: local!version,
+                  createdBy: loggedInUser(),
+                  createdOn: now(),
+                  modifiedBy: loggedInUser(),
+                  modifiedOn: now()
+                )
+              ),
+              a!save(ri!comment.comment, save!value)
+            )
+          },
+          characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3426796",
+          required: false
+        ),
+        showWhen: local!selectedTab = 1,
+        isCollapsible: true,
+        divider: "ABOVE",
+        dividerWeight: "MEDIUM",
+        dividerColor: "ACCENT",
+        marginBelow: "STANDARD"
+      ),
+      /*PREVIOUS COMMENTS*/
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3192543"(
+        comments: ri!previousComments,
+        showWhen: local!selectedTab = 3
+      )
+    },
+    buttons: if(
+      ri!isTaskAmend,
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3294350"(
+        coreAskDetails: ri!coreAskDetails,
+        ask: ri!ask,
+        task: ri!task,
+        showWhen: local!selectedTab = 1,
+        action: ri!action,
+        comment: ri!comment,
+        isEdit: ri!isEdit,
+        assignee: local!assignee,
+        assigneeId: local!assigneeId,
+        nextStatusId: local!nextStatusId,
+        auditHistory: ri!audit
+      ),
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3203927"(
+        coreAskDetails: ri!coreAskDetails,
+        ask: ri!ask,
+        task: ri!task,
+        showWhen: local!selectedTab = 1,
+        action: ri!action,
+        comment: ri!comment,
+        isEdit: ri!isEdit,
+        assignee: local!assignee,
+        assigneeId: local!assigneeId,
+        nextStatusId: local!nextStatusId,
+        auditHistory: ri!audit
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ask</name>
+            <type>
+                <name>CAW_Ask</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>coreAskDetails</name>
+            <type>
+                <name>CAW_CoreAskDetail</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>comment</name>
+            <type>
+                <name>CAW_Comment</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>previousComments</name>
+            <type>
+                <name>CAW_Comment?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isTaskAmend</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isEdit</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>audit</name>
+            <type>
+                <name>CAW_Audit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>documents</name>
+            <type>
+                <name>CAW_Document?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>documentsToDelete</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>action</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127036"(
+  askId: 438,
+  isActive: true,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>ask</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127156"(
+  askId: 438,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>coreAskDetails</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3066463"(
+  requestId: 438,
+  moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>task</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3127169"(
+  requestId: 438,
+  moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>comment</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>previousComments</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isTaskAmend</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">true</a:value>
+                    <a:nameRef>isEdit</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>audit</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>documents</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>documentsToDelete</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3240853"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3258107"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3264744"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3370897"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3415667"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3427241"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3432843"/>
+        <historyInfo versionUuid="_a-0000e6b8-3009-8000-9bf7-011c48011c48_3440174"/>
+        <historyInfo versionUuid="_a-0000e6c1-137f-8000-9bf9-011c48011c48_3553726"/>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3670989"/>
+        <historyInfo versionUuid="_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3774383"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3816702"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3831879"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3875568"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3890738"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3897089"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3929721"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4243630"/>
+        <historyInfo versionUuid="_a-0000e71a-415c-8000-9c0b-011c48011c48_4428161"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4502720"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577099"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6612823"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6769176"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6932026"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11695444"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11819241"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12896794"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12915544"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12919584"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12926906"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_13016607"/>
+        <historyInfo versionUuid="_a-0000ebe3-046c-8000-9c56-011c48011c48_13103462"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14125089"/>
+    </history>
+</contentHaul>

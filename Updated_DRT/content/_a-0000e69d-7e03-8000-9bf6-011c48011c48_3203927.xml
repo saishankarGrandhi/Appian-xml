@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6880248</versionUuid>
+    <interface>
+        <name>CAW_FRM_CoreAskDecisionButtons</name>
+        <uuid>_a-0000e69d-7e03-8000-9bf6-011c48011c48_3203927</uuid>
+        <description>Component to configure Core Ask Decision buttons</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!previousStatusId: a!refreshVariable(
+    value: ri!task.statusId,
+    refreshOnReferencedVarChange: false
+  ),
+  local!loggedInUserDetail: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3070432"(
+    userName: loggedInUser(),
+    returnCDT: true
+  ),
+  local!fullName: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(loggedInUser()),
+  #"SYSTEM_SYSRULES_ButtonLayout"(
+    primaryButtons: {
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155714",
+        value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155714",
+        saveInto: {
+          ri!action,
+          if(
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!comment),
+            null,
+            a!save(
+              ri!comment.isDraft,
+              true
+            )
+          ),
+          a!save(
+            ri!coreAskDetails.modifiedBy,
+            local!fullName
+          ),
+          a!save(
+            ri!coreAskDetails.modifiedOn,
+            now()
+          ),
+          a!save(
+            ri!ask.modifiedBy,
+            local!fullName
+          ),
+          a!save(
+            ri!ask.modifiedOn,
+            now()
+          ),
+          a!save(
+            ri!task.modifiedBy,
+            local!fullName
+          ),
+          a!save(
+            ri!task.modifiedOn,
+            now()
+          ),
+          a!save(
+            ri!task.assigneeId,
+            tointeger(property(local!loggedInUserDetail,"userId",null))
+          ),
+          a!save(
+            ri!task.isAssigneeGroup,
+            false
+          ),
+          /*For initial Core ASK request*/
+          if(
+            ri!isEdit = false,
+            {
+              a!save(
+                ri!coreAskDetails.isActive,
+                true
+              ),
+              a!save(
+                ri!coreAskDetails.isCompleted,
+                false
+              ),
+              a!save(
+                ri!coreAskDetails.createdBy,
+                local!fullName
+              ),
+              a!save(
+                ri!coreAskDetails.createdOn,
+                now()
+              ),
+              a!save(
+                ri!coreAskDetails.modifiedBy,
+                local!fullName
+              ),
+              a!save(
+                ri!coreAskDetails.modifiedOn,
+                now()
+              ),
+              a!save(
+                ri!coreAskDetails.version,
+                1
+              ),
+              a!save(
+                ri!ask,
+                'type!{urn:com:appian:types:CAW}CAW_Ask'(
+                  fYear: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3953700"(),
+                  typeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3163854",
+                  statusId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3165924",
+                  isActive: true,
+                  isCompleted: false,
+                  version: 1,
+                  latestCompletedVersion: 0,
+                  createdBy: local!fullName,
+                  createdOn: now(),
+                  modifiedBy: local!fullName,
+                  modifiedOn: now()
+                )
+              ),
+              a!save(
+                ri!task,
+                'type!{urn:com:appian:types:CAW}CAW_Task'(
+                  moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                  statusId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3165924", 
+                  assigneeId: tointeger(property(local!loggedInUserDetail,"userId",null)),
+                  isAssigneeGroup: false,
+                  isLocked: false,
+                  isTaskAmend: false,
+                  isCompleted: false,
+                  version: 1,
+                  createdBy: local!fullName,
+                  createdOn: now(),
+                  modifiedBy: local!fullName,
+                  modifiedOn: now()
+                )
+              ),
+              /*audit history for the intial create ASK */
+              a!save(
+                ri!auditHistory,
+                'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                  requestId: ri!ask.askId,
+                  version: 1,
+                  moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                  statusId: ri!task.statusId,
+                  action: "Save &amp; Exit",
+                  description: "Core ASK V1 created",
+                  createdBy: loggedInUser(),
+                  createdOn: now()
+                )
+              )
+            },
+            {}
+          )
+        },
+        submit: true,
+        style: "SECONDARY",
+        confirmMessage: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3254608"
+      ),
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155721",
+        value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155721",
+        saveInto: {
+          ri!action,
+          a!save(ri!comment.isDraft, false),
+          a!save(ri!task.statusId, #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3373079"),
+          a!save(ri!task.assigneeId, #"_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6307911"),
+          a!save(ri!task.isAssigneeGroup, true),
+          a!save(ri!coreAskDetails.modifiedBy, local!fullName),
+          a!save(ri!coreAskDetails.modifiedOn, now()),
+          a!save(ri!task.modifiedBy, local!fullName),
+          a!save(ri!task.modifiedOn, now()),
+          a!save(ri!ask.modifiedBy, local!fullName),
+          a!save(ri!ask.modifiedOn, now()),
+          a!save(
+            ri!auditHistory,
+            'type!{urn:com:appian:types:CAW}CAW_Audit'(
+              taskId: ri!task.taskId,
+              requestId: ri!ask.askId,
+              version: ri!task.version,
+              moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+              statusId: local!previousStatusId,
+              action: "Returned",
+              description: if(
+                local!previousStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+                "Core ASK returned by PPL",
+                if(
+                  local!previousStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[2],
+                  "Core ASK returned by DPP Leadership",
+                  null
+                )
+              ),             
+              createdBy: loggedInUser(),
+              createdOn: now()
+            )
+          )
+        },
+        submit: true,
+        style: "DESTRUCTIVE",
+        disabled: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(property(ri!comment,"comment",null)),
+        confirmMessage: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3255002",
+        showWhen: and(
+          ri!isEdit = true,
+          contains(
+            {
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[2]
+            },
+            ri!task.statusId
+          )
+        )
+      ),
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+        value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+        saveInto: {
+          ri!action,
+          if(
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!comment),
+            null,
+            if(
+              and(
+                a!isNullOrEmpty(ri!comment.comment),
+                a!isNotNullOrEmpty(ri!comment.commentId)
+              ),
+              a!save(
+                ri!comment.isActive,
+                false
+              ),
+              a!save(
+                ri!comment.isDraft,
+                false
+              )
+            )
+          ),
+          /*For initial Core ASK request*/
+          if(
+            ri!isEdit = false,
+            {
+              a!save(
+                ri!ask,
+                'type!{urn:com:appian:types:CAW}CAW_Ask'(
+                  fYear: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3953700"(),
+                  typeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3163854",
+                  statusId: ri!nextStatusId,
+                  isActive: true,
+                  isCompleted: false,
+                  version: 1,
+                  latestCompletedVersion: 0,
+                  createdBy: local!fullName,
+                  createdOn: now(),
+                  modifiedBy: local!fullName,
+                  modifiedOn: now()
+                )
+              ),
+              a!save(
+                ri!task,
+                'type!{urn:com:appian:types:CAW}CAW_Task'(
+                  moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                  statusId: ri!nextStatusId, 
+                  assigneeId: ri!assigneeId,
+                  isAssigneeGroup: if(
+                    tointeger(ri!assignee.totalCount) &gt; 1,
+                    true,
+                    false
+                  ),
+                  isLocked: false,
+                  isTaskAmend: false,
+                  isCompleted: false,
+                  version: 1,
+                  createdBy: local!fullName,
+                  createdOn: now(),
+                  modifiedBy: local!fullName,
+                  modifiedOn: now()
+                )
+              ),
+              a!save(
+                ri!coreAskDetails.createdBy,
+                local!fullName
+              ),
+              a!save(
+                ri!coreAskDetails.createdOn,
+                now()
+              ),
+              a!save(
+                ri!coreAskDetails.modifiedBy,
+                local!fullName
+              ),
+              a!save(
+                ri!coreAskDetails.modifiedOn,
+                now()
+              ),
+              a!save(
+                ri!coreAskDetails.isCompleted,
+                false
+              ),
+              a!save(
+                ri!coreAskDetails.isActive,
+                true
+              ),
+              a!save(
+                ri!coreAskDetails.version,
+                1
+              )
+            },
+            {
+              a!save(
+                ri!ask.statusId,
+                ri!nextStatusId
+              ),
+              a!save(
+                ri!task.statusId,
+                ri!nextStatusId
+              ),
+              a!save(
+                ri!task.assigneeId,
+                if(
+                  tointeger(ri!nextStatusId)=index(#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063",5,null),
+                  null,
+                  ri!assigneeId
+                )
+              ),
+              a!save(
+                ri!task.isAssigneeGroup,
+                if(
+                  tointeger(ri!nextStatusId)=index(#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063",5,null),
+                  null,
+                  if(
+                    tointeger(ri!assignee.totalCount) &gt; 1,
+                    true,
+                    false
+                  )
+                )
+              ),
+              if(
+                tointeger(ri!nextStatusId)=index(#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063",5,null),
+                {
+                  a!save(
+                    ri!ask.isCompleted,
+                    true
+                  ),
+                  a!save(
+                    ri!ask.latestCompletedVersion,
+                    ri!task.version
+                  ),
+                  a!save(
+                    ri!coreAskDetails.isCompleted,
+                    true
+                  ),
+                  a!save(
+                    ri!task.isCompleted,
+                    true
+                  )
+                },
+                {}
+              ),
+              a!save(
+                ri!coreAskDetails.modifiedBy,
+                local!fullName
+              ),
+              a!save(
+                ri!coreAskDetails.modifiedOn,
+                now()
+              ),
+              a!save(
+                ri!task.modifiedBy,
+                local!fullName
+              ),
+              a!save(
+                ri!task.modifiedOn,
+                now()
+              ),
+              a!save(
+                ri!ask.modifiedBy,
+                local!fullName
+              ),
+              a!save(
+                ri!ask.modifiedOn,
+                now()
+              )
+            }
+          ),
+          /*audit history for the intial create ASK as well as the save and exit on task*/
+          a!save(
+            ri!auditHistory,
+            {
+              /*Audit History*/
+              if(
+                #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!task.taskId),
+                {
+                  'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                    requestId: ri!ask.askId,
+                    version: 1,
+                    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                    statusId: local!previousStatusId,
+                    action: "Task Submitted",
+                    description: "Core ASK V1 Created",
+                    createdBy: loggedInUser(),
+                    createdOn: now()
+                  ),
+                  'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                    requestId: ri!ask.askId,
+                    version: 1,
+                    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                    statusId: local!previousStatusId,
+                    action: "Task Submitted",
+                    description: if(
+                      ri!nextStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+                      "Submitted for PPL review",
+                      "Submitted for DPP Ops Review"
+                    ),
+                    createdBy: loggedInUser(),
+                    createdOn: now()
+                  )
+                },
+                'type!{urn:com:appian:types:CAW}CAW_Audit'(
+                  taskId: ri!task.taskId,
+                  requestId: ri!ask.askId,
+                  version: ri!task.version,
+                  moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+                  statusId: local!previousStatusId,
+                  action: if(
+                    ri!nextStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3344039",
+                    "ASK completed",
+                    "Task Submitted"
+                  ),
+                  description: if(
+                    ri!nextStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3344039",
+                    "Core ASK marked as complete",
+                    if(
+                      ri!nextStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+                      "Submitted for PPL review",
+                      if(
+                        ri!nextStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[2],
+                        "Submitted for "&amp;#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3374322"(ri!selectedGroup)&amp;" review",
+                        null
+                      )
+                    )
+                  ),
+                  createdBy: loggedInUser(),
+                  createdOn: now()
+                )
+              )
+            }
+          )
+        },
+        submit: true,
+        style: "PRIMARY",
+        showWhen: or(
+          ri!isEdit = false,
+          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!task.statusId),
+          contains(
+            {
+              #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3165924",
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295646",
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3373079",
+              #"_a-0000e825-ace1-8000-9c24-011c48011c48_6791426"
+            },
+            ri!task.statusId
+          )
+        ),
+        validationGroup: "main",
+        confirmMessage: if(
+          ri!nextStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3344039",
+          #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3350233",
+          #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3215506"
+        )
+      ),
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295308",
+        value: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3295308",
+        saveInto: {
+          ri!action,
+          a!save(
+            ri!ask.statusId,
+            ri!nextStatusId
+          ),
+          a!save(
+            ri!task.statusId,
+            ri!nextStatusId
+          ),
+          a!save(
+            ri!task.assigneeId,
+            ri!assigneeId
+          ),
+          a!save(
+            ri!task.isAssigneeGroup,
+            if(
+              tointeger(ri!assignee.totalCount) &gt; 1,
+              true,
+              false
+            )
+          ),
+          a!save(
+            ri!coreAskDetails.modifiedBy,
+            local!fullName
+          ),
+          a!save(
+            ri!coreAskDetails.modifiedOn,
+            now()
+          ),
+          a!save(
+            ri!task.modifiedBy,
+            local!fullName
+          ),
+          a!save(
+            ri!task.modifiedOn,
+            now()
+          ),
+          a!save(
+            ri!ask.modifiedBy,
+            local!fullName
+          ),
+          a!save(
+            ri!ask.modifiedOn,
+            now()
+          ),
+          if(
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!comment),
+            null,
+            if(
+              and(
+                a!isNullOrEmpty(ri!comment.comment),
+                a!isNotNullOrEmpty(ri!comment.commentId)
+              ),
+              a!save(
+                ri!comment.isActive,
+                false
+              ),
+              a!save(
+                ri!comment.isDraft,
+                false
+              )
+            )
+          ),
+          a!save(
+            ri!auditHistory,
+            'type!{urn:com:appian:types:CAW}CAW_Audit'(
+              taskId: ri!task.taskId,
+              requestId: ri!ask.askId,
+              version: ri!task.version,
+              moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164387",
+              statusId: local!previousStatusId,
+              action: "Approved",
+              description: if(
+                local!previousStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+                "PPL review complete",
+                if(
+                  local!previousStatusId = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[2],
+                  "DPP Leadership review complete" ,
+                  null
+                )
+              ),                
+              createdBy: loggedInUser(),
+              createdOn: now()
+            )
+          )
+        },
+        submit: true,
+        style: "PRIMARY",
+        showWhen: and(
+          ri!isEdit = true,
+          #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!task.statusId),
+          contains(
+            {
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[1],
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"[2]
+            },
+            ri!task.statusId
+          )
+        ),
+        validationGroup: "main",
+        confirmMessage: #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4160874"
+      )
+    },
+    secondaryButtons: {
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+        value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+        saveInto: {
+          a!save(
+            ri!action,
+            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700"
+          )
+        },
+        submit: true,
+        style: "DESTRUCTIVE", 
+        validate: false,
+        confirmMessage: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3215431"
+      )
+    },
+    showWhen: ri!showWhen
+  )
+)</definition>
+        <namedTypedValue>
+            <name>coreAskDetails</name>
+            <type>
+                <name>CAW_CoreAskDetail</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ask</name>
+            <type>
+                <name>CAW_Ask</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showWhen</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>comment</name>
+            <type>
+                <name>CAW_Comment</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isEdit</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assignee</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assigneeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nextStatusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedGroup</name>
+            <type>
+                <name>Group</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3240473"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3257050"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3375661"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3414589"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3415874"/>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3670476"/>
+        <historyInfo versionUuid="_a-0000e6c7-249e-8000-9bfe-011c48011c48_3671709"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3954064"/>
+        <historyInfo versionUuid="_a-0000e71a-415c-8000-9c0b-011c48011c48_4426457"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4693776"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5466656"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6880248"/>
+    </history>
+</contentHaul>

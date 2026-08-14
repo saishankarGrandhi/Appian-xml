@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6948975</versionUuid>
+    <rule>
+        <name>CAW_getDPPLevelIdsForLevelCategory</name>
+        <uuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6911879</uuid>
+        <description>Rule to get specific DPP level IDs based on level category name</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  ri!level = "P",
+  {
+    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948831", 
+    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948843"
+  },
+  if(
+    ri!level = "MD",
+    {
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948850"
+    },
+    if(
+      ri!level = "SM",
+      {
+        #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948928"
+      },
+      if(
+        ri!level = "AD-ED",
+        {
+          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948857", 
+          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948900", 
+          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948907", 
+          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948914"
+        },
+        if(
+          ri!level = "M",
+          {
+            #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948935"
+          },
+          if(
+            ri!level = "SA",
+            {
+              #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948942"
+            },
+            if(
+              ri!level = "A",
+              {
+                #"_a-0000e825-ace1-8000-9c24-011c48011c48_6948955"
+              },
+              {}
+            )
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>level</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6948975"/>
+    </history>
+</contentHaul>

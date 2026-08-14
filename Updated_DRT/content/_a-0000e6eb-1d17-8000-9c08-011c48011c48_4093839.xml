@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066278</versionUuid>
+    <decision>
+        <name>CAW_decisionForGettingAskAssignee</name>
+        <uuid>_a-0000e6eb-1d17-8000-9c08-011c48011c48_4093839</uuid>
+        <description>Decision to get ASK assignee based on task Id</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>fn!override_exception_appian_internal(fn!with(local!decisiondefinition: a!decisiondesigner_cache(uuid: "_a-0000e6eb-1d17-8000-9c08-011c48011c48_4093839",versionKey: "d5d01cd8-732b-4e26-94ff-7fed5c215881",value: #"SYSTEM_SYSRULES_dd_dd"('hitPolicy': #"SYSTEM_SYSRULES_dd_dhp"("UNIQUE"), 'inputs': {#"SYSTEM_SYSRULES_dd_di"('name': "taskStatusId", 'type': 'type!{http://www.appian.com/ae/types/2009}Integer', 'id': 1, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("LOOKUP"), 'restriction': #"SYSTEM_SYSRULES_dd_dirl"('allowedLabels': {"127", "129", "131", "133", "135", "145", "147", "148"}, 'allowedValues': {127, 129, 131, 133, 135, 145, 147, 148})), #"SYSTEM_SYSRULES_dd_di"('name': "regionId", 'type': 'type!{http://www.appian.com/ae/types/2009}Integer', 'id': 2, 'restrictionType': #"SYSTEM_SYSRULES_dd_dirt"("NONE"))}, 'outputs': {#"SYSTEM_SYSRULES_dd_do"('id': 1, 'name': "group", 'type': 'type!{http://www.appian.com/ae/types/2009}Group', 'restrictionType': #"SYSTEM_SYSRULES_dd_dort"("NONE"), 'returnListType': true)}, 'rules': {#"SYSTEM_SYSRULES_dd_dr"('id': 1, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 1, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {127})), #"SYSTEM_SYSRULES_dd_dri"('id': 25, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("ANY")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_945",defaultId:232), a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000ef1d-503a-8000-9bb6-01075c01075c_4101",defaultId:616), a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000ef1d-503a-8000-9bb6-01075c01075c_4097",defaultId:615)})}), #"SYSTEM_SYSRULES_dd_dr"('id': 17, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 23, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {131})), #"SYSTEM_SYSRULES_dd_dri"('id': 26, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': 23))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 17, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_939",defaultId:234)})}), #"SYSTEM_SYSRULES_dd_dr"('id': 18, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 24, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {131})), #"SYSTEM_SYSRULES_dd_dri"('id': 27, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("EQUALS"), 'value1': 24))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 18, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_937",defaultId:233)})}), #"SYSTEM_SYSRULES_dd_dr"('id': 19, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 28, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {133})), #"SYSTEM_SYSRULES_dd_dri"('id': 29, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("ANY")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 19, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_959",defaultId:236)})}), #"SYSTEM_SYSRULES_dd_dr"('id': 20, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 30, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {145, 147, 148})), #"SYSTEM_SYSRULES_dd_dri"('id': 31, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("ANY")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 20, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_995",defaultId:215)})}), #"SYSTEM_SYSRULES_dd_dr"('id': 22, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 34, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {129})), #"SYSTEM_SYSRULES_dd_dri"('id': 35, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("ANY")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 28, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_999",defaultId:226)})}), #"SYSTEM_SYSRULES_dd_dr"('id': 23, 'inputs': {#"SYSTEM_SYSRULES_dd_dri"('id': 36, 'decisionInputId': 1, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("IN"), 'value1': {135})), #"SYSTEM_SYSRULES_dd_dri"('id': 37, 'decisionInputId': 2, 'operator': #"SYSTEM_SYSRULES_dd_dop"('operator': #"SYSTEM_SYSRULES_dd_dopt"("ANY")))}, 'outputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 30, 'decisionOutputId': 1)}, 'annotation': "If it complete return null")}, 'isUnique': true, 'defaultOutputs': {#"SYSTEM_SYSRULES_dd_dro"('id': 1, 'decisionOutputId': 1, 'value': {a!reference_appian_internal(type:'type!{http://www.appian.com/ae/types/2009}Group',uuid:"_e-0000e676-ab43-8000-9b41-01075c01075c_962",defaultId:210)})})),#"SYSTEM_SYSRULES_dd_exr"(decisionDefinition:local!decisiondefinition,executionInputs:{#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:1,value:'ri!taskStatusId'),#"SYSTEM_SYSRULES_dd_dei"(decisionInputId:2,value:'ri!regionId')})))</definition>
+        <namedTypedValue>
+            <name>taskStatusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>regionId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <inputMetadataList>
+            <inputMetadata>
+                <inputId>1</inputId>
+                <nameRef>taskStatusId</nameRef>
+                <allowedLabelsExpr>{
+  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"
+}</allowedLabelsExpr>
+                <allowedValuesExpr>{
+  #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3256063"
+
+}</allowedValuesExpr>
+            </inputMetadata>
+        </inputMetadataList>
+        <outputMetadataList>
+            <outputMetadata>
+                <outputId>1</outputId>
+                <nameRef>group</nameRef>
+                <typeName>{http://www.appian.com/ae/types/2009}Group?list</typeName>
+            </outputMetadata>
+        </outputMetadataList>
+        <hitPolicy>UNIQUE</hitPolicy>
+    </decision>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4093979"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11725023"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066278"/>
+    </history>
+</contentHaul>

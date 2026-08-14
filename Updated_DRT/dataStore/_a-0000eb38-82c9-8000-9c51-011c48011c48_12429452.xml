@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000efa7-942c-8000-9c70-011c48011c48_14336704</versionUuid>
+    <dataStore>
+        <uuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12429452</uuid>
+        <name>PE DS</name>
+        <description>Data store of project eagle</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>2a734d15-797a-4f51-a16c-ed578e149f71</uuid>
+                <name>PE_SFTP_REF_PROCESS_TYPES</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_REF_PROCESS_TYPES</type>
+            </entity>
+            <entity>
+                <uuid>b4d1e8fb-ddd3-4748-8816-aee2f1c7419e</uuid>
+                <name>PE_SFTP_FULL_JOBCD</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_FULL_JOBCD</type>
+            </entity>
+            <entity>
+                <uuid>8e32825c-1d5e-458a-90bc-040931c53eb8</uuid>
+                <name>PE_SFTP_FULL_LOCATION</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_FULL_LOCATION</type>
+            </entity>
+            <entity>
+                <uuid>8d9f0dbc-3999-432c-9d2f-0e6e6466b545</uuid>
+                <name>PE_SFTP_PS_FULLSUBSEGMENT</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_PS_FULLSUBSEGMENT</type>
+            </entity>
+            <entity>
+                <uuid>27ce3318-d6a1-4a2e-98e6-24ad98f40838</uuid>
+                <name>PE_SFTP_PS_FULL_PERSONAL</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_PS_FULL_PERSONAL</type>
+            </entity>
+            <entity>
+                <uuid>91c35ce3-9be3-4e6f-a246-3c7ea2fc51c6</uuid>
+                <name>PE_SFTP_PS_LANGUAGE</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_PS_LANGUAGE</type>
+            </entity>
+            <entity>
+                <uuid>1a53b63e-9695-4cfc-a25a-de379460e473</uuid>
+                <name>PE_SFTP_PS_PERSONAL</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_PS_PERSONAL</type>
+            </entity>
+            <entity>
+                <uuid>ac11b850-e012-438b-af47-6b55e71e5747</uuid>
+                <name>PE_SFTP_XLA</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_XLA</type>
+            </entity>
+            <entity>
+                <uuid>dbbae246-d686-471c-86a8-ee3bca7898e4</uuid>
+                <name>PE_SFTP_RESOURCE</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_RESOURCE</type>
+            </entity>
+            <entity>
+                <uuid>20c9726f-9511-44a2-9b36-c21c497838d1</uuid>
+                <name>PE_SFTP_FULL_FAMILY</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_FULL_FAMILY</type>
+            </entity>
+            <entity>
+                <uuid>4afa04a1-7f05-461f-b8a1-b31fc1fc570b</uuid>
+                <name>PE_SFTP_FULL_CITIZENSHIP</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_FULL_CITIZENSHIP</type>
+            </entity>
+            <entity>
+                <uuid>5c52992d-fc0d-4e76-b45a-012aefaff141</uuid>
+                <name>PE_SFTP_NON_DPP_RESOURCE</name>
+                <type>{urn:com:appian:types:PE}PE_SFTP_NON_DPP_RESOURCE</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>a1aad5aa-f503-43a7-95cd-02cd42ac65d4</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>9a947529-6b64-45ca-993c-698071a99d29</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12890308"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12927144"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12927275"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12927337"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12956317"/>
+        <historyInfo versionUuid="_a-0000ecc5-63bc-8000-9c60-011c48011c48_13579754"/>
+        <historyInfo versionUuid="_a-0000ecc5-63bc-8000-9c60-011c48011c48_13627776"/>
+        <historyInfo versionUuid="_a-0000ed1c-537a-8000-9c62-011c48011c48_13698640"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14105985"/>
+        <historyInfo versionUuid="_a-0000ef82-c68c-8000-9c6c-011c48011c48_14274686"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14336704"/>
+    </history>
+</dataStoreHaul>

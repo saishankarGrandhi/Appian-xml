@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6765097</versionUuid>
+    <interface>
+        <name>CAW_RPT_ASKSummaryReport</name>
+        <uuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6730820</uuid>
+        <description>Interface for displaying ASK Summary pie charts and related details</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!page: "Rotational",
+  local!fiscalYearDropdown: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6751857"(),
+  local!fiscalYear: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3953700"(),
+  {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_dropdownField_v1"(
+            label: "Fiscal Year",
+            choiceLabels: local!fiscalYearDropdown,
+            choiceValues: local!fiscalYearDropdown,
+            saveInto: local!fiscalYear,
+            value: local!fiscalYear
+          )
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: #"SYSTEM_SYSRULES_ButtonArrayLayout"(
+            align: "END",
+            buttons: {
+              #"SYSTEM_SYSRULES_ButtonWidget"(
+                size: "LARGE",
+                label: "Rotational",
+                style: if(
+                  local!page = "Rotational",
+                  "PRIMARY",
+                  "NORMAL"
+                ),
+                saveInto: a!save(local!page, "Rotational", )
+              ),
+              #"SYSTEM_SYSRULES_ButtonWidget"(
+                size: "LARGE",
+                label: "Core",
+                style: if(local!page = "Core", "PRIMARY", "NORMAL"),
+                saveInto: a!save(local!page, "Core", )
+              ),
+              
+            }
+          )
+        )
+      }
+    ),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      showWhen: local!page = "Rotational",
+      contents: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6758148"(fiscalYear: local!fiscalYear)
+    ),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      showWhen: local!page = "Core",
+      contents: #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6758180"(fiscalYear: local!fiscalYear)
+    )
+  }
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6765097"/>
+    </history>
+</contentHaul>

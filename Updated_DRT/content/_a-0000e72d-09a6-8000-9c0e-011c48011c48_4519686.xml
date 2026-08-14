@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000eb38-82c9-8000-9c51-011c48011c48_12468483</versionUuid>
+    <interface>
+        <name>CAW_CMP_NominationAdditionalVetting</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4519686</uuid>
+        <description>Additional Vetting section within the due diligence section of a nomination</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!nominationdetails: #"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(nominationId: ri!nomination.nominationId).data,
+  local!reviewersComment: index(local!nominationdetails,"vettingReviewersComment",{}),
+  local!isOldVersion: if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    false,
+    if(
+      todatetime(ri!nomination.createdOn) &lt; #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11589045",
+      true,
+      false
+    )
+  ),
+  local!isNewVersion: if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    true,
+    if(
+      todatetime(ri!nomination.createdOn) &gt; #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333392",
+      true,
+      false
+    )
+  ),
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label: "Additional Vetting",
+    labelColor: "SECONDARY",
+    showWhen: ri!showWhen,
+    contents: {
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        labelPosition: "COLLAPSED",
+        value: {
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: { "To be completed by DPP Operations" },
+            size: "SMALL",
+            style: "EMPHASIS"
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_cardLayout"(
+        contents: {
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            showWhen: index(
+              ri!nomination,
+              "isOpsAdditionalVettingReqCompleted",
+              toboolean(null)
+            ) = true,
+            label: "",
+            value: {
+              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                text: "Based on HR/Inspections findings, does the Operations team believe additional vetting is required?   ",
+                style: "STRONG"
+              ),
+              #"SYSTEM_SYSRULES_richTextIcon"(
+                icon: "check-circle",
+                linkStyle: "STANDALONE",
+                color: "POSITIVE",
+                size: "MEDIUM"
+              ),
+              
+            }
+          ),
+          #"SYSTEM_SYSRULES_radioButtonField"(
+            label: "Based on HR/Inspections findings, does the Operations team believe additional vetting is required?",
+            labelPosition: "ABOVE",
+            showWhen: or(
+              index(
+                ri!nomination,
+                "isOpsAdditionalVettingReqCompleted",
+                toboolean(null)
+              ) = false,
+              #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(
+                index(
+                  ri!nomination,
+                  "isOpsAdditionalVettingReqCompleted",
+                  toboolean(null)
+                )
+              )
+            ),
+            disabled: #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4472947"(
+              nomination: ri!nomination,
+              currentReview: "isOpsAdditionalVettingReq"
+            ),
+            choiceLabels: { "Yes", "No" },
+            choiceValues: { true, false },
+            value: index(
+              ri!nomination,
+              "isOpsAdditionalVettingReq",
+              {}
+            ),
+            saveInto: {
+              ri!nomination.isOpsAdditionalVettingReq
+            },
+            choiceLayout: "COMPACT"
+          ),
+          #"SYSTEM_SYSRULES_paragraphField"(
+            label: if(
+              toboolean(local!isNewVersion) = true,
+              "DPP Ops Additional Vetting Comments",
+              "Additional Vetting Comments"),
+            labelPosition: "ABOVE",
+            required: if(
+              toboolean(local!isOldVersion) = true,
+              not(
+                isnull(
+                  ri!nomination.isOpsAdditionalVettingReq
+                )
+              ),
+              ri!nomination.isOpsAdditionalVettingReq = true
+            ),
+            characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137",
+            value: index(ri!nomination, "vettingComments", {}),
+            saveInto: { ri!nomination.vettingComments },
+            refreshAfter: "UNFOCUS",
+            height: "MEDIUM",
+            
+          ),
+          #"SYSTEM_SYSRULES_paragraphField"(
+            label: "Additional Vetting reviewer's Comments",
+            labelPosition: "ABOVE",
+            required: 
+            /*and(*/
+              /*if(*/
+                /*a!isNullOrEmpty(ri!nomination.vettingReviewersComment),*/
+                /*true,*/
+                /*false*/
+              /*),*/
+              if(
+                #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(
+                  username: loggedInUser(),
+                  groups: {#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[4],#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[5],#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[6]}
+                ),
+                false,
+                true
+              ),
+            /*),*/
+            showWhen: if(
+              and(toboolean(local!isNewVersion) = true,#"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(username: loggedInUser(),groups: {#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"}
+              )),
+              true,
+              false
+            ),
+            
+            characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137",
+            value: 
+              ri!nomination.vettingReviewersComment,
+              
+              saveInto: 
+                ri!nomination.vettingReviewersComment,
+               
+            refreshAfter: "UNFOCUS",
+            height: "MEDIUM",
+            disabled: if(
+              #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(username: loggedInUser(), groups: {#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[4],#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[5],#"_a-0000eab6-1962-8000-9c4d-011c48011c48_12345157"[6]}),
+              true,
+              false
+            )
+            
+          )
+        }
+      )
+    },
+    isCollapsible: true,
+    divider: "ABOVE",
+    dividerWeight: "THIN",
+    marginBelow: "STANDARD"
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showWhen</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4538524"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4614589"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4941529"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5487578"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5487790"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6510904"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11887126"/>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12354280"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12362990"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12369595"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12408547"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12468483"/>
+    </history>
+</contentHaul>

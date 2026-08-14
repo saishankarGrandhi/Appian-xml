@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e7f4-9a94-8000-9c23-011c48011c48_6612566</versionUuid>
+    <rule>
+        <name>CAW_ValidateNominationDetailsTabInternational</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4670938</uuid>
+        <description>Validates the nomination details tab of an international nomination</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>/*IF true is returned this means validations are met */
+if(
+  /*SAVE EXIT*/
+  ri!button = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155714",
+  and(
+    /* First NAME */
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.firstName),
+    /* JOB FUNCTION */
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.functionName),
+    /* CURRENT PML */
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.currentPML),
+    /* EMAIL */
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.nonUsEmail),    
+    /*JOB FUNCTION OTHER*/
+    if(
+      property(ri!nomination,"functionName",null) = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.otherFunctionName),
+      true
+    ),
+    /*Type of Position */
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.subPositionTypeId),
+    /*LAST NAME */
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.lastName),
+    /*JOB FAMILY  */
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.levelName),
+    /*JOB DESCRITPION  */
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.jobDescription),
+    /*MEMEBER FIRM PARTNER OR EQUIVALENT*/
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.ismemberFirmpartner)
+  ),
+  if(
+    /*SUBMIT */
+    ri!button = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+    and(
+      /* First NAME */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.firstName),
+      /* JOB FUNCTION */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.functionName),
+      /* CURRENT PML */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.currentPML),
+      /* EMAIL */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.nonUsEmail),    
+      /*JOB FUNCTION OTHER*/
+      if(
+        property(ri!nomination,"functionName",null) = #"_a-0000e6c1-137f-8000-9bf9-011c48011c48_3565630",
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.otherFunctionName),
+        true
+      ),
+      /*Type of Position */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.subPositionTypeId),
+      /*LAST NAME */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.lastName),
+      /*JOB FAMILY  */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.levelName),
+      /*JOB DESCRITPION  */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.jobDescription),
+      /*MEMEBER FIRM PARTNER OR EQUIVALENT*/
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.ismemberFirmpartner),
+      /*YEARS WITH FIRM*/
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.yearsWithFirm),
+      /*ORIGINATING COUNTRY */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.origMemberFirmCountry),
+      /*ORIGINATING HOME OFFICE */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.originatingHomeOffice),
+      /*RETURNING COUNTRY */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.returningMemberFirmCountry),
+      /*RETURNING HOME OFFICE */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.returnHomeOffice),
+      /*PCAOB */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.isPcaob),
+      /*ISA */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.isIsa),
+      /*IFRS */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.isIfrsb),
+      /*US GAAP */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.isUsGaapb),
+      /*AICPA */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.isAicpa),
+      /*PCAOB LEVEL */
+      if(
+        property(ri!nomination,"isPcaob",false) = true,
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.pcaobLevel),
+        true
+      ),
+      /*ISA LEVEL */
+      if(
+        property(ri!nomination,"isIsa",false) = true,
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.isaLevel),
+        true
+      ),
+      /*IFRS LEVEL */
+      if(
+        property(ri!nomination,"isIfrsb",false) = true,
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.ifrsbLevel),
+        true
+      ),
+      /*US GAAP LEVEL */
+      if(
+        property(ri!nomination,"isUsGaapb",false) = true,
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.usGaapbLevel),
+        true
+      ),
+      /*AICPA LEVEL */
+      if(
+        property(ri!nomination,"isAicpa",false) = true,
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.aicpaLevel),
+        true
+      ),
+      /*ANTICIPATED START DATE */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.anticipatedStartDate),
+      /*ANTICIPATED END DATE */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.anticipatedEndDate),
+      /*CPA LICENSE */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.hasCpaLicense),
+      /*STATES*/
+      if(
+        property(ri!nomination,"hasCpaLicense",null) = true,
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.statesForCpaLicence),
+        true
+      ),
+      /*IS LANGUAGES */
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.isOtherLanguage),
+      /*OTHER LANGUAGES*/
+      if(
+        property(ri!nomination,"isOtherLanguage",null) = true,
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!nomination.languageOtherThanEng),
+        true
+      ),
+      /*DOCUMENTS*/
+      if(
+        or(
+          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!taskStatus),
+          contains(
+            {
+              #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4570051",
+              #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4570066",
+            },
+            ri!taskStatus
+          )
+        ),
+        ri!hasDocument,
+        true
+      )
+    ),
+    false
+  )
+)
+
+</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>button</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>hasDocument</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>taskStatus</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4756315"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6609151"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6612566"/>
+    </history>
+</contentHaul>

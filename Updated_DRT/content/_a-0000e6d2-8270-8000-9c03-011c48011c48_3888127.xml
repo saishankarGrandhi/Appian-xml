@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11695472</versionUuid>
+    <interface>
+        <name>CAW_FRM_CancelNomination</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3888127</uuid>
+        <description>Form to cancel a nomination at any point in the workflow</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_formLayout_v1"(
+  label: "Cancel Nomination: " &amp; ri!nominationView.nominationType &amp;  " - " &amp; ri!nominationView.nominationId,
+  contents: {
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "Candidate Details",
+      contents: {
+        #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3662875"(
+          nominationView: ri!nominationView
+        )
+      },
+      isCollapsible: false,
+      divider: "ABOVE",
+      dividerWeight: "MEDIUM",
+      dividerColor: "ACCENT",
+      marginBelow: "STANDARD"
+    ),
+    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+      label: "Cancellation Comment",
+      contents: {
+        #"SYSTEM_SYSRULES_paragraphField"(
+          label: "",
+          labelPosition: "COLLAPSED",
+          value: index(ri!comment, "comment",{}),
+          saveInto: ri!comment.comment,
+          characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137",
+          required: true,
+          requiredMessage: "A comment is required to cancel this nomination"
+        )
+      },
+      isCollapsible: false,
+      divider: "ABOVE",
+      dividerWeight: "MEDIUM",
+      dividerColor: "ACCENT",
+      marginBelow: "STANDARD"
+    )
+  },
+  buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+    primaryButtons: {
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+        value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+        submit: true,
+        style: "PRIMARY",
+        validate: true,
+        confirmMessage: "Are you sure you want to cancel this nomination. This action cannot be undone.",
+        loadingIndicator: true,
+        saveInto: {
+          ri!buttonClicked,
+          a!save(
+            ri!nomination.statusId,
+            #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3891969"
+          ),
+          /*COMMENT LOGIC*/
+          a!save(
+            ri!comment,
+            'type!{urn:com:appian:types:CAW}CAW_Comment'(
+              commentId: null,
+              requestId: index(ri!nomination,"nominationId",null),
+              moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+              comment: property(ri!comment,"comment",null),
+              isDraft: false,
+              isActive: true,
+              version: 1,
+              createdBy: loggedInUser(),
+              createdOn: now(),
+              modifiedBy: loggedInUser(),
+              modifiedOn: now()
+            )
+          ),
+          /*AUDIT*/
+          a!save(
+            ri!auditHistory,
+            'type!{urn:com:appian:types:CAW}CAW_Audit'(
+              auditId: null,
+              taskId: null,
+              requestId: ri!nomination.nominationId,
+              moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+              statusId: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3891969",
+              version: 1,
+              action: "Nomination cancelled",
+              description: index(ri!comment, "comment",{}),
+              createdBy: loggedInUser(),
+              createdOn: now()
+            )
+          ),
+          a!save(ri!nomination.askID, null),
+          a!save(ri!nomination.buID, null),
+          a!save(ri!nomination.modifiedBy,#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(loggedInUser())),
+          a!save(ri!nomination.modifiedOn,now())
+        }
+      )
+    },
+    secondaryButtons: {
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+        value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155700",
+        saveInto: {
+          ri!buttonClicked
+        },
+        submit: true,
+        style: "NORMAL",
+        validate: false
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonClicked</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>comment</name>
+            <type>
+                <name>CAW_Comment</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>nominationView</name>
+            <type>
+                <name>CAW_V_NOMINATION</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+  nominationId: 61,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonClicked</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:CAW" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:CAW_Comment"/>
+                    <a:nameRef>comment</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:CAW" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:CAW_Audit"/>
+                    <a:nameRef>auditHistory</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3851730"(
+  returnCDT: true, 
+  nominationId: 61,
+)</a:value>
+                    <a:nameRef>nominationView</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3978937"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4693338"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5075337"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5377965"/>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6275821"/>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6307283"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11695472"/>
+    </history>
+</contentHaul>

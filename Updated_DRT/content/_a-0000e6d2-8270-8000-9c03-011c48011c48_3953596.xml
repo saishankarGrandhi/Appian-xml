@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000efa7-942c-8000-9c70-011c48011c48_14311836</versionUuid>
+    <interface>
+        <name>CAW_CMP_CandidateSubmit</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3953596</uuid>
+        <description>Component to configure submit button for nomination processes</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_ButtonWidget"(
+  label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+  style: "PRIMARY",
+  confirmMessage: if(
+    ri!isComplete,
+    "Are you sure you want to mark as complete?",
+    if(
+      ri!isCandidate,
+      "Are you sure you want to submit?",
+      "Are you sure you want to submit to the candidate?"
+    )
+  ),
+  disabled: if(
+    ri!task.statusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4967023",
+    not(ri!isComplete = true),
+    false
+  ),
+  submit: true,
+  value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155707",
+  saveInto: {
+    ri!buttonValue,
+    {
+      a!save(ri!recipient, ri!recipientLocal),
+      a!save(ri!cc, ri!ccLocal),
+      a!save(
+        ri!nomination.modifiedBy,
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(user: loggedInUser())
+      ),
+      a!save(ri!nomination.modifiedOn, now()),
+      if(
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!candidateDetails.candidateDetailsId),
+        {
+          a!save(
+            ri!candidateDetails.createdBy,
+            #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(loggedInUser())
+          ),
+          a!save(ri!candidateDetails.createdOn, now())
+        },
+        {}
+      ),
+      if(
+        a!isNullOrEmpty(ri!candidateDetails.originatingBU),
+        a!save(
+          ri!candidateDetails.originatingBU,
+          ri!nomination.originatingBU
+        ),
+        {}
+      ),
+      if(
+        and(
+          a!isNullOrEmpty(ri!candidateDetails.OtheroriginatingBU),
+          ri!nomination.originatingBU = #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12423181"
+        ),
+        a!save(
+          ri!candidateDetails.OtheroriginatingBU,
+          ri!nomination.otherOriginatingBU
+        ),
+        {}
+      ),
+      if(
+        a!isNullOrEmpty(ri!candidateDetails.returningBU),
+        a!save(
+          ri!candidateDetails.returningBU,
+          ri!nomination.returnBU
+        ),
+        {}
+      ),
+      if(
+        and(
+          a!isNullOrEmpty(ri!candidateDetails.otherReturningBU),
+          ri!nomination.returnBU = #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12423181"
+        ),
+        a!save(
+          ri!candidateDetails.otherReturningBU,
+          ri!nomination.otherReturningBU
+        ),
+        {}
+      ),
+      if(
+        a!isNullOrEmpty(
+          ri!candidateDetails.originatingHomeOffice
+        ),
+        a!save(
+          ri!candidateDetails.originatingHomeOffice,
+          ri!nomination.originatingHomeOffice
+        ),
+        {}
+      ),
+      if(
+        and(
+          a!isNullOrEmpty(
+            ri!candidateDetails.otherOriginatingHomeOffice
+          ),
+          ri!nomination.originatingHomeOffice = #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12423181"
+        ),
+        a!save(
+          ri!candidateDetails.otherOriginatingHomeOffice,
+          ri!nomination.otherOriginatingHomeOffice
+        ),
+        {}
+      ),
+      if(
+        a!isNullOrEmpty(
+          ri!candidateDetails.returningHomeOffice
+        ),
+        a!save(
+          ri!candidateDetails.returningHomeOffice,
+          ri!nomination.returnHomeOffice
+        ),
+        {}
+      ),
+      if(
+        and(
+          a!isNullOrEmpty(
+            ri!candidateDetails.OtherReturningHomeOffice
+          ),
+          ri!nomination.returnHomeOffice = #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12423181"
+        ),
+        a!save(
+          ri!candidateDetails.OtherReturningHomeOffice,
+          ri!nomination.otherReturningHomeOffice
+        ),
+        {}
+      ),
+      a!save(
+        ri!candidateDetails.modifiedBy,
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3052910"(loggedInUser())
+      ),
+      if(
+        a!isNullOrEmpty(ri!candidateDetails.positionType),
+        a!save(
+          ri!candidateDetails.positionType,
+          ri!nomination.positionTypeId
+        ),
+        {}
+      ),
+      if(
+        a!isNullOrEmpty(ri!candidateDetails.subPosition),
+        a!save(
+          ri!candidateDetails.subPosition,
+          ri!nomination.subPositionTypeId
+        ),
+        {}
+      ),
+      if(
+        a!isNullOrEmpty(
+          ri!candidateDetails.nonTradRotationalType
+        ),
+        a!save(
+          ri!candidateDetails.nonTradRotationalType,
+          ri!nomination.nonTraditionalTypeId
+        ),
+        {}
+      ),
+      if(
+        a!isNullOrEmpty(
+          ri!candidateDetails.otherNonTraditionalRotationType
+        ),
+        a!save(
+          ri!candidateDetails.otherNonTraditionalRotationType,
+          ri!nomination.otherNonTraditionalRotationType
+        ),
+        {}
+      ),
+      a!save(ri!candidateDetails.modifiedOn, now()),
+      if(
+        and(
+          ri!isCandidate,
+          tointeger(property(ri!task, "statusId", null)) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3935288"
+        ),
+        a!save(
+          ri!candidateDetails.candidateResponse,
+          now()
+        ),
+        if(
+          or(
+            ri!newStatusId = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3927661",
+            ri!newStatusId = #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6445262"
+          ),
+          a!save(
+            ri!candidateDetails.transferConfirmationSent,
+            now()
+          ),
+          if(
+            and(
+              ri!isCandidate,
+              or(
+                tointeger(property(ri!task, "statusId", null)) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3927661",
+                tointeger(property(ri!task, "statusId", null)) = #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6445262"
+              )
+            ),
+            a!save(
+              ri!candidateDetails.transferConfirmationAck,
+              now()
+            ),
+            if(
+              ri!newStatusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4966786",
+              a!save(
+                ri!candidateDetails.intakeFormSent,
+                now()
+              ),
+              if(
+                and(
+                  ri!isCandidate,
+                  tointeger(property(ri!task, "statusId", null)) = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4966786"
+                ),
+                a!save(
+                  ri!candidateDetails.intakeFormReceived,
+                  now()
+                ),
+                null
+              )
+            )
+          )
+        )
+      ),
+      /* Candidate Details effectiveEndDate Save by Pramod Uppula*/
+      if(
+        a!isNullOrEmpty(ri!effectiveEndDate),
+        null(),
+        /*a!save(*/
+          /*ri!candidateDetails.rotationEndDate,*/
+          /*ri!nomination.anticipatedEndDate*/
+        /*),*/
+        a!save(
+          ri!candidateDetails.rotationEndDate,
+          ri!effectiveEndDate
+        )
+      ),
+      /* Candidate Details effectiveEndDate Save by Pramod Uppula*/
+      a!save(ri!task.statusId, ri!newStatusId),
+      a!save(ri!nomination.statusId, ri!newStatusId),
+      a!save(
+        ri!task.isAssigneeGroup,
+        ri!isAssigneeGroup
+      ),
+      a!save(ri!task.assigneeId, ri!assigneeId),
+      a!save(
+        ri!task.isCompleted,
+        or(
+          toboolean(ri!isComplete) = true,
+          ri!newStatusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5076350"
+        )
+      ),
+      a!save(ri!task.modifiedBy, loggedInUser()),
+      a!save(ri!task.modifiedOn, now()),
+      a!save(
+        ri!auditHistory,
+        'type!{urn:com:appian:types:CAW}CAW_Audit'(
+          taskId: ri!task.taskId,
+          requestId: ri!nomination.nominationId,
+          version: 1,
+          moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+          statusId: ri!task.statusId,
+          action: #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4953161"(currentStatusID: ri!nomination.statusId),
+          createdBy: loggedInUser(),
+          createdOn: now()
+        )
+      ),
+      if(
+        ri!isComplete,
+        a!save(
+          ri!auditHistory,
+          'type!{urn:com:appian:types:CAW}CAW_Audit'(
+            auditId: null,
+            taskId: index(ri!task, "taskId", tointeger(null)),
+            requestId: index(
+              ri!nomination,
+              "nominationId",
+              tointeger({})
+            ),
+            version: 1,
+            moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+            statusId: index(ri!task, "statusId", tointeger(null)),
+            action: "Marked as Complete",
+            description: null,
+            createdBy: loggedInUser(),
+            createdOn: now()
+          )
+        ),
+        {}
+      )
+    }
+  }
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>newStatusId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isCandidate</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateDetails</name>
+            <type>
+                <name>CAW_CandidateDetails</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isAssigneeGroup</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>assigneeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isComplete</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>recipient</name>
+            <type>
+                <name>User?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>recipientLocal</name>
+            <type>
+                <name>User?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>cc</name>
+            <type>
+                <name>UserOrGroup?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ccLocal</name>
+            <type>
+                <name>UserOrGroup?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>effectiveEndDate</name>
+            <type>
+                <name>date</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3956052"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4050355"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4689541"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5138663"/>
+        <historyInfo versionUuid="_a-0000e781-2d54-8000-9c18-011c48011c48_5419487"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5509696"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6522679"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6539931"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6571694"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12633567"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12716991"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14096454"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14096743"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14194058"/>
+        <historyInfo versionUuid="_a-0000ef82-c68c-8000-9c6c-011c48011c48_14268780"/>
+        <historyInfo versionUuid="_a-0000ef99-54a0-8000-9c6e-011c48011c48_14311080"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14311836"/>
+    </history>
+</contentHaul>

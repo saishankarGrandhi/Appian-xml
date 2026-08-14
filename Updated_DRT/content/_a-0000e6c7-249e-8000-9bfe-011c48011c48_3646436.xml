@@ -1,0 +1,2481 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000efa7-942c-8000-9c70-011c48011c48_14356971</versionUuid>
+    <interface>
+        <name>CAW_FRM_NominationReadOnly</name>
+        <uuid>_a-0000e6c7-249e-8000-9bfe-011c48011c48_3646436</uuid>
+        <description>Main interface that will show nominations in a Read Only Format</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!isOldVersion: if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    false,
+    if(
+      todatetime(ri!nomination.createdOn) &lt; #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11589045",
+      true,
+      false
+    )
+  ),
+  local!isRequestAfterV4: if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    true,
+    if(
+      todatetime(ri!nomination.createdOn) &gt; #"_a-0000eab6-1962-8000-9c4d-011c48011c48_12333392",
+      true,
+      false
+    )
+  ),
+  local!isRequestAfterv4_1: if(
+    a!isNullOrEmpty(ri!nomination.createdOn),
+    true,
+    if(
+      todatetime(ri!nomination.createdOn) &gt; #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12888338",
+      true,
+      false
+    )
+  ),
+  local!reviwercomment,
+  local!nominationView: if(
+    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.nominationId),
+    null,
+    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3851730"(
+      nominationid: ri!nomination.nominationId,
+      returnCDT: true
+    )
+  ),
+  local!loggedInUserDetail: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3070432"(
+    userName: loggedInUser(),
+    returnCDT: true
+  ), 
+  local!listOfReviewers: reject(
+    fn!isnull,
+    #"SYSTEM_SYSRULES_forEach"(
+      items: if(
+        toboolean(local!isRequestAfterv4_1)=true,
+        #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12893647",
+        if(
+          contains(
+            #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12539426",
+            ri!nomination.statusId
+          ),
+          {
+            if(
+              toboolean(local!isOldVersion) = true,
+              #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3255170",
+              #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11720405"
+            ),
+            if(
+              toboolean(local!isOldVersion) = true,
+              if(
+                contains(
+                  #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12539426",
+                  ri!nomination.statusId
+                ),
+                #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3628540",
+                #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12714222",
+
+
+              ),
+              if(
+                toboolean(local!isRequestAfterV4) = true,
+                #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12372124",
+                if(
+                  contains(
+                    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12539426",
+                    ri!nomination.statusId
+                  ),
+
+                  #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11720398",
+                  #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12714229",
+                )
+              )
+            ),
+            if(
+              toboolean(local!isOldVersion) = true,
+              #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244548",
+              #"_a-0000ea45-eea9-8000-9c49-011c48011c48_11720412"
+            )
+          },
+          #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12893647"
+        )
+        /*{*/
+        /*if(*/
+        /*toboolean(local!isOldVersion) = true,*/
+        /*cons!CAW_TXT_DPP_LEADERSHIP_LIST,*/
+        /*cons!CAW_TXT_DPP_LEADERSHIP_LIST_V2*/
+        /*),*/
+        /*if(*/
+        /*toboolean(local!isOldVersion) = true,*/
+        /*if(*/
+        /*contains(*/
+        /*cons!DRTV4_NOMINATION_COMPLETED_STATUSES,*/
+        /*ri!nomination.statusId*/
+        /*),*/
+        /*cons!CAW_TXT_NOMINATION_REVIEWERS_LIST,*/
+        /*cons!DRT_TXT_NOMINATION_REVIEWERS_LIST_IN_PROGRESS,*/
+        /**/
+        /**/
+        /*),*/
+        /*if(*/
+        /*toboolean(local!isRequestAfterV4) = true,*/
+        /*cons!DRT_TXT_NOMINATION_REVIEWERS_LIST_V4,*/
+        /*if(*/
+        /*contains(*/
+        /*cons!DRTV4_NOMINATION_COMPLETED_STATUSES,*/
+        /*ri!nomination.statusId*/
+        /*),*/
+        /**/
+        /*cons!CAW_TXT_NOMINATION_REVIEWERS_LIST_V2,*/
+        /*cons!DRT_TXT_NOMINATION_REVIEWERS_LIST_V2_IN_PROGRESS,*/
+        /*)*/
+        /*)*/
+        /*),*/
+        /*if(*/
+        /*toboolean(local!isOldVersion) = true,*/
+        /*cons!CAW_TXT_DPP_CHIEF_OF_STAFF_LIST,*/
+        /*cons!CAW_TXT_DPP_CHIEF_OF_STAFF_LIST_V2*/
+        /*)*/
+        /*}*/
+      ),
+      expression: if(
+        or(isnull(fv!item),#"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(fv!item)),null,
+        {
+          if(
+            tointeger(
+              a!groupMembers(
+                a!groupsByName(tostring(trim(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(fv!item))))
+              ).totalCount
+            ) &lt;&gt; 0,
+            fv!item,
+            null
+          )
+        }
+      )
+    )
+  ),
+  /*if(*/
+    /*toboolean(local!isOldVersion) = true,*/
+    /*{*/
+    /*cons!CAW_TXT_NOMINATION_REVIEWERS_LIST,*/
+    /*cons!CAW_TXT_DPP_LEADERSHIP_LIST*/
+  /*},{*/
+    /*cons!CAW_TXT_NOMINATION_REVIEWERS_LIST_V2,*/
+    /*cons!CAW_TXT_DPP_LEADERSHIP_LIST_V2*/
+  /*}),*/
+  local!isUserDPPEditor: isusermemberofgroups(
+    loggedInUser(),
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3174922"
+  ),
+  local!isUserHR: isusermemberofgroups(
+    loggedInUser(),
+    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12645233"
+  ),
+  local!isUserInspections: isusermemberofgroups(
+    loggedInUser(),
+    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4519640"
+  ),
+  local!isUserBU: isusermemberofgroups(
+    loggedInUser(),
+    {
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4625879",
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176419",
+      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3176431",
+      #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362550"
+    }
+  ),
+  local!isUserRPPP: isusermemberofgroups(
+    loggedInUser(),
+    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12648325"
+  ),
+  local!isUserNBL: or(
+    isusermemberofgroups(
+      loggedInUser(),
+      {
+        #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177083",
+        #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066240",
+        #"_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066222"
+      }
+    ),
+    isusermemberofgroups(
+      loggedInUser(),
+      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6814637"
+    ),
+  ),
+  local!isUserDPPPIC: isusermemberofgroups(
+    loggedInUser(),
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3177089"
+  ),
+  local!nextStatusId: a!refreshVariable(
+    value:  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4493739"(
+      nomination: ri!nomination,
+      isUserDPPEditor: local!isUserDPPEditor,
+      selectedReviewer: ri!selectedGroup
+    ),
+    refreshOnReferencedVarChange: true
+  ),
+  local!selectedBUPPPorBUPICorBUCoS,
+  local!assignee: a!refreshVariable(
+    value: #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494143"(
+      nomination: ri!nomination,
+      isUserDPPEditor: local!isUserDPPEditor,
+      selectedReviewer: ri!selectedGroup,
+      selectedBUPPPorBUPICorBUCoS: local!selectedBUPPPorBUPICorBUCoS,
+      taskStatusId: ri!task.statusId
+    ),
+    refreshOnReferencedVarChange: true
+  ),
+  /*local!appianDocsAfterV4: a!refreshVariable(*/
+    /*value: if(*/
+      /*rule!APN_isBlank(ri!documents),*/
+      /*null,*/
+      /*a!forEach(*/
+        /*items: difference(*/
+          /*index(*/
+          /*ri!documents,*/
+          /*wherecontains(*/
+            /*tostring(loggedInUser()),*/
+            /*ri!documents.createdBy*/
+          /*),*/
+          /*{}*/
+        /*),*/
+          /*index(*/
+          /*ri!documents,*/
+          /*wherecontains(*/
+            /*true(),*/
+            /*ri!documents.is_DueDiligenceDoc*/
+          /*),*/
+          /*{}*/
+        /*)),*/
+        /*expression: todocument(fv!item.docId)*/
+      /*)*/
+    /*),*/
+    /*refreshOnReferencedVarChange: false*/
+  /*),*/
+  local!appianDocs: a!refreshVariable(
+    value: if(
+      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!documents),
+      null,
+      #"SYSTEM_SYSRULES_forEach"(
+        items: index(
+          ri!documents,
+          wherecontains(
+            tostring(loggedInUser()),
+            index(ri!documents, "createdBy", null)
+          ),
+          {}
+        ),
+        expression: todocument(fv!item.docId)
+      )
+    ),
+    refreshOnReferencedVarChange: false
+  ),
+  local!dueDiligenceDoc:a!refreshVariable(
+    value: if(
+      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!dueDiligenceDocument),
+      null,
+      #"SYSTEM_SYSRULES_forEach"(
+        items: index(
+          ri!dueDiligenceDocument,
+          wherecontains(
+            tostring(loggedInUser()),
+            index(ri!dueDiligenceDocument,"createdBy", null)
+          ),
+          {}
+        ),
+        expression: todocument(fv!item.docId)
+      )
+    ),
+    refreshOnReferencedVarChange: false
+  ),
+  local!dueDiligenceOtherUser: a!refreshVariable(
+    value: symmetricdifference(
+      ri!dueDiligenceDocument,
+      cast('type!{urn:com:appian:types:CAW}CAW_Document?list',index(
+        ri!dueDiligenceDocument,
+        wherecontains(
+          tostring(loggedInUser()),
+          touniformstring(
+            index(
+              ri!dueDiligenceDocument,
+              "createdBy",
+              null
+            )
+          )
+        ),
+        {}
+      )),
+
+    ),
+    refreshOnReferencedVarChange: false
+  ),
+  local!activeCollapsibleNavSection:1, 
+  local!collapseNav: false,
+  local!isBasicApproval: a!refreshVariable(
+    value: if(
+      and(
+        local!isUserDPPEditor,
+        /*property(ri!nomination,"nominationTypeId",tointeger(null)) = cons!CAW_INT_US_NOMINATION_TYPE_ID,*/
+        not(ri!nomination.isDirectHire =true)
+      ),
+      if(
+        and(
+          or(
+            ri!nomination.isReapprovedByBU = false,
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isReapprovedByBU)
+          ),
+          or(
+            ri!nomination.isOpsAdditionalVettingReq = false,
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isOpsAdditionalVettingReq)
+          ),
+          #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+          contains(
+            {
+              #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+              #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+              #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+              #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+              #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+              #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+            },
+            ri!selectedGroup
+          )
+        ),
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+        if(
+          and(
+            or(
+              ri!nomination.isReapprovedByBU = false,
+              #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isReapprovedByBU)
+            ),
+            or(
+              ri!nomination.isOpsAdditionalVettingReq = false,
+              #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isOpsAdditionalVettingReq)
+            ),
+            #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+            not(
+              contains(
+                {
+                  #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                  #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                  #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                  #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                  #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                },
+                ri!selectedGroup
+              )
+            )
+          ),
+          #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+          false
+        )
+      ),
+      false
+    ),
+    refreshOnReferencedVarChange: true
+  ),
+  /*-----------------------------------NAVIGATION VALIDATIONS------------------------------------------------------------------*/
+  local!interviewandOfficeComplete: a!refreshVariable(
+    value: if(
+      local!isUserDPPEditor,
+      if(
+        and(
+          property(ri!nomination,"isInterviewAvailabilityCompleted",toboolean(null))=true,
+          property(ri!nomination,"isOfficeVisitAvailabilityCompleted",toboolean(null))=true,
+          property(ri!nomination,"isInterviewConducted",toboolean(null))=true,
+          not(ri!nomination.isInterviewRequested = true),
+          property(ri!nomination, "nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557"
+        ),
+        true,
+        if(
+          property(ri!nomination,"isInterviewRequested",toboolean(null))=true,
+          if(
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(wherecontains(true,index(ri!interviews,"isActive",false))),
+            false,
+            if(
+              contains(
+                toboolean(
+                  #"SYSTEM_SYSRULES_forEach"(
+                    items: ri!interviews,
+                    expression: or(
+                      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(fv!item),
+                      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(fv!item,"interviewerId",(null))),
+                      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(fv!item,"interviewDateTime",tostring(null))),
+                      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(fv!item,"interviewLocation",tostring(null))),
+                      if(
+                        property(fv!item,"interviewLocation",tostring(null)) = "Office",
+                        #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(property(fv!item,"interviewOfficeLocation",tostring(null))),
+                        false
+                      )
+                    )
+                  )
+                ) = true,
+                true
+              ),
+              false,
+              true
+            )
+          ),
+          if(
+            or(
+              property(ri!nomination,"isInterviewAvailabilityRequested",toboolean(null))=true,
+              property(ri!nomination,"isOfficeVisitAvailabilityRequested",toboolean(null))=true
+            ),
+            true,
+            false
+          )
+        )
+      ),
+      if(
+        or(
+          property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+          property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+          property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889"
+        ),
+        if(
+          ri!task.statusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+          and(
+            #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(property(ri!interviews,"supportExtensionOfOffer",null)),
+            #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(property(ri!interviews,"interviewFeedback",null)),
+            #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(index(ri!interviews,"recommendAnotherInterview",null)),
+            if(
+              index(ri!interviews,"recommendAnotherInterview",false) = true,
+              #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(index(ri!interviews,"recommendAnotherInterviewDesc",null)),
+              true
+            )
+          ),
+          if(
+            property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+            #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(property(ri!nomination,"officeVisitAvailability",tointeger(null))),
+            if(
+              property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+              #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(property(ri!nomination,"interviewAvailability",tointeger(null))),
+              false
+            )
+          )
+        ),
+        true
+      )
+    ),
+    refreshOnReferencedVarChange: true
+  ),
+  local!isOnlyDueDiligenceComplete: a!refreshVariable(
+    value: if(
+      and(
+        property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557",
+        or(
+          local!isUserHR,
+          local!isUserInspections
+        )
+      ),
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4753772"(
+        nomination: ri!nomination
+      ),
+      if(
+        and(
+          local!isUserDPPEditor,
+          property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557"
+        ),
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4688679"(
+          nomination: ri!nomination,
+          taskStatus: ri!taskStatus
+        ),
+        true
+      )
+    ),
+    refreshOnReferencedVarChange: true
+  ),
+  local!isDueDiligenceComplete: a!refreshVariable(
+    value: if(
+      and(
+        property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557",
+        or(
+          local!isUserHR,
+          local!isUserInspections
+        )
+      ),
+      /*DUE DILIGENCE CHECKS*/
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4753772"(
+        nomination: ri!nomination
+      ),
+      if(
+        and(
+          local!isUserDPPEditor,
+          property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557"
+        ),
+        or(
+          /*DUE DILIGENCE COMPlETE*/
+          and(
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4688679"(
+              nomination: ri!nomination,
+              taskStatus: ri!taskStatus
+            ),
+            /*IF BU REAPPROVAL SELECTED THEN MAKE SURE BU IS SELECTED*/
+            if(
+              ri!nomination.isReapprovedByBU = true, 
+              and(
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+                contains(
+                  {
+                    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                    #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                    #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                    #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                  },
+                  ri!selectedGroup
+                )
+              ),
+              true
+            ),
+            /*IF OPS ADD. VETTING  SELECTED THEN MAKE SURE NBL/DPPPIC IS SELECTED*/
+            if(
+              ri!nomination.isOpsAdditionalVettingReq = true, 
+              and(
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                if(
+                  toboolean(local!isOldVersion) = true,
+                  contains(
+                    {
+                      "NBL",
+                      "DPP PIC",
+                      "WRPPP",
+                      "ERPPP",
+                      "Deputy PPL"
+                    },
+                    ri!selectedGroup
+                  ),
+                  contains(
+                    { "PPL", "DPP PIC", "APPP", "Deputy PPL" },
+                    ri!selectedGroup
+                  )
+                )
+              ),
+              true
+            )
+          ),
+          /*APPROVER SELECTION COMPLETE*/
+          #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(property(ri!nomination,"isReadyForOnboarding",null)),
+          if(
+            and(
+              or(
+                ri!nomination.isReapprovedByBU = false,
+                #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isReapprovedByBU)
+              ),
+              or(
+                ri!nomination.isOpsAdditionalVettingReq = false,
+                #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isOpsAdditionalVettingReq)
+              ),
+              #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+              contains(
+                {
+                  #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                  #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                  #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                  #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                  #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                },
+                ri!selectedGroup
+              )
+            ),
+            #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+            if(
+              and(
+                or(
+                  ri!nomination.isReapprovedByBU = false,
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isReapprovedByBU)
+                ),
+                or(
+                  ri!nomination.isOpsAdditionalVettingReq = false,
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isOpsAdditionalVettingReq)
+                ),
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                not(
+                  contains(
+                    {
+                      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                      #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                      #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                      #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                      #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                    },
+                    ri!selectedGroup
+                  )
+                )
+              ),
+              #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+              if(
+                ri!nomination.isOpsAdditionalVettingReq = true, 
+                and(
+                  local!isOnlyDueDiligenceComplete = true,
+                  #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                  if(
+                    toboolean(local!isOldVersion) = true,
+                    contains(
+                      {
+                        "NBL",
+                        "DPP PIC",
+                        "WRPPP",
+                        "ERPPP",
+                        "Deputy PPL"
+                      },
+                      ri!selectedGroup
+                    ),
+                    contains(
+                      { "PPL", "DPP PIC", "APPP", "Deputy PPL" },
+                      ri!selectedGroup
+                    )
+                  )
+                ),
+                if(
+                  ri!nomination.isReapprovedByBU = true, 
+                  and(
+                    local!isOnlyDueDiligenceComplete = true,
+                    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+                    contains(
+                      {
+                        #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                        #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                        #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                        #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                        #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                      },
+                      ri!selectedGroup
+                    )
+                  ),
+                  false
+                )
+              )
+            )
+          ),
+          /*INTERVIEW/OFFICE VISIT COMPLETE*/
+          if(
+            and(
+              property(ri!nomination,"isInterviewAvailabilityCompleted",toboolean(null))=true,
+              property(ri!nomination,"isOfficeVisitAvailabilityCompleted",toboolean(null))=true,
+              property(ri!nomination,"isInterviewConducted",toboolean(null))=true,
+              not(ri!nomination.isInterviewRequested=true)
+            ),
+            null,
+            local!interviewandOfficeComplete
+          )
+        ),
+        if(
+          and(
+            local!isUserDPPEditor,
+            property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562"
+          ),
+          or(
+            /*APPROVER SELECTION COMPLETE*/
+            #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(property(ri!nomination,"isReadyForOnboarding",null)),
+            if(
+              and(
+                or(
+                  ri!nomination.isReapprovedByBU = false,
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isReapprovedByBU)
+                ),
+                or(
+                  ri!nomination.isOpsAdditionalVettingReq = false,
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isOpsAdditionalVettingReq)
+                ),
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                contains(
+                  {
+                    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                    #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                    #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                    #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                  },
+                  ri!selectedGroup
+                )
+              ),
+              #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+              if(
+                and(
+                  or(
+                    ri!nomination.isReapprovedByBU = false,
+                    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isReapprovedByBU)
+                  ),
+                  or(
+                    ri!nomination.isOpsAdditionalVettingReq = false,
+                    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isOpsAdditionalVettingReq)
+                  ),
+                  #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                  not(
+                    contains(
+                      {
+                        #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                        #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                        #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                        #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                        #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                      },
+                      ri!selectedGroup
+                    )
+                  )
+                ),
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                if(
+                  ri!nomination.isOpsAdditionalVettingReq = true, 
+                  and(
+                    local!isOnlyDueDiligenceComplete = true,
+                    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                    if(
+                      toboolean(local!isOldVersion) = true,
+                      contains(
+                        {
+                          "NBL",
+                          "DPP PIC",
+                          "WRPPP",
+                          "ERPPP",
+                          "Deputy PPL"
+                        },
+                        ri!selectedGroup
+                      ),
+                      contains(
+                        { "PPL", "DPP PIC", "APPP", "Deputy PPL" },
+                        ri!selectedGroup
+                      )
+                    )
+                  ),
+                  if(
+                    ri!nomination.isReapprovedByBU = true, 
+                    and(
+                      local!isOnlyDueDiligenceComplete = true,
+                      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+                      contains(
+                        {
+                          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                          #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                          #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                          #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                          #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                        },
+                        ri!selectedGroup
+                      )
+                    ),
+                    false
+                  )
+                )
+              )
+            )
+          ),
+          true
+        )
+      )
+    ),
+    refreshOnReferencedVarChange: true
+  ),
+  local!isApproverSelectionComplete: a!refreshVariable(
+    value: if(
+      and(
+        property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557",
+        or(
+          local!isUserHR,
+          local!isUserInspections
+        )
+      ),
+      /*DUE DILIGENCE CHECKS*/
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4753772"(
+        nomination: ri!nomination
+      ),
+      if(
+        and(
+          local!isUserDPPEditor,
+          property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557"
+        ),
+        or(
+          /*DUE DILIGENCE COMPlETE*/
+          and(
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4688679"(
+              nomination: ri!nomination,
+              taskStatus: ri!taskStatus
+            ),
+            /*IF BU REAPPROVAL SELECTED THEN MAKE SURE BU IS SELECTED*/
+            if(
+              ri!nomination.isReapprovedByBU = true, 
+              and(
+                local!isOnlyDueDiligenceComplete = true,
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+                contains(
+                  {
+                    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                    #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                    #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                    #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                  },
+                  ri!selectedGroup
+                )
+              ),
+              true
+            ),
+            /*IF OPS ADD. VETTING  SELECTED THEN MAKE SURE NBL/DPPPIC IS SELECTED*/
+            if(
+              ri!nomination.isOpsAdditionalVettingReq = true, 
+              and(
+                local!isOnlyDueDiligenceComplete = true,
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                if(
+                  toboolean(local!isOldVersion) = true,
+                  contains(
+                    {
+                      "NBL",
+                      "DPP PIC",
+                      "WRPPP",
+                      "ERPPP",
+                      "Deputy PPL"
+                    },
+                    ri!selectedGroup
+                  ),
+                  contains(
+                    { "PPL", "DPP PIC", "APPP", "Deputy PPL" },
+                    ri!selectedGroup
+                  )
+                )
+              ),
+              true
+            )
+          ),
+          /*APPROVER SELECTION COMPLETE*/
+          #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(property(ri!nomination,"isReadyForOnboarding",null)),
+          if(
+            and(
+              or(
+                ri!nomination.isReapprovedByBU = false,
+                #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isReapprovedByBU)
+              ),
+              or(
+                ri!nomination.isOpsAdditionalVettingReq = false,
+                #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isOpsAdditionalVettingReq)
+              ),
+              #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+              contains(
+                {
+                  #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                  #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                  #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                  #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                  #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                },
+                ri!selectedGroup
+              )
+            ),
+            #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+            if(
+              and(
+                or(
+                  ri!nomination.isReapprovedByBU = false,
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isReapprovedByBU)
+                ),
+                or(
+                  ri!nomination.isOpsAdditionalVettingReq = false,
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isOpsAdditionalVettingReq)
+                ),
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                not(
+                  contains(
+                    {
+                      #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                      #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                      #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                      #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                      #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                    },
+                    ri!selectedGroup
+                  )
+                )
+              ),
+              #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+              if(
+                ri!nomination.isOpsAdditionalVettingReq = true, 
+                and(
+                  local!isOnlyDueDiligenceComplete = true,
+                  #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                  if(
+                    toboolean(local!isOldVersion) = true,
+                    contains(
+                      {
+                        "NBL",
+                        "DPP PIC",
+                        "WRPPP",
+                        "ERPPP",
+                        "Deputy PPL"
+                      },
+                      ri!selectedGroup
+                    ),
+                    contains(
+                      { "PPL", "DPP PIC", "APPP", "Deputy PPL" },
+                      ri!selectedGroup
+                    )
+                  )
+                ),
+                if(
+                  ri!nomination.isReapprovedByBU = true, 
+                  and(
+                    local!isOnlyDueDiligenceComplete = true,
+                    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+                    contains(
+                      {
+                        #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                        #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                        #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                        #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                        #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                      },
+                      ri!selectedGroup
+                    )
+                  ),
+                  false
+                )
+              )
+            )
+          ),
+          /*INTERVIEW/OFFICE VISIT COMPLETE*/
+          if(
+            and(
+              property(ri!nomination,"isInterviewAvailabilityCompleted",toboolean(null))=true,
+              property(ri!nomination,"isOfficeVisitAvailabilityCompleted",toboolean(null))=true,
+              property(ri!nomination,"isInterviewConducted",toboolean(null))=true,
+              not(ri!nomination.isInterviewRequested=true)
+            ),
+            null,
+            local!interviewandOfficeComplete
+          )
+        ),
+        if(
+          and(
+            local!isUserDPPEditor,
+            property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562"
+          ),
+          or(
+            /*APPROVER SELECTION COMPLETE*/
+            #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(property(ri!nomination,"isReadyForOnboarding",null)),
+            if(
+              and(
+                or(
+                  ri!nomination.isReapprovedByBU = false,
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isReapprovedByBU)
+                ),
+                or(
+                  ri!nomination.isOpsAdditionalVettingReq = false,
+                  #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isOpsAdditionalVettingReq)
+                ),
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                contains(
+                  {
+                    #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                    #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                    #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                    #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                  },
+                  ri!selectedGroup
+                )
+              ),
+              #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+              if(
+                and(
+                  or(
+                    ri!nomination.isReapprovedByBU = false,
+                    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isReapprovedByBU)
+                  ),
+                  or(
+                    ri!nomination.isOpsAdditionalVettingReq = false,
+                    #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!nomination.isOpsAdditionalVettingReq)
+                  ),
+                  #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                  not(
+                    contains(
+                      {
+                        #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                        #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                        #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                        #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                        #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                      },
+                      ri!selectedGroup
+                    )
+                  )
+                ),
+                #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                if(
+                  ri!nomination.isOpsAdditionalVettingReq = true, 
+                  and(
+                    local!isOnlyDueDiligenceComplete = true,
+                    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(ri!selectedGroup),
+                    if(
+                      toboolean(local!isOldVersion) = true,
+                      contains(
+                        {
+                          "NBL",
+                          "DPP PIC",
+                          "WRPPP",
+                          "ERPPP",
+                          "Deputy PPL"
+                        },
+                        ri!selectedGroup
+                      ),
+                      contains(
+                        { "PPL", "DPP PIC", "APPP", "Deputy PPL" },
+                        ri!selectedGroup
+                      )
+                    )
+                  ),
+                  if(
+                    ri!nomination.isReapprovedByBU = true, 
+                    and(
+                      local!isOnlyDueDiligenceComplete = true,
+                      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(local!selectedBUPPPorBUPICorBUCoS),
+                      contains(
+                        {
+                          #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187",
+                          #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                          #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                          #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558152",
+                          #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+                        },
+                        ri!selectedGroup
+                      )
+                    ),
+                    false
+                  )
+                )
+              )
+            ),
+            /*INTERVIEW/OFFICE VISIT COMPLETE*/
+            local!interviewandOfficeComplete
+          ),
+          true
+        )
+      )
+    ),
+    refreshOnReferencedVarChange: true
+  ),
+  local!emptyReviewerGroupValidation: a!refreshVariable(
+    value: if(
+      local!isUserDPPEditor,
+      if(
+        or(
+          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!selectedGroup),
+          ri!selectedGroup = #"_a-0000e825-ace1-8000-9c24-011c48011c48_6801187"
+        ),
+        true,
+        if(
+          and(
+            not(contains(
+              {
+                #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694208",
+                #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3694215",
+                #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4244284",
+                #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362543"
+              },
+              tostring(ri!selectedGroup)
+            )),
+            tointeger(a!groupMembers(a!groupsByName(tostring(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(ri!selectedGroup)))).totalCount) = 0
+          ),
+          false,
+          if(
+            #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(local!selectedBUPPPorBUPICorBUCoS),
+            "",
+            if(
+              tointeger(a!groupMembers(a!groupsByName(tostring(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(local!selectedBUPPPorBUPICorBUCoS)))).totalCount) = 0,
+              false,
+              true
+            ),
+          )
+        )
+      ),
+      true
+    ),
+    refreshOnReferencedVarChange: true
+  ),
+  local!interviewOfficeVisitTabVisibility: a!refreshVariable(
+    value: if(
+      and(
+        local!isUserDPPEditor,
+        not(property(ri!nomination,"isDirectHire",null)=true)
+      ),
+      true,
+      contains(
+        {
+          #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+          #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+          #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+          #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431"
+
+        },
+        property(ri!nomination,"statusId",tointeger(null))
+      )
+    ),
+    refreshOnReferencedVarChange: true
+  ),
+  local!isInterviewOfficeSectionComplete:if(
+    contains(
+      {
+        #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+        #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354"
+      },
+      property(ri!task,"statusId",tointeger(null))
+    ),
+    local!interviewandOfficeComplete,
+    or(
+      local!interviewandOfficeComplete,
+      local!isDueDiligenceComplete,
+      local!isApproverSelectionComplete
+    )
+  ),
+  local!collapsibleNavSections: {
+    a!map(name: "Nomination Details", icon: "tasks", showWhen: true, isComplete: true),
+    a!map(name: "Uploaded Attachments",     icon: "file-upload", showWhen: not(contains(
+      {
+        #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+        #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889"
+      },
+      property(ri!nomination,"statusId",tointeger(null))
+    )), isComplete: true),
+    a!map(name: "Due Diligence",  icon: "clipboard-check", showWhen: and(
+      or(
+        local!isUserDPPEditor,
+        local!isUserHR,
+        local!isUserInspections,
+        local!isUserRPPP,
+        local!isUserNBL,
+        local!isUserDPPPIC
+      ),
+      index(ri!nomination, "nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557"
+    ), isComplete: local!isDueDiligenceComplete),
+    a!map(name: "Due Diligence - Ops Comments",  icon: "comment-o-alt", showWhen: and(
+      local!isUserBU,
+      index(ri!nomination, "nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557",
+      ri!task.statusId = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431"
+    ), 
+    isComplete: true),
+    a!map(name: "Interview/Office Visit",   icon: "plus-square-o",
+    showWhen: local!interviewOfficeVisitTabVisibility, 
+    isComplete: local!isInterviewOfficeSectionComplete
+    ),
+    a!map(name: "Approver Selection",  icon: "user-edit", showWhen: and(
+      local!isUserDPPEditor,
+      not(property(ri!nomination,"isDirectHire",null)=true)
+    ), isComplete: local!isApproverSelectionComplete),
+    a!map(name: "Previous Comments",  icon: "comments", showWhen: not(contains(
+      {
+        #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+        #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354"
+      },
+      property(ri!nomination,"statusId",tointeger(null))
+    )), isComplete: true),
+    a!map(
+      name: "Audit History",  icon: "history",
+      showWhen: and(
+        #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(
+          property(ri!nomination, "nominationId", null)
+        ),
+        not(contains(
+          {
+            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354"
+          },
+          property(ri!nomination,"statusId",tointeger(null))
+        )
+        )
+      ),
+      isComplete: true
+    )
+  },
+  /*----------------------------------------------------------------------------------------------------------------*/
+  local!audit: #"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3442778"(
+    returnCDT: true,
+    requestId: property(ri!nomination,"nominationId",null),
+    version: 1,
+    moduleTypeId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394"
+  ),
+  #"SYSTEM_SYSRULES_formLayout_v1"(
+    label: if(
+      property(ri!nomination,"statusId", tointeger(null))=#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+      "DPP Nomination Interview Request",
+      "DPP Nomination Review"
+    ),
+    contents: {
+      #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3341961"(
+        task: ri!task
+      ),
+      /*NAVIGATION LAYOUT*/
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              #"SYSTEM_SYSRULES_forEach"(
+                items: local!collapsibleNavSections,
+                expression: if(
+                  local!collapseNav,
+                  if(
+                    fv!item.showWhen,
+                    #"SYSTEM_SYSRULES_cardLayout"(
+                      contents: {
+                        #"SYSTEM_SYSRULES_sideBySideLayout"(
+                          items: {
+                            #"SYSTEM_SYSRULES_sideBySideItem"(
+                              item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                value: {
+                                  #"SYSTEM_SYSRULES_richTextIcon"(
+                                    icon: fv!item.icon,
+                                    caption: fv!item.name,
+                                    link: #"SYSTEM_SYSRULES_dynamicLink"(
+                                      value: fv!index,
+                                      saveInto: local!activeCollapsibleNavSection
+                                    ),
+                                    linkStyle: "STANDALONE",
+                                    color: if(
+                                      fv!index = local!activeCollapsibleNavSection,
+                                      "ACCENT",
+                                      "SECONDARY"
+                                    ),
+                                    size: "LARGE"
+                                  )
+                                },
+                                align: "LEFT",
+                                accessibilityText: if(
+                                  fv!index = local!activeCollapsibleNavSection,
+                                  fv!item.name &amp; " " &amp; "selected",
+                                  ""
+                                )
+                              ),
+                              width: "8X"
+                            ),
+                            /*TAB YELLOW ERROR VALIDATION*/
+                            #"SYSTEM_SYSRULES_sideBySideItem"(
+                              item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                labelPosition: "COLLAPSED",
+                                value: #"SYSTEM_SYSRULES_richTextIcon"(
+                                  icon: "exclamation-circle",
+                                  color: "#FFD700",
+                                  size: "MEDIUM"
+                                ),
+                                align: "RIGHT"
+                              ),
+                              width: "1X",
+                              showWhen: and(
+                                fv!item.isComplete = false,
+                                fv!item.showWhen = true
+                              )
+                            )
+                          },
+                          alignVertical: "BOTTOM"
+                        )
+                      },
+                      showBorder: false
+                    ),
+                    {}
+                  ),
+                  if(
+                    fv!item.showWhen = true,
+                    #"SYSTEM_SYSRULES_cardLayout"(
+                      contents: #"SYSTEM_SYSRULES_sideBySideLayout"(
+                        items: {
+                          #"SYSTEM_SYSRULES_sideBySideItem"(
+                            item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                              labelPosition: "COLLAPSED",
+                              value: #"SYSTEM_SYSRULES_richTextIcon"(
+                                icon: fv!item.icon,
+                                color: if(
+                                  fv!index = local!activeCollapsibleNavSection,
+                                  "STANDARD",
+                                  "SECONDARY"
+                                ),
+                                size: if(local!collapseNav, "LARGE", "MEDIUM")
+                              ),
+                              align: "LEFT"
+                            ),
+                            width: "MINIMIZE"
+                          ),
+                          #"SYSTEM_SYSRULES_sideBySideItem"(
+                            item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                              labelPosition: "COLLAPSED",
+                              value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                text: fv!item.name,
+                                color: "ACCENT",
+                                size: "MEDIUM",
+                                style: if(
+                                  fv!index = local!activeCollapsibleNavSection,
+                                  "STRONG",
+                                  "PLAIN"
+                                )
+                              )
+                            ),
+                            showWhen: not(local!collapseNav)
+                          ),
+
+                          /*TAB YELLOW ERROR VALIDATION*/
+                          #"SYSTEM_SYSRULES_sideBySideItem"(
+                            item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                              labelPosition: "COLLAPSED",
+                              value: #"SYSTEM_SYSRULES_richTextIcon"(
+                                icon: "exclamation-circle",
+                                color: "#FFD700",
+                                size: if(local!collapseNav, "LARGE", "MEDIUM")
+                              ),
+                              align: "LEFT"
+                            ),
+                            width: "MINIMIZE",
+                            showWhen: and(
+                              toboolean(fv!item.isComplete) = false,
+                              toboolean(fv!item.showWhen) = true
+                            )
+                          )
+                        },
+                        alignVertical: "MIDDLE"
+                      ),
+                      link: #"SYSTEM_SYSRULES_dynamicLink"(
+                        value: fv!index,
+                        saveInto: local!activeCollapsibleNavSection
+                      ),
+                      style: if(
+                        fv!index = local!activeCollapsibleNavSection,
+                        "ACCENT",
+                        "NONE"
+                      ),
+                      showBorder: false,
+                      accessibilityText: if(
+                        fv!index = local!activeCollapsibleNavSection,
+                        fv!item.name &amp; " " &amp; "selected",
+                        ""
+                      )
+                    ),
+                    {}
+                  )
+                )
+              ),
+              #"SYSTEM_SYSRULES_richTextDisplayField"(
+                value: #"SYSTEM_SYSRULES_richTextIcon"(
+                  icon: if(
+                    local!collapseNav,
+                    "angle-double-right",
+                    "angle-double-left"
+                  ),
+                  caption: if(
+                    local!collapseNav,
+                    "Expand navigation bar",
+                    "Collapse navigation bar"
+                  ),
+                  link: #"SYSTEM_SYSRULES_dynamicLink"(
+                    value: not(local!collapseNav),
+                    saveInto: local!collapseNav
+                  ),
+                  linkStyle: "STANDALONE",
+                  color: "SECONDARY",
+                  size: "MEDIUM"
+                ),
+                align: "CENTER"
+              )
+            },
+            width: if(local!collapseNav, "EXTRA_NARROW", "NARROW")
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              choose(
+                local!activeCollapsibleNavSection,
+                /*NOMINATION DETAILS TAB*/
+                #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                  label: "Nomination Details",
+                  labelSize: "MEDIUM_PLUS",
+                  contents: {
+                    /*CANDIDATE SELECTION*/
+                    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                      label: "Candidate Selection",
+                      labelColor: "SECONDARY",
+                      contents: {
+                        if(
+                          property(local!nominationView, "nominationType", tostring(null))= #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3934538"[1],
+                          #"SYSTEM_SYSRULES_columnsLayout"(
+                            columns: {
+                              #"SYSTEM_SYSRULES_columnLayout"(
+                                contents: {
+                                  #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3643244"(
+                                    nominationView: local!nominationView
+                                  )
+                                },
+                                width: "NARROW_PLUS"
+                              ),
+                              #"SYSTEM_SYSRULES_columnLayout"(
+                                contents: {
+                                  #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3662875"(
+                                    nominationView: local!nominationView
+                                  )
+                                }
+                              )
+                            }
+                          ),
+                          #"SYSTEM_SYSRULES_columnsLayout"(
+                            columns: {
+                              #"SYSTEM_SYSRULES_columnLayout"(
+                                contents: {
+                                  #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3842998"(
+                                    isReadOnly: true,
+                                    nominationView: local!nominationView
+                                  )
+                                }
+                              )
+                            }
+                          )
+                        )
+                      },
+                      isCollapsible: true,
+                      divider: "ABOVE",
+                      dividerWeight: "THIN"
+                    ),
+                    /*FURTHER CANDIDATE DETAILS*/
+                    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                      label: "Further Candidate Details",
+                      labelColor: "SECONDARY",
+                      contents: {
+                        if(
+                          property(local!nominationView, "nominationType", tointeger(null))= #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3934538"[1],
+                          #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3643804"(
+                            nominationView: local!nominationView,
+                            candidateClients: ri!candidateClients
+                          ),
+                          #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3843030"(
+                            isReadOnly: true,
+                            nominationView: local!nominationView,
+                            
+                          )
+                        )
+                      },
+                      isCollapsible: true,
+                      divider: "ABOVE",
+                      dividerWeight: "THIN"
+                    ),
+                    /*ROLE*/
+                    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                      label: "Role",
+                      labelColor: "SECONDARY",
+                      contents: {
+                        if(
+                          property(local!nominationView, "nominationType", tointeger(null))= #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3934538"[1],
+                          #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3665144"(
+                            nominationView: local!nominationView
+                          ),
+                          #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3851745"(
+                            isReadOnly: true,
+                            nominationView: local!nominationView
+                          )
+                        )
+                      },
+                      isCollapsible: true,
+                      divider: "ABOVE",
+                      dividerWeight: "THIN"
+                    )
+                  },
+                  divider: "ABOVE",
+                  dividerWeight: "MEDIUM",
+                  dividerColor: "ACCENT"
+                ),
+                /*ATTACHMENTS TAB*/
+                #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                  label: "Uploaded Attachments",
+                  labelSize: "MEDIUM_PLUS",
+                  contents: {
+                    #"_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3775387"(
+                      documents: 
+                      index(
+                        ri!documents,
+                        wherecontains(
+                          reject(
+                            fn!isnull,
+                            property(ri!documents, "documentId", null)
+                          ),
+                          property(ri!documents, "documentId", null)
+                        ),
+                        null
+                      ),
+                      showWhen: not(
+                        contains(
+                          {
+                            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+                            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889"
+                          },
+                          ri!nomination.statusId
+                        )
+                      )
+                    )
+                  },
+                  divider: "ABOVE",
+                  dividerWeight: "MEDIUM",
+                  dividerColor: "ACCENT"
+                ),
+                /*DUE DILIGENCE TAB*/
+                #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                  label: "Due Diligence",
+                  labelSize: "MEDIUM_PLUS",
+                  contents: {
+                    #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4467868"(
+                      nomination: ri!nomination,
+                      isDPP: and(
+                        local!isUserDPPEditor,
+                        or(
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4571294",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4576069",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489843",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489857",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558858"
+                        )
+                      ),
+                      selectedReviewer: ri!selectedGroup
+                    ),
+                    #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4473531"(
+                      nomination: ri!nomination,
+                      showWhen: and(
+                        or(
+                          local!isUserHR,
+                          local!isUserInspections,
+                          local!isUserRPPP,
+                          local!isUserNBL,
+                          local!isUserDPPPIC
+                        ),
+                        not(contains(
+                          {
+                            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617",
+                            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578520",
+                            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458895",
+                            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458947",
+                            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577779"
+                          },
+                          property(ri!task,"statusId",tointeger(null))
+                        ))
+                      )
+                    ),
+                    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494095"(
+                      nomination: ri!nomination,
+                      showWhen: or(         
+                        local!isUserInspections,
+                        local!isUserDPPEditor,
+                        local!isUserHR,
+                        local!isUserRPPP,
+                        local!isUserNBL,
+                        local!isUserDPPPIC
+                      )
+                    ),
+                    #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4455363"(
+                      nomination: ri!nomination,
+                      showWhen:  and(
+                        or(
+                          local!isUserDPPEditor,
+                          local!isUserHR,
+                          local!isUserRPPP,
+                          local!isUserNBL,
+                          local!isUserDPPPIC
+                        ),
+                        not(ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4488015")
+                      )
+                    ),
+                    #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4452667"(
+                      nomination: ri!nomination,
+                      showWhen: and(
+                        local!isUserHR,
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4488015"
+                      )
+                    ),
+                    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4519686"(
+                      nomination: ri!nomination,
+                      showWhen: and(
+                        local!isUserDPPEditor,
+                        or(
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4571294",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4576069",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489843",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489857",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558858"
+                        )
+                      )
+                    ),
+                    #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4532596"(
+                      nomination: ri!nomination,
+                      showWhen: and(
+                        or(
+                          local!isUserHR,
+                          local!isUserInspections,
+                          local!isUserRPPP,
+                          local!isUserNBL,
+                          local!isUserDPPPIC
+                        ),
+                        not(contains(
+                          {
+                            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617",
+                            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578520",
+                            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458895",
+                            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458947",
+                            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577779"
+                          },
+                          property(ri!task,"statusId",tointeger(null))
+                        )
+                        )
+                      ),
+                      isEditReadonly: ri!isEdit,
+                      reviewercomment:local!reviwercomment,
+                    ),
+                    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12418848"(
+                      appianDueDiligenceDoc: local!dueDiligenceDoc,
+                      nomination: ri!nomination,
+                      dueDiligenceDocument: ri!dueDiligenceDocument,
+                      moduleId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+                      requestId: property(ri!nomination, "nominationId", null),
+                      taskId: property(ri!task, "taskId", null),
+                      version: 1,
+                      dueDiligenceDocumentsToDelete: ri!dueDiligenceDocumentsToDelete,
+                    ),
+                    #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12825125"(
+                      documents: local!dueDiligenceOtherUser,
+                      nomination: ri!nomination
+                      /*index(*/
+                        /*ri!dueDiligenceDocument,*/
+                        /*wherecontains(*/
+                          /*reject(*/
+                            /*fn!isnull,*/
+                            /*touniformstring(property(ri!dueDiligenceDocument, "documentId", null))*/
+                          /*),*/
+                          /*property(ri!dueDiligenceDocument, "documentId", null)*/
+                        /*),*/
+                        /*null*/
+                      /*),*/
+                    )
+                  },
+                  /*need to come back to this*/
+                  showWhen: and(
+                    or(
+                      local!isUserDPPEditor,
+                      local!isUserHR,
+                      local!isUserInspections,
+                      local!isUserRPPP,
+                      local!isUserNBL,
+                      local!isUserDPPPIC
+                    ),
+                    index(ri!nomination, "nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557"
+                  ),
+                  divider: "ABOVE",
+                  dividerWeight: "MEDIUM",
+                  dividerColor: "ACCENT"
+                ),
+                /*DUE DILIGENCE - OPERATIONS COMMENTS TAB*/
+                #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                  label: "Due Diligence - Ops Comments",
+                  labelSize: "MEDIUM_PLUS",
+                  contents: {
+                    #"SYSTEM_SYSRULES_paragraphField"(
+                      label: "Operations Comments",
+                      labelPosition: "ABOVE",
+                      value:#"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3412447"(
+                        value: index(ri!nomination, "operationsComments", null),
+                        isBoolean: false
+                      ),
+                      height: "MEDIUM",
+                      readOnly: true
+                    )
+                  },
+                  divider: "ABOVE",
+                  dividerWeight: "MEDIUM",
+                  dividerColor: "ACCENT"
+                ),
+                /*INTERVIEW/OFFICE VISIT TAB*/
+                #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                  label: "Interview/Office Visit",
+                  labelSize: "MEDIUM_PLUS",
+                  contents: {
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868004"(
+                      showWhen:and(
+                        local!isUserDPPEditor,
+                        not(property(ri!nomination,"isDirectHire",null)=true),
+                        ri!task.statusId &lt;&gt; #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354"
+                      ),
+                      nomination: ri!nomination,
+                      disabled: or(
+                        #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(ri!selectedGroup) = false,
+                        ri!nomination.isReadyForOnboarding
+                      )
+                    ),
+                    #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3817030"(
+                      interviews: ri!interviews,
+                      interviewerTask: ri!task.statusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+                      isUserDPPEditor: local!isUserDPPEditor,
+                      nomination: ri!nomination,
+                      completedInterviews: ri!completedInterviews
+                    )
+                  },
+                  divider: "ABOVE",
+                  dividerWeight: "MEDIUM",
+                  dividerColor: "ACCENT"
+                ),
+                /*APPROVER SELECTION*/
+                #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                  label: "Approver Selection",
+                  labelSize: "MEDIUM_PLUS",
+                  contents: {
+                    #"_a-0000e6c7-249e-8000-9bfe-011c48011c48_3625891"(
+                      selectedGroup: ri!selectedGroup,
+                      showWhen: local!isUserDPPEditor,
+                      listOfReviewers: local!listOfReviewers,
+                      selectedBUPPP_BUPIC: local!selectedBUPPPorBUPICorBUCoS,
+                      nomination: ri!nomination,
+                      selectedBuReviewer: ri!selectedBuReviewer
+                    )
+                  },
+                  showWhen: and(
+                    local!isUserDPPEditor,
+                    not(property(ri!nomination,"isDirectHire",null)=true),
+                    not(property(ri!nomination,"statusId",tointeger(null))=#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354")
+                  ),
+                  validationGroup: "main",
+                  divider: "ABOVE",
+                  dividerWeight: "MEDIUM",
+                  dividerColor: "ACCENT"
+                ),
+                /*PREVIOUS COMMENTS TAB*/
+                #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                  label: "Previous Comments",
+                  labelSize: "MEDIUM_PLUS",
+                  contents: {
+                    #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3192543"(
+                      comments:  ri!previousComments,
+                      showWhen: true,
+                      nomination: ri!nomination
+                    )
+                  },
+                  divider: "ABOVE",
+                  dividerWeight: "MEDIUM",
+                  dividerColor: "ACCENT"
+                ),
+                #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                  label: "Audit History",
+                  labelSize: "MEDIUM_PLUS",
+                  contents: {
+                    #"_a-0000e6b8-3009-8000-9bf7-011c48011c48_3440565"(
+                      audit: local!audit,
+                      moduleTypeID: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394"
+                    )
+                  },
+                  divider: "ABOVE",
+                  dividerWeight: "MEDIUM",
+                  dividerColor: "ACCENT"
+                )
+              )
+            }
+          )
+        },
+        spacing: "SPARSE",
+        showDividers: true
+      ),
+      #"SYSTEM_SYSRULES_columnsLayout"(
+        columns: {
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              /*CURRENT UPLOADED ATTACHMENTS*/
+              #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                label: "Attachments",
+                contents: {
+                  #"_a-0000e6c6-37ec-8000-9bfb-011c48011c48_3599978"(
+                    appianDoc: local!appianDocs,
+                    document: ri!documents,
+                    moduleId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+                    requestId: property(ri!nomination,"nominationId",null),
+                    taskId: property(ri!task,"taskId",null),
+                    version: 1,
+                    documentsToDelete:ri!documentsToDelete,
+                    isNomination: true
+                  )
+                },
+                isCollapsible: true,
+                divider: "ABOVE",
+                dividerWeight: "MEDIUM",
+                dividerColor: "ACCENT",
+                marginBelow: "STANDARD"
+              )
+            },
+            width: "MEDIUM_PLUS",
+            showWhen: and(
+              local!isUserDPPEditor,
+              not(property(ri!nomination,"statusId",tointeger(null))=#"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354")
+            )
+          ),
+          #"SYSTEM_SYSRULES_columnLayout"(
+            contents: {
+              /*CURRENT COMMENT*/
+              #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                label:  if(
+                  or(
+                    ri!action = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155721",
+                    and(
+                      index(ri!nomination, "isAdditionalFollowUpReq", null)=true,
+                      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(index(ri!nomination, "isAdditionalFollowUpReqCompleted", null)),
+                      or(
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4571294",
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4576069",
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489843",
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489857",
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558858"
+                      )
+                    ),
+                    and(
+                      index(ri!nomination, "isReapprovedByBU", null)=true,
+                      #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(index(ri!nomination, "isReapprovedByBUCompleted", null)),
+                      or(
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4571294",
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4576069",
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489843",
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489857",
+                        ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558858"
+                      )
+                    )
+                  ),
+                  "General Comments *",
+                  "General Comments"
+                ),
+                contents: {
+                  #"SYSTEM_SYSRULES_paragraphField"(
+                    label: "Review Comment",
+                    labelPosition: "COLLAPSED",
+                    value: index(ri!comment, "comment",null),
+                    saveInto: ri!comment.comment,
+                    characterLimit: #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3238137",
+                    required:  or(
+                      ri!action = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155721",
+                      and(
+                        index(ri!nomination, "isAdditionalFollowUpReq", null)=true,
+                        #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(index(ri!nomination, "isAdditionalFollowUpReqCompleted", null)),
+                        or(
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4571294",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4576069",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489843",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489857",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558858"
+                        )
+                      ),
+                      and(
+                        index(ri!nomination, "isReapprovedByBU", null)=true,
+                        #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(index(ri!nomination, "isReapprovedByBUCompleted", null)),
+                        or(
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4571294",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4576069",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489843",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489857",
+                          ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558858"
+                        )
+                      )
+                    ),
+                    requiredMessage: if(
+                      or(
+                        ri!action = #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3155721",
+                        and(
+                          index(ri!nomination, "isAdditionalFollowUpReq", null)=true,
+                          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(index(ri!nomination, "isAdditionalFollowUpReqCompleted", null)),
+                          or(
+                            ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4571294",
+                            ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4576069",
+                            ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489843",
+                            ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489857",
+                            ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558858"
+                          )
+                        ),
+                        and(
+                          index(ri!nomination, "isReapprovedByBU", null)=true,
+                          #"_a-0000e382-8b6f-8000-9ba2-011c48011c48_32623"(index(ri!nomination, "isReapprovedByBUCompleted", null)),
+                          or(
+                            ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4571294",
+                            ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4576069",
+                            ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489843",
+                            ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489857",
+                            ri!taskStatus = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4558858"
+                          )
+                        )
+                      ),
+                      "A comment is required to submit this nomination",
+                      ""
+                    )
+                  )
+                },
+                isCollapsible: true,
+                divider: "ABOVE",
+                dividerWeight: "MEDIUM",
+                dividerColor: "ACCENT"
+              )
+            }
+          )
+        }
+      ),
+      /*FORM VALIDATIONS*/
+      #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4834087"(
+        validateNominationDetailsTabSaveAndExit: true,
+        emptyReviewerGroupValidation: local!emptyReviewerGroupValidation,
+        isInterviewOfficeSectionComplete: if(
+          and(
+            local!isUserDPPEditor,
+            not(ri!nomination.isInterviewRequested = true),
+            local!interviewandOfficeComplete = true,
+            local!isDueDiligenceComplete = false,
+            local!isApproverSelectionComplete = false
+          ),
+          false,
+          local!isInterviewOfficeSectionComplete
+        ),
+        isDueDiligenceComplete: local!isDueDiligenceComplete,
+        isApproverSelectionComplete: local!isApproverSelectionComplete,
+        validateNominationDetailsTabSubmit: true,
+        isApproverSelectionCompleteIntl: and(
+          local!isApproverSelectionComplete = false, 
+          index(ri!nomination, "nominationTypeId",tointeger(null)) = #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3868562"
+        ),
+        isBUReviewCommentsValidation: and(
+          local!isUserBU,
+          property(ri!task,"statusId", tointeger(null))=#"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431",
+          index(ri!nomination, "nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557",
+          index(ri!nomination, "isReapprovedByBU", null)=true
+          /*rule!APN_isBlank(index(ri!nomination, "isAdditionalFollowUpReqCompleted", null))*/
+        )
+      ),
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        
+        value: {
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text:if(
+              contains(
+                {
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4586114",
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578520",
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617",
+                  #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+                  #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458895",
+                  #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+                  #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458947",
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489118",
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494074",
+                  #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577779"
+                },
+                property(ri!nomination,"statusId",tointeger(null))
+              ),
+              "             "&amp; #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12899588"[1],
+              "             "&amp; #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12899588"[2],
+            ),
+            
+            style: "EMPHASIS",
+            color: "ACCENT",
+            size: "MEDIUM",
+            showWhen: #"urn:appian:function:v1:a:isusermemberofgroup?okey=a!isUserMemberOfGroup"(username: loggedInUser(),groups: #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12362550")
+
+          )
+        }
+      ),
+      /*REVIEW APPROVAL LINK*/
+      #"SYSTEM_SYSRULES_richTextDisplayField"(
+        labelPosition: "COLLAPSED",
+        value: {
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: {
+              "By clicking ""approve"" I certify that I have performed my review in accordance with the DPP System of Quality Controls as outlined in the Resource Management "
+            },
+            color: "ACCENT",
+            size: "MEDIUM",
+            style: {
+              "EMPHASIS"
+            }
+          ),
+          #"SYSTEM_SYSRULES_richTextItem_v1"(
+            text: {
+              "Risk and Controls Matrix"
+            },
+            link: #"SYSTEM_SYSRULES_safeLink"(
+              label: "Risk and Controls Matrix",
+              uri: #"_a-0000eb38-82c9-8000-9c51-011c48011c48_12517174"[2],
+            ),
+            color: "ACCENT",
+            size: "MEDIUM",
+            style: {
+              "EMPHASIS",
+              "STRONG"
+            }
+          )
+        },
+        showWhen: and(
+          not(local!isUserDPPEditor),
+          index(ri!task,"statusId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4183431"
+        ),
+        align: "CENTER"
+      )
+    },
+    buttons: #"_a-0000e6c5-474f-8000-9bfa-011c48011c48_3589612"(
+      nomination: ri!nomination,
+      action: ri!action,
+      task:ri!task,
+      isEdit: ri!isEdit,
+      comment: ri!comment,
+      loggedInUserDetail: local!loggedInUserDetail,
+      auditHistory: ri!auditHistory,
+      isComplete:  index(ri!nomination, "isReadyForOnboarding", toboolean(null)),
+      nextStatusId:local!nextStatusId,
+      assignee: local!assignee,
+      isSubmit: if(
+        contains(
+          {
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4586114",
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578520",
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578617",
+            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889",
+            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458895",
+            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+            #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458947",
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4489118",
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494074",
+            #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4577779"
+          },
+          property(ri!nomination,"statusId",tointeger(null))
+        ),
+        true,
+        false
+      ),
+      /*SUBMIT disabled*/
+      disabled: if(
+        and(
+          or(
+            local!isUserHR,
+            local!isUserInspections
+          ),
+          property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557"
+        ),
+        local!isDueDiligenceComplete = false,
+        if(
+          and(
+            local!isUserDPPEditor,
+            property(ri!nomination,"nominationTypeId",tointeger(null)) = #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4233557"
+          ),
+          and(
+            local!isApproverSelectionComplete = false,
+            local!isDueDiligenceComplete = false,
+            if(
+              and(
+                property(ri!nomination,"isInterviewAvailabilityCompleted",toboolean(null))=true,
+                property(ri!nomination,"isOfficeVisitAvailabilityCompleted",toboolean(null))=true,
+                property(ri!nomination,"isInterviewConducted",toboolean(null))=true
+              ),
+              null,
+              local!isInterviewOfficeSectionComplete = false
+            )
+          ),
+          if(
+            or(
+              property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4578354",
+              property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458932",
+              property(ri!nomination,"statusId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4458889"
+            ),
+            local!isInterviewOfficeSectionComplete = false,
+            false
+          )
+        )
+      ),
+      saveAndExitDisabled: if(
+        or(
+          local!isUserHR,
+          local!isUserInspections
+        ),
+        local!isDueDiligenceComplete = false,
+        false
+      ),
+      isBasicApproval: local!isBasicApproval,
+      isOpsAdditionalVettingReq: ri!isOpsAdditionalVettingReq,
+      reviwercomment: local!reviwercomment,
+      
+    ),
+    skipAutoFocus: true
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>previousComments</name>
+            <type>
+                <name>CAW_Comment?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>comment</name>
+            <type>
+                <name>CAW_Comment</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>auditHistory</name>
+            <type>
+                <name>CAW_Audit?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>task</name>
+            <type>
+                <name>CAW_Task</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isEdit</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>documents</name>
+            <type>
+                <name>CAW_Document?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>interviews</name>
+            <type>
+                <name>CAW_Interview?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>taskStatus</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>documentsToDelete</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedBuReviewer</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedGroup</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>isOpsAdditionalVettingReq</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>completedInterviews</name>
+            <type>
+                <name>CAW_Interview?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dueDiligenceDocument</name>
+            <type>
+                <name>CAW_Document?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dueDiligenceDocumentsToDelete</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>candidateClients</name>
+            <type>
+                <name>CAW_CandidateClients?list</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:description/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">/*'type!{urn:com:appian:types:CAW}CAW_Nomination'(nominationId: 1, nominationTypeId: 10)*/
+#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3461738"(
+  returnCDT: true,
+  nominationId:910
+)</a:value>
+                    <a:nameRef>nomination</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>previousComments</a:nameRef>
+                    <a:id>2</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>comment</a:nameRef>
+                    <a:id>3</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>action</a:nameRef>
+                    <a:id>4</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>auditHistory</a:nameRef>
+                    <a:id>5</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3066463"(
+  returnCDT: true, 
+  requestId:910
+)</a:value>
+                    <a:nameRef>task</a:nameRef>
+                    <a:id>6</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">false</a:value>
+                    <a:nameRef>isEdit</a:nameRef>
+                    <a:id>7</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">= a!localVariables(
+  local!allDoc: #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3700121"(
+    requestId: 910,
+    taskId: 1300,
+    moduleId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+    returnCDT: true,
+
+  ),
+  remove(
+    local!allDoc,
+    wherecontains(
+      true,
+      index(local!allDoc, "is_DueDiligenceDoc")
+    )
+  )
+)</a:value>
+                    <a:nameRef>documents</a:nameRef>
+                    <a:id>8</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">#"_a-0000e6bc-0703-8000-9bf8-011c48011c48_3499144"(
+  nominationId: 910,
+  returnCDT: true
+)</a:value>
+                    <a:nameRef>interviews</a:nameRef>
+                    <a:id>9</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>taskStatus</a:nameRef>
+                    <a:id>10</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>documentsToDelete</a:nameRef>
+                    <a:id>11</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>selectedBuReviewer</a:nameRef>
+                    <a:id>12</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>selectedGroup</a:nameRef>
+                    <a:id>13</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:boolean">true</a:value>
+                    <a:nameRef>isOpsAdditionalVettingReq</a:nameRef>
+                    <a:id>14</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>completedInterviews</a:nameRef>
+                    <a:id>15</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">= #"_a-0000e6ca-52ed-8000-9bff-011c48011c48_3700121"(
+  requestId: 910,
+  taskId: 1320,
+  moduleId: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3164394",
+  returnCDT: true,
+  is_DueDiligenceDoc: true
+)</a:value>
+                    <a:nameRef>dueDiligenceDocument</a:nameRef>
+                    <a:id>16</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>dueDiligenceDocumentsToDelete</a:nameRef>
+                    <a:id>17</a:id>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>candidateClients</a:nameRef>
+                    <a:id>18</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3786153"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3829227"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3957896"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3981630"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3985559"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4002530"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4007152"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4010768"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4046865"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4112895"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4126543"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4166955"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4185959"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4187281"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4243454"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4595055"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4598251"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4614833"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4616016"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4786920"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4791785"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4803342"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4815172"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4818489"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4832800"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4834520"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4853725"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4867839"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4871592"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4913094"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4941301"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4974681"/>
+        <historyInfo versionUuid="_a-0000e712-4a19-8000-9c1f-011c48011c48_424478"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5045897"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5112256"/>
+        <historyInfo versionUuid="_a-0000e77c-fb3d-8000-9c14-011c48011c48_5359519"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5633215"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_6059523"/>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6252587"/>
+        <historyInfo versionUuid="_a-0000e7e4-4b4e-8000-9c1d-011c48011c48_6260003"/>
+        <historyInfo versionUuid="_a-0000e7eb-6013-8000-9c20-011c48011c48_6318448"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6494168"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6614703"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6897104"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6947385"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_7057119"/>
+        <historyInfo versionUuid="_a-0000e9a1-ea0a-8000-9c3c-011c48011c48_10786159"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11827969"/>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12354681"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12383536"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12468278"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12518305"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12651465"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12681424"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12716000"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12818118"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12829599"/>
+        <historyInfo versionUuid="_a-0000eb38-82c9-8000-9c51-011c48011c48_12830427"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12853494"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12920020"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14066716"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14098757"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14099481"/>
+        <historyInfo versionUuid="_a-0000ef1d-53c4-8000-9c6a-011c48011c48_14163111"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14333082"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14349270"/>
+        <historyInfo versionUuid="_a-0000efa7-942c-8000-9c70-011c48011c48_14356971"/>
+    </history>
+</contentHaul>

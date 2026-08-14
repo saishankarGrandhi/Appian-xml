@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6799424</versionUuid>
+    <rule>
+        <name>CAW_ValidateReadOnlyDueDiligenceCompletion</name>
+        <uuid>_a-0000e72d-09a6-8000-9c0e-011c48011c48_4753772</uuid>
+        <description>Validates the nomination details tab of a read only international nomination</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049803</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  /*SUBMIT AND HR REVIEW*/
+  index(ri!nomination, "isHRReview", toboolean(null)) = true,
+  and(
+    /*AQR 1 OR 2 */
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(index(ri!nomination, "isAQR1or2", toboolean({}))),
+    /*CANDIDATE GOOD STANDING*/
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(index(ri!nomination, "isCandidateGoodStanding", toboolean({}))),
+    /*ADDITIONAL VETTING*/
+    #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(index(ri!nomination, "isVettingRequired", toboolean({}))),
+    /*Expected MD Promotion Date per latest available pipeline*/
+    if(
+      or(
+        index(ri!nomination,"subPositionTypeId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4454622",
+        index(ri!nomination,"subPositionTypeId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4454629"
+      ),
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(index(ri!nomination, "mdPromotionDateHR", null)),
+      true
+    ),
+    /*Expected Partner Promotion Date per latest available pipeline*/
+    if(
+      or(
+        index(ri!nomination,"subPositionTypeId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4454622",
+        index(ri!nomination,"subPositionTypeId",tointeger(null)) = #"_a-0000e723-cc8a-8000-9c0d-011c48011c48_4454629"
+      ),
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(index(ri!nomination, "partnerPromotionDateHR", null)),
+      true
+    ),
+    /*HR/Other Comments*/
+    if(
+      or(
+        index(ri!nomination, "isVettingRequired", toboolean({})) = true,
+        index(ri!nomination, "isAQR1or2", tostring(null)) = #"_a-0000e69d-7e03-8000-9bf6-011c48011c48_3197185"
+      ),
+      #"_a-0000e375-1fcb-8000-daab-640000640000_930460"(index(ri!nomination, "hrComments", null)),
+      true
+    )
+  ),
+  /*SUBMIT AND INSPECTIONS REVIEW*/
+  if(
+    ri!nomination.statusId = #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_4494074",
+    if(
+      isnull(ri!nomination.negativeInspectionFindings),
+      false,
+      if(
+        ri!nomination.negativeInspectionFindings = true,
+        a!isNotNullOrEmpty(ri!nomination.inspectionComments),
+        true
+      )
+    ),
+    true
+  )
+)</definition>
+        <namedTypedValue>
+            <name>nomination</name>
+            <type>
+                <name>CAW_Nomination</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4775782"/>
+        <historyInfo versionUuid="_a-0000e77e-4d65-8000-9c15-011c48011c48_5400579"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6799424"/>
+    </history>
+</contentHaul>

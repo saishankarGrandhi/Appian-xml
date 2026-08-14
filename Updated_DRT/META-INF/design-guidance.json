@@ -1,0 +1,163 @@
+[
+  {
+    "objectUuid": "0002e6db-3f3b-8000-a13f-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.taskNameNotDynamic",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0008e800-6850-8000-faab-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.displayNameNotDynamic",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "000de759-c254-8000-cd31-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.unusedProcessVariable",
+    "dismissed": true,
+    "instanceCount": 3,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "_a-0000e6d2-8270-8000-9c03-011c48011c48_3928770",
+    "designGuidanceKey": "sysrule.designGuidance.expressions.unusedRuleInput",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}Interface"
+  },
+  {
+    "objectUuid": "_a-0000e6d2-8270-8000-9c03-011c48011c48_3928770",
+    "designGuidanceKey": "sysrule.designGuidance.expressions.unusedLocalVariables",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}Interface"
+  },
+  {
+    "objectUuid": "0018e6e2-1e2b-8000-a561-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.activityChainedMniNode",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0002e76c-c4e0-8000-d423-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.taskNameNotDynamic",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "000ae69b-ddf8-8000-8579-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.tooManyNodes",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0002e7f9-48ad-8000-f8ac-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.taskNameNotDynamic",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0002e7f5-96ca-8000-f6d9-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.taskNameNotDynamic",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0002e81d-1d64-8000-00d0-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.taskNameNotDynamic",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "000ae69b-ddf8-8000-8579-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.unusedProcessVariable",
+    "dismissed": true,
+    "instanceCount": 3,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0018e6e2-1e2b-8000-a561-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.unusedProcessVariable",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0018e6e2-1e2b-8000-a561-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.tooManyNodes",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0002eb76-e2c8-8000-95ef-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.unusedProcessVariable",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0014ed40-9162-8000-b6ef-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.unusedProcessVariable",
+    "dismissed": true,
+    "instanceCount": 4,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0002e6c5-113f-8000-981c-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.activityChainedMniNode",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0002e6c5-113f-8000-981c-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.tooManyNodes",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0002e6c5-113f-8000-981c-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.unusedProcessVariable",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0002e6e0-b9bf-8000-a3c0-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.unusedProcessVariable",
+    "dismissed": true,
+    "instanceCount": 4,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "0002eafd-a6ca-8000-8867-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.taskNameNotDynamic",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "000fed40-c117-8000-b6f7-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.displayNameNotDynamic",
+    "dismissed": true,
+    "instanceCount": 1,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  },
+  {
+    "objectUuid": "000fed40-c117-8000-b6f7-7f0000014e7a",
+    "designGuidanceKey": "sysrule.designGuidance.processModel.unusedProcessVariable",
+    "dismissed": true,
+    "instanceCount": 3,
+    "objectTypeName": "{http://www.appian.com/ae/types/2009}ProcessModel"
+  }
+]

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11888550</versionUuid>
+    <constant>
+        <name>CAW_TXT_DPP_LEADERSHIP_LIST_V2</name>
+        <uuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11720405</uuid>
+        <description>Constant for List of CAW DPP Leadership group names for V2/V3</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049809</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>AcG-Chief Accountant</el>
+                <el>AcG-Deputy Chief Accountant</el>
+                <el>Audit-Chief Auditor</el>
+                <el>Audit-Deputy Chief Auditor</el>
+                <el>PA - Chief of Practice Advisory</el>
+                <el>PPL-SoQC Group Leader</el>
+                <el>PPL-RCCG Group Leader</el>
+                <el>L&amp;D-Audit Learning Leader</el>
+                <el>RMP</el>
+                <el>QO CoS</el>
+                <el>QO-Chief Quality Officer</el>
+                <el>EQCR-EQCR Center Leader</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11730525"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11888550"/>
+    </history>
+</contentHaul>

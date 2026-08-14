@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_4018188</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3752707</uuid>
+        <name>CAW SFTP Data Store</name>
+        <description></description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>1c7c346f-cbc3-4759-beb7-ac2e748defda</uuid>
+                <name>CAW_SFTP_AuditHistory</name>
+                <type>{urn:com:appian:types}CAW_SFTP_AuditHistory</type>
+            </entity>
+            <entity>
+                <uuid>89d04be4-5597-4554-b226-0a30b1f9b243</uuid>
+                <name>CAW_SFTP_REF_ProcessTypes</name>
+                <type>{urn:com:appian:types}CAW_SFTP_REF_ProcessTypes</type>
+            </entity>
+            <entity>
+                <uuid>8b8af0a3-e973-4e6d-a48a-51af418ebef7</uuid>
+                <name>CAW_SFTP_PSPersonal</name>
+                <type>{urn:com:appian:types}CAW_SFTP_PSPersonal</type>
+            </entity>
+            <entity>
+                <uuid>08123758-a0cc-40eb-ab7c-0ff4725d3867</uuid>
+                <name>CAW_SFTP_BURollup</name>
+                <type>{urn:com:appian:types}CAW_SFTP_BURollup</type>
+            </entity>
+            <entity>
+                <uuid>7f66aeb8-70b0-4917-9e19-fcdf6052c505</uuid>
+                <name>CAW_SFTP_PSSubsegment</name>
+                <type>{urn:com:appian:types}CAW_SFTP_PSSubsegment</type>
+            </entity>
+            <entity>
+                <uuid>2b874733-5ad7-469b-8df9-989a543a9e87</uuid>
+                <name>CAW_SFTP_IAMIdentityData</name>
+                <type>{urn:com:appian:types}CAW_SFTP_IAMIdentityData</type>
+            </entity>
+            <entity>
+                <uuid>2352c549-7a54-49cc-a004-522355cead91</uuid>
+                <name>CAW_SFTP_Employee</name>
+                <type>{urn:com:appian:types}CAW_SFTP_Employee</type>
+            </entity>
+            <entity>
+                <uuid>919c5c38-5c91-4773-a1d7-cfdd848361b4</uuid>
+                <name>CAW_SFTP_JobCode</name>
+                <type>{urn:com:appian:types}CAW_SFTP_JobCode</type>
+            </entity>
+            <entity>
+                <uuid>6a1d1a46-56c2-447f-8b64-8e92d3538711</uuid>
+                <name>CAW_SFTP_JobFamily</name>
+                <type>{urn:com:appian:types}CAW_SFTP_JobFamily</type>
+            </entity>
+            <entity>
+                <uuid>ccc3a982-706e-4676-b793-ee9800d64eb5</uuid>
+                <name>CAW_SFTP_Location</name>
+                <type>{urn:com:appian:types}CAW_SFTP_Location</type>
+            </entity>
+            <entity>
+                <uuid>092470fa-c8aa-4ddb-85a7-3e4728fe1700</uuid>
+                <name>CAW_SFTP_Translation</name>
+                <type>{urn:com:appian:types}CAW_SFTP_Translation</type>
+            </entity>
+            <entity>
+                <uuid>67258d86-1094-461b-a68c-f3649f8d0932</uuid>
+                <name>CAW_SFTP_REF_BU</name>
+                <type>{urn:com:appian:types}CAW_SFTP_REF_BU</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3955700"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4018188"/>
+    </history>
+</dataStoreHaul>

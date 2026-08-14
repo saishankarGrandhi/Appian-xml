@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea45-eea9-8000-9c49-011c48011c48_11694066</versionUuid>
+    <interface>
+        <name>CAW_UserPickerField</name>
+        <uuid>_a-0000e71a-415c-8000-9c0b-011c48011c48_4412304</uuid>
+        <description>Picker field to selecta user from Databus HR data</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_pickerFieldCustom"(
+  label: "Outgoing Resource",
+  placeholder: "Enter at least " &amp; #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3895397" &amp; " characters to search for a resource",
+  value: ri!coreAskDetails.employeeId,
+  required: true,
+  maxSelections: 1,
+  selectedLabels: if(
+    #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(ri!coreAskDetails.employeeId),
+    null,
+    index(ri!selectedEmployee, "fullNameDerived", null)
+  ),
+  disabled:false,
+  suggestFunction: #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3874364"(
+    filter:_
+  ),
+  saveInto: {
+    ri!coreAskDetails.employeeId,
+    a!save(
+      ri!selectedEmployee,
+      #"_a-0000e6d2-8270-8000-9c03-011c48011c48_3924363"(employeeId: ri!coreAskDetails.employeeId)
+    ),
+    a!save(
+      ri!coreAskDetails.outgoingResource,
+      property(ri!selectedEmployee,"fullNameDerived",tostring(null))
+    )
+  },
+  validationGroup: ri!validationGroup
+)</definition>
+        <namedTypedValue>
+            <name>selectedEmployee</name>
+            <type>
+                <name>CAW_EMPLOYEE</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>coreAskDetails</name>
+            <type>
+                <name>CAW_CoreAskDetail</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>validationGroup</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e71a-415c-8000-9c0b-011c48011c48_4428026"/>
+        <historyInfo versionUuid="_a-0000ea45-eea9-8000-9c49-011c48011c48_11694066"/>
+    </history>
+</contentHaul>

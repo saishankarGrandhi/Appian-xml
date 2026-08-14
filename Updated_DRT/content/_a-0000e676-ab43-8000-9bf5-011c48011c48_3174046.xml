@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12889023</versionUuid>
+    <interface>
+        <name>CAW_UI_Reports</name>
+        <uuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3174046</uuid>
+        <description></description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!reportMap: {
+    a!map(
+      reportName: "Nomination",
+      chooseId: 2,
+      description: "Nomination Export",
+      icon: "address-card-o",
+      visibility: true
+    ),
+    a!map(
+      reportName: "Core ASK",
+      chooseId: 3,
+      description: "Core ASK Export",
+      icon: "list-alt",
+      visibility: true
+    ),
+    a!map(
+      reportName: "Rotational ASK",
+      chooseId: 4,
+      description: "Rotational ASK Export",
+      icon: "list-alt",
+      visibility: true
+    ),
+    a!map(
+      reportName: "Candidate Intake",
+      chooseId: 5,
+      description: "Candidate Intake Export",
+      icon: "file-excel",
+      visibility: true
+    ),
+    a!map(
+      reportName: "Nomination vs ASK",
+      chooseId: 6,
+      description: "The Nomination vs ASK Summary Report",
+      icon: "table",
+      visibility: true
+    ),
+    a!map(
+      reportName: "ASK Summary Dashboard",
+      chooseId: 7,
+      description: "Dashboard for ASK Summaries",
+      icon: "pie-chart",
+      visibility: true
+    )
+  },
+  local!chooseId:1,
+  #"SYSTEM_SYSRULES_headerContentLayout"(
+    header: #"SYSTEM_SYSRULES_billboardLayout_v1"(
+      backgroundColor: "#0b5394",
+      height: "EXTRA_SHORT",
+      overlay: #"SYSTEM_SYSRULES_fullOverlay"(
+        alignVertical: "MIDDLE",
+        contents: {
+          #"SYSTEM_SYSRULES_richTextDisplayField"(
+            value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+              text: index(
+                touniformstring("Reports",index(local!reportMap,"reportName",{})),
+                local!chooseId
+              ),
+              color: "#FFFFFF",
+              size: "LARGE",
+              style: "STRONG"
+            )
+          )
+        },
+        style: "NONE"
+      )
+    ),
+    contents: {
+      choose(
+        local!chooseId,
+        #"SYSTEM_SYSRULES_cardLayout"(
+          padding: "MORE",
+          style: "STANDARD",
+          contents: {
+            #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: #"SYSTEM_SYSRULES_forEach"(
+                items: index(local!reportMap,{1,2,3,4}),
+                expression: #"SYSTEM_SYSRULES_columnLayout"(
+                  contents: {
+                    #"SYSTEM_SYSRULES_cardLayout"(
+                      showWhen: fv!item.visibility,
+                      padding: "STANDARD",
+                      shape: "SEMI_ROUNDED",
+                      height: "MEDIUM_PLUS",
+                      style: "ACCENT",
+                      link: #"SYSTEM_SYSRULES_dynamicLink"(
+                        saveInto: {
+                          a!save(local!chooseId, fv!item.chooseId)
+                        }
+                      ),
+                      contents: {
+                        #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          align: "CENTER",
+                          value: {
+                            #"SYSTEM_SYSRULES_richTextIcon"(
+                              icon: fv!item.icon,
+                              size: "LARGE_PLUS"
+                            ),
+                            char(10),
+                            char(10),
+                            #"SYSTEM_SYSRULES_richTextItem_v1"(
+                              text: fv!item.reportName,
+                              style: "STRONG",
+                              size: "MEDIUM_PLUS"
+                            ),
+                            char(10),
+                            char(10),
+                            #"SYSTEM_SYSRULES_richTextItem_v1"(size: "SMALL", text: fv!item.description)
+                          }
+                        )
+                      }
+                    )
+                  }
+                )
+              )
+            ),
+            #"SYSTEM_SYSRULES_columnsLayout"(
+              columns: {
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: index(local!reportMap,{5,6}),
+                  expression: #"SYSTEM_SYSRULES_columnLayout"(
+                    contents: {
+                      #"SYSTEM_SYSRULES_cardLayout"(
+                        showWhen: fv!item.visibility,
+                        padding: "STANDARD",
+                        shape: "SEMI_ROUNDED",
+                        height: "MEDIUM_PLUS",
+                        style: "ACCENT",
+                        link: #"SYSTEM_SYSRULES_dynamicLink"(
+                          saveInto: {
+                            a!save(local!chooseId, fv!item.chooseId)
+                          }
+                        ),
+                        contents: {
+                          #"SYSTEM_SYSRULES_richTextDisplayField"(
+                            align: "CENTER",
+                            value: {
+                              #"SYSTEM_SYSRULES_richTextIcon"(
+                                icon: fv!item.icon,
+                                size: "LARGE_PLUS"
+                              ),
+                              char(10),
+                              char(10),
+                              #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                text: fv!item.reportName,
+                                style: "STRONG",
+                                size: "MEDIUM_PLUS"
+                              ),
+                              char(10),
+                              char(10),
+                              #"SYSTEM_SYSRULES_richTextItem_v1"(size: "SMALL", text: fv!item.description)
+                            }
+                          )
+                        }
+                      )
+                    }
+                  )
+                ),
+                #"SYSTEM_SYSRULES_columnLayout"(),
+                #"SYSTEM_SYSRULES_columnLayout"()
+              }
+            )
+          }
+        ),
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5158601"(chooseId: local!chooseId),
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5242870"(chooseId: local!chooseId),
+        #"_a-0000e72d-09a6-8000-9c0e-011c48011c48_5247639"(chooseId: local!chooseId),
+        #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6758744"(chooseId: local!chooseId),
+        #"_a-0000e7f4-9a94-8000-9c23-011c48011c48_6616544"(),
+        #"_a-0000ebac-bfa0-8000-9c55-011c48011c48_12888239"()
+      )
+    }
+  )
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e676-ab43-8000-9bf5-011c48011c48_3174050"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4110952"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5249142"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6661029"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6768538"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12889023"/>
+    </history>
+</contentHaul>

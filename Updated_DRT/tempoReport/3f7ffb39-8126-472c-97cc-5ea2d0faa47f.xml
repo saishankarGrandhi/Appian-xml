@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tempoReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>7b226fd3-46ce-40af-9d37-13587103f5ed</versionUuid>
+    <tempoReport a:uuid="3f7ffb39-8126-472c-97cc-5ea2d0faa47f" name="TEST CAW New User For Group">
+        <a:description></a:description>
+        <a:uiExpr>=#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3932307"()</a:uiExpr>
+        <a:urlStub>GcL4ew</a:urlStub>
+    </tempoReport>
+    <roleMap>
+        <role name="report_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+            </groups>
+        </role>
+        <role name="report_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="7b226fd3-46ce-40af-9d37-13587103f5ed"/>
+    </history>
+</tempoReportHaul>

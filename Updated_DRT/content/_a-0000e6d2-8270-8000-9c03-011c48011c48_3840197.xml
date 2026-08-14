@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e6eb-1d17-8000-9c08-011c48011c48_4095105</versionUuid>
+    <rule>
+        <name>CAW_SFTP_getColumnsForDashboardTable</name>
+        <uuid>_a-0000e6d2-8270-8000-9c03-011c48011c48_3840197</uuid>
+        <description></description>
+        <parentUuid>_a-0000e6cf-8b0b-8000-9c00-011c48011c48_3751507</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  #"_a-0000e6eb-1d17-8000-9c08-011c48011c48_4094972"(ri!id),
+  null,
+  cast(
+    typeof({'type!{urn:com:appian:types}CAW_SFTP_DashboardColumnDetails'()}),
+    choose(
+      ri!id,
+      /*audit history*/
+      {
+        {
+          columnField: "processName",
+          columnHeader: "Process Name"
+        },
+        {
+          columnField: "actionType",
+          columnHeader: "Action Type"
+        },
+        {
+          columnField: "actionDatetime",
+          columnHeader: "Action Time"
+        },
+        {
+          columnField: "sftpFileName",
+          columnHeader: "File Name"
+        },
+        {
+          columnField: "errorMessage",
+          columnHeader: "Error Message"
+        }
+      },
+      /*employee*/
+      {
+        {
+          columnField: "employeeId",
+          columnHeader: "Employee ID"
+        },
+        {
+          columnField: "lastName",
+          columnHeader: "Last Name"
+        },
+        {
+          columnField: "firstName",
+          columnHeader: "First Name"
+        },
+        {
+          columnField: "middleName",
+          columnHeader: "Middle Name"
+        },
+        {
+          columnField: "jobFunction",
+          columnHeader: "Job Function"
+        },
+        {
+          columnField: "region",
+          columnHeader: "Region"
+        },
+        {
+          columnField: "bu",
+          columnHeader: "BU"
+        },
+        {
+          columnField: "adjustedServiceDate",
+          columnHeader: "Adjusted Service Date"
+        },
+        {
+          columnField: "yearsWithFirm",
+          columnHeader: "Years With Firm"
+        },
+        {
+          columnField: "jobFamily",
+          columnHeader: "Job Family"
+        },
+        {
+          columnField: "office",
+          columnHeader: "Office"
+        },
+        {
+          columnField: "currentPml",
+          columnHeader: "Current PML"
+        },
+        {
+          columnField: "email",
+          columnHeader: "Email"
+        },
+        {
+          columnField: "jobDescription",
+          columnHeader: "Job Description"
+        }
+      },
+      /*PS Personal*/
+      {
+        {
+          columnField: "emplid",
+          columnHeader: "Employee ID"
+        },
+        {
+          columnField: "emplClass",
+          columnHeader: "Employee Class"
+        },
+        {
+          columnField: "lname",
+          columnHeader: "Last Name"
+        },
+        {
+          columnField: "fname",
+          columnHeader: "First Name"
+        },
+        {
+          columnField: "jobFamily",
+          columnHeader: "Job Family ID"
+        },
+        {
+          columnField: "location",
+          columnHeader: "Employee Location ID"
+        },
+        {
+          columnField: "midname",
+          columnHeader: "Middle Name"
+        },
+        {
+          columnField: "name",
+          columnHeader: "Full Name"
+        },
+        {
+          columnField: "perStatus",
+          columnHeader: "PER Status"
+        },
+        {
+          columnField: "pmEmailAdd",
+          columnHeader: "Email Address"
+        },
+        {
+          columnField: "pmPerformMgr",
+          columnHeader: "Performance Manager ID"
+        },
+        
+        {
+          columnField: "deptId",
+          columnHeader: "Department/BU ID"
+        },
+        {
+          columnField: "pmSubsegmentCd",
+          columnHeader: "Cost Center Code"
+        },
+        {
+          columnField: "jobCode",
+          columnHeader: "Job Code"
+        },
+        {
+          columnField: "adjustedServiceDate",
+          columnHeader: "Adjusted Service Date"
+        },
+        {
+          columnField: "rehireDt",
+          columnHeader: "Rehire Date"
+        },
+        {
+          columnField: "hireDt",
+          columnHeader: "Hire Date"
+        },
+      },
+      /*PS Subsegment*/
+      {
+        {
+          columnField: "pmSubsegmentCd",
+          columnHeader: "Cost Center"
+        },
+        {
+          columnField: "pmService2",
+          columnHeader: "Service/Function Code 2"
+        },
+        {
+          columnField: "pmService",
+          columnHeader: "Service/Function Code"
+        },
+        {
+          columnField: "descrshort",
+          columnHeader: "Product Description (Short)"
+        },
+        {
+          columnField: "descr",
+          columnHeader: "Product Description"
+        }
+      },
+      /* BU Rollup*/
+      {
+        {
+          columnField: "deptid",
+          columnHeader: "Business Unit"
+        },
+        {
+          columnField: "pmRegion",
+          columnHeader: "BU Level 1 / Region Code"
+        },
+        {
+          columnField: "pmService",
+          columnHeader: "Service / Function Code"
+        }
+      },
+      /*iam identity data*/
+      {
+        {
+          columnField: "msvcsemplid",
+          columnHeader: "Employee ID"
+        },
+        {
+          columnField: "msvcsusproduct",
+          columnHeader: "Cost Center"
+        },
+        {
+          columnField: "msvcsusdeptid",
+          columnHeader: "Employee Business Unit"
+        },
+        {
+          columnField: "msvcsusgeoarea",
+          columnHeader: "US Geo Area"
+        }
+      },
+      /*job family*/
+      {
+        {
+          columnField: "jobFamily",
+          columnHeader: "Job Family"
+        },
+        {
+          columnField: "effStatus",
+          columnHeader: "Effective Status"
+        },
+        {
+          columnField: "descrshort",
+          columnHeader: "Description (Short)"
+        },
+        {
+          columnField: "descr",
+          columnHeader: "Description"
+        }
+      },
+      /*location*/
+      {
+        {
+          columnField: "location",
+          columnHeader: "Location Code"
+        },
+        {
+          columnField: "descrshort",
+          columnHeader: "Description (Short)"
+        },
+        {
+          columnField: "descr",
+          columnHeader: "Description"
+        }
+      },
+      /*translation*/
+      {
+        {
+          columnField: "fieldname",
+          columnHeader: "Field Name"
+        },
+        {
+          columnField: "fieldvalue",
+          columnHeader: "Field Value"
+        },
+        {
+          columnField: "xlatlongname",
+          columnHeader: "Long Name"
+        },
+        {
+          columnField: "xlatshortname",
+          columnHeader: "Short Name"
+        },
+        {
+          columnField: "effStatus",
+          columnHeader: "Effective Status"
+        }
+      },
+      /*job code*/
+      {
+        {
+          columnField: "jobFamily",
+          columnHeader: "Job Family ID"
+        },
+        {
+          columnField: "jobcode",
+          columnHeader: "Job Code ID"
+        },
+        {
+          columnField: "descr",
+          columnHeader: "Description"
+        },
+        {
+          columnField: "descrshort",
+          columnHeader: "Description (Short)"
+        }
+      },
+      /*BU ref*/
+      {
+        {
+          columnField: "deptid",
+          columnHeader: "Department/BU ID"
+        },
+        {
+          columnField: "descr",
+          columnHeader: "Description"
+        },
+        {
+          columnField: "descrshort",
+          columnHeader: "Description (Short)"
+        }
+      },
+      /*process types*/
+      {
+        {
+          columnField: "processName",
+          columnHeader: "Process/Feed"
+        },
+        {
+          columnField: "tempTableName",
+          columnHeader: "Temp/Staging Table"
+        },
+        {
+          columnField: "truncateSpName",
+          columnHeader: "Truncate Stored Procedure"
+        },
+        {
+          columnField: "updateSpName",
+          columnHeader: "Update Stored Procedure"
+        },
+        {
+          columnField: "fileExtensionSubstring",
+          columnHeader: "File Substring"
+        }
+      }
+    )
+  )
+
+)</definition>
+        <namedTypedValue>
+            <name>id</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3955648"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_4037073"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4095105"/>
+    </history>
+</contentHaul>

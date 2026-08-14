@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tempoReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>cc1da801-704e-4523-9579-7d0a040437e3</versionUuid>
+    <tempoReport a:uuid="0ea31acf-4b3a-4414-8211-017e02a1b2f6" name="CAW SFTP Dashboard">
+        <a:description></a:description>
+        <a:uiExpr>=#"_a-0000e6d2-8270-8000-9c03-011c48011c48_3811438"()</a:uiExpr>
+        <a:urlStub>djLLOQ</a:urlStub>
+    </tempoReport>
+    <roleMap>
+        <role name="report_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="cc1da801-704e-4523-9579-7d0a040437e3"/>
+    </history>
+</tempoReportHaul>

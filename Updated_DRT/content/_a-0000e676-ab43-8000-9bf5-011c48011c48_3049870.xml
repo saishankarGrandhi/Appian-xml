@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e825-ace1-8000-9c24-011c48011c48_6766171</versionUuid>
+    <interface>
+        <name>DEPRECATED_CAW_FRM_UserManagement</name>
+        <uuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049870</uuid>
+        <description>Form to add or remove user to/from group</description>
+        <parentUuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049849</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!email,
+  local!userName,
+  local!selectedRole,
+  local!selectedBu,
+  #"SYSTEM_SYSRULES_formLayout_v1"(
+    label: "Manage User",
+    contents: {
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        contents: {}
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        label: "",
+        contents: {
+          #"SYSTEM_SYSRULES_sideBySideLayout"(
+            items:{ 
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item: #"SYSTEM_SYSRULES_pickerFieldUsers"(
+                  label: "Select a user to Add/Remove",
+                  required: true,
+                  value: local!userName,
+                  saveInto: {
+                    local!userName,
+                    if(
+                      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!userName),
+                      {
+                        a!save(
+                        local!selectedRole,
+                        null
+                      ),
+                      a!save(
+                        local!selectedBu,
+                        null
+                      )
+                      },
+                      null
+                    ),
+                    if(
+                      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!selectedRole),
+                      {
+                        a!save(
+                          ri!user,
+                          null
+                        )
+                      },
+                      null
+                    )
+                  },
+                  placeholder: "-- Type user here--",
+                  maxSelections: 1
+                )
+              ),
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item: #"SYSTEM_SYSRULES_dropdownField_v1"(
+                  label: "Role",
+                  required: true,
+                  choiceLabels: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3084493",
+                  choiceValues: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3084493",
+                  value: local!selectedRole,
+                  saveInto: {
+                    local!selectedRole,
+                    if(
+                      #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!selectedRole),
+                      {
+                        a!save(
+                          local!selectedRole,
+                          null
+                        ),
+                        a!save(
+                          ri!user.roleId,
+                          null
+                        )
+                      },
+                      null
+                    ),
+                    if(
+                      contains({#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3084493"[3],#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3084493"[4]},local!selectedRole),
+                      null,
+                      a!save(
+                        local!selectedBu,
+                        null
+                      )
+                    )
+                  },
+                  placeholder: "Select a Role",
+                  disabled: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!userName)
+                )
+              )
+            }
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        contents: {
+          #"SYSTEM_SYSRULES_sideBySideLayout"(
+            items:{ 
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item: #"SYSTEM_SYSRULES_textField"(
+                  label: "User Name",
+                  value: local!userName,
+                  readOnly: true,
+                  showWhen: not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!userName))
+                )
+              )
+            }
+          )
+        }
+      ),
+      #"SYSTEM_SYSRULES_sectionLayout_v1"(
+        contents: {
+          #"SYSTEM_SYSRULES_sideBySideLayout"(
+            items:{ 
+              #"SYSTEM_SYSRULES_sideBySideItem"(
+                item: #"SYSTEM_SYSRULES_textField"(
+                  label: "Email",
+                  value: local!email,
+                  readOnly: true,
+                  showWhen: not(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3050228"(local!userName))
+                )
+              )
+            }
+          )
+        }
+      )
+    },
+    buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+      primaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3067846",
+          submit: true,
+          value: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3067846",
+          saveInto: {
+            a!save(
+              ri!user,
+              null
+            ),
+            a!save(
+              ri!action,
+              save!value
+            ),
+            a!save(
+              ri!group,
+              a!groupsByName(#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3085024"(local!selectedRole))
+            )
+          },
+          style: "PRIMARY"
+        ),
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: #"_a-0000e676-ab43-8000-9bf5-011c48011c48_3067852",
+          submit: true,
+          value:#"_a-0000e676-ab43-8000-9bf5-011c48011c48_3067852", 
+          saveInto: {
+            a!save(
+              ri!action,
+              save!value
+            )
+          },
+          style: "DESTRUCTIVE"
+        )
+      },
+      secondaryButtons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: "Cancel",
+          value: true,
+          saveInto: ri!cancel,
+          submit: true,
+          style: "NORMAL",
+          validate: false
+        )
+      }
+    )
+  )
+)
+
+
+</definition>
+        <namedTypedValue>
+            <name>cancel</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>user</name>
+            <type>
+                <name>CAW_User</name>
+                <namespace>urn:com:appian:types:CAW</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>group</name>
+            <type>
+                <name>Group</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>action</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e676-ab43-8000-9bf5-011c48011c48_3116024"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6766171"/>
+    </history>
+</contentHaul>

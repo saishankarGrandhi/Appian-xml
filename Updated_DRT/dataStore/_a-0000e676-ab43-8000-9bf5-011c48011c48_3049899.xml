@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ebac-bfa0-8000-9c55-011c48011c48_12948280</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e676-ab43-8000-9bf5-011c48011c48_3049899</uuid>
+        <name>CAW View Data Store</name>
+        <description>Data Store for all CAW views</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>87446112-0224-41c4-a81e-1cbcea21f63b</uuid>
+                <name>CAW_V_User</name>
+                <type>{urn:com:appian:types:CAW}CAW_V_USER</type>
+            </entity>
+            <entity>
+                <uuid>3076e6be-740a-4eb2-afaa-87d257232487</uuid>
+                <name>CAW_V_Task</name>
+                <type>{urn:com:appian:types:CAW}CAW_V_Task</type>
+            </entity>
+            <entity>
+                <uuid>9c86c85d-0124-49f7-b85c-b2f7fadd909f</uuid>
+                <name>CAW_V_CORE_ASK</name>
+                <type>{urn:com:appian:types:CAW}CAW_V_CORE_ASK</type>
+            </entity>
+            <entity>
+                <uuid>4d10ca03-d7a4-4024-9717-c36e600f89e3</uuid>
+                <name>CAW_V_NOMINATION</name>
+                <type>{urn:com:appian:types:CAW}CAW_V_NOMINATION</type>
+            </entity>
+            <entity>
+                <uuid>aab14b35-ece2-4fdb-8966-57e178bbb68d</uuid>
+                <name>CAW_V_ROTATIONAL_ASK</name>
+                <type>{urn:com:appian:types:CAW}CAW_V_ROTATIONAL_ASK</type>
+            </entity>
+            <entity>
+                <uuid>1281174d-4f7a-4770-adf0-fa55254519bf</uuid>
+                <name>CAW_V_ROTATIONAL_ASK_EXPORT</name>
+                <type>{urn:com:appian:types:CAW}CAW_V_ROTATIONAL_ASK_EXPORT</type>
+            </entity>
+            <entity>
+                <uuid>f6a5a3f6-f4b1-4446-9b44-ea164204eeba</uuid>
+                <name>CAW_V_STATUS_SUMMARY</name>
+                <type>{urn:com:appian:types:CAW}CAW_V_STATUS_SUMMARY</type>
+            </entity>
+            <entity>
+                <uuid>006b6d2a-cddb-4779-9a75-a6932ae33ae1</uuid>
+                <name>CAW_V_ASK_VS_NOMINATION</name>
+                <type>{urn:com:appian:types}CAW_V_ASK_VS_NOMINATION</type>
+            </entity>
+            <entity>
+                <uuid>615faca9-1594-47c7-9d40-bc7b7b56501d</uuid>
+                <name>CAW_V_REPORT_NOMINATION</name>
+                <type>{urn:com:appian:types:CAW}CAW_V_REPORT_NOMINATION</type>
+            </entity>
+            <entity>
+                <uuid>b13c88e6-526b-4a53-b746-4aefad32ad54</uuid>
+                <name>CAW_V_NOMINATION_EXPORT</name>
+                <type>{urn:com:appian:types:CAW}CAW_V_NOMINATION_EXPORT</type>
+            </entity>
+            <entity>
+                <uuid>39e4bc9f-7851-4fe2-a0fa-10ec99a39698</uuid>
+                <name>CAW_V_CANDIDATE_INTAKE_EXPORT_SHEET1</name>
+                <type>{urn:com:appian:types}CAW_V_CANDIDATE_INTAKE_EXPORT_SHEET1</type>
+            </entity>
+            <entity>
+                <uuid>bee752a9-2cd6-403e-99a5-cba7de83cbf0</uuid>
+                <name>CAW_V_CANDIDATE_INTAKE_EXPORT_SHEET2</name>
+                <type>{urn:com:appian:types}CAW_V_CANDIDATE_INTAKE_EXPORT_SHEET2</type>
+            </entity>
+            <entity>
+                <uuid>e4d54d8b-3ae2-4842-814d-92c79c069ccc</uuid>
+                <name>CAW_V_ROTATIONAL_ASK_PLAN</name>
+                <type>{urn:com:appian:types:CAW}CAW_V_ROTATIONAL_ASK_PLAN</type>
+            </entity>
+            <entity>
+                <uuid>3d1b7aca-e460-4d2b-8af6-fc397a6b77ff</uuid>
+                <name>CAW_V_CORE_NOMINATION_ASKS</name>
+                <type>{urn:com:appian:types}CAW_V_CORE_NOMINATION_ASKS</type>
+            </entity>
+            <entity>
+                <uuid>348559f8-1168-43d1-8a24-84230133efff</uuid>
+                <name>DRTV4_V_USER_REPORT</name>
+                <type>{urn:com:appian:types:DRTV4}DRTV4_V_USER_REPORT</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_962</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e676-ab43-8000-9b41-01075c01075c_929</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3235971"/>
+        <historyInfo versionUuid="_a-0000e69d-7e03-8000-9bf6-011c48011c48_3376798"/>
+        <historyInfo versionUuid="_a-0000e6b8-3009-8000-9bf7-011c48011c48_3444099"/>
+        <historyInfo versionUuid="_a-0000e6d2-8270-8000-9c03-011c48011c48_3851708"/>
+        <historyInfo versionUuid="_a-0000e6eb-1d17-8000-9c08-011c48011c48_4186195"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4781860"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_4804387"/>
+        <historyInfo versionUuid="_a-0000e72d-09a6-8000-9c0e-011c48011c48_5247616"/>
+        <historyInfo versionUuid="_a-0000e781-2d54-8000-9c18-011c48011c48_5419998"/>
+        <historyInfo versionUuid="_a-0000e790-a118-8000-9c1b-011c48011c48_5571352"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6657886"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6684608"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6714050"/>
+        <historyInfo versionUuid="_a-0000e7f4-9a94-8000-9c23-011c48011c48_6760899"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6911415"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6934274"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6934418"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6965261"/>
+        <historyInfo versionUuid="_a-0000e825-ace1-8000-9c24-011c48011c48_6970944"/>
+        <historyInfo versionUuid="_a-0000eab6-1962-8000-9c4d-011c48011c48_12335484"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12876128"/>
+        <historyInfo versionUuid="_a-0000ebac-bfa0-8000-9c55-011c48011c48_12948280"/>
+    </history>
+</dataStoreHaul>
